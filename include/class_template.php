@@ -41,7 +41,7 @@ if (file_exists("template/default.html"))
 $path = "default";
 } else
 {
-$error->error("Standad Template wurde nicht gefunden!","3");
+$this->error->error("Standard Template wurde nicht gefunden!","3");
 }
 }
 
