@@ -73,7 +73,7 @@ echo mysql_error();
     {
     
         $login->addstr('<a href=index.php?site=rights><font color="black">&raquo;&nbsp;Rechte</font></a>'.$br.'');
-
+        $login->addstr('<a href=index.php?site=config><font color="black">&raquo;&nbsp;Konfiguration</font></a>'.$br.'');
     
     }
 }
