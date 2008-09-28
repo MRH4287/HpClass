@@ -31,8 +31,20 @@ function load($path)
 {
 
 
-if (file_exists("template/$path.html"))
+if (!file_exists("template/$path.html"))
 {
+
+$this->template=array();
+$this->error->error("Template $path not found!", "2");
+if (file_exists("template/default.html"))
+{
+$path = "default";
+} else
+{
+$error->error("Standad Template wurde nicht gefunden!","3");
+}
+}
+
 $temp = "";
 
 $userdatei = fopen ("template/$path.html","r");
@@ -57,15 +69,6 @@ $this->template['header']=$this->template['header'].$data[0];
 
 $this->template['footer']=$this->template['footer'].$data[1];
 
-
-
-
-} else
-{
-
-$this->template=array();
-$this->error->error("Template $path not found!", "2");
-}
 
 }
 

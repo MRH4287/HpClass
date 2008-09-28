@@ -19,6 +19,7 @@ var $db;
 var $connection;
 var $sitepath;
 var $redirectlock;
+var $config;
 
 
 function setlang($langclass2)
@@ -75,11 +76,19 @@ if(isset($get['lchange']) and ($_SESSION['username'] == "mrh"))
 $_SESSION['level'] = $get['lchange']; 
 }
 
+
 }
 
 
 function get()
 {
+// Checkversion
+// 4.1
+$this->config = $this->getconfig();
+if (($this->config['checkversion'] == true) and ($this->outputg['login'] == "j"))
+{
+$this->checkversion();
+}
 
 return $this->outputg;
 }
@@ -104,7 +113,7 @@ $site = str_replace($invalide,' ',$site);
 
 $ok = true;
 $restrict = array ('login');
-$onlysupadmin = array('rights', 'test');
+$onlysupadmin = array('rights', 'config', 'test');
 
 foreach ($restrict as $key=>$value)
 {
@@ -268,6 +277,37 @@ while($row = mysql_fetch_object($ergebnisss))
 return $right;
 
 }
+// 4.1
+function getconfig()
+{
+
+// Config
+$abfrage = "SELECT * FROM `".$this->präfix."config`";
+
+$ergebnisss = $this->mysqlquery($abfrage);
+echo mysql_error();
+while($row = mysql_fetch_object($ergebnisss))
+   {
+  
+   if ("$row->ok" == "true")
+   {
+   $value = true;
+   } elseif ("$row->ok" == "false")
+   {
+   $value = false;
+   } else
+   {
+   $value = $row->ok;
+   }
+   $name = "$row->name";
+   
+   $config[$name] = $value;
+   }
+
+return $config;
+
+}
+
 
 
 function seterror($error)
@@ -294,6 +334,34 @@ $this->sitepath[$site]=$path;
 function addredirectlock($site)
 {
 $this->redirectlock[]=$site;
+}
+
+
+// Versions überprüfung
+// 4.1
+
+function getversion($path = "version/version.php")
+{
+include($path);
+return array( 'version' => "$version", 'changelog' => "$changelog");
+}
+
+
+function checkversion($url = "http://mrh.mr.ohost.de/version/version.php?name=HPClass")
+{
+$version= file_get_contents($url);
+
+
+$array = $this->getversion();
+$version2 = $array['version'];
+
+
+if (($version != $version2) and (($_SESSION['username'] == "mrh") or ($_SESSION['username'] == $superadmin)))
+{
+$this->info->info("Ihre Version ist nicht mehr auf dem neusten Stand!");
+
+}
+
 }
 
 } // Class Ende!

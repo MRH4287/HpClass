@@ -1,10 +1,28 @@
 <?php
+// Config System 
+// 4.1
+if ($config['titel'] != "")
+{
+$titel = $config['titel'];
+}
+if ($config['mainheadline'] != "")
+{
+$mainheadline = $config['mainheadline'];
+$mainheadline = str_replace("&lt;", "<", $mainheadline);
+$mainheadline = str_replace("'", "\"", $mainheadline);
+}
+if ($config['design'] != "")
+{
+$design = $config['design'];
+}
+
+
 // Template
 $template['headline']=$headline;
 $template['titel']=$titel;
 $template['mainheadline']=$mainheadline;
 $template['username']=$_SESSION['username'];
-$template['info']="MRH Website System v3.7";
+$template['info']="MRH Website System v4";
 
 if (file_exists(".svn/entries"))
 {
@@ -25,6 +43,4 @@ $template['js']='<script type="text/javascript" src="js/prototype.js"></script>
 <link rel="stylesheet" href="css/lightbox.css" type="text/css" media="screen" />
 
 ';
-
-
 ?>

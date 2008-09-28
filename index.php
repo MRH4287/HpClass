@@ -35,7 +35,6 @@ $error->sethp($hp);
 $info->init($lang, $error, $hp);
 
 
-
 $hp->handelinput($_GET, $_POST);
 
 
@@ -43,6 +42,7 @@ $hp->setdata($dbserver, $dbuser, $dbpass, $dbpräfix, $dbdatenbank);
 $hp->connect();
 
 $right = $hp->getright();
+$config = $hp->getconfig();
 $level = $_SESSION['level'];
 
 //Includes die HP benötigen
@@ -69,10 +69,6 @@ $hp->inc();
 
 
 echo $temp->gettemp('footer');
-
-
-
-
 
 
 $info->getmessages();
