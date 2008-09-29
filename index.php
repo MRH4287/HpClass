@@ -34,15 +34,18 @@ $error->sethp($hp);
 
 $info->init($lang, $error, $hp);
 
+$hp->setdata($dbserver, $dbuser, $dbpass, $dbpräfix, $dbdatenbank);
+$hp->connect();
 
 $hp->handelinput($_GET, $_POST);
 
 
-$hp->setdata($dbserver, $dbuser, $dbpass, $dbpräfix, $dbdatenbank);
-$hp->connect();
-
 $right = $hp->getright();
 $config = $hp->getconfig();
+// Handelconfig Funktion
+// 4.2
+$hp->handelconfig();
+
 $level = $_SESSION['level'];
 
 //Includes die HP benötigen

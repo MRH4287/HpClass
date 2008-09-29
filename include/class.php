@@ -82,14 +82,6 @@ $_SESSION['level'] = $get['lchange'];
 
 function get()
 {
-// Checkversion
-// 4.1
-$this->config = $this->getconfig();
-if (($this->config['checkversion'] == true) and ($this->outputg['login'] == "j"))
-{
-$this->checkversion();
-}
-
 return $this->outputg;
 }
 
@@ -308,6 +300,33 @@ return $config;
 
 }
 
+//Handel Config Funkion
+//Als erleichterung für Spätere änderungen.
+//4.2
+function handelconfig()
+{
+$this->config=$this->getconfig();
+
+// Checkversion
+// 4.1 - 4.2
+
+if (($this->config['checkversion'] == true) and ($this->outputg['login'] == "j"))
+{
+$this->checkversion();
+}
+
+
+// Redirectlock Config
+//4.2
+$redirectlock = explode(", ", $this->config['redirectlock']);
+
+if (!is_array($this->redirectlock))
+{
+$this->redirectlock = array();
+}
+$this->redirectlock = array_merge($this->redirectlock, $redirectlock);
+
+}
 
 
 function seterror($error)

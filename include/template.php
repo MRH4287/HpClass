@@ -15,14 +15,14 @@ if ($config['design'] != "")
 {
 $design = $config['design'];
 }
-
-
+$version = $hp->getversion();
+$version = $version['version'];
 // Template
 $template['headline']=$headline;
 $template['titel']=$titel;
 $template['mainheadline']=$mainheadline;
 $template['username']=$_SESSION['username'];
-$template['info']="MRH Website System v4";
+$template['info']="MRH HPClass CMS V$version";
 
 if (file_exists(".svn/entries"))
 {
