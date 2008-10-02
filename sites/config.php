@@ -28,17 +28,6 @@ $config[$key] = "false";
 }	
 
 
-$abfrage = "SELECT * FROM `".$dbpräfix."config`";
-
-$ergebnisss = $hp->mysqlquery($abfrage);
-echo mysql_error();
-while($row = mysql_fetch_object($ergebnisss))
-   {
-   $descriptions["$row->name"] = "$row->description";
-   }
-
-
-
 $config2= $post['config'];
 $config3 = $post['text'];
 
@@ -58,56 +47,11 @@ $config[$key]=$value;
 }
 }
 
-//Saveconfig
 
-$sql = "TRUNCATE `".$dbpräfix."config`;";
-$hp->mysqlquery($sql);
-echo mysql_error();
-
-
-
-
-foreach ($config as $key=>$value) {
-
-//echo "$key - $value <br>";
-
-$typ = "bool";
-if ($value == "true")
-{
-$value = "true";
-
-} elseif ($value == "false")
-{
-$value = "false";
-} else
-{
-$typ = "string";
-
-$value = str_replace("\"", "'", $value);
-$value = str_replace("<", "&lt;", $value);
-
-}
-if ($key != "lol")
-{
-//echo "r1 $key -> $value => $descriptions[$key]<br>";
-	$sql = "INSERT INTO `".$dbpräfix."config` (
-
-`name`,
-`ok`,
-`description`,
-`typ`
-)
-VALUES (
-'$key', '$value', '$descriptions[$key]', '$typ'
-);";
-
-$hp->mysqlquery($sql);
-echo mysql_error();
-}
-}
-
-
-//Endsaveconfig
+// Class Regelung 
+// 4.2b
+$hp->setconfig_array($config);
+$hp->applyconfig();
 
 
 

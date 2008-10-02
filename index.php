@@ -10,9 +10,6 @@ include 'include/class_error.php';
 include 'include/class_info.php';
 include 'include/functions.php';
 
-//$_SESSION = array ();
-
-
 
 $hp = new HP;
 $lang = new lang;
@@ -42,8 +39,6 @@ $hp->handelinput($_GET, $_POST);
 
 $right = $hp->getright();
 $config = $hp->getconfig();
-// Handelconfig Funktion
-// 4.2
 $hp->handelconfig();
 
 $level = $_SESSION['level'];
