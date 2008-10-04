@@ -1,7 +1,6 @@
 <?php
 session_start();
 include("../include/config.php");
-include '../include/functions.php';
 //MySQL Connect
 
 $db = mysql_connect($dbserver,
@@ -64,12 +63,16 @@ setcookie ("username", "", time() -1);
 setcookie ("level", "", time() -1);
 session_destroy();
 $time =(int) time();
+if ($log)
+{
 $eintrag = "INSERT INTO ".$dbpräfix."log
 (user, timestamp, Ereignis)
 VALUES
 ('$user', '$time', 'Logout')";
 $eintragen =  mysql_query($eintrag);
 echo mysql_error();
+}
+
 
 $eintrag = "DELETE FROM `".$dbpräfix."online` WHERE  `user` = '$user'";
 $eintragen =  mysql_query($eintrag);

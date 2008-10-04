@@ -85,7 +85,17 @@ $hp->mysqlquery($abfrage);
 echo mysql_error();
 
 
-$info->okm("Das Modul $name wurde erfolgreich Deinstalliert!");
+$info->okm("Das Modul $name wurde erfolgreich Deinstalliert! (Für eine vollständige Löschung, Ordner löschen!)");
+
+
+} else
+if (isset($get['reinst']))
+{
+$value = $get['reinst'];
+
+rename("moduls/$value/install.php.txt", "moduls/$value/install.php");
+$info->okm("Das Modul im Ordner $value ist wider zur Installation bereit!");
+
 
 
 }
@@ -136,9 +146,66 @@ while($row = mysql_fetch_object($ergebnis))
     ?>  
   </tr>
 <? 
+$installed[]=$row->path;
 }  
-echo "</table>";
+echo "</table><br><br>";
+echo "<b>Liste der deinstallierten Module:</b>";
 
+?>
+<br>
+<br>
+<table width="745" border="0">
+  <tr>
+
+    <th width="101" scope="col">Pfad</th>
+
+    <th colspan="2" scope="col">Optionen</th>
+  </tr>
+  <?
+  
+$filearray = array();
+$modulsvor = false;
+$handle = @opendir("./moduls"); 
+while (false !== ($file = readdir($handle))) {
+
+$exp = explode(".",$file);
+if (count($exp) == 1)
+{
+$filearray[]=$file;
+}
+
+}
+
+foreach ($filearray as $key=>$value) {
+
+$handle = @opendir("./moduls/$value"); 
+while (false !== ($file = readdir($handle))) {
+
+if (($file == "install.php.txt") and ($value != "Muster") and (!in_array($value, $installed)))
+{
+
+  
+  
+  ?>
+    <tr>
+
+    <td><?=$value?></td>
+
+
+    
+    <td width="88"><a href="index.php?site=modulmanager&reinst=<?=$value?>">Neu installieren</a></td>
+    
+ 
+  </tr>
+  
+  <?
+  }
+  }
+  }
+  ?>
+
+</table>
+<?
 
 
 // ...

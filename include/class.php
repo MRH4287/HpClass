@@ -3,7 +3,7 @@
 class HP
 {
 
-var $site="news";
+var $site;
 var $outputg;
 var $outputp;
 var $lang;
@@ -21,6 +21,35 @@ var $sitepath;
 var $redirectlock;
 var $config;
 
+// Siteconfig
+var $restrict;
+var $superadminonly;
+var $checkversionurl;
+var $pathtoversion;
+var $superadmin;
+var $standardsite;
+
+
+// Config Area;
+// ----------------------------------------------------------------
+function HP()
+{
+//Main
+$this->standardsite = "news"; // Wenn nicht durch Config verändert!
+
+// Superadmins:
+$this->superadmin = array("admin", "mrh");
+
+// Siteckeckup
+$this->restrict       = array("login");
+$this->superadminonly = array("rights", "config", "test");
+
+// Version
+$this->checkversionurl = "http://mrh.mr.ohost.de/version/version.php?name=HPClass";
+$this->pathtoversion   = "version/version.php";
+
+}
+// ------------------------------------------------------------------
 // In diesem Bereich werden alle Variablen an die Klasse übergeben
 // Die Set-Area
 //-------------------------------------SET---------------------------------------
@@ -86,15 +115,16 @@ return $this->langclass;
 // 4.1
 
 //---------------------VERSION----------------------------------------------
-function getversion($path = "version/version.php")
+function getversion()
 {
+$path = $this->pathtoversion;
 include($path);
 return array( 'version' => "$version", 'changelog' => "$changelog");
 }
 
-function checkversion($url = "http://mrh.mr.ohost.de/version/version.php?name=HPClass")
+function checkversion()
 {
-
+$url = $this->checkversionurl;
 
 $version= @file_get_contents($url);
 // Error-Handler
@@ -170,7 +200,9 @@ $query = mysql_query($query);
 $myerror = mysql_error();
 if ($myerror <> "")
 {
+
 $this->error->error("$myerror", "2");
+
 }
 
 return $query;
@@ -210,12 +242,8 @@ if (isset($get['site']))
 {
 
 $site = $get['site'];
-$site= $this->checksite($site);
 $this->site=$site;
-} else
-{
-$this->site="news";
-}
+} 
 
 if (isset($get['lang']))
 {
@@ -242,14 +270,21 @@ $_SESSION['level'] = $get['lchange'];
 
 function checksite($site)
 {
+// Verschoben wegen Config
+// 4.2b
+if ($site == "")
+{
+$site = $this->standardsite;
+}
 
 
 $invalide = array('/','/\/',':','.','\\');
 $site = str_replace($invalide,' ',$site);
 
 $ok = true;
-$restrict = array ('login');
-$onlysupadmin = array('rights', 'config', 'test');
+
+$restrict = $this->restrict;
+$onlysupadmin = $this->superadminonly;
 
 foreach ($restrict as $key=>$value)
 {
@@ -260,12 +295,17 @@ $ok = false;
 }
 }
 
+
+if (!in_array($_SESSION['username'], $this->superadmin)){
+
 foreach ($onlysupadmin as $key=>$value)
 {
-if (($site == $value) and ($_SESSION['username'] != "admin") and ($_SESSION['username'] != "mrh"))
+
+if (($site == $value) and (!$superadmin));
 {
 
 $ok = false;
+}
 }
 }
 
@@ -284,6 +324,11 @@ return "404";
 function inc()
 {
 $site = $this->site;
+
+// Verlegung der Funktion wegen Config
+//4.2b
+$site= $this->checksite($site);
+
 
 if (($this->sitepath[$site] != "") and (!in_array($site, $this->redirectlock)))
 {
@@ -343,6 +388,33 @@ while($row = mysql_fetch_object($ergebnisss))
 return $right;
 
 }
+
+
+// Von Functions.php Übernommen
+// 4.2b
+function PM($zu, $von, $Betreff, $text)
+{ 
+$time = time();
+$datum = date('j.n.y');
+
+
+	$eintragintodb = "INSERT INTO `".$this->präfix."pm`
+(
+von, 
+datum, 
+zu, 
+text, 
+Betreff, 
+gelesen, 
+timestamp
+)
+VALUES
+('$von', '$datum', '$zu', '$text', '$Betreff', '0', '$time')";
+return $this->mysqlquery($eintragintodb);
+
+
+}
+
 
 //
 
@@ -443,8 +515,7 @@ $value = str_replace("\"", "'", $value);
 $value = str_replace("<", "&lt;", $value);
 
 }
-if ($key != "lol")
-{
+
 //echo "r1 $key -> $value => $descriptions[$key]<br>";
 	$sql = "INSERT INTO `".$dbpräfix."config` (
 
@@ -459,7 +530,7 @@ VALUES (
 
 $hp->mysqlquery($sql);
 echo mysql_error();
-}
+
 }
 
 
@@ -473,6 +544,25 @@ echo mysql_error();
 function handelconfig()
 {
 $this->config=$this->getconfig();
+
+// Superadmins
+// 4.2b
+
+
+$admins2 = explode(", ", $this->config['superadmin']);
+$this->superadmin = array_merge($this->superadmin, $admins2);
+
+
+
+// StandardSeite
+//4.2b
+if ($this->config['standardsite'] != "")
+{
+$this->standardsite=$this->config['standardsite'];
+}
+
+
+
 
 // Checkversion
 // 4.1

@@ -8,7 +8,6 @@ include 'include/class_lang.php';
 include 'include/class_template.php';
 include 'include/class_error.php';
 include 'include/class_info.php';
-include 'include/functions.php';
 
 
 $hp = new HP;

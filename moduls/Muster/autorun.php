@@ -9,6 +9,7 @@
 // $info = Infoclass
 // $lang = Langclass
 // $temp = Templatescript (Bitte $template verwenden)
+// $sitesp = Der Pfad zu der aktuellen Datei (Redirect)
 
 
 
@@ -18,8 +19,9 @@ $handle = @opendir("./moduls/$path/sites");
 while (false !== ($file = readdir($handle))) {
 $n = explode(".", $file);
 $a = $n[0];
+$b = $n[1];
 
-if (($file != ".") and ($file != ".."))
+if ($b == "php")
 {
 $hp->addredirect("$a", "moduls/$path/sites");
 }
