@@ -146,6 +146,7 @@ if (!$right[$level]['newswrite'])
 <?
 } else
 {
+
 ?>
 
 <script language="javascript" type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
@@ -155,15 +156,16 @@ if (!$right[$level]['newswrite'])
 		mode : "exact",
 		elements : "t1",
 		//save_callback : "customSave",
-		
-		plugins : "devkit,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+		//devkit,style,layer,save,advhr,advimage,xhtmlxtras,template,print,contextmenu,preview,noneditable,visualchars
+		plugins : "table,advlink,emotions,iespell,insertdatetime,media,searchreplace,paste,directionality,fullscreen,nonbreaking",
 		theme_advanced_buttons1_add_before : "",
 		theme_advanced_buttons1_add : "fontselect,fontsizeselect",
-		theme_advanced_buttons2_add : "separator,preview,separator,forecolor,backcolor",
+		theme_advanced_buttons2_add : "forecolor,backcolor", // separator,separator,preview
 		theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,separator",
 		theme_advanced_buttons3_add_before : "tablecontrols,separator",
-		theme_advanced_buttons3_add : "emotions,iespell,media,advhr,separator,ltr,rtl,separator,fullscreen",
-		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,|,code",
+		theme_advanced_buttons3_add : "emotions,iespell,media,ltr,rtl,separator,fullscreen", //,advhr,separator
+		//                                                         template,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,styleprops|,nonbreaking,|,
+		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,code", 
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
 	//	theme_advanced_path_location : "bottom",
