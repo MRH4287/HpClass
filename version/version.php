@@ -1,6 +1,16 @@
 <?php
-$version = "4.2a";
-$changelog = "Update 4.2a
+$version = "4.2b";
+$changelog = "Version 4.2b
+[SQL] Unnötige Rechte entfernt (Clanwar)
+[DEL] Un benötigte functions.php gelöscht!
+[Update] Erhöhte Benutzer Lesbarkeit und Bedienbarkeit
+[ADD] update.bat zur leichten Aktualisierung.
+[ADD] Config: Möglichkeit die Standardseite zu Ändern.
+[ADD] Config: Möglichkeit Superadmins einzutragen.
+[UPDATE] Config Verbesserung
+[FIX] Erhöhte Lesbarkeit der class.php 
+
+Update 4.2a
 Aufgeräumt
 
 Update 4.2
@@ -11,6 +21,8 @@ Update 4.2
 Update 4.1:
 [ADD] Versionschecker
 [ADD] Config Modul
+
+
 
 
 
