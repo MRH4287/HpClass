@@ -112,7 +112,7 @@ echo mysql_error();
 <?
 // Level 1
 
-$abfrage = "SELECT * FROM `".$dbpräfix."config` ORDER BY `hpclass_config`.`ID` ASC";
+$abfrage = "SELECT * FROM `".$dbpräfix."config` ORDER BY `".$dbpräfix."config`.`ID` ASC";
 //$ergebnis = SQLexec($abfrage, "index");
 $ergebnisss = $hp->mysqlquery($abfrage);
 echo mysql_error();
