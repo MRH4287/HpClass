@@ -1,6 +1,9 @@
 <?php
-$version = "4.2b";
-$changelog = "Version 4.2b
+$version = "4.2b-2";
+$changelog = "Version 4.2b-2:
+Allgemeines.
+
+Version 4.2b
 [SQL] Unnötige Rechte entfernt (Clanwar)
 [DEL] Un benötigte functions.php gelöscht!
 [Update] Erhöhte Benutzer Lesbarkeit und Bedienbarkeit
@@ -21,12 +24,6 @@ Update 4.2
 Update 4.1:
 [ADD] Versionschecker
 [ADD] Config Modul
-
-
-
-
-
-
 
 
 

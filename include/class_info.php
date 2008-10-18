@@ -65,6 +65,7 @@ $string = $value;
 }
 if ($string <> "")
 {
+$string = str_replace("'", '"', $string);
 ?>
 
 <script type="text/javascript">
@@ -96,6 +97,7 @@ $string = $value;
 }
 if ($string <> "")
 {
+$string = str_replace("'", '"', $string);
 ?>
 
 <script type="text/javascript">

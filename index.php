@@ -2,12 +2,12 @@
 session_start();
 
 //Includes
-include 'include/config.php';
-include 'include/class.php';
-include 'include/class_lang.php';
-include 'include/class_template.php';
-include 'include/class_error.php';
-include 'include/class_info.php';
+require_once 'include/config.php';
+require_once 'include/class.php';
+require_once 'include/class_lang.php';
+require_once 'include/class_template.php';
+require_once 'include/class_error.php';
+require_once 'include/class_info.php';
 
 
 $hp = new HP;
