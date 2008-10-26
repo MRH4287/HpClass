@@ -1,0 +1,38 @@
+<?
+// Das ist eine Srandartdatei, diese Kopieren um dieses System zu ;enutzen 
+$Name = "Video Galerie";
+$Run = "autorun.php";
+$description = "Video Galerie";
+$date = date('j').".".date('n').".".date('y');
+
+
+// Hier ist der Part, indem ein Templatescript geschrieben wird oder nicht.
+
+
+
+
+
+// Ab Hier nichts mehr ändern!
+
+$sql="INSERT INTO `".$dbpräfix."modul` (
+`Name` ,
+`run` ,
+`description` ,
+`date` ,
+`path`,
+`active`
+)
+VALUES (
+'$Name', '$Run', '$description', '$date', '$value', '1'
+);";
+
+$result=$hp->mysqlquery($sql);
+if (!$result)
+{
+$error->error(mysql_error(), "2");
+}
+
+
+
+echo "Das Modul $Name wurde erfolgreich installiert!";
+?>
