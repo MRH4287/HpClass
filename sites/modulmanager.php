@@ -94,7 +94,7 @@ if (isset($get['reinst']))
 $value = $get['reinst'];
 
 rename("moduls/$value/install.php.txt", "moduls/$value/install.php");
-$info->okm("Das Modul im Ordner $value ist wider zur Installation bereit!");
+$info->okm("Das Modul im Ordner $value ist wieder zur Installation bereit!");
 
 
 
