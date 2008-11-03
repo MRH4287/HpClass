@@ -130,7 +130,7 @@ $version= @file_get_contents($url);
 // Error-Handler
 if ($version == "")
 {
-$this->setconfig("checkversion", "false");
+$this->setconfig("checkversion", false);
     $this->error->error("Konnte keine Versionsprüfung durchführen! Update-Prüf Funktion Deaktiviert!", "2");
 } else
 {

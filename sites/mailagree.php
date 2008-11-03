@@ -49,7 +49,7 @@ $eintragen2 = $hp->mysqlquery($eintrag);
 
 
 
-if (($eintragen1 == true) and ($eintragen2 == true) and ($eintragen3 == true))
+if (($eintragen1 == true) and ($eintragen2 == true))
 {
 echo"<br>Vielen Dank,<br>Ihre Registration wurde erfolgreich abgeschlossen!";
 echo"<br>Sie sind auserdem, nun im Forum angemeldet. (Die selben Benutzerdaten)";
