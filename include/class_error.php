@@ -31,7 +31,7 @@ $dbpräfix = $this->hp->getpräfix();
 echo "<font color=red>$string</font>";
 if (isset($dbpräfix))
 {
-PM('mrh', 'System', 'ERROR der Stufe 3!', $string, $datum, $dbpräfix);
+$this->hp->pm('mrh', 'System', 'ERROR der Stufe 3!', $string, $datum, $dbpräfix);
 }
 
 exit;

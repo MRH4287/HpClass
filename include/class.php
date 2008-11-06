@@ -176,7 +176,7 @@ $this->error->error("No Database Data set!", "3");
 
 $this->connection = mysql_connect($this->host,
 $this->user,$this->password)
-or print $this->lang['userorpasswordwrong'];
+or $this->error->error($this->lang['userorpasswordwrong'], "3");
 $myerror = mysql_error();
 if ($myerror <> "")
 {
@@ -410,7 +410,7 @@ timestamp
 )
 VALUES
 ('$von', '$datum', '$zu', '$text', '$Betreff', '0', '$time')";
-return $this->mysqlquery($eintragintodb);
+@$this->mysqlquery($eintragintodb);
 
 
 }
