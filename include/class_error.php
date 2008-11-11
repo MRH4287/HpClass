@@ -4,18 +4,27 @@ class errorclass
 var $errorm;
 var $errorarray = array();
 var $hp;
+var $firephp;
+
 
 function error($string, $l)
 {
+$config = $this->hp->getconfig();
+
 $l = (string) $l;
 if ($l == "1")
 {
+if (!$config['hideerrors'])
+{
 echo $string;
+}
+$this->firephp->info($string);
 } elseif ($l == "2")
 {
 
 $this->errorm = $string;
-
+$this->firephp->warn($string);
+if (!$config['hideerrors'])
 if (!in_array($string, $this->errorarray))
 {
 
@@ -28,10 +37,14 @@ array_push($this->errorarray, $string);
 {
 $datum = date('j').".".date('n').".".date('y');
 $dbpräfix = $this->hp->getpräfix();
+$this->firephp->error($string);
+if (!$config['hideerrors'])
+{
 echo "<font color=red>$string</font>";
+}
 if (isset($dbpräfix))
 {
-$this->hp->pm('mrh', 'System', 'ERROR der Stufe 3!', $string, $datum, $dbpräfix);
+$this->hp->pm('mrh', 'System', 'ERROR der Stufe 3!', $string, $datum);
 }
 
 exit;

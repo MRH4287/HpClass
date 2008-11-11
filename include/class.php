@@ -10,6 +10,7 @@ var $lang;
 var $langclass;
 var $error;
 var $info;
+var $firephp;
 
 var $host;
 var $präfix;
@@ -79,6 +80,11 @@ function seterror($error)
 {
 $this->error = $error;
 }
+
+function setfirephp($firephp)
+{
+$this->firephp = $firephp;
+}
 //  Ende set-Area
 
 // Die GET Area
@@ -111,6 +117,10 @@ function getlangclass()
 return $this->langclass;
 }
 
+function getfirephp()
+{
+return $this->firephp;
+}
 // Versions überprüfung
 // 4.1
 

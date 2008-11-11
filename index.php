@@ -8,6 +8,7 @@ require_once 'include/class_lang.php';
 require_once 'include/class_template.php';
 require_once 'include/class_error.php';
 require_once 'include/class_info.php';
+require_once 'include/FirePHP.class.php';
 
 
 $hp = new HP;
@@ -22,6 +23,7 @@ $lang->init("de");
 $hp->setlang($lang);
 $hp->seterror($error);
 $hp->setinfo($info);
+$hp->setfirephp($firephp);
 $lang->seterror($error);
 $temp->seterror($error);
 $temp->sethp($hp);
