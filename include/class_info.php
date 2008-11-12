@@ -31,7 +31,7 @@ function okm($okm)
  if (!in_array($okm, $this->okmarray))
   {
   array_push($this->okmarray, $okm);
-  $this->firephp->info($okm);
+  $this->firephp->log($okm);
   }
 }
 
