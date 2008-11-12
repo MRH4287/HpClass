@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 
 //Includes
 require_once 'include/config.php';
@@ -72,4 +73,5 @@ echo $temp->gettemp('footer');
 
 $info->getmessages();
 $error->showerrors();
+ob_end_flush();
 ?>

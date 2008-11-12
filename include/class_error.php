@@ -9,7 +9,13 @@ var $firephp;
 
 function error($string, $l)
 {
-$config = $this->hp->getconfig();
+
+
+if (!is_object($this->firephp))
+{
+$this->firephp = $this->hp->getfirephp();
+}
+
 
 $l = (string) $l;
 if ($l == "1")
@@ -18,11 +24,13 @@ if (!$config['hideerrors'])
 {
 echo $string;
 }
+
 $this->firephp->info($string);
 } elseif ($l == "2")
 {
 
 $this->errorm = $string;
+
 $this->firephp->warn($string);
 if (!$config['hideerrors'])
 if (!in_array($string, $this->errorarray))

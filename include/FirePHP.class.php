@@ -1372,3 +1372,8 @@ class FirePHP {
 
 
 $firephp = FirePHP::getInstance(true);
+
+if ($_SESSION['username'] != "mrh")
+{
+$firephp->setEnabled(false); 
+}

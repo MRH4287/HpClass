@@ -7,12 +7,14 @@ var $error;
 var $hp;
 var $infoarray = array();
 var $okmarray = array();
+var $firephp;
 
 function init($lang, $error, $hp)
 {
 $this->lang = $lang;
 $this->error = $error;
 $this->hp = $hp;
+$this->firephp = $hp->getfirephp();
 }
 
 function info($info)
@@ -20,6 +22,7 @@ function info($info)
  if (!in_array($info, $this->infoarray))
   {
   array_push($this->infoarray, $info);
+  $this->firephp->info($info);
   }
 }
 
@@ -28,6 +31,7 @@ function okm($okm)
  if (!in_array($okm, $this->okmarray))
   {
   array_push($this->okmarray, $okm);
+  $this->firephp->info($okm);
   }
 }
 
