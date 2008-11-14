@@ -23,5 +23,6 @@ CREATE TABLE `#!-PRÄFIX-!#user` (
   `tel` varchar(20) collate latin1_general_ci NOT NULL,
   `bild` longblob NOT NULL,
   PRIMARY KEY  (`ID`)
+  UNIQUE KEY `user` (`user`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
