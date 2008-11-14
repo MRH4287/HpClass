@@ -31,7 +31,7 @@ $this->firephp->info($string);
 
 $this->errorm = $string;
 
-$this->firephp->error($string);
+$this->firephp->warn($string);
 if (!$config['hideerrors'])
 if (!in_array($string, $this->errorarray))
 {
