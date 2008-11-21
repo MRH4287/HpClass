@@ -21,10 +21,9 @@ if (isset($post['sub']))
 
 foreach ($config as $key=>$value)
 {
-if (($value == "true") or ($value == "false"))
-{
+
 $config[$key] = "false";
-}
+
 }	
 
 
