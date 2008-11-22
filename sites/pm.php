@@ -26,7 +26,7 @@ if (isset($_SESSION['username']))
 if (!isset($get['read']) and !isset($post['del'])and !isset($get['new']) and !isset($get['del']) and !isset($get['ausgang']) and !isset($get['report']))
 {
 
-$abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `zu` = '".$_SESSION['username']."' ORDER BY `ID`;";
+$abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `zu` = '".$_SESSION['username']."' ORDER BY `ID` DESC;";
 $ergebnis = $hp->mysqlquery($abfrage);
 if ($ergebnis == false)
 {
