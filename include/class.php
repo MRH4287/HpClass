@@ -2,33 +2,33 @@
 
 class HP
 {
+// Öffentliche Variablen:
+public    $site;
+public    $lang;
+public    $langclass;
+public    $error;
+public    $info;
+public    $firephp;
 
-var $site;
-var $outputg;
-var $outputp;
-var $lang;
-var $langclass;
-var $error;
-var $info;
-var $firephp;
 
-var $host;
-var $präfix;
-var $user;
-var $password;
-var $db;
-var $connection;
-var $sitepath;
-var $redirectlock;
-var $config;
-
-// Siteconfig
-var $restrict;
-var $superadminonly;
-var $checkversionurl;
-var $pathtoversion;
-var $superadmin;
-var $standardsite;
+// Geschützte Variablen
+protected $outputg;
+protected $outputp;
+protected $host;
+protected $präfix;
+protected $user;
+protected $password;
+protected $db;
+protected $connection;
+protected $sitepath;
+protected $redirectlock;
+protected $config;
+protected $restrict;
+protected $superadminonly;
+protected $checkversionurl;
+protected $pathtoversion;
+protected $superadmin;
+protected $standardsite;
 
 
 // Config Area;
