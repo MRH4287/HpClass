@@ -1,6 +1,9 @@
 <?php
-$version = "4.2b-3";
-$changelog = "Version 4.2b-3:
+$version = "4.2b-4";
+$changelog = "Version 4.2b-4:
+[Fix] Sicherheitslücke behoben
+
+Version 4.2b-3:
 [ADD] Videogalerie
 
 Version 4.2b-2:
@@ -27,6 +30,8 @@ Update 4.2
 Update 4.1:
 [ADD] Versionschecker
 [ADD] Config Modul
+
+
 
 
 
