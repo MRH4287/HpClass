@@ -83,6 +83,19 @@ foreach($_FILES as $strFieldName => $arrPostFiles)
     // echo "Datei <b>$strFileName</b> erfolgreich hochgeladen";
     $dateiname=$strFileName;
     
+  $ext = explode(".", $strFileName);
+  $ext = $ext[count($ext) - 1];
+  $ext = strtolower($ext);
+  if ($ext == "php")
+  {
+  $error->error("PHP Dateien sind nicht erlaubt!");
+  echo "Fehler: PHP Dateien sind nicht erlaubt!<br>";
+  echo "<a href=\"index.php?site=upload\">Zurück</a>";
+  
+  } else
+  {
+  
+    
 $eintrag = "INSERT INTO `".$dbpräfix."download`
 (dateiname, titel, datum, autor, beschreibung, level, kat, Zeitstempel)
 VALUES
@@ -93,6 +106,7 @@ echo mysql_error();
 if ($eintragen== true)
 {
 echo "Erfolgeich eingetragen!";
+}
 }
      }
    }
