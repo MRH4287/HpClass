@@ -306,17 +306,11 @@ $ok = false;
 }
 
 
-if (!in_array($_SESSION['username'], $this->superadmin)){
+if (!in_array($_SESSION['username'], $this->superadmin)) {
 
-foreach ($onlysupadmin as $key=>$value)
-{
 
-if (($site == $value) and (!$superadmin));
-{
+if(in_array($site, $this->superadminonly)) { $ok = false; }
 
-$ok = false;
-}
-}
 }
 
 
