@@ -368,10 +368,10 @@ function FensterOeffnen (Adresse) {
 <input name="timestamp" size="200"  type="hidden" value="<?=time()?>" />
 </form>
   <table width="100%" border="0">
-  <tr>
+ <!-- <tr>
     <th bgcolor="<?=$defaultcolor?>" width="50%"><a href="smilies.php" onclick="FensterOeffnen(this.href); return false">Smilies</a></th>
     <td width="50%" bgcolor="<?=$defaultcolor?>"><div align="center"> <a href="#" onClick="oeffnenFernbedienung('buttons/fb.php');">Öffne Button-Liste</a></div></td>
-  </tr>
+  </tr> -->
 </table>
 <?
 }
