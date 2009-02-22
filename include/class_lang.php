@@ -215,6 +215,11 @@ $this->addlang ($lang);
 
 }
 
+function settempfolder($design)
+{
+$this->temppath=$desgin;
+}
+
 
 function addlang ($lang)
 {
