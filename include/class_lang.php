@@ -218,7 +218,7 @@ if ($art == "php")
 if (file_exists("./template/".$this->temppath."/lang/$file"))
 include ("./template/".$this->temppath."/lang/$file");
 
-$this->addlang ($lang);
+$this->addlang($lang);
 
 }
 } 
@@ -276,7 +276,7 @@ $temparray2 = $lang[$key];
 
 $mrharray = array_merge($mrharray, $temparray2);
 $this->lang[$key] = $mrharray;
-br;
+
 
 }
 
