@@ -187,6 +187,19 @@ $this->addlang ($lang);
 
 function inctempfiles()
 {
+$fp = $this->hp->firephp;
+
+if ($this->temppath == "")
+{
+$config = $this->hp->getconfig();
+if ($config['design'] != "")
+{
+$this->temppath = $config['design'];
+}
+
+}
+
+
 if (is_dir("template/".$this->temppath."/lang/"))
 {
 
@@ -213,11 +226,28 @@ $this->addlang ($lang);
 
 }
 
+foreach ($this->lang[$this->clang] as $key=>$value) {
+$array = explode("tp_", $key);
+
+
+	if (count($array) == 2)
+	{
+  $this->hp->template->addtemp($array[1], $value);
+  
+  }
+}
 
 }
 
 function settempfolder($design)
 {
+$config = $this->hp->getconfig();
+if ($config['design'] != "")
+{
+$design = $config['design'];
+}
+
+
 $this->temppath=$desgin;
 }
 

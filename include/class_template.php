@@ -9,6 +9,7 @@ var $hp;
 var $lang;
 
 
+
 function seterror($error)
 {
 $this->error=$error;
@@ -23,7 +24,11 @@ return $this->template[$part];
 
 function settemplate($temp)
 {
-$this->temp=$temp;
+if (!is_array($this->temp))
+{
+$this->temp = array();
+}
+$this->temp=array_merge($temp,$this->temp);
 }
 
 
@@ -72,17 +77,17 @@ $this->template['footer']=$this->template['footer'].$data[1];
 
 }
 
+function addtemp($temp, $wort)
+{
+$this->temp[$temp] = $wort;
+}
+
 function spezialsigs($data)
 {
 
 foreach ($data as $key=>$value) {
 
 foreach ($this->temp as $key2=>$value2) {
-
-if ($this->lang->word_exsists("tp_".$key2))
-{
-$value2 = $this->lang->word("tp_".$key2);
-}
 
 $value = str_replace("<!--$key2-->", $value2, $value);	
 }
