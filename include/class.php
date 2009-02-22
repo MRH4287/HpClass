@@ -81,6 +81,12 @@ function seterror($error)
 $this->error = $error;
 }
 
+function settemplate($template)
+{
+$this->template = $template;
+}
+
+
 function setfirephp($firephp)
 {
 $this->firephp = $firephp;

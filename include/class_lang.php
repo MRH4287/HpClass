@@ -221,6 +221,11 @@ function settempfolder($design)
 $this->temppath=$desgin;
 }
 
+function sethp($hp)
+{
+$this->hp = $hp;
+}
+
 
 function addlang ($lang)
 {
