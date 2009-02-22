@@ -20,7 +20,7 @@ $info = new infoclass;
 
 
 
-$lang->init("de");
+
 $hp->setlang($lang);
 $hp->seterror($error);
 $hp->setinfo($info);
@@ -42,6 +42,9 @@ $hp->handelinput($_GET, $_POST);
 $right = $hp->getright();
 $config = $hp->getconfig();
 $hp->handelconfig();
+
+$lang->temppath=$design;
+$lang->init("de");
 
 $level = $_SESSION['level'];
 

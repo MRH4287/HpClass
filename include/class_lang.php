@@ -5,6 +5,9 @@ var $lang = array();
 
 var $clang;
 var $error;
+var $temppath;
+
+var $use = "file";   //Benutze file um die Include Dateien zu verwenden
 
 function init($lang2)
 {
@@ -18,9 +21,15 @@ $this->setlang($lang2);
 $this->setlang($_SESSION['language']);
 }
 $this->lang = array();
+if ("$this->use" == "file")
+{
 $this->incfiles();
+} elseif ("$this->use"  == "db")
+{
+$this->loadfromdb();
+}
 
-
+$this->inctempfiles();
 }
 
 function lang1()
@@ -72,6 +81,65 @@ if ($clang == "dev")
  }
 }
 
+function savetodb($file = true)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$fp = $hp->fp;
+
+if ($file)
+{
+$lang = array();
+$this->incfiles();
+}
+
+
+$sql = "TRUNCATE `$dbpräfix"."lang`";
+$erg = $hp->mysqlquery($sql);
+
+
+foreach ($this->lang as $lang=>$langarray) {
+
+foreach ($langarray as $key=>$value) {
+	
+	$sql = "INSERT INTO `$dbpräfix"."lang` (`lang`, `word`, `wort`) VALUES ('$lang', '$key', '$value');";
+	$erg = $hp->mysqlquery($sql);
+	
+}
+	
+	
+	
+}
+
+if ("$this->use" == "file")
+{
+$this->incfiles();
+} elseif ("$this->use"  == "db")
+{
+$this->loadfromdb();
+}
+
+}
+
+function loadfromdb()
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+
+$fp = $hp->fp;
+
+$sql = "SELECT * FROM `$dbpräfix"."lang`";
+$erg = $hp->mysqlquery($sql);
+
+while ($row = mysql_fetch_object($erg))
+{
+$this->addword($row->lang, $row->word, $row->wort);
+}
+
+}
+
+
+
 
 function word_exsists($word)
 {
@@ -114,9 +182,39 @@ $this->addlang ($lang);
 }
 } 
 
+}
+
+function inctempfiles()
+{
+if (is_dir("template/".$this->temppath."/lang/"))
+{
+
+$x=-2;
+$handle = @opendir("./template/".$this->temppath."/lang/"); 
+while (false !== ($file = @readdir($handle))) {
+	$attrib=@fileperms("./template/".$this->temppath."/lang/$file");
+	$filesize=@filesize("./template/".$this->temppath."/lang/$file");
+	$file_size_now = @round($filesize / 1024 * 100) / 100 . "Kb";
+	$n= @explode(".",$file);
+$art = @strtolower($n[1]);
+
+
+if ($art == "php")
+{
+if (file_exists("./template/".$this->temppath."/lang/$file"))
+include ("./template/".$this->temppath."/lang/$file");
+
+$this->addlang ($lang);
+
+}
+} 
 
 
 }
+
+
+}
+
 
 function addlang ($lang)
 {
