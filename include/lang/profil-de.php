@@ -27,7 +27,7 @@ $lang['de'] = array (
 'newpw' => "Neues Passwort",
 'repnewpw' => "Passwort bestätigen",
 
-"pwwrong_profil" => "Passwort falsch eigegben",
+"pwwrong_profil" => "Passwort falsch eingegeben",
 "ok_profil" => "Erfolgreich Aktualisiert",
 
 'notallfields' => "Es wurden nicht alle Pflichfelder ausgefüllt"
