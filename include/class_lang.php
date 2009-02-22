@@ -72,6 +72,18 @@ if ($clang == "dev")
  }
 }
 
+
+function word_exsists($word)
+{
+if ($this->lang[$this->clang][$word] <> "")
+{
+return true;
+} else
+{
+return false;
+}
+}
+
 function currentlang()
 {
 return $this->clang;

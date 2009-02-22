@@ -78,6 +78,12 @@ function spezialsigs($data)
 foreach ($data as $key=>$value) {
 
 foreach ($this->temp as $key2=>$value2) {
+
+if ($this->lang->word_exsists("tp_".$key2))
+{
+$value2 = $this->lang->word("tp_".$key2);
+}
+
 $value = str_replace("<!--$key2-->", $value2, $value);	
 }
 
