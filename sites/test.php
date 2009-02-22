@@ -21,6 +21,9 @@ $info->info("123");
 $info->okn("123");
 
 
+//$lang->savetodb();
+
+
 
 ?>
 
