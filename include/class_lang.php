@@ -5,6 +5,7 @@ var $lang = array();
 
 var $clang;
 var $error;
+var $hp;
 var $temppath;
 
 var $use = "file";   //Benutze file um die Include Dateien zu verwenden
