@@ -8,7 +8,7 @@ var $error;
 var $hp;
 var $temppath;
 
-var $use = "file";   //Benutze file um die Include Dateien zu verwenden
+var $use = "db";   //Benutze file um die Include Dateien zu verwenden
 
 function init($lang2)
 {
@@ -139,7 +139,10 @@ $this->addword($row->lang, $row->word, $row->wort);
 
 }
 
-
+function addword($lang, $word, $wort)
+{
+$this->lang[$lang][$word] = $wort;
+}
 
 
 function word_exsists($word)
