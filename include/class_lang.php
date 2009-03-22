@@ -27,6 +27,16 @@ $this->incfiles();
 $this->loadfromdb();
 
 
+$config = $this->hp->getconfig();
+if ($config['design'] != "")
+{
+$design = $config['design'];
+}
+
+
+$this->temppath=$desgin;
+
+
 $this->inctempfiles();
 }
 
@@ -243,18 +253,6 @@ $array = explode("tp_", $key);
   }
 }
 }
-}
-
-function settempfolder($design)
-{
-$config = $this->hp->getconfig();
-if ($config['design'] != "")
-{
-$design = $config['design'];
-}
-
-
-$this->temppath=$desgin;
 }
 
 function sethp($hp)
