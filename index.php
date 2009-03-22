@@ -35,6 +35,12 @@ $error->sethp($hp);
 $info->init($lang, $error, $hp);
 // ----------------------------------------------------------------------------
 
+//-----------------------------lang Config-------------------------------------
+$lang->settempfolder($design); // Benötigt wegen der möglichkeit, dass Sprachdateien im template Ordner liegen
+$lang->init("de");
+//-----------------------------------------------------------------------------
+
+
 //-----------------------------------MYSQL Area (DB Verbindung)----------------
 $hp->setdata($dbserver, $dbuser, $dbpass, $dbpräfix, $dbdatenbank);
 $hp->connect();
@@ -50,10 +56,6 @@ $right = $hp->getright();
 $config = $hp->getconfig();
 //-----------------------------------------------------------------------------
 
-//-----------------------------lang Config-------------------------------------
-$lang->settempfolder($design); // Benötigt wegen der möglichkeit, dass Sprachdateien im template Ordner liegen
-$lang->init("de");
-//-----------------------------------------------------------------------------
 
 //-------------------------------Module----------------------------------------
 include 'include/modulscheck.php';

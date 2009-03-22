@@ -170,7 +170,7 @@ function incfiles ()
 // Include von Sprachdaten aus Datei:
 
 $x=-2;
-$handle = @opendir("./include/lang/$file"); 
+$handle = @opendir("./include/lang/"); 
 while (false !== ($file = @readdir($handle))) {
 	$attrib=@fileperms("./include/lang/$file");
 	$filesize=@filesize("./include/lang/$file");
@@ -230,7 +230,7 @@ $this->addlang($lang);
 } 
 
 
-}
+
 
 foreach ($this->lang[$this->clang] as $key=>$value) {
 $array = explode("tp_", $key);
@@ -242,7 +242,7 @@ $array = explode("tp_", $key);
   
   }
 }
-
+}
 }
 
 function settempfolder($design)
