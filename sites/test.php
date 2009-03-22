@@ -14,14 +14,19 @@ $info = $hp->getinfo();
 
 echo "<b>Dies ist eine Testseite!</b><br>Solltet ihr sie finden, ignoriert sie ^^<br><br><hr>";
 
-print_r($_SESSION);
+//print_r($_SESSION);
 
 $error->error("TEST", "2");
 $info->info("123");
 $info->okn("123");
 
 
-$lang->savetodb();
+$sql = "SHOW TABLES LIKE '$dbpräfix"."langsam';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_array($erg);
+print_r($row);
+
+//$lang->savetodb();
 
 
 

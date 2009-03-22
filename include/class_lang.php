@@ -8,7 +8,7 @@ var $error;
 var $hp;
 var $temppath;
 
-var $use = "db";   //Benutze file um die Include Dateien zu verwenden
+
 
 function init($lang2)
 {
@@ -22,13 +22,10 @@ $this->setlang($lang2);
 $this->setlang($_SESSION['language']);
 }
 $this->lang = array();
-if ("$this->use" == "file")
-{
+
 $this->incfiles();
-} elseif ("$this->use"  == "db")
-{
 $this->loadfromdb();
-}
+
 
 $this->inctempfiles();
 }
@@ -129,6 +126,12 @@ $dbpräfix = $hp->getpräfix();
 
 $fp = $hp->fp;
 
+$sql = "SHOW TABLES LIKE '$dbpräfix"."lang';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_array($erg);
+if (count($row) >= 1)
+{
+
 $sql = "SELECT * FROM `$dbpräfix"."lang`";
 $erg = $hp->mysqlquery($sql);
 
@@ -136,7 +139,7 @@ while ($row = mysql_fetch_object($erg))
 {
 $this->addword($row->lang, $row->word, $row->wort);
 }
-
+}
 }
 
 function addword($lang, $word, $wort)
