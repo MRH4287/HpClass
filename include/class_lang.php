@@ -129,7 +129,7 @@ $fp = $hp->fp;
 $sql = "SHOW TABLES LIKE '$dbpräfix"."lang';";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_array($erg);
-if (count($row) >= 1)
+if ((count($row) >= 1) and ($row!=false))
 {
 
 $sql = "SELECT * FROM `$dbpräfix"."lang`";
