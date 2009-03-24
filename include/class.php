@@ -156,7 +156,7 @@ $array = $this->getversion();
 $version2 = $array['version'];
 
 
-if (($version != $version2) and (($_SESSION['username'] == "mrh") or ($_SESSION['username'] == $superadmin)))
+if (($version != $version2) and (in_array($_SESSION['username'], $this->superadmin)))
 {
 $this->info->info("Ihre Version ist nicht mehr auf dem neusten Stand! ($version2 - $version)");
 
