@@ -206,6 +206,13 @@ if ($myerror <> "")
 {
 $this->error->error("$myerror", "2");
 }
+// Löschen alller DB Variablen
+// Berhindert späteres auslesen!
+$this->host = "";
+$this->user = "";
+$this->password = "";
+$this->db = ""; 
+
 
 }
 
