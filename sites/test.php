@@ -21,7 +21,7 @@ $info->info("123");
 $info->okn("123");
 
 ?>
-<a href="index.php?lbsite=Test" class="lbOn">Test</a>
+<a href="index.php?lbsite=delnews&vars=4" class="lbOn">Test</a>
 
 <?
 

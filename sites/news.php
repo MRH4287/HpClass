@@ -51,10 +51,7 @@ elseif
 
 if ($ok == true)
 {
-   if (!isset($get['delet'])) {
-   ?>
-   <a name="n<?="$row->ID"?>">
-   <? } ?>
+ ?>  
       <table class="liste" width="100%" border="1" bordercolor="#000000" bordercolorlight="#000000">
       <tr>
       
@@ -63,12 +60,27 @@ if ($ok == true)
                <table width="100%" cellpadding="0" height="48">
                <tr>
                	<td rowspan="2" height="46"><img src="images/news_<?="$row->typ"?>.gif" width="40" height="40"></td>
-               	<td width="100%" colspan="2" valign="bottom" style="padding-bottom: 1px" height="22"><span><b><?if (isset($get['delet'])) {echo"ID: $row->ID Titel: ";} echo"$row->titel";  if ("$row->level" <> "0") {echo " --Level $row->level --";} ?></b></span></td>
+               	<td colspan="2" style="padding-bottom: 1px;" height="22" valign="bottom" width="100%"><span><b><? echo"$row->titel";  if ("$row->level" <> "0") {echo " --Level $row->level --";} ?></b></span></td>
+               	<td colspan="3" style="padding-bottom: 1px;" height="22" valign="bottom" width="100%"><span> <?
+                 if (isset($get['delet']))
+                 {
+if ($right[$level]['newsedit'])
+{
+echo '<a href="sites/newschange.php?newsid='.$row->ID.'">News Bearbeiten</a> ';
+
+}    
+if ($right[$level]['newsdel'])
+{
+echo '<a href="index.php?lbsite=delnews&vars='.$row->ID.'" class="lbOn">Löschen</a>';
+}    
+}         
+                   ?> </span></td>
                </tr>
                <tr>   
                   <td valign="top" height="22"><span><?="$row->datum"?> <?=$lang->word('by')?> <a href=index.php?site=user&show=<?="$row->ersteller"?>><?="$row->ersteller"?></a></span></td>
 
                   <td valign="top" align="right" height="22">
+                  <?php if (file_exists("sites/comments.php")) { ?>
                   <a href="index.php?site=comments&id=<?="$row->ID"?>"><?=$lang->word('comments')?> <?   
                             
                   $abfrage2 = "SELECT * FROM ".$dbpräfix."kommentar WHERE `zuid`= '$row->ID'";
@@ -81,7 +93,8 @@ while($row2 = mysql_fetch_object($ergebnis2))
 $nummer=$nummer+1;
     }
       echo " ($nummer)";            
-                   ?>
+                  
+                  } ?>
    </a>
                   </td>
                </tr>
@@ -108,7 +121,7 @@ echo $lang->word('noright');
 
 
 {
-
+/*
 ?>
 <form method="POST" action="index.php?site=admin">
   <p>ID: <input type="text" name="newsiddel" size="3"><input type="submit" value="<?=$lang->word('delet')?>" name="newsdel"></p>
@@ -120,6 +133,7 @@ echo $lang->word('noright');
 
 
 <?
+*/
 } else
 {
 ?>

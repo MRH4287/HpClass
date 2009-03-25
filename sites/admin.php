@@ -9,24 +9,25 @@ $dbpräfix = $hp->getpräfix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 
-
+$ok = true;
 // Prüfen der Zugriffsberechtigung
 if (!isset($_SESSION['username']) and !isset($post))
 {
 echo $lang->word('noright')."<br>".$lang->word("login")."<br>";
 echo $lang->word('wrotenews')."<br>";
 echo $lang->word('wrotenews2');
-exit;
+$ok = false;
 }
 
 if (!$right[$level]['adminsite'])
 {
 
 echo $lang->word('noright2');
-exit;
+$ok = false;
 }
 
-
+if ($ok)
+{
 
 
 //News Delet
@@ -252,5 +253,8 @@ while($row = mysql_fetch_object($ergebnis))
     <p align="left"><a href=index.php?site=modulmanager><?=$lang->word('modulman')?></a></p>
     
     <?
-    }     
+    }   
+    
+    
+ } // OK     
      ?>
