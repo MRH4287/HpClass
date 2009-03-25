@@ -24,11 +24,7 @@ $PATH = $PATH."/".$VERSION.".jpg";
 {
 $VERSION = "Kein SVN!";
 }
-if(file_exists($PATH ) and ($svn)){
-//	We WANT to output - read in the existing thumb instead of creating a new one.
-	echo file_get_contents($PATH);
-	die();
-}
+
 $IMG = imagecreatefrompng("background_new.png");
 $width = ImageSX($IMG);
 $heigth = ImageSY($IMG);
@@ -89,13 +85,7 @@ imagettftext(
 	$VERSION
 );
 
-// save it.
-if ($svn)
-{
-imagejpeg($IMG,$PATH,85);
-$version = $VERSION -1;
-@unlink("thumbs/$version.jpg");
-}
+
 imagejpeg($IMG,NULL,85);
 imagedestroy($IMG); //You can't die! We saved you!
 ?>

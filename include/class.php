@@ -9,6 +9,7 @@ public    $langclass;
 public    $error;
 public    $info;
 public    $firephp;
+public    $lbsites;
 
 
 // Geschützte Variablen
@@ -91,6 +92,12 @@ function setfirephp($firephp)
 {
 $this->firephp = $firephp;
 }
+
+function setlbsites($lbsites)
+{
+$this->lbsites=$lbsites;
+}
+
 //  Ende set-Area
 
 // Die GET Area
@@ -260,6 +267,14 @@ $this->outputp[$key]=$value;
 	
 }
 } 
+
+if (isset($get['lbsite']))
+{
+$vars = $get['vars'];
+
+$this->lbsites->load($get['lbsite'], $vars);
+exit;
+}
 
 if (isset($get['site']))
 {

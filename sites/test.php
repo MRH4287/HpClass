@@ -20,11 +20,10 @@ $error->error("TEST", "2");
 $info->info("123");
 $info->okn("123");
 
+?>
+<a href="index.php?lbsite=Test" class="lbOn">Test</a>
 
-$sql = "SHOW TABLES LIKE '$dbpräfix"."langsam';";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_array($erg);
-print_r($row);
+<?
 
 //$lang->savetodb();
 

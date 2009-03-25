@@ -9,6 +9,7 @@ require_once 'include/class_lang.php';
 require_once 'include/class_template.php';
 require_once 'include/class_error.php';
 require_once 'include/class_info.php';
+require_once 'include/class_lbsites.php';
 require_once 'include/xajax_core/xajax.inc.php';
 require_once 'include/FirePHP.class.php';
 require_once 'include/class_xajax_funk.php';
@@ -20,6 +21,7 @@ $lang = new lang;
 $temp = new template;
 $error = new errorclass;
 $info = new infoclass;
+$lbsites = new lbsites;
 $xajaxF = new Xajax_Funktions;
 // ----------------------------------------------------------------------------
 
@@ -37,6 +39,8 @@ $temp->setlang($lang);
 $error->sethp($hp);
 $info->init($lang, $error, $hp);
 $xajaxF->sethp($hp);
+$lbsites->sethp($hp);
+$hp->setlbsites($lbsites);
 // ----------------------------------------------------------------------------
 
 //-----------------------------------MYSQL Area (DB Verbindung)----------------
