@@ -9,7 +9,9 @@ require_once 'include/class_lang.php';
 require_once 'include/class_template.php';
 require_once 'include/class_error.php';
 require_once 'include/class_info.php';
+require_once 'include/xajax_core/xajax.inc.php';
 require_once 'include/FirePHP.class.php';
+require_once 'include/class_xajax_funk.php';
 //----------------------------------------------------------------------------
 
 //--------------------------------------Class Area----------------------------
@@ -18,6 +20,7 @@ $lang = new lang;
 $temp = new template;
 $error = new errorclass;
 $info = new infoclass;
+$xajaxF = new Xajax_Funktions;
 // ----------------------------------------------------------------------------
 
 //--------------------------------------SET Area-------------------------------
@@ -33,6 +36,7 @@ $temp->sethp($hp);
 $temp->setlang($lang);
 $error->sethp($hp);
 $info->init($lang, $error, $hp);
+$xajaxF->sethp($hp);
 // ----------------------------------------------------------------------------
 
 //-----------------------------------MYSQL Area (DB Verbindung)----------------
@@ -60,10 +64,13 @@ $config = $hp->getconfig();
 include 'include/modulscheck.php';
 //-----------------------------------------------------------------------------
 
-// Sonstigel
+//----------------------------Sonstiges----------------------------------------
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
+
+//--------------------------------Xajax Request--------------------------------
+$xajaxF->processRequest();
 
 
 //------------------------------Template Steuerung-----------------------------
@@ -84,6 +91,13 @@ $hp->inc();
 // 6. Ausgeben des Footers
 echo $temp->gettemp('footer');
 //-----------------------------------------------------------------------------
+
+//----------------------------------XAJAX---------------------------------------
+echo $xajaxF->printjs();
+// Ausführen der JS Funktionen
+include 'js/xajax.php';
+//------------------------------------------------------------------------------
+
 
 //----------------------------Info und Error Handling--------------------------
 $info->getmessages();
