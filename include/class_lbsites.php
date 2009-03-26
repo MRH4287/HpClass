@@ -94,7 +94,7 @@ $row = mysql_fetch_object($erg);
 <table>
 <tr valign="bottom">
 <td>
-<form method="POST" action="index.php">
+<form method="POST" action="index.php?site=admin">
   <p><input type="hidden" name="newsiddel" size="3" value="<?=$vars?>"><input type="submit" value="Loeschen" name="newsdel"></form>
 </td>
 <td>
