@@ -189,14 +189,15 @@ function initialize(){
 // Lightbox is the centered square that the content is put into.
 function addLightboxMarkup() {
 	bod 				= document.getElementsByTagName('body')[0];
-	overlay 			= document.createElement('div');
-	overlay.id		= 'overlayX2';
+	over 		  	=  document.createElement('div');
+	
+	over.id		= 'overlayX2';
 	lb					= document.createElement('div');
 	lb.id				= 'lightboxX2';
 	lb.className 	= 'loading';
 	lb.innerHTML	= '<div id="lbLoadMessage">' +
 						  '<p>Loading</p>' +
 						  '</div>';
-	bod.appendChild(overlay);
+	bod.appendChild(over);
 	bod.appendChild(lb);
 }
