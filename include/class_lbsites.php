@@ -16,12 +16,16 @@ $this->info = $hp->getinfo();
 $this->fp = $hp->firephp;
 }
 
+
+
 function load($site, $vars)
 {
+ob_end_flush();
+ob_start("ob");
+
 $funktions = get_class_methods($this);
 ?>
-<meta http-equiv="Content-Type"
-content="text/html; charset=iso-8859-1">
+
 <table width="100%" height="100%">
 <tr valign="top">
 <td height=100%>
@@ -67,7 +71,7 @@ while ($row = mysql_fetch_object($erg))
 {
 echo $row->user."<br>";
 }
-
+echo " ö Ö ä Ä ü Ü ß ^ ` ' # + * , ; |";
 
 }
 
@@ -90,7 +94,7 @@ $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
 ?>
-<p id="highlight">Moechten Sie die Newsmeldung wirklich loeschen?</p>
+<p id="highlight">Möchten Sie die Newsmeldung wirklich löschen?</p>
 <table>
 <tr valign="bottom">
 <td>
@@ -98,7 +102,7 @@ $row = mysql_fetch_object($erg);
   <p><input type="hidden" name="newsiddel" size="3" value="<?=$vars?>"><input type="submit" value="Loeschen" name="newsdel"></form>
 </td>
 <td>
-<form action="" methode="POST"><input type="submit" value="Nein"> </p>
+<form action="" methode="POST"><input  type="submit" value="Nein"> </p>
   </form>
 </td>
 </tr>
@@ -117,4 +121,21 @@ echo $lang->word('noright');
 
 
 }
+
+// Output buffering, da sonst alle Sonderzeichen nicht richtig dargestellt werden!
+function ob($buffer)
+{
+$text = $buffer;
+$text = str_replace("ü", "&uuml;", $text);
+$text = str_replace("Ü", "&Uuml;", $text);
+$text = str_replace("ö", "&ouml;", $text);
+$text = str_replace("Ö", "&Ouml;", $text);
+$text = str_replace("ä", "&auml;", $text);
+$text = str_replace("Ä", "&Auml;", $text);
+$text = str_replace("ß", "&szlig;", $text);
+
+return $text;
+}
+
+
 ?>
