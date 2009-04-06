@@ -243,7 +243,7 @@ while($row = mysql_fetch_object($ergebnis2))
         
           <td width="95">Datei: </td>
           <td width="222">
-<b>Nicht veränderbar</b></td>
+<input name="userfile" type="file"></td>
         </tr>
         <tr>
           <td width="95">Beschreibung:</td>
@@ -311,8 +311,60 @@ $dkat = $post['kat'];
 $posttitel = $hp->escapestring($posttitel);
 $beschreibung = $hp->escapestring($beschreibung);
 $dlevel = $hp->escapestring($dlevel);
+$fp = $this->firephp;
 
 
+if ($_FILES['userfile']['error'] != "4")
+{
+foreach($_FILES as $strFieldName => $arrPostFiles)
+  {
+  if ($arrPostFiles['size'] > 0)
+     {
+     $strFileName = $arrPostFiles['name'];
+     $intFileSize = $arrPostFiles['size'];
+     $strFileMIME = $arrPostFiles['type'];
+     $strFileTemp = $arrPostFiles['tmp_name'];
+     
+    // echo "Datei <b>$strFileName</b> erfolgreich hochgeladen";
+    $dateiname=$strFileName;
+    
+  $ext = explode(".", $strFileName);
+  $ext = $ext[count($ext) - 1];
+  $ext = strtolower($ext);
+  if ($ext == "php")
+  {
+  $error->error("PHP Dateien sind nicht erlaubt!");
+  echo "Fehler: PHP Dateien sind nicht erlaubt!<br>";
+  echo "<a href=\"index.php?site=upload\">Zurück</a>";
+  
+  } else
+  {
+  
+    
+$sql = "UPDATE `".$dbpräfix."download` SET `titel` = '$posttitel',
+`level` = '$dlevel',
+`kat` = '$dkat',
+`dateiname` = '$dateiname',
+`Zeitstempel` = now(),
+`beschreibung` = '$beschreibung' WHERE `ID` ='".$dID."' LIMIT 1 ;";
+
+$eintragen = $hp->mysqlquery($sql);
+echo mysql_error();
+
+
+move_uploaded_file($strFileTemp, "downloads/$strFileName");
+echo mysql_error();
+if ($eintragen== true)
+{
+$info->okm("Datei erfolgreich Modifiziert!");
+echo "Datei erfolgreich modifiziert!<br><a href=index.php?site=upload>zurück</a>";
+}
+}
+     }
+   }
+
+} else
+{
 $sql = "UPDATE `".$dbpräfix."download` SET `titel` = '$posttitel',
 `level` = '$dlevel',
 `kat` = '$dkat',
@@ -321,12 +373,19 @@ $sql = "UPDATE `".$dbpräfix."download` SET `titel` = '$posttitel',
 
 $res = $hp->mysqlquery($sql);
 echo mysql_error();
-
 if ($res) 
 {
 $info->okm("Datei erfolgreich Modifiziert!");
 echo "Datei erfolgreich modifiziert!<br><a href=index.php?site=upload>zurück</a>";
 }
+
+
+}
+
+
+
+
+
 
 
 } elseif (isset($get['katnew']))
