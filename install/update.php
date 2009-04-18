@@ -1,4 +1,19 @@
 <?
+$nutzer['admin']="install";
+
+$fmeldung="Dieser Bereich ist nur für das Updaten des Systems gedacht!<br>
+Das Passwort und der Benutzername befinden sich in der Readme Datei!";
+
+
+if (!array_key_exists($_SERVER['PHP_AUTH_USER'], $nutzer) ||
+ $_SERVER['PHP_AUTH_PW'] != $nutzer[$_SERVER['PHP_AUTH_USER']]) {
+ header("HTTP/1.1 401 Unauthorized");
+ header("WWW-Authenticate: Basic realm=".$bereich);
+ echo $fmeldung;
+ exit;
+ }
+
+
 class update
 {
 var $path = "../version/mysql.php";

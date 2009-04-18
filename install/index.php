@@ -22,6 +22,7 @@ if (file_exists("../include/config.php")){
 echo "Ihre Webseite wurde bereits Installiert!<br>Für eine Neuinstallation,
 löschen Sie die config.php und alle Tabellen die zu ihrer Webseite gehören von ihrem Server!<br>
 (Da es sonst zu Fehlern kommen kann!)";
+echo "<br>Für ein Update des Systems klicken sie <a href=update.php>Hier</a>.";
 exit;
 }
 
