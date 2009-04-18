@@ -39,7 +39,9 @@ return $version;
 }
 } else
 {
-echo "Versionsdatei nicht gefunden! ($path)";
+echo "Versionsdatei nicht gefunden, erstellen.";
+$date = fopen($path, "a");
+fwrite($data, "1");
 exit;
 }
 }
