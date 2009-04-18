@@ -28,6 +28,7 @@ protected $restrict;
 protected $superadminonly;
 protected $checkversionurl;
 protected $pathtoversion;
+protected $pathtomysqlversion;
 protected $superadmin;
 protected $standardsite;
 
@@ -49,6 +50,9 @@ $this->superadminonly = array("rights", "config", "test");
 // Version
 $this->checkversionurl = "http://mrh.mr.ohost.de/version/version.php?name=HPClass";
 $this->pathtoversion   = "version/version.php";
+
+//Mysql
+$this->pathtomysqlversion = "version/mysql.php";
 
 }
 // ------------------------------------------------------------------
@@ -138,6 +142,20 @@ return $this->firephp;
 // 4.1
 
 //---------------------VERSION----------------------------------------------
+function getmysqlversion()
+{
+$path = $this->pathtomysqlversion;
+$version = @file_get_contents($path);
+
+if ($version == "")
+{
+return false;
+} else
+{
+return $version;
+}
+}
+
 function getversion()
 {
 $path = $this->pathtoversion;
