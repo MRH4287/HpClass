@@ -41,8 +41,8 @@ return $version;
 {
 echo "Versionsdatei nicht gefunden, erstellen.";
 $date = fopen($path, "a");
-fwrite($data, "1");
-exit;
+
+return false;
 }
 }
 
