@@ -148,13 +148,14 @@ $this->db = "";
 
 function query($query)
 {
+$sql = $query;
 $query = mysql_query($query);
 
 $myerror = mysql_error();
 if ($myerror <> "")
 {
 
-$this->error[] = "$myerror";
+$this->error[] = "$myerror ($sql)";
 
 }
 
@@ -208,11 +209,18 @@ if (count($updates) >= 1)
 
 foreach ($updates as $key=>$value) {
 	$update->st_t();
-	$sql = file_get_contents("./update/$value.php");
+	$file = file("./update/$value.php");
+	
+	foreach ($file as $a=>$v) {
+ 	
+ $sql = $v;
+	
 	$sql = str_replace("#!-PRÄFIX-!#", $update->getpräfix(), $sql);
-	
-	$update->query($sql);
-	
+  	if (($sql != "") and ($sql != "<br>"))
+ 	 {
+	 $update->query($sql);
+	 }
+  }
 if (count($update->error) != 0)
 {
 echo "Ein Fehler ist Aufgetreten!<br>Fehlerlog:<br><pre>";

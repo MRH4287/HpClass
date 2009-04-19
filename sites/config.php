@@ -58,6 +58,7 @@ $hp->applyconfig();
 {
 $name=$post['name'];
 $descript=$post['descript'];
+$kat = $post['kat'];
 
 
 if (isset ($post['text']))
@@ -67,10 +68,11 @@ $sql = "INSERT INTO `".$dbpräfix."config` (
 `name` ,
 `ok` ,
 `description`,
-`typ`
+`typ`,
+`kat`
 )
 VALUES (
-'$name', 'Change Me', '$descript', 'string'
+'$name', 'Change Me', '$descript', 'string', '$kat'
 );";
 } else
 {
@@ -79,10 +81,11 @@ $sql = "INSERT INTO `".$dbpräfix."config` (
 `name` ,
 `ok` ,
 `description`,
-`typ`
+`typ`,
+`kat`
 )
 VALUES (
-'$name', 'false', '$descript', 'bool'
+'$name', 'false', '$descript', 'bool', '$kat'
 );";
 }
 $hp->mysqlquery($sql);
@@ -93,6 +96,15 @@ echo mysql_error();
 // Ende auswertung Post
 // Abfrage des aktuellen zustandes...
 
+$cfg = array();
+$abfrage = "SELECT * FROM `".$dbpräfix."config` ORDER BY `".$dbpräfix."config`.`name` ASC";
+//$ergebnis = SQLexec($abfrage, "index");
+$ergebnisss = $hp->mysqlquery($abfrage);
+echo mysql_error();
+while($row = mysql_fetch_array($ergebnisss))
+   {
+   $cfg[$row['kat']][] = $row;
+   }
 
 ?>
 
@@ -101,43 +113,47 @@ echo mysql_error();
   <form method="POST" action="index.php?site=config">
 
   <table border="1" width="677" height="7" bordercolor="#4E6F81">
+  <?
+  foreach ($cfg as $key=>$row2) {
+  	
+  if ($key == "")
+  {
+  $key = "Standard";
+  }
+  ?>
     <tr>
       
-      <td width="757" height="25" bgcolor="#5A8196">Name</td>
+      <td width="757" height="25" bgcolor="#5A8196"><?=$key?></td>
       <td width="80" height="21" bgcolor="#5A8196">
-        <p align="center">Ok?</p>
+        <p align="center"></p>
       </td>
     </tr>
 <?
-// Level 1
 
-$abfrage = "SELECT * FROM `".$dbpräfix."config` ORDER BY `".$dbpräfix."config`.`ID` ASC";
-//$ergebnis = SQLexec($abfrage, "index");
-$ergebnisss = $hp->mysqlquery($abfrage);
-echo mysql_error();
-while($row = mysql_fetch_object($ergebnisss))
-   {
+
+foreach ($row2 as $key12=>$row) {
+	
 
    echo '<tr>
       
-      <td width="757" height="28">'."$row->description".'</td>
+      <td width="757" height="28">'.$row['description'].'</td>
       ';
-      if ($row->typ == "string")
+      if ($row['typ'] == "string")
  {
- $value = $row->ok;
+ $value = $row['ok'];
  $value = str_replace("\"", "'", $value);
 $value = str_replace("<", "&lt;", $value);
  
- echo '<td width="80" height="32" align="center"><input type="text" name="text['."$row->name".']" value="'."$value".'" '; 
+ echo '<td width="80" height="32" align="center"><input type="text" name="text['.$row['name'].']" value="'."$value".'" '; 
  }
  else
 
        {
       echo '
-      <td width="80" height="32" align="center"><input type="checkbox" name="config[]" value="'."$row->name".'" ';
+      <td width="80" height="32" align="center"><input type="checkbox" name="config[]" value="'.$row['name'].'" ';
 }
  
-      if ("$row->ok" == "true")
+      if ($row['ok'] == "true")
       {
       echo "checked=\"true\"";
       }
@@ -148,7 +164,7 @@ $value = str_replace("<", "&lt;", $value);
    
   } 
 
-    
+    }
 
   ?>  
         <tr>
@@ -172,6 +188,10 @@ $value = str_replace("<", "&lt;", $value);
   <tr>
     <td>description:</td>
     <td><input type="text" name="descript" size="31"></td>
+  </tr>
+    <tr>
+    <td>Katigorie:</td>
+    <td><input type="text" name="kat" size="31"></td>
   </tr>
     <tr>
     <td>String?:</td>

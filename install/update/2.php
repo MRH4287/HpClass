@@ -1,0 +1,1 @@
+ALTER TABLE `#!-PRÄFIX-!#config` ADD `kat` VARCHAR( 100 ) NOT NULL;

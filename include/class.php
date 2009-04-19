@@ -535,6 +535,7 @@ echo mysql_error();
 while($row = mysql_fetch_object($ergebnisss))
    {
    $descriptions["$row->name"] = "$row->description";
+   $kat["$row->name"] = $row->kat;
    }
 
 
@@ -572,10 +573,11 @@ $value = str_replace("<", "&lt;", $value);
 `name`,
 `ok`,
 `description`,
-`typ`
+`typ`,
+`kat`
 )
 VALUES (
-'$key', '$value', '$descriptions[$key]', '$typ'
+'$key', '$value', '$descriptions[$key]', '$typ', '$kat[$key]'
 );";
 
 $hp->mysqlquery($sql);
