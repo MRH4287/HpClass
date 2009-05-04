@@ -11,20 +11,27 @@ Modified : February 1, 2006
 
 #lightboxX2{
 	display:none;
-	position: absolute;
-	top:25%;
-	left:25%;
+	position: static;
+  top:30%; 
+  left:25%;
+	/*top:50%;
+	left:50%;
+	*/
 	z-index:9999;
-	/*width:800px;
-	height:600px;*/
-	margin:-220px 0 0 -250px;
+	/*
+	width:800px;
+	height:600px;
+		margin:0 auto;
+    margin:-220px 0 0 -250px;*/
+margin:auto auto auto auto;
+	
 	border:1px solid #fff;
 	background:#FDFCE9;
 	text-align:left;
 	overflow: auto;
 }
 #lightboxX2[id]{
-	position:fixed;
+/*	position:fixed;*/
 }
 
 #overlayX2{

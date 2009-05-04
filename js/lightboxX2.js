@@ -195,8 +195,9 @@ function addLightboxMarkup() {
 	lb					= document.createElement('div');
 	lb.id				= 'lightboxX2';
 	lb.className 	= 'loading';
-			lb.style.opacity = '0.9';
-
+		//	lb.style.opacity = '0.9';
+lb.valign = "middle";
+lb.align= "center";
 		lb.style.position = "absolute";
 		lb.style.background = "#ffd";
 		lb.style.border = "1px solid #777";

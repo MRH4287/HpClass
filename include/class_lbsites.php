@@ -178,15 +178,13 @@ $row = mysql_fetch_object($erg);
 
 ?>
 <p id="highlight">Möchten Sie die Newsmeldung wirklich löschen?</p>
-<table>
+<table width="100%">
 <tr valign="bottom">
 <td>
 <form method="POST" action="index.php?site=admin">
-  <p><input type="hidden" name="newsiddel" size="3" value="<?=$vars?>"><input type="submit" value="Loeschen" name="newsdel"></form>
+  <p align="center"><input type="hidden" name="newsiddel" size="3" value="<?=$vars?>"><input type="submit" value="Löschen" name="newsdel"></form>
 </td>
 <td>
-<form action="" methode="POST"><input  type="submit" value="Nein"> </p>
-  </form>
 </td>
 </tr>
 </table>
