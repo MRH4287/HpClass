@@ -2,7 +2,7 @@
 session_start();
 
 
-@include ("../include/config.php");
+//@include ("../include/config.php");
 
 $hp = $this;
 if (is_object($hp))
@@ -66,7 +66,7 @@ while($row = mysql_fetch_object($ergebnisss))
    }
 
 
-$kat=$_GET['kat'];
+
 
 if (!isset ($_SESSION['username']))
 {
@@ -124,7 +124,7 @@ $newslevel=$_POST['newslevel'];
 $newstitel = mysql_real_escape_string($newstitel);
 $newsersteller = mysql_real_escape_string($newsersteller);
 
-$eingabe = "UPDATE `".$dbpräfix."news` SET `datum` = '$newsdatum', `titel` = '$newstitel', `typ` = '$newstyp', `text` = '$newstext', `level`= '$newslevel' WHERE `ID` = ".$newsidchange.";";
+$eingabe = "UPDATE `".$dbpräfix."news` SET `datum` = '$newsdatum', `titel` = '$newstitel', `typ` = '$newstyp', `text` = '$newstext', `level`= '$newslevel' WHERE `ID` = '".$newsidchange."';";
 
 $ergebnis = mysql_query($eingabe);
   if ($ergebnis == true)
@@ -172,42 +172,27 @@ function FensterOeffnen (Adresse) {
 }
 </script>
 <script language="javascript" type="text/javascript" src="../js/tiny_mce/tiny_mce.js"></script>
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 	tinyMCE.init({
+		// General options
+		mode : "textareas",
 		theme : "advanced",
-		mode : "exact",
-		elements : "t1",
-		//save_callback : "customSave",
-		
-		plugins : "devkit,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
-		theme_advanced_buttons1_add_before : "",
-		theme_advanced_buttons1_add : "fontselect,fontsizeselect",
-		theme_advanced_buttons2_add : "separator,insertdate,inserttime,preview,separator,forecolor,backcolor",
-		theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,separator",
-		theme_advanced_buttons3_add_before : "tablecontrols,separator",
-		theme_advanced_buttons3_add : "emotions,iespell,media,advhr,separator,print,separator,ltr,rtl,separator,fullscreen",
-		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,|,code",
+		plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+
+		// Theme options
+		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
-	//	theme_advanced_path_location : "bottom",
-
-	    plugin_insertdate_dateFormat : "%Y-%m-%d",
-	    plugin_insertdate_timeFormat : "%H:%M:%S",
-		extended_valid_elements : "hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
-		external_link_list_url : "example_link_list.js",
-		external_image_list_url : "example_image_list.js",
-		flash_external_list_url : "example_flash_list.js",
-		media_external_list_url : "example_media_list.js",
-		template_external_list_url : "example_template_list.js",
-		file_browser_callback : "fileBrowserCallBack",
-		theme_advanced_resize_horizontal : false,
+		theme_advanced_statusbar_location : "bottom",
 		theme_advanced_resizing : true,
-		nonbreaking_force_tab : true,
-		apply_source_formatting : true,		
-	});
-	</script>
 
-<form method="POST" action="../index.php?site=newschange&kat=<?=$kat?>">
+	});
+</script>
+
+<form method="POST" action="../index.php?site=newschange">
 
   <p align="left">Überschrift:<br>
   <input type="text" name="newstitel" size="80" value="<?="$row->titel"?>"></p>
@@ -220,14 +205,7 @@ function FensterOeffnen (Adresse) {
     <option>Gameserver</option>
     <option>Member</option>
   </select> Level <input type="text" name="newslevel" size="1" value="<?="$row->level"?>"><br>0 = jeder, 1 = user, 2 = Moderator, 3 = Admin (oder jeweils alle darüber! d.h Admin kann auch 1 lesen)</p>
-  <p align="left">Text: (HTML erlaubt)  &lt;br&gt; entspricht einem Return <script language="JavaScript">
- function oeffnenFernbedienung(url){
-     var fernbedienung = window.open(url, "Buttons",
-         "width=300,height=500,scrollbars=yes,resizable=yes");
-
- }
- </script>
-<a href="#" onClick="oeffnenFernbedienung('../buttons/fb.php');">Öffne Button-Liste</a>  <a href="../smilies.php" onclick="FensterOeffnen(this.href); return false">Smilies</a> <br>
+  <p align="left">Text:
   <textarea rows="15" name="newstext" cols="74" id="t1"><?=$newstext?></textarea><input type="submit" value="Ändern" name="newswrite"></p>
 </form>
 <? } 

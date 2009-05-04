@@ -14,6 +14,39 @@ $post = $hp->post();
 $dbpräfix = $hp->getpräfix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
+$info = $hp->getinfo();
+$lbsites = $hp->lbsites;
+
+// Newschange
+?>
+<script src="./js/tiny_mce/tiny_mce.js" type="text/javascript"></script>
+<?
+$newsidchange=$post['newsid'];
+
+if ($_POST ['newswrite'] == "Ändern") {
+$newsdatum=$_POST['newsdate'];
+$newstitel=$_POST['newstitel'];
+$newstitel = str_replace('<',"&lt;" ,$newstitel);
+$newstyp=$_POST['newstyp'];
+$newstext=$_POST['newstext'];
+$newstext = str_replace('<?',"&lt;?" ,$newstext);
+$newstext = str_replace('[bild]',"<img src=\"smilies/" ,$newstext);
+$newstext = str_replace('[/bild]',"\">" ,$newstext);
+$newslevel=$_POST['newslevel'];
+//$newstext = mysql_real_escape_string($newstext);
+$newstitel = mysql_real_escape_string($newstitel);
+$newsersteller = mysql_real_escape_string($newsersteller);
+
+$eingabe = "UPDATE `".$dbpräfix."news` SET `datum` = '$newsdatum', `titel` = '$newstitel', `typ` = '$newstyp', `text` = '$newstext', `level`= '$newslevel' WHERE `ID` = '".$newsidchange."';";
+
+$ergebnis = mysql_query($eingabe);
+  if ($ergebnis == true)
+  {
+  $info->okm("Newsmeldung erfolgreich geändert!");
+  } 
+$get['delet'] = true;
+ }
+// ----
 
 
 if (!isset ($limit)) 
@@ -66,12 +99,12 @@ if ($ok == true)
                  {
 if ($right[$level]['newsedit'])
 {
-echo '<a href="sites/newschange.php?newsid='.$row->ID.'">News Bearbeiten</a> ';
-
+//echo '<a href="sites/newschange.php?newsid='.$row->ID.'">News Bearbeiten</a> ';
+echo '<a href="index.php?lbsite=newschange&vars='.$row->ID.'" class="lbOn">Bearbeiten</a> ';
 }    
 if ($right[$level]['newsdel'])
 {
-echo '<a href="index.php?lbsite=delnews&vars='.$row->ID.'" class="lbOn">Löschen</a>';
+echo '<a href="index.php?lbsite=delnews&vars='.$row->ID.'" class="lbOn">Löschen</a> ';
 }    
 }         
                    ?> </span></td>
