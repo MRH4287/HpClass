@@ -66,6 +66,13 @@ lightboxX2.prototype = {
 		this.content = ctrl.href;
 		Event.observe(ctrl, 'click', this.activate.bindAsEventListener(this), false);
 		ctrl.onclick = function(){return false;};
+		
+		        if (LightboxOptions.resizeSpeed > 10) LightboxOptions.resizeSpeed = 10;
+        if (LightboxOptions.resizeSpeed < 1)  LightboxOptions.resizeSpeed = 1;
+
+	    this.resizeDuration = LightboxOptions.animate ? ((11 - LightboxOptions.resizeSpeed) * 0.15) : 0;
+	    this.overlayDuration = LightboxOptions.animate ? 0.2 : 0;  // shadow fade in/out duration
+		
 	},
 	
 	// Turn everything on - mainly the IE fixes
@@ -171,6 +178,8 @@ lightboxX2.prototype = {
 		
 		this.displayLightbox("none");
 	}
+	
+
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -184,12 +193,16 @@ function initialize(){
 	}
 }
 
+
+
 // Add in markup necessary to make this work. Basically two divs:
 // Overlay holds the shadow
 // Lightbox is the centered square that the content is put into.
 function addLightboxMarkup() {
 	bod 				= document.getElementsByTagName('body')[0];
 	over 		  	=  document.createElement('div');
+	
+
 	
 	over.id		= 'overlayX2';
 	lb					= document.createElement('div');
@@ -204,6 +217,9 @@ lb.align= "center";
 		lb.style.padding = '10px';
 		lb.style.cursor = 'pointer';
 		lb.style.color = '#555';
+
+
+    
 		lb.style.fontSize = '11px';
 	lb.innerHTML	= '<div id="lbLoadMessage">' +
 						  '<p>Loading</p>' +
