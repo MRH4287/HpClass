@@ -1,119 +1,100 @@
 <?php
-ob_start();
 session_start();
+ob_start();
 
-//------------------------------Zeitmessung-------------------------------------
-$startzeit = explode(" ", microtime());
-$startzeit = $startzeit[0]+$startzeit[1];
-//------------------------------------------------------------------------------
-
-
-//------------------------Einbinden der Include Dateien-------------------------
+//----------------------------Eibinden der Include Dateien!-------------------
 require_once 'include/config.php';
 require_once 'include/class.php';
 require_once 'include/class_lang.php';
 require_once 'include/class_template.php';
 require_once 'include/class_error.php';
 require_once 'include/class_info.php';
-require_once 'include/class_res.php';
-require_once 'include/class_game.php';
-require_once 'include/class_skill.php';
-require_once 'include/class_tech.php';
 require_once 'include/class_lbsites.php';
 require_once 'include/xajax_core/xajax.inc.php';
 require_once 'include/FirePHP.class.php';
 require_once 'include/class_xajax_funk.php';
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 
-//---------------------------Definieren der Klassen-----------------------------
+//--------------------------------------Class Area----------------------------
 $hp = new HP;
-$xajaxF = new Xajax_Funktions;
 $lang = new lang;
 $temp = new template;
 $error = new errorclass;
 $info = new infoclass;
-$res = new res;
-$game = new game;
 $lbsites = new lbsites;
-$skill = new skill;
-$tech = new tech;
-//------------------------------------------------------------------------------
+$xajaxF = new Xajax_Funktions;
+// ----------------------------------------------------------------------------
 
-//------------------------------Variablenübergabe-------------------------------
-$lang->init("de");
+//--------------------------------------SET Area-------------------------------
 $hp->setlang($lang);
 $hp->seterror($error);
+$hp->setinfo($info);
 $hp->setfirephp($firephp);
+$hp->settemplate($temp);
 $lang->seterror($error);
+$lang->sethp($hp);
 $temp->seterror($error);
 $temp->sethp($hp);
 $temp->setlang($lang);
 $error->sethp($hp);
-$res->sethp($hp);
-$res->setlang($lang);
-$res->seterror($error);
-$res->setinfo($info);
-$game->sethp($hp);
-$game->setlang($lang);
-$game->seterror($error);
-$game->setinfo($info);
-$skill->sethp($hp);
-$tech->sethp($hp);
-$hp->setinfo($info);
-$hp->setres($res);
-$hp->setgame($game);
-$hp->skill = $skill;
-$hp->tech = $tech;
+$info->init($lang, $error, $hp);
 $xajaxF->sethp($hp);
 $lbsites->sethp($hp);
 $hp->setlbsites($lbsites);
-//------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
-//----------------------------------MYSQL---------------------------------------
+//-----------------------------------MYSQL Area (DB Verbindung)----------------
 $hp->setdata($dbserver, $dbuser, $dbpass, $dbpräfix, $dbdatenbank);
 $hp->connect();
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
-//------------------------- Class Inits und Handlers----------------------------
-$info->init($lang, $error, $hp);
+//-----------------------------lang Config-------------------------------------
+$lang->init("de");
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------Input / Cofig Handling--------------------------
 $hp->handelinput($_GET, $_POST);
+$hp->handelconfig();
+//-----------------------------------------------------------------------------
 
-//-------------------Handler/ Inits, die MYSQL zugriff benötigen----------------
-$res->checkres();
+//-----------------------------right / config----------------------------------
 $right = $hp->getright();
 $config = $hp->getconfig();
-$hp->handelconfig();
-$game->handleconfig();
-// ---------------------------------Misc----------------------------------------
+//-----------------------------------------------------------------------------
+
+
+//-------------------------------Module----------------------------------------
+include 'include/modulscheck.php';
+//-----------------------------------------------------------------------------
+
+//----------------------------Sonstiges----------------------------------------
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
 
-//--------------------------------Xajax Request---------------------------------
+//--------------------------------Xajax Request--------------------------------
 $xajaxF->processRequest();
 
 
-//----------------------------------Includes------------------------------------
-//@include 'include/iesperre.php';        // Verhindert, dass ein IE bassierter Browser auf die Seite kommt (Fehlermeldung)
-require_once 'include/template.php';    // Templatevariablen
-require_once 'include/login.php';       // Login Bereich (wird später als Variable eingebunden)
-require_once 'include/modulscheck.php'; // Überprüft die Module (autoruns etc.)
-//------------------------------------------------------------------------------
+//------------------------------Template Steuerung-----------------------------
+// 1. Inportieren der Template Dateien
+include 'include/template.php';
+include 'include/login.php';
 
-//---------------------------------Template-------------------------------------
+
+// 2. Übergeben des Template Arrays am die Funktion
 $temp->settemplate($template);
+// 3. Laden der HTML Datei
 $temp->load($design);
-// Ausgeben der Error / Info Platzhalter
-$error->outputdiv();
-$info->outputdiv();
 
+// 4. Ausgeben des Headers
 echo $temp->gettemp('header');
-//------- Einbinden der Seite-----------
+// 5. Einbinden der PHP Datei
 $hp->inc();
-//--------------------------------------
-
+// 6. Ausgeben des Footers
 echo $temp->gettemp('footer');
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 //----------------------------------XAJAX---------------------------------------
 echo $xajaxF->printjs();
@@ -121,12 +102,11 @@ echo $xajaxF->printjs();
 include 'js/xajax.php';
 //------------------------------------------------------------------------------
 
-//------------------------------Zeitmessung-------------------------------------
-include "include/zeitmessung.php";
 
-//--------------------------Error / Info Handler--------------------------------
+//----------------------------Info und Error Handling--------------------------
 $info->getmessages();
 $error->showerrors();
+//-----------------------------------------------------------------------------
 
 
 ob_end_flush();

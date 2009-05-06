@@ -6,7 +6,7 @@ var $hp;
 var $ajaxFuncPrefix = 'ax_';
 
 var $xajax;
-var $skill;
+
 
 function __construct()
 {
@@ -20,7 +20,6 @@ function __construct()
 function sethp($hp)
 {
 $this->hp = $hp;
-$this->skill = $hp->skill;
 }
 
  public function registerFunctions() {
