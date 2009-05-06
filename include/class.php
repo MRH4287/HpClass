@@ -9,6 +9,7 @@ public    $langclass;
 public    $error;
 public    $info;
 public    $firephp;
+public    $fp;
 public    $lbsites;
 
 
@@ -95,6 +96,7 @@ $this->template = $template;
 function setfirephp($firephp)
 {
 $this->firephp = $firephp;
+$this->fp = $firephp;
 }
 
 function setlbsites($lbsites)
