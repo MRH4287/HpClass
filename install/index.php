@@ -180,7 +180,7 @@ if (file_exists("../include/config.php"))
 echo "<br>Installation Erfolgreich!<br>";
 echo "<p align=\"center\"><font size=\"4\">Herzlichen Glückwunsch!<br>Die Website ist nun voll Funktionsfähig!!</font></p>";
 echo "<p align=\"center\"><font size=\"4\">Die Benutzerdaten sind: admin Passwort: admin (dieser Benutzer kann ohne gefahren wieder gelöscht werden)</font></p>";
-echo "<br><b>Bitte diese Datei Löschen!!</b><br><a href=\"../index.php\">Zurück zur Hauptseite</a>";
+echo "<br><b>Bitte diese Datei Löschen!!</b><br><a href=\"./update.php\">PATCHEN</a>";
 } else
 {
 echo "Es wurde keine Config Datei gefunden!<br>Wir raten ihnen, eine Config Datei zu erstellen!";

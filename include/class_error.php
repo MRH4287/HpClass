@@ -6,35 +6,28 @@ var $errorarray = array();
 var $hp;
 var $firephp;
 
-
-function error($string, $l)
+function error($string, $l = "2", $fu = "")
 {
-
 
 if (!is_object($this->firephp))
 {
 $this->firephp = $this->hp->getfirephp();
 }
 
-
 $l = (string) $l;
 if ($l == "1")
 {
-if (!$config['hideerrors'])
-{
-echo $string;
-}
+$this->firephp->warn($string, $fu);
 
-$this->firephp->info($string);
+echo $string;
 } elseif ($l == "2")
 {
 
 $this->errorm = $string;
 
-$this->firephp->warn($string);
-if (!$config['hideerrors'])
 if (!in_array($string, $this->errorarray))
 {
+$this->firephp->warn($string, $fu);
 
 array_push($this->errorarray, $string);
 }
@@ -44,22 +37,15 @@ array_push($this->errorarray, $string);
 } elseif ($l == "3")
 {
 $datum = date('j').".".date('n').".".date('y');
-$dbpräfix = $this->hp->getpräfix();
-$this->firephp->error($string);
-if (!$config['hideerrors'])
-{
+$this->firephp->error($string, $fu);
+
 echo "<font color=red>$string</font>";
-}
-if (isset($dbpräfix))
-{
-$this->hp->pm('mrh', 'System', 'ERROR der Stufe 3!', $string, $datum);
-}
+
+$this->hp->PM('mrh', 'System', 'ERROR der Stufe 3!', $string, $datum);
+
 
 exit;
 }
-
-
-
 }
 
 function geterror()
@@ -67,7 +53,7 @@ function geterror()
 return $this->errorm;
 }
 
-function errorclass()
+function outputdiv()
 {
 
 echo '<div id="errordiv" style="color:white; background-color:red; display:none;"><p align="center"></p></div>'."\n";
@@ -92,7 +78,7 @@ $string = $value;
 }
 if ($string <> "")
 {
-$string =str_replace("'", '"', $string);
+$string = str_replace("'", '"', $string);
 ?>
 
 <script type="text/javascript">
@@ -117,4 +103,3 @@ $this->hp=$hp;
 }
 
 ?>
-

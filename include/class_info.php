@@ -7,6 +7,7 @@ var $error;
 var $hp;
 var $infoarray = array();
 var $okmarray = array();
+
 var $firephp;
 
 function init($lang, $error, $hp)
@@ -42,7 +43,7 @@ $this->okm($okm);
 }
 
 
-function infoclass()
+function outputdiv()
 {
 
 echo '<div id="infodiv" style="color:black; background-color:yellow; display:none;"><p align="center"></p></div>'."\n";
@@ -69,7 +70,7 @@ $string = $value;
 }
 if ($string <> "")
 {
-$string = str_replace("'", '"', $string);
+$string = str_replace("'", '\\"', $string);
 ?>
 
 <script type="text/javascript">
@@ -101,7 +102,7 @@ $string = $value;
 }
 if ($string <> "")
 {
-$string = str_replace("'", '"', $string);
+$string = str_replace("'", '\"', $string);
 ?>
 
 <script type="text/javascript">
