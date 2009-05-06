@@ -16,9 +16,9 @@ $this->info = $hp->getinfo();
 $this->fp = $hp->firephp;
 }
 
-function link($site, $text, $vars = "")
+function link($site, $text, $vars = "", $class = "lbOn")
 {
-return '<a href="index.php?lbsite='.$site.'&vars='.$vars.'" class="lbOn">'.$text.'</a>';
+return '<a href="index.php?lbsite='.$site.'&vars='.$vars.'" class="'.$class.'">'.$text.'</a>';
 }
 
 

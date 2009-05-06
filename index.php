@@ -86,6 +86,8 @@ include 'include/login.php';
 // 2. Übergeben des Template Arrays am die Funktion
 $temp->settemplate($template);
 // 3. Laden der HTML Datei
+$error->outputdiv();
+$info->outputdiv();
 $temp->load($design);
 
 // 4. Ausgeben des Headers
