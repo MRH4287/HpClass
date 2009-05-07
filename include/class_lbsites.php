@@ -52,7 +52,7 @@ echo "Seite nicht gefunden!";
 <td>
 <?
 
-echo "<br><br><center><a href=\"#\" class=\"lbAction\" rel=\"deactivate\"><p align=\"right\"><img src=images/close.gif></p> </center>";
+echo "<br><br><center><a href=\"#\" onclick=\"resolution();\">Ausrichten</a><a href=\"#\" class=\"lbAction\" rel=\"deactivate\"><p align=\"right\"><img src=images/close.gif></p> </center>";
 ?>
 </td>
 </tr>
@@ -150,6 +150,7 @@ while($row = mysql_fetch_object($ergebnis))
   <p align="left">
   <textarea rows="15" name="newstext" cols="74" id="t1"><?=$newstext?></textarea><input type="submit" value="Ändern" name="newswrite"></p>
 </form>
+<script>resolution();</script>
 <? } 
 
 
@@ -192,6 +193,7 @@ $row = mysql_fetch_object($erg);
 <b>Newstitel:</b> <?=$row->titel?><br>
 <b>Ersteller:</b> <?=$row->ersteller?><br>
 <b>
+<script>resolution();</script>
 <?
 } else
 {

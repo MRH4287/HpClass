@@ -10,7 +10,6 @@ Inspired by the lightbox implementation found at http://www.huddletogether.com/p
 
 var detect = navigator.userAgent.toLowerCase();
 var OS,browser,version,total,thestring;
-
 /*-----------------------------------------------------------------------------------------------*/
 
 //Browser detect script origionally created by Peter Paul Koch at http://www.quirksmode.org/
@@ -193,8 +192,7 @@ function initialize(){
 	}
 }
 
-
-
+var lb;
 // Add in markup necessary to make this work. Basically two divs:
 // Overlay holds the shadow
 // Lightbox is the centered square that the content is put into.
@@ -209,8 +207,8 @@ function addLightboxMarkup() {
 	lb.id				= 'lightboxX2';
 	lb.className 	= 'loading';
 		//	lb.style.opacity = '0.9';
-lb.valign = "middle";
-lb.align= "center";
+//lb.valign = "middle";
+//lb.align= "center";
 		lb.style.position = "absolute";
 		lb.style.background = "#ffd";
 		lb.style.border = "1px solid #777";
@@ -226,4 +224,51 @@ lb.align= "center";
 						  '</div>';
 	bod.appendChild(over);
 	bod.appendChild(lb);
+	
+resolution();
 }
+
+
+
+function resolution()
+{
+
+//var div = document.getElementsByTagName('body')[0].childNodes[document.getElementsByTagName('body')[0].childNodes.length-1];
+// var  divs = document.getElementsByTagName('div');
+// for(i = 0; i < divs.length; i++) {
+// 
+// document.write(divs[i].id);
+
+//alert(lb);
+		var width = lb.offsetWidth;
+		var height = lb.offsetHeight;
+
+		if (width >= window.innerWidth) 
+			{
+			lb.style.left = '0px';
+			//document.getElementById('fade').style.width = width+'px';
+			}
+		else
+			{
+			var spacewidth = window.innerWidth - width;
+			var leftwidth = spacewidth / 2;
+			lb.style.left = leftwidth+'px';
+			}
+		if (height >= window.innerHeight) 
+			{
+		//	lb.style.top = '0px';
+			//document.getElementById('fade').style.height = height+'px';
+			}
+		else
+			{
+			var spaceheight = window.innerHeight - height;
+			var topheight = spaceheight / 2;
+			topheight = topheight + 200
+			lb.style.top = topheight+'px';
+			}	
+
+
+}
+
+
+

@@ -55,7 +55,7 @@ echo"<br>Vielen Dank,<br>Ihre Registration wurde erfolgreich abgeschlossen!";
 echo"<br>Sie sind auserdem, nun im Forum angemeldet. (Die selben Benutzerdaten)";
 
 
-PM($superadmin, "System", "Neuer User", "Ein neuer User:<br>$user", $datum, $dbpräfix);
+$hp->PM($superadmin, "System", "Neuer User", "Ein neuer User:<br>$user", $datum, $dbpräfix);
 
 
 } else { echo "Fehler: <br>Melden Sie sich bitte umgehen bei dem zuständigem Administrator! <br>".mysql_error(); }

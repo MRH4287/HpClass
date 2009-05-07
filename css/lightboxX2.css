@@ -11,10 +11,12 @@ Modified : February 1, 2006
 
 #lightboxX2{
 	display:none;
-	position: relative;
+	position: absolute;
+	
   top:50%; 
-  left:25%;
-	/*top:50%;
+  left:50%;
+	
+  /*top:50%;
 	left:50%;
 	*/
 	z-index:9999;
@@ -23,7 +25,9 @@ Modified : February 1, 2006
 	width:800px;
 	height:600px;
 		margin:0 auto;*/
-    margin:-220px 0 0 -250px;
+   margin:-220px 0 0 -250px;
+   margin-left: auto;
+  margin-right: auto;
 
 	
 	border:1px solid #fff;
@@ -32,7 +36,7 @@ Modified : February 1, 2006
 	overflow: auto;
 }
 #lightboxX2[id]{
-/*	position:fixed;*/
+	position:fixed;
 }
 
 #overlayX2{
