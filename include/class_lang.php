@@ -241,7 +241,8 @@ $this->addlang($lang);
 
 
 
-
+if (is_array($this->lang[$this->clang]))
+{
 foreach ($this->lang[$this->clang] as $key=>$value) {
 $array = explode("tp_", $key);
 
@@ -253,6 +254,7 @@ $array = explode("tp_", $key);
   }
 }
 }
+} else { $fp->warn("Langclass Warnt: this->lang[this->clang] ist kein Array"); }
 }
 
 function sethp($hp)

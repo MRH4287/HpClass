@@ -18,9 +18,9 @@ $info = $hp->getinfo();
 $lbsites = $hp->lbsites;
 
 // Newschange
-?>
-<script src="./js/tiny_mce/tiny_mce.js" type="text/javascript"></script>
-<?
+
+if ($right[$level]['newsedit'])
+{
 $newsidchange=$post['newsid'];
 
 if ($_POST ['newswrite'] == "Ändern") {
@@ -46,7 +46,108 @@ $ergebnis = mysql_query($eingabe);
   } 
 $get['delet'] = true;
  }
+ 
+ }
 // ----
+
+
+// NewsDel
+if (isset($post['newsdel']))
+{
+if (!$right[$level]['newsdel'])
+{
+echo $lang->word('nodelnews')."<br>".$lang->word('questions-webmaster');
+
+} else
+{
+
+
+
+$eintrag = "DELETE FROM `".$dbpräfix."news` WHERE `ID`= ".$post['newsiddel'];
+$eintragen = mysql_query($eintrag);
+    if ($eintragen == false)
+{
+$error->error(mysql_error(), "2");
+}
+$eintrag2 = "DELETE FROM `".$dbpräfix."kommentar` WHERE `zuid`= ".$post['newsiddel'];
+$eintragen2 = mysql_query($eintrag2);
+
+    if ($eintragen2 == false)
+{
+$error->error(mysql_error(), "2");
+}
+
+
+}
+if ($eintragen == true and $eintragen2 == true)
+{
+$info->okn($lang->word('delok'));
+} else
+{
+$error->error($lang->word('error-del')." ".mysql_error(), "2");
+}
+$get['delet'] = true;
+}
+// Newsdel
+
+
+// Newswrite
+$newskat=$post['newskat'];
+$newstitel=$post['newstitel'];
+$newstitel = str_replace('<',"&lt;" ,$newstitel);
+
+$newstext=$post['newstext'];
+
+$newstext = str_replace('<?',"&lt;?" ,$newstext);
+$newstext = str_replace('[bild]',"<img src=\"smilies/" ,$newstext);
+$newstext = str_replace('[/bild]',"\">" ,$newstext);
+$newsersteller=$_SESSION['username'];
+
+$newslevel=$post['newslevel'];
+$newstyp=$post['newstyp'];
+$newsdatum = date('j').".".date('n').".".date('y');
+//$newstext = mysql_real_escape_string($newstext);
+$newstitel = mysql_real_escape_string($newstitel);
+$newsersteller = mysql_real_escape_string($newsersteller);
+//$newstext = str_replace("\n",'<br>',$newstext);
+
+//News schreiben!
+if (isset($post['newswrite']))
+{
+
+
+if (!$right[$level]['newswrite'])
+{
+echo $lang->word('nonewswrite')."<br>".$lang->word('questions-webmaster');
+
+} else
+{
+
+
+if (isset($newstitel) and isset($newsersteller) and isset($newsdatum) and isset($newstext) and isset($newslevel))
+{
+
+$eintrag = "INSERT INTO `".$dbpräfix."news`
+(ersteller, datum, titel, typ, text, level)
+VALUES
+('$newsersteller', '$newsdatum', '$newstitel', '$newstyp', '$newstext', '$newslevel')";
+$eintragen = $hp->mysqlquery($eintrag);
+
+
+if ($eintragen == true)
+{
+$goodn=$lang->word('postok');
+
+
+} else
+{$error->error($lang->word('error-post').": ".mysql_error(), "2");}
+} else
+{
+$error->error($lang->word('error-post'),"2");
+}
+}
+}
+// --------
 
 
 if (!isset ($limit)) 
@@ -145,33 +246,19 @@ $nummer=$nummer+1;
       </table><br>      
 <? }  }   
 
-if (isset($get['delet']))
-if ((!$right[$level]['newswrite']) and (!$right[$level]['newsedit']) and (!$right[$level]['newsdel']))
-{
-echo $lang->word('noright');
 
-} else
-
-
-{
-/*
 ?>
-<form method="POST" action="index.php?site=admin">
-  <p>ID: <input type="text" name="newsiddel" size="3"><input type="submit" value="<?=$lang->word('delet')?>" name="newsdel"></p>
-  </form>
-<form method="GET" action="sites/newschange.php">
-  <p>ID: <input type="text" name="newsid" size="3"><input type="submit" value="<?=$lang->word('edit')?>" name="newschange">
- 
-</form>
-
-
+<p align="center"><font size="3"><a href="index.php?site=news&limit=20"><b><?=$lang->word('morenews')?></b></a></font>
 <?
-*/
-} else
+ if ($right[$level]['newswrite'])
 {
-?>
-<p align="left"><font size="3"><a href="index.php?site=news&limit=20"><b><?=$lang->word('morenews')?></b></a></font></p>
-<?}?>
+echo"  -  ".$lbsites->link("newnews","<b>Neue Newsmeldung verfassen</b>"); 
+ }
+if ($right[$level]['newsedit']) 
+{
+echo"  -  <a href=\"index.php?site=news&delet=true\"><b>Newsmeldungen Bearbeiten</b></a>"; 
+}
+ ?></p>
 <!--News Ende-->
 <?
 ob_end_flush();

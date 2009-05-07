@@ -43,7 +43,7 @@ $template['js']='<script type="text/javascript" src="js/prototype.js"></script>
 <link rel="stylesheet" href="css/lightbox.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/lightboxX2.js"></script>
 <link rel="stylesheet" href="css/lightboxX2.css" type="text/css" media="screen" />
-
+<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 ';
 
 ?>
