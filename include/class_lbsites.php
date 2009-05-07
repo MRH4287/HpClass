@@ -57,6 +57,7 @@ echo "<br><br><center><a href=\"#\" onclick=\"resolution();\">Ausrichten</a><a h
 </td>
 </tr>
 </table>
+<script>resolution();</script>
 <?
 }
 
@@ -149,7 +150,7 @@ while($row = mysql_fetch_object($ergebnis))
   <p align="left">
   <textarea rows="15" name="newstext" cols="74" id="t1"><?=$newstext?></textarea><input type="submit" value="Ändern" name="newswrite"></p>
 </form>
-<script>resolution();</script>
+
 <? } 
 
 
@@ -233,7 +234,7 @@ if (!$right[$level]['newswrite'])
 <?
 } // Wegen Rechte
 
-?> <script> resolution(); </script> <?
+
 
 }
 
@@ -271,7 +272,7 @@ $row = mysql_fetch_object($erg);
 <b>Newstitel:</b> <?=$row->titel?><br>
 <b>Ersteller:</b> <?=$row->ersteller?><br>
 <b>
-<script>resolution();</script>
+
 <?
 } else
 {
