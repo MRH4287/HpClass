@@ -1,6 +1,9 @@
 <?php
-$version = "4.2b-5";
-$changelog = "Version 4.2b-4:
+$version = "5.0";
+$changelog = "Version 5.0
+Ich hab einiges geändert, wo ich schon längst nicht mehr weiß was! Führ nährer Informationen, lest den SVN Log
+
+Version 4.2b-4:
 [Fix] Sicherheitslücke behoben
 
 Version 4.2b-3:
@@ -30,6 +33,8 @@ Update 4.2
 Update 4.1:
 [ADD] Versionschecker
 [ADD] Config Modul
+
+
 
 
 
