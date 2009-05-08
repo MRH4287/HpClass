@@ -146,9 +146,10 @@ while($row = mysql_fetch_object($ergebnis))
     <option>Event</option>
     <option>Gameserver</option>
     <option>Member</option>
-  </select> Level <input type="text" name="newslevel" size="1" value="<?="$row->level"?>"><br>0 = jeder, 1 = user, 2 = Moderator, 3 = Admin (oder jeweils alle darüber! d.h Admin kann auch 1 lesen)</p>
+  </select> Level <input type="text" name="newslevel" size="1" value="<?="$row->level"?>"><br>Die Berechtigungen können in der Seite "Rechte" geändert werden. Level 0 bedeutet öffentlich.</p>
   <p align="left">
-  <textarea rows="15" name="newstext" cols="74" id="t1"><?=$newstext?></textarea><input type="submit" value="Ändern" name="newswrite"></p>
+  <textarea rows="15" name="newstext" cols="74" id="t1"><?=$newstext?></textarea>
+  <button type="submit" name="newsedit"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
 </form>
 
 <? } 
@@ -210,8 +211,6 @@ if (!$right[$level]['newswrite'])
 	});
 </script>
 <!-- /TinyMCE -->
-<p align="center"><font size="5"><u>Administration:</u></font></p>
-
 
 <p align="left"><font size="3"><u><?=$lang->word('newnews')?></u></font></p>
 <form method="POST" action="index.php?site=news">
@@ -224,7 +223,7 @@ if (!$right[$level]['newswrite'])
     <option>Gameserver</option>
     <option>Member</option>
   </select> Level <input type="text" name="newslevel" size="1" value ="0">
-<input name="newskat" type="hidden" value="Wii">
+  <br>Die Berechtigungen können in der Seite "Rechte" geändert werden. Level 0 bedeutet öffentlich.
 
   <p align="left">
 

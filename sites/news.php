@@ -23,7 +23,7 @@ if ($right[$level]['newsedit'])
 {
 $newsidchange=$post['newsid'];
 
-if ($_POST ['newswrite'] == "Ändern") {
+if (isset($post['newsedit'])) {
 $newsdatum=$_POST['newsdate'];
 $newstitel=$_POST['newstitel'];
 $newstitel = str_replace('<',"&lt;" ,$newstitel);
@@ -146,6 +146,7 @@ $goodn=$lang->word('postok');
 $error->error($lang->word('error-post'),"2");
 }
 }
+$get['delet'] = true;
 }
 // --------
 
