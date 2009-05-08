@@ -62,14 +62,12 @@ $this->pathtomysqlversion = "version/mysql.php";
 //-------------------------------------SET---------------------------------------
 function setlang($langclass2)
 {
-
 $this->langclass = $langclass2;
 $this->lang = $this->langclass->getlang();
 }
 
 function setdata($host, $user,$password, $präfix, $db)
 {
-
 $this->host=$host;
 $this->password=$password;
 $this->user=$user;
@@ -91,7 +89,6 @@ function settemplate($template)
 {
 $this->template = $template;
 }
-
 
 function setfirephp($firephp)
 {
@@ -178,24 +175,17 @@ $this->setconfig("checkversion", false);
 } else
 {
 
-
 $array = $this->getversion();
 $version2 = $array['version'];
-
 
 if (($version != $version2) and (in_array($_SESSION['username'], $this->superadmin)))
 {
 $this->info->info("Ihre Version ist nicht mehr auf dem neusten Stand! ($version2 - $version)");
 
 }
-
 } // Error -Handler
-
-
 }
 //-----------------------------/VERSION----------------------------------------------- 
-
-
 
 function geterror()
 {
@@ -233,8 +223,8 @@ if ($myerror <> "")
 {
 $this->error->error("$myerror", "2");
 }
-// Löschen alller DB Variablen
-// Berhindert späteres auslesen!
+// Löschen aller DB Variablen
+// Verhindert späteres auslesen!
 $this->host = "";
 $this->user = "";
 $this->password = "";
@@ -258,15 +248,12 @@ $this->error->error("$myerror", "2");
 return $query;
 }
 
-
-
 function escapestring($string)
 {
 return mysql_real_escape_string($string);
 }
+
 //-------------------------------------------ALLGEMEIN--------------------------------
-
-
 // Allgemeine Funktionen:
 
 function handelinput ($get, $post)
@@ -275,7 +262,6 @@ if (isset($get))
 {
 foreach ($get as $key=>$value) {
 $this->outputg[$key]=$value;
-	
 }
 } 
 
@@ -319,11 +305,7 @@ if(isset($get['lchange']) and ($_SESSION['username'] == "mrh"))
 {
 $_SESSION['level'] = $get['lchange']; 
 }
-
-
 }
-
-
 
 
 function checksite($site)
@@ -334,7 +316,6 @@ if ($site == "")
 {
 $site = $this->standardsite;
 }
-
 
 $invalide = array('/','/\/',':','.','\\');
 $site = str_replace($invalide,' ',$site);
@@ -353,14 +334,9 @@ $ok = false;
 }
 }
 
-
 if (!in_array($_SESSION['username'], $this->superadmin)) {
-
-
 if(in_array($site, $this->superadminonly)) { $ok = false; }
-
 }
-
 
 if ($ok)
 {
@@ -371,7 +347,6 @@ return "404";
 }
 
 }
-
 
 function inc()
 {
@@ -413,7 +388,6 @@ if (file_exists("$sitesp/$site.php") and (is_file("$sitesp/$site.php")))
 }
 
 
-
 function getright()
 {
 
@@ -438,9 +412,7 @@ while($row = mysql_fetch_object($ergebnisss))
    }
 
 return $right;
-
 }
-
 
 // Von Functions.php Übernommen
 // 4.2b
@@ -463,12 +435,7 @@ timestamp
 VALUES
 ('$von', '$datum', '$zu', '$text', '$Betreff', '0', '$time')";
 @$this->mysqlquery($eintragintodb);
-
-
 }
-
-
-//
 
 // ------------------------------------------CONFIG----------------------------------
 // Config Area:
@@ -502,7 +469,6 @@ while($row = mysql_fetch_object($ergebnisss))
 return $config;
 
 }
-
 
 //Setconfig_array
 // 4.2b
@@ -547,7 +513,6 @@ echo mysql_error();
 
 
 
-
 foreach ($config as $key=>$value) {
 
 //echo "$key - $value <br>";
@@ -587,8 +552,6 @@ echo mysql_error();
 
 }
 
-
-
 }
 
 
@@ -618,8 +581,6 @@ $this->standardsite=$this->config['standardsite'];
 }
 
 
-
-
 // Checkversion
 // 4.1
 
@@ -641,8 +602,6 @@ $this->redirectlock = array_merge($this->redirectlock, $redirectlock);
 
 }
 
-
-
 //---------------------------------------------MODULE----------------------------
 
 // Module
@@ -655,11 +614,6 @@ function addredirectlock($site)
 {
 $this->redirectlock[]=$site;
 }
-
-
-
-
-
 
 
 } // Class Ende!

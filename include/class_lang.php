@@ -254,7 +254,8 @@ $array = explode("tp_", $key);
   }
 }
 }
-} else { $fp->warn("Langclass Warnt: this->lang[this->clang] ist kein Array"); }
+} else {// $fp->warn("Langclass Warnt: this->lang[this->clang] ist kein Array"); 
+}
 }
 
 function sethp($hp)
