@@ -3,6 +3,7 @@ session_start();
 ob_start();
 
 //----------------------------Eibinden der Include Dateien!-------------------
+require_once 'include/checkinstall.php';
 require_once 'include/config.php';
 require_once 'include/class.php';
 require_once 'include/class_lang.php';
