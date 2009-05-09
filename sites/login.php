@@ -30,6 +30,18 @@ while($row = mysql_fetch_object($ergebnis))
    {
    $_SESSION['username']="$user";
   $ok=true; 
+   } elseif ($passwort != $row->pass) // Kein Md5
+   {
+   if ($passwort == md5($row->pass))
+   {
+   // KEin MD5 ...
+   $sql = "UPDATE `".$dbpräfix."user` SET `pass` = MD5( '$row->pass' ) WHERE `user` = '".$user."'";
+   mysql_query($sql);
+   echo mysql_error();
+    $_SESSION['username']="$user";
+    $ok = true;
+   }
+   
    }
     }
 

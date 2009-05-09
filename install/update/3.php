@@ -1,0 +1,1 @@
+ALTER TABLE `#!-PRÄFIX-!#user` CHANGE `pass` `pass` VARCHAR( 100 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL 
