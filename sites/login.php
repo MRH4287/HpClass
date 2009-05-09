@@ -13,6 +13,9 @@ or print "Die Datenbank existiert nicht.";
 
 $user=$_POST['user'];
 $passwort=$_POST['passwort'];
+
+$passwort = md5($passwort);
+
 $ok = false;
 if (isset($_POST['login'])) 
 {
@@ -73,9 +76,6 @@ $eintragen =  mysql_query($eintrag);
 echo mysql_error();
 }
 
-
-$eintrag = "DELETE FROM `".$dbpräfix."online` WHERE  `user` = '$user'";
-$eintragen =  mysql_query($eintrag);
 
 }
 if ($ok == true)

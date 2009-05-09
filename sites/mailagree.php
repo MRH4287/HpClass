@@ -37,6 +37,7 @@ while($row = mysql_fetch_object($ergebnis))
 
 if (isset($user) and ($user != ""))
 {
+$passwort123 = md5($passwort123);   
    
 $eintrag = "DELETE FROM `".$dbpräfix."anwaerter` WHERE `user` = '".$get['user']."'";
 $eintragen1 = $hp->mysqlquery($eintrag);

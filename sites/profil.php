@@ -319,16 +319,17 @@ $passwortalt=$post['passwortalt'];
 $passwortneu=$post['passwort'];
 $passwortneu2=$post['passwort2'];
 
-
+$passwortalt = md5($passwortalt);
 
 if ($passwortalt == $_SESSION['pass'] and $passwortneu == $passwortneu2)
 {
+$passwortneu = md5($passwortneu);
 $eingabe = "UPDATE `".$dbpräfix."user` SET `pass` = '$passwortneu' WHERE `user` = '".$_SESSION['username']."';";
 $ergebnis = $hp->mysqlquery($eingabe);
 if ($ergebnis == true)
 {
 $_SESSION['pass']=$passwortneu;
-echo $lang->word('ok_profil')."!<br><a href=../index.php?site=profil>".$lang->word('back')."</a>";
+echo $lang->word('ok_profil')."!<br><a href=index.php?site=profil>".$lang->word('back')."</a>";
 } else { echo $lang->word('error').": ".mysql_error(); }
 } else { echo $lang->word('pwwrong_profil')."!<br><a href=index.php?site=profil>".$lang->word('back')."</a>"; }
 }

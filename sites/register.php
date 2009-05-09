@@ -194,6 +194,7 @@ while($row = mysql_fetch_object($ergebnis))
 if ($ok == true) {  
 $text = "Feature Disabled";
 
+$passwort12 = md5($passwort12);
 
 $eintrag = "INSERT INTO `".$dbpräfix."anwaerter`
 (user, pass, name, nachname, datum, text, email, geschlecht, wohnort, tel)
