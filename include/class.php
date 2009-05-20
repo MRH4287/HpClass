@@ -5,6 +5,7 @@ class HP
 // Öffentliche Variablen:
 public    $site;
 public    $lang;
+public    $hp;
 public    $langclass;
 public    $error;
 public    $info;
@@ -55,6 +56,7 @@ $this->pathtoversion   = "version/version.php";
 //Mysql
 $this->pathtomysqlversion = "version/mysql.php";
 
+$this->hp = this;
 }
 // ------------------------------------------------------------------
 // In diesem Bereich werden alle Variablen an die Klasse übergeben
