@@ -252,7 +252,7 @@ function resolution()
 			{
 			var spacewidth = window.innerWidth - width;
 			var leftwidth = spacewidth / 2;
-			lb.style.left = leftwidth+'px';
+			lb.style.left = leftwidth + 'px';
 			}
 		if (height >= window.innerHeight) 
 			{
