@@ -211,10 +211,34 @@ while($row = @mysql_fetch_object($ergebnis))
             ?>
             
 <form method="POST" action="index.php?site=user&change=<?=$get['show']?>&show=<?=$get['show']?>">
-<select size="3" name="level">
-        <option <? if ("$row->level" == 1) { echo "selected"; } ?>>1</option>
-        <option <? if ("$row->level" == 2) { echo "selected"; } ?>>2</option>
-        <option <? if ("$row->level" == 3) { echo "selected"; } ?>>3</option>
+<?
+
+$sql = "SELECT * FROM `".$dbpräfix."right`";
+$erg = $hp->mysqlquery($sql);
+$levels = array();
+while ($row = mysql_fetch_object($erg))
+{
+if (!in_array($row->level, $levels))
+{
+$levels[] = $row->level;
+}
+}
+
+?>
+
+<select size="<?=count($levels)?>" name="level">
+<?
+
+$fp = $hp->fp;
+$fp->log($levels);
+foreach ($levels as $egal=>$aktlevel) {
+
+?>
+
+        <option <? if ("$row->level" == aktlevel) { echo "selected"; } ?>><?=$aktlevel?></option>
+        <?
+        } ?>
+
       </select><!--<input type="text" name="level" size="3" value="<?="$row->level"?>">-->
       </td>
             <th style="padding-bottom: 6px;"></th>
@@ -265,7 +289,7 @@ var page3 = document.getElementById('page3');
 </script> 
             
 <a href="#" onclick="page1.style.display = ''; page2.style.display = 'none'; page3.style.display = 'none';"><?=$lang->word('page')?>1</a> 
-<a href="#" onclick="page2.style.display = ''; page1.style.display = 'none'; page3.style.display = 'none';"><?=$lang->word('page')?>2</a> 
+<a href="#" onclick="page2.style.display = ''; page1.style.display = 'none'; page3.style.display = 'none';"><?=$lang->word('page')?>2</a>
 <a href="#" onclick="page3.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none';"><?=$lang->word('page')?>3</a> 
  
 
