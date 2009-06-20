@@ -33,12 +33,15 @@ while($row = mysql_fetch_object($ergebnisss))
    $descriptions["$row->right"] = "$row->description";
    }
    
-$countl = $post['levelcount'];
+$levels = $post['levelcount'];
+$levels = explode("&-&", $levels);
 $fp = $hp->fp;
-for ($i=1; $i<$countl+1; $i++) {
-$fp->log("right".$i);
+foreach ($levels as $keyh=>$valueh) {
+	
 
-$temp = $post['right'.$i];
+
+
+$temp = $post['right'.$valueh];
 
 
 $temp['lol']= "1337";
@@ -47,7 +50,7 @@ foreach ($temp as $key=>$value) {
 if ($value != "1337")
 {
 //echo "set r1 $value to true!!<br>";
-$right[$i][$value]="true";
+$right[$valueh][$value]="true";
 }	
 }	
 	
@@ -115,31 +118,18 @@ echo mysql_error();
 $rightname=$post['right'];
 $descript=$post['descript'];
 
-$sql = "INSERT INTO `".$dbpräfix."right` (
+$levels = array();
+$sql = "SELECT * FROM `$dbpräfix"."right`";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
+{
+if (!in_array($row->level, $levels))
+{
+$levels[] = $row->level;
+}
+}
 
-`level` ,
-`right` ,
-`ok` ,
-`description`
-)
-VALUES (
-'1', '$rightname', 'false', '$descript'
-);";
-$hp->mysqlquery($sql);
-echo mysql_error();
-
-$sql = "INSERT INTO `".$dbpräfix."right` (
-
-`level` ,
-`right` ,
-`ok` ,
-`description`
-)
-VALUES (
-'2', '$rightname', 'false', '$descript'
-);";
-$hp->mysqlquery($sql);
-echo mysql_error();
+foreach ($levels as $key=>$value) {
 
 $sql = "INSERT INTO `".$dbpräfix."right` (
 
@@ -149,10 +139,49 @@ $sql = "INSERT INTO `".$dbpräfix."right` (
 `description`
 )
 VALUES (
-'3', '$rightname', 'false', '$descript'
+'$value', '$rightname', 'false', '$descript'
 );";
 $hp->mysqlquery($sql);
 echo mysql_error();
+
+	
+}
+
+
+} elseif (isset($post['sub3']))
+{
+$newl=$post['newl'];
+$oldl=$post['oldl'];
+
+$sql = "SELECT * FROM `$dbpräfix"."right` WHERE `level` = '$oldl'";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
+{
+
+
+
+/*
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
+  `level` int(2) NOT NULL,
+  `right` varchar(120) COLLATE latin1_general_ci NOT NULL,
+  `ok` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `description` varchar(200) COLLATE latin1_general_ci NOT NULL,
+*/
+
+$sql = "INSERT INTO `".$dbpräfix."right` (
+
+`level` ,
+`right` ,
+`ok` ,
+`description`
+)
+VALUES (
+'$newl', '$row->right', '$row->ok', '$row->description'
+);";
+$hp->mysqlquery($sql);
+
+
+}
 
 }
 // Ende auswertung Post
@@ -205,13 +234,9 @@ if ("$row->right" != "userdelet")
       <td width="40" height="31" align="center" bgcolor="#5A8196">'."$row->level".'</td>
       <td width="757" height="28">'."$row->description".'</td>
       ';
-      if ("$row->right" != "userdelet")
-      { echo '
+   echo '
       <td width="58" height="32" align="center"><input type="checkbox" name="right'."$row->level".'[]" value="'."$row->right".'" ';
-      } else
-      {
-      echo '<td width="58" height="32" align="center" bgcolor="#FF0000">X</td>';
-      }
+      
       if ("$row->ok" == "true")
       {
       echo "checked=\"true\"";
@@ -235,7 +260,9 @@ if ("$row->right" != "userdelet")
     
 
   ?>  
-  <input type="hidden" name="levelcount" value="<?=count($levels)?>">
+  <input type="hidden" name="levelcount" value="<?php
+  echo implode("&-&", $levels);
+   ?>">
         <tr>
       <td width="855" height="31" align="center" bgcolor="#5A8196" colspan="3">
                   <input type="submit" value="Abschicken" name="sub">
@@ -261,6 +288,22 @@ if ("$row->right" != "userdelet")
 </table>
 
 <input type="submit" value="Abschicken" name="sub2">
+
+</form>
+</form>
+  <form method="POST" action="index.php?site=rights">
+<table border="1" width="160">
+  <tr>
+    <td>New Level:</td>
+    <td><input type="text" name="newl" size="31"></td>
+  </tr>
+  <tr>
+    <td>Copy from:</td>
+    <td><input type="text" name="oldl" size="31"></td>
+  </tr>
+</table>
+
+<input type="submit" value="Abschicken" name="sub3">
 
 </form>
 
