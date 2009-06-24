@@ -639,7 +639,7 @@ class FirePHP {
     if($this->options['includeLineNumbers']) {
       if(!isset($meta['file']) || !isset($meta['line'])) {
 
-        $trace = debug_backtrace();
+        $trace = @debug_backtrace();
         for( $i=0 ; $trace && $i<sizeof($trace) ; $i++ ) {
   
           if(isset($trace[$i]['class'])
