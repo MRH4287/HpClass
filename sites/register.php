@@ -25,9 +25,9 @@ $mail['mailbetreff']="Die Registrierung auf ".$_SERVER['HTTP_HOST']; // Der ange
 $mail['pageadress']= "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']; // Der Pfad zu ihrer Homepage
 $mail['mailregistertext']="Aktivieren"; // Der Text, den der Link zur Registrationsseite haben soll
 // Der Text, der in der Aktivierungsemail stehen soll. Der Aktivierungslink, wird unten angefügt.
-$mail['mailtext']="Herzich willkommen bei uns! <br>Drücken sie unten stehenden Link, um die Registrierung abzuschließen:<br>";
+$mail['mailtext']="Herzich willkommen bei uns! \n \r Drücken sie unten stehenden Link, um die Registrierung abzuschließen:\n \r";
 // Der Text, der nach der Aktivierungsmai stehen soll.
-$mail['mailfooter']="<br>Vielen dank für ihr interesse!<hr>";
+$mail['mailfooter']="\n \r Vielen dank für ihr interesse!";
 
 
 //require_once( './include/captcha.class.php' );
