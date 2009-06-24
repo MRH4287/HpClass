@@ -14,13 +14,13 @@ $info = $hp->getinfo();
 
 if (isset($get['user']))
 {
-
+$codeg = $get['code'];
 
 $abfrage = "SELECT * FROM ".$dbpräfix."anwaerter WHERE `user`= '".$get['user']."'";
 $ergebnis = $hp->mysqlquery($abfrage);
     
-while($row = mysql_fetch_object($ergebnis))
-   {
+$row = mysql_fetch_object($ergebnis);
+
    $user="$row->user";
    $passwort123="$row->pass";
    $name="$row->name";
@@ -33,7 +33,15 @@ while($row = mysql_fetch_object($ergebnis))
    $wohnort = "$row->wohnort";
    $geschlecht = "$row->geschlecht";
    $tel = "$row->tel";
-   }
+   
+   $code = $row->code;
+
+if ($codeg != $code)
+{
+echo "<br>Der angegebene Sicherheitscode stimmt nicht überein!<br>Falls dies ein Systemfehler ist, wenden Sie sich bitte an einen der Administratoren!";
+} else
+{
+   
 
 if (isset($user) and ($user != ""))
 {
@@ -53,10 +61,13 @@ $eintragen2 = $hp->mysqlquery($eintrag);
 if (($eintragen1 == true) and ($eintragen2 == true))
 {
 echo"<br>Vielen Dank,<br>Ihre Registration wurde erfolgreich abgeschlossen!";
-echo"<br>Sie sind auserdem, nun im Forum angemeldet. (Die selben Benutzerdaten)";
+//echo"<br>Sie sind auserdem, nun im Forum angemeldet. (Die selben Benutzerdaten)";
 
+foreach ($hp->superadmin as $key=>$superadmin) {
+	$hp->PM($superadmin, "System", "Neuer User", "Ein neuer User:<br>$user", $datum, $dbpräfix);
 
-$hp->PM($superadmin, "System", "Neuer User", "Ein neuer User:<br>$user", $datum, $dbpräfix);
+}
+
 
 
 } else { echo "Fehler: <br>Melden Sie sich bitte umgehen bei dem zuständigem Administrator! <br>".mysql_error(); }
@@ -66,6 +77,7 @@ $hp->PM($superadmin, "System", "Neuer User", "Ein neuer User:<br>$user", $datum,
 echo "Ihre E-Mailadresse wurde bereits verifiziert!";
 }
 
+}
 }
 
 

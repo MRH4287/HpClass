@@ -147,6 +147,7 @@ $tel = str_replace('<',"&lt;" ,$nachname);
 $wohnort = str_replace('<',"&lt;" ,$wohnort);
 $geschlecht = str_replace('<',"&lt;" ,$geschlecht);
 
+
 $ok=true;
 if (!isset($post['passwort12']) or !isset($post['username']) or !isset($post['name']) or !isset($post['nachname'])  or !isset($datum) or !isset($wohnort) or !isset($geschlecht)) { // Entfernt: or !isset($post['btext'])
 echo "Geben die alle Werte an!<br><a href=index.php?site=register>zurück</a><br>";
@@ -196,10 +197,30 @@ $text = "Feature Disabled";
 
 $passwort12 = md5($passwort12);
 
+$password_length = 5;
+$generated_password = "";
+$valid_characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+$i = 0;
+
+for ($a = 0; $a < 5; $a++) {
+ $chars_length = strlen($valid_characters) - 1;
+ for($i = $password_length; $i--; ) {
+  $generated_password .= $valid_characters[mt_rand(0, $chars_length)];
+ }
+	if ($a != 4)
+	{
+  $generated_password .= "-";
+  }
+	
+}
+ $code = $generated_password;
+
+
+
 $eintrag = "INSERT INTO `".$dbpräfix."anwaerter`
-(user, pass, name, nachname, datum, text, email, geschlecht, wohnort, tel)
+(user, pass, name, nachname, datum, text, email, geschlecht, wohnort, tel, code)
 VALUES
-('$user', '$passwort12', '$name', '$nachname', '$datum', '$text', '$email', '$geschlecht', '$wohnort', '$tel')";
+('$user', '$passwort12', '$name', '$nachname', '$datum', '$text', '$email', '$geschlecht', '$wohnort', '$tel', '$code')";
 $eintragen = $hp->mysqlquery($eintrag);
 if ($eintragen== true) { 
 echo "Antrag erfolgreich gestellt!<br>Eine Bestätigungs E-Mail ist zu ihnen Unterwegs!<br><a href=index.php>zurück</a>";
@@ -218,7 +239,12 @@ foreach ($mail as $key=>$value) {
 
 
 
- mail($email, $mailbetreff, $htmlmailtext.$mailtext.$pageadress."?site=mailagree&user=$user ".$mailfooter ,"from:$mailcomefrom");
+ mail($email, $mailbetreff, $htmlmailtext.$mailtext.$pageadress."?site=mailagree&user=$user&code=$code ".$mailfooter ,"from:$mailcomefrom");
+} else
+{
+echo "<br>Diese Funktion ist auf Localhost deaktiviert!<br>gehen Sie bitte auf folgende Seite:<br>";
+echo '<a href='.$pageadress."?site=mailagree&user=$user&code=$code>$pageadress?site=mailagree&user=$user&code=$code</a>";
+
 }
 
 ?>

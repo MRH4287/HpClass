@@ -21,8 +21,25 @@ $info->info("123");
 $info->okn("123");
 
 echo $lbs->link("newnews", "Newsmeldung ändern", "1");
- 
+echo "<br>"; 
+$password_length = 5;
+$generated_password = "";
+$valid_characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+$i = 0;
 
+for ($a = 0; $a < 5; $a++) {
+ $chars_length = strlen($valid_characters) - 1;
+ for($i = $password_length; $i--; ) {
+  $generated_password .= $valid_characters[mt_rand(0, $chars_length)];
+ }
+	if ($a != 4)
+	{
+  $generated_password .= "-";
+  }
+	
+}
+ 
+ echo $generated_password;
 
 //$lang->savetodb();
 

@@ -1,0 +1,1 @@
+ALTER TABLE `#!-PRÄFIX-!#anwaerter` ADD `code` TEXT NOT NULL 
