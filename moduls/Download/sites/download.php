@@ -72,7 +72,7 @@ if (!isset($_SESSION['username']))
 {
 $error->error($lang->word('noright2'),"2");
 
-} elseif (isset ($get['del']) and $_SESSION['level'] = 3)
+} elseif (isset ($get['del']) and $right[$level]['upload'])
 {
 $del = $get['del'];
 $info->info("Möchten Sie die Datei wirklick löschen? <a href=index.php?site=download&del2=$del>Ja</a> <a href=index.php>Nein</a>");
@@ -86,7 +86,7 @@ if (!isset($get['id']))
   $abfrage = "SELECT * FROM ".$dbpräfix."download_kat";
 $ergebnis = $hp->mysqlquery($abfrage);
     
-echo '<div align="center" style="background-color:#FFCC00">';    
+echo '<div align="center" style="background-color:#c9c9c9">';    
 while($row = mysql_fetch_object($ergebnis))
    {
    if ($_SESSION['level'] >= "$row->level")
@@ -99,7 +99,7 @@ while($row = mysql_fetch_object($ergebnis))
   $abfrage2 = "SELECT * FROM ".$dbpräfix."download WHERE `kat` = '$row->ID'";
 $ergebnis2 = $hp->mysqlquery($abfrage2);
     
-echo '<div align="left" style="background-color:#FFFF99; display:block;" id="dl'.$row->ID.'">'; 
+echo '<div align="left" style="background-color:#e9e9e9; display:block;" id="dl'.$row->ID.'">'; 
 echo "<ul>";  
 while($row2 = mysql_fetch_object($ergebnis2))
    {
@@ -194,7 +194,7 @@ while($row = mysql_fetch_object($ergebnis))
       
       
       
-       if ($_SESSION['level'] == 3) { ?>
+       if ($right[$level]['upload']) { ?>
       <p align="center"><a href=index.php?site=download&del=<?="$row->ID"?>>Löschen</a></td>
       <? }?>
   </tr>
