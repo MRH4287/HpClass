@@ -19,8 +19,13 @@ echo mysql_error();
 
 if (isset ($get['delet']))
 {
-if ($_SESSION['level'] !== "3") { echo $lang->word('noright'); exit; }
-$eingabe = "DELETE FROM `".$dbpräfix."user` WHERE `user` = '".$get['delet']."';";
+$hp->info->info("Den User ".$get['delet']." Wirklich endgültig löschen? <a href=index.php?site=user&delet2=".$get['delet'].">Ja</a>");
+}
+
+if (isset ($get['delet2']))
+{
+if (!$right[$level]['userdelet']) { echo $lang->word('noright'); exit; }
+$eingabe = "DELETE FROM `".$dbpräfix."user` WHERE `user` = '".$get['delet2']."';";
 $ergebnis = $hp->mysqlquery($eingabe);
 echo mysql_error();
 if ($ergebnis==true) {
@@ -107,12 +112,12 @@ while($row = @mysql_fetch_object($ergebnis))
     <td style="padding-right: 4px;" valign="top">
     <div id="page1">
       <table class="liste" width="100%">
-        
+        <? /* ?>
           <tr>
             <th style="padding-bottom: 6px;" width="100"><?=$lang->word('avatar')?></th>
             <td style="padding: 2px;"><img src="include/userpics.php?id=<?="$row->ID"?>" ></td>
           </tr>       
-        
+        <? */ ?>
           <tr>
             <th style="padding-bottom: 6px;" width="100"><?=$lang->word('nick')?></th>
             <td style="padding: 2px;"><?="$row->user"?></td>
@@ -121,22 +126,27 @@ while($row = @mysql_fetch_object($ergebnis))
             <th style="padding-bottom: 6px;"><?=$lang->word('name')?></th>
             <td style="padding: 2px;"><?="$row->name"?> <?="$row->nachname"?></td>
           </tr>
-          <? /* ?>
+          
           <tr>
             <th style="padding-bottom: 6px;"><?=$lang->word('rank')?></th>
             <td style="padding: 2px;"><?  
     if ("$row->level" == "1") { echo "User"; } 
-    if ("$row->level" == "2") { echo "Moderator"; } 
-    if ("$row->level" == "3") { echo "Administrator"; }  
+    elseif ("$row->level" == "2") { echo "Moderator"; } 
+    elseif ("$row->level" == "3") { echo "Administrator"; } else  
+    { echo $row->level; }
     ?></td>
           </tr>
-          <? */ ?>
-
+          
+<? if ($right[$level]['see_email'])
+{ ?>
           <tr>
             <th style="padding-bottom: 6px;"><?=$lang->word('mail')?></th>
             <td style="padding: 2px;"><a href=mailto://<?="$row->email"?>><?="$row->email"?></a></td>
           </tr>
-
+<?
+}
+/*
+?>
           <tr>
             <th style="padding-bottom: 6px;"><b><?=$lang->word('alter')?></b></th>
             <td style="padding: 2px;"><?="$row->alter"?></td>
@@ -149,10 +159,12 @@ while($row = @mysql_fetch_object($ergebnis))
             <th style="padding-bottom: 6px;"><?=$lang->word('birthday')?></th>
             <td style="padding: 2px;"><?="$row->geburtstag"?></td>
           </tr>
+<? */ ?>
 
           </table>
           
           </div>
+          <? /* ?>
           <div id="page2" style="display:none">
           
           <table class="liste" width="100%">
@@ -175,6 +187,7 @@ while($row = @mysql_fetch_object($ergebnis))
           </table>
           
          </div> 
+         <? */ ?>
          <div id="page3" style="display:none">
          
          <table class="liste" width="100%">
@@ -280,7 +293,7 @@ foreach ($levels as $egal=>$aktlevel) {
     </td>
   </tr>
 </table>
- <tr>
+ 
           <script type="text/javascript">
 var page1 = document.getElementById('page1');
 var page2 = document.getElementById('page2');
@@ -288,9 +301,9 @@ var page3 = document.getElementById('page3');
 
 </script> 
             
-<a href="#" onclick="page1.style.display = ''; page2.style.display = 'none'; page3.style.display = 'none';"><?=$lang->word('page')?>1</a> 
-<a href="#" onclick="page2.style.display = ''; page1.style.display = 'none'; page3.style.display = 'none';"><?=$lang->word('page')?>2</a>
-<a href="#" onclick="page3.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none';"><?=$lang->word('page')?>3</a> 
+<a href="#" onclick="page1.style.display = ''; page2.style.display = 'none'; page3.style.display = 'none';">User</a> 
+<? /* ?><a href="#" onclick="page2.style.display = ''; page1.style.display = 'none'; page3.style.display = 'none';"><?=$lang->word('page')?>2</a> <? */ ?>
+<a href="#" onclick="page3.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none';">System</a> 
  
 
 
