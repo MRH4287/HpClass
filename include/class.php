@@ -12,6 +12,7 @@ public    $info;
 public    $firephp;
 public    $fp;
 public    $lbsites;
+public    $template;
 
 
 // Geschützte Variablen

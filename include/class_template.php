@@ -7,6 +7,7 @@ var $temp;
 var $error;
 var $hp;
 var $lang;
+var $path;
 
 
 
@@ -34,7 +35,7 @@ $this->temp=array_merge($temp,$this->temp);
 
 function load($path)
 {
-
+$this->path = $path;
 
 if (!file_exists("template/$path.html"))
 {
