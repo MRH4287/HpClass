@@ -33,7 +33,7 @@ $funktions = get_class_methods($this);
 <table width="100%" height="100%">
 <tr valign="top">
 <td height=100%>
-
+<center><a href="#" onclick="resolution();">Ausrichten</a><br>
 
 <?
 if (in_array("site_".$site, $funktions))
@@ -52,7 +52,7 @@ echo "Seite nicht gefunden!";
 <td>
 <?
 
-echo "<br><br><center><a href=\"#\" onclick=\"resolution();\">Ausrichten</a><a href=\"#\" class=\"lbAction\" rel=\"deactivate\"><p align=\"right\"><img src=images/close.gif></p> </center>";
+echo "<br><br><a href=\"#\" class=\"lbAction\" rel=\"deactivate\"><p align=\"right\"><img src=images/close.gif></p> </center>";
 ?>
 </td>
 </tr>

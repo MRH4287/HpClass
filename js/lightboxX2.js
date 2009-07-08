@@ -215,6 +215,8 @@ function addLightboxMarkup() {
 		lb.style.padding = '10px';
 		lb.style.cursor = 'pointer';
 		lb.style.color = '#555';
+		lb.style.top = '0px';
+		lb.style.left = '0px';
 
 
     
@@ -243,27 +245,27 @@ function resolution()
 		var width = lb.offsetWidth;
 		var height = lb.offsetHeight;
 
-		if (width >= window.innerWidth) 
+		if (width >= document.body.clientWidth) 
 			{
 			lb.style.left = '0px';
 			//document.getElementById('fade').style.width = width+'px';
 			}
 		else
 			{
-			var spacewidth = window.innerWidth - width;
+			var spacewidth = document.body.clientWidth - width;
 			var leftwidth = spacewidth / 2;
 			lb.style.left = leftwidth + 'px';
 			}
-		if (height >= window.innerHeight) 
+		if (height >= document.body.clientHeight) 
 			{
-		//	lb.style.top = '0px';
+			lb.style.top = '0px';
 			//document.getElementById('fade').style.height = height+'px';
 			}
 		else
 			{
-			var spaceheight = window.innerHeight - height;
+			var spaceheight = document.body.clientHeight - height;
 			var topheight = spaceheight / 2;
-			topheight = topheight + 200
+			topheight = topheight + 200;
 			lb.style.top = topheight+'px';
 			}	
 
