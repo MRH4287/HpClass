@@ -80,6 +80,47 @@ echo " ö Ö ä Ä ü Ü ß ^ ` ' # + * , ; |";
 
 }
 
+function site_delvote($vars)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$lang=$hp->langclass;
+$fp = $hp->fp;
+$right = $hp->getright();
+$level = $_SESSION['level'];
+
+if($right[$level]['manage_vote'])
+{
+
+$sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = '$vars';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+?>
+<p id="highlight">Möchten Sie die Umfrage wirklich entfernen?</p>
+<table width="100%">
+<tr valign="bottom">
+<td>
+<form method="POST" action="index.php?site=vote">
+  <p align="center"><input type="hidden" name="voteiddel" size="3" value="<?=$vars?>"><input type="submit" value="Löschen" name="votedel"></form>
+</td>
+<td>
+</td>
+</tr>
+</table>
+<b>ID:</b> <?=$row->ID?><br>
+<b>Titel:</b> <?=$row->name?><br>
+<b>
+
+<?
+} else
+{
+echo $lang->word('noright');
+}
+}
+
 function site_newschange($site)
 {
 $hp = $this->hp;

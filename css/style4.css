@@ -1,0 +1,20 @@
+#cal{font-family: Arial;font-size: 11px;background-color: #ffffff;border-spacing: 0px;border:1px solid #A5A5A5; padding:2px}
+#cal th{background-color: #ffffff; color:#666666;}
+#cal td{text-align: center; width: 25px;border-top:1px solid #E9ECF0; border-left:1px solid #E9ECF0;}
+#cal img{border:0px;}
+#cal a{ text-decoration: none;}
+.katholder td {width: 6px; border-top 0px; border-left: 0px}
+#monat, #monat a{background-color: #ffffff;color: #666666;}
+#monatevent a{color: #666666;}
+#monatevent{background-position: left top;background-repeat: no-repeat;  background-color: #f1f1f1;}
+#monatevent img {
+position: relative;
+left: 0px;
+top: 0px;}
+#amonat, #amonat a{color: #A4A4A4;}
+#aevent{background-position: left top;background-repeat: no-repeat;color: #666666; background-color: #f1f1f1;}
+#wayne{background-image: url(../images/bgaktiv2.gif);}
+#aevent a{color: #666666;}
+#aevent img {position: relative;
+left: 0px;
+top: 0px;}

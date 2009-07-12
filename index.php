@@ -42,6 +42,7 @@ $info->init($lang, $error, $hp);
 $xajaxF->sethp($hp);
 $lbsites->sethp($hp);
 $hp->setlbsites($lbsites);
+$hp->setxajaxF($xajaxF);
 // ----------------------------------------------------------------------------
 
 //-----------------------------------MYSQL Area (DB Verbindung)----------------

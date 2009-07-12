@@ -13,6 +13,7 @@ public    $firephp;
 public    $fp;
 public    $lbsites;
 public    $template;
+public    $xajaxF;
 
 
 // Geschützte Variablen
@@ -102,6 +103,11 @@ $this->fp = $firephp;
 function setlbsites($lbsites)
 {
 $this->lbsites=$lbsites;
+}
+
+function setxajaxF($xajax)
+{
+$this->xajaxF = $xajax;
 }
 
 //  Ende set-Area

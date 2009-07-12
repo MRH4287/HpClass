@@ -53,6 +53,7 @@ while($row = mysql_fetch_object($ergebnis))
    {
    $_SESSION['level']="$row->level";
    $_SESSION['pass']="$row->pass";
+   $_SESSION['ID'] = $row->ID;
     }
 $time =(int) time();
 $eingabe2 = "UPDATE `".$dbpräfix."user` SET `lastlogin` = '$time' WHERE `user` = '".$user."';";
