@@ -14,16 +14,18 @@ require_once 'include/class_lbsites.php';
 require_once 'include/xajax_core/xajax.inc.php';
 require_once 'include/FirePHP.class.php';
 require_once 'include/class_xajax_funk.php';
+require_once 'include/class_forum.php';
 //----------------------------------------------------------------------------
 
 //--------------------------------------Class Area----------------------------
-$hp = new HP;
-$lang = new lang;
-$temp = new template;
-$error = new errorclass;
-$info = new infoclass;
-$lbsites = new lbsites;
-$xajaxF = new Xajax_Funktions;
+$hp         = new HP;
+$lang       = new lang;
+$temp       = new template;
+$error      = new errorclass;
+$info       = new infoclass;
+$lbsites    = new lbsites;
+$xajaxF     = new Xajax_Funktions;
+$forum      = new forum;
 // ----------------------------------------------------------------------------
 
 //--------------------------------------SET Area-------------------------------
@@ -43,6 +45,8 @@ $xajaxF->sethp($hp);
 $lbsites->sethp($hp);
 $hp->setlbsites($lbsites);
 $hp->setxajaxF($xajaxF);
+$forum->sethp($hp);
+$hp->setforum($forum);
 // ----------------------------------------------------------------------------
 
 //-----------------------------------MYSQL Area (DB Verbindung)----------------

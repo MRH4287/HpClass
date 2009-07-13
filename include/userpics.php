@@ -60,12 +60,50 @@ exit;
 	
 	mysql_close($connection);
 
+if (!isset($_GET['org']))
+{
+
+  // DB Abfrage
+  $breite=$datei['width']; 
+  $hoehe=$datei['height']; 
+
+  $neueBreite=150; 
+  $neueHoehe=intval($hoehe*$neueBreite/$breite); 
+
+ $data =$datei['bild'];
+ 
+ try
+{
+set_error_handler(create_function('', "throw new Exception(); return true;"));
+
+$altesBild=@imagecreatefromstring($data);
+
+        $neuesBild=ImageCreateTrueColor($neueBreite,$neueHoehe); 
+        imagecopyresampled($neuesBild,$altesBild,0,0,0,0,$neueBreite,$neueHoehe,$breite,$hoehe); 
+        header('Content-Type: image/jpeg');
+        ImageJPEG($neuesBild); 
+        imagedestroy($neuesBild);
+        exit;
+        $ok = true;
+
+} catch (Exception $e)
+{
+ header("Content-type: image/jpeg");
+        	print $datei['bild'];	
+}
+  
+
+
+  
+} else
+{
+
 //	header("Content-type: {$datei['dateityp']}");
 	header("Content-type: image/jpeg");
 //	header("Content-disposition: attachement; filename={$datei['dateiname']}");
 	
 	print $datei['bild'];	
-
+}
 
 
 	

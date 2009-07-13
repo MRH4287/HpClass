@@ -112,12 +112,12 @@ while($row = @mysql_fetch_object($ergebnis))
     <td style="padding-right: 4px;" valign="top">
     <div id="page1">
       <table class="liste" width="100%">
-        <? /* ?>
+        <?  ?>
           <tr>
             <th style="padding-bottom: 6px;" width="100"><?=$lang->word('avatar')?></th>
             <td style="padding: 2px;"><img src="include/userpics.php?id=<?="$row->ID"?>" ></td>
           </tr>       
-        <? */ ?>
+        <?  ?>
           <tr>
             <th style="padding-bottom: 6px;" width="100"><?=$lang->word('nick')?></th>
             <td style="padding: 2px;"><?="$row->user"?></td>
@@ -129,11 +129,12 @@ while($row = @mysql_fetch_object($ergebnis))
           
           <tr>
             <th style="padding-bottom: 6px;"><?=$lang->word('rank')?></th>
-            <td style="padding: 2px;"><?  
-    if ("$row->level" == "1") { echo "User"; } 
-    elseif ("$row->level" == "2") { echo "Moderator"; } 
-    elseif ("$row->level" == "3") { echo "Administrator"; } else  
-    { echo $row->level; }
+            <td style="padding: 2px;"><? 
+            $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = $row->level";
+            $erg2 = $hp->mysqlquery($sql);
+            $row2 = mysql_fetch_object($erg2);
+            echo $row2->name;
+            
     ?></td>
           </tr>
           
@@ -145,7 +146,7 @@ while($row = @mysql_fetch_object($ergebnis))
           </tr>
 <?
 }
-/*
+
 ?>
           <tr>
             <th style="padding-bottom: 6px;"><b><?=$lang->word('alter')?></b></th>
@@ -159,12 +160,12 @@ while($row = @mysql_fetch_object($ergebnis))
             <th style="padding-bottom: 6px;"><?=$lang->word('birthday')?></th>
             <td style="padding: 2px;"><?="$row->geburtstag"?></td>
           </tr>
-<? */ ?>
+<?  ?>
 
           </table>
           
           </div>
-          <? /* ?>
+          <?  ?>
           <div id="page2" style="display:none">
           
           <table class="liste" width="100%">
@@ -187,7 +188,7 @@ while($row = @mysql_fetch_object($ergebnis))
           </table>
           
          </div> 
-         <? */ ?>
+         <?  ?>
          <div id="page3" style="display:none">
          
          <table class="liste" width="100%">
@@ -302,7 +303,7 @@ var page3 = document.getElementById('page3');
 </script> 
             
 <a href="#" onclick="page1.style.display = ''; page2.style.display = 'none'; page3.style.display = 'none';">User</a> 
-<? /* ?><a href="#" onclick="page2.style.display = ''; page1.style.display = 'none'; page3.style.display = 'none';"><?=$lang->word('page')?>2</a> <? */ ?>
+<?  ?><a href="#" onclick="page2.style.display = ''; page1.style.display = 'none'; page3.style.display = 'none';">Claninfo</a> <?  ?>
 <a href="#" onclick="page3.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none';">System</a> 
  
 

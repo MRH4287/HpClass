@@ -43,13 +43,17 @@ $numsendfiles = count($_FILES);
 		$daten=fread($datei,filesize($speicherort));
 		fclose($datei);
 				
-	
+	    $aSize = getimagesize($speicherort);
+
+    $Width = $aSize[0];
+    $Height = $aSize[1];
+		
 
 		$dateiname=mysql_real_escape_string( $dateiinformationen['name']);
 		$dateityp=mysql_real_escape_string($dateiinformationen['type']);
 		$daten=mysql_real_escape_string($daten);
 
-	$sql = "UPDATE `".$dbpräfix."user` SET `bild` = '$daten'  WHERE `user` = '".$_SESSION['username']."';";
+	$sql = "UPDATE `".$dbpräfix."user` SET `bild` = '$daten', `width` = '$Width', `height` = '$Height'  WHERE `user` = '".$_SESSION['username']."';";
 	//	echo $sql."<br>";
     $result=$hp->mysqlquery($sql);
 		if(!$result)

@@ -14,6 +14,7 @@ public    $fp;
 public    $lbsites;
 public    $template;
 public    $xajaxF;
+public    $forum;
 
 
 // Geschützte Variablen
@@ -108,6 +109,11 @@ $this->lbsites=$lbsites;
 function setxajaxF($xajax)
 {
 $this->xajaxF = $xajax;
+}
+
+function setforum($forum)
+{
+$this->forum = $forum;
 }
 
 //  Ende set-Area
