@@ -21,7 +21,7 @@ if (!isset($_SESSION['level']))
 $_SESSION['level'] = 0;
 }
 
-
+//  --------------------------------------------------------------------- THREADS----------------------------------------------------------------------
 if (isset($get['forum']))
 {
 
@@ -54,6 +54,7 @@ $forumid = $get['forum'];
 
 $_SESSION['forumid'] = $forumid;
 
+
 $posts = array();
 
 $page = $get['page'];
@@ -64,8 +65,23 @@ $page = 1;
 
 $postsasite = 20;
 
-$i = 0;
+$threads = array();
 $sql = "SELECT ID FROM `$dbpräfix"."threads` WHERE `forumid` = '$forumid' ORDER BY `lastpost` DESC";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
+{
+$threads[$row->type][] = $row->ID;
+}
+
+$i = 0;
+
+krsort($threads);
+
+foreach ($threads as $type=>$array) {
+	
+foreach ($array as $key=>$ID) {
+	
+$sql = "SELECT ID FROM `$dbpräfix"."threads` WHERE `forumid` = '$ID'";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
@@ -75,7 +91,8 @@ $p = ceil($i / ($postsasite));
 $posts[$p][] = $row->ID;
 
 }
-
+}
+}
 
 
 ?>
@@ -125,7 +142,7 @@ $error->error("Diese Seite exsistiert nicht!");
   <tr>
     <td><table width="100%" border="0">
       <tr>
-        <td width="10%" rowspan="2"><div align="center">Bild</div></td>
+        <td width="10%" rowspan="2"><div align="center"><img src="<?=$forum->getimage_t($row->ID)?>"></div></td>
         <td width="90%"><a href="index.php?site=forum&show=<?=$row->ID?>"><?=$row->titel?></a></td>
       </tr>
       <tr>
@@ -216,6 +233,28 @@ $error->error("Diese Seite exsistiert nicht!");
 </tr>
 
 </table>
+
+<style>
+#newtopic_button
+{
+background: url(forum/newtopic.gif) no-repeat; 
+}
+#newtopic_button:hover
+{
+background: url(forum/newtopic_hover.gif) no-repeat; 
+}
+
+</style>
+
+<div id="newtopic_button" width="119" height="25" onclick="window.location='index.php?site=forum&newthread';">
+<table  width="119" height="25" border="0">
+<tr>
+<td>
+</td>
+</tr>
+</table>
+</div>
+
 <?
 
 
@@ -223,7 +262,7 @@ $error->error("Diese Seite exsistiert nicht!");
 
 } elseif (isset($get['show'])) 
 {
-
+//  --------------------------------------------------------------------- Eintrag----------------------------------------------------------------------
 
 
 
@@ -239,6 +278,12 @@ $error->error("Der gewünschte Thread exsistiert nicht!");
 echo "Der gewünschte Thread exsistiert nicht oder Sie haben keine Bereichtigung diesen einzusehen!";
 } else
 {
+
+if (!is_array($_SESSION['lasttime_t']))
+{
+$_SESSION['lasttime_t'] = array();
+}
+$_SESSION['lasttime_t'][$threadid] = time();
 
 $levelok = true;
  $visible = false;
@@ -483,6 +528,14 @@ $row = mysql_fetch_object($erg);
 </tr>
 </table>
 
+<?
+if (($row->closed == "1") or ($_SESSION['level'] < $row->level))
+{
+
+} else
+{
+
+ ?>
 
 <table width="60%" border="0" align="center">
   <tr>
@@ -504,9 +557,9 @@ $row = mysql_fetch_object($erg);
 </td>
   </tr>
 </table>
-
-
 <?
+} // Close
+
 } // Passwort
 } // Levelok
 } // Exsistenzabfrage
@@ -514,6 +567,8 @@ $row = mysql_fetch_object($erg);
 
 } elseif (isset($post['newpost']))
 {
+//  --------------------------------------------------------------------- Newpost----------------------------------------------------------------------
+
 $text = $post['text'];
 $text = str_replace("<iframe", " >iframe", $text);
 $text = str_replace("<script", " >script", $text);
@@ -550,6 +605,7 @@ window.location="index.php?site=forum&show=<?=$threadid?>";
 
 } elseif (isset($post['sendpw']))
 {
+//  --------------------------------------------------------------------- SendPW----------------------------------------------------------------------
 
 
 
@@ -592,7 +648,7 @@ echo "<a href=index.php?site=forum>Zurück</a>";
 
 } elseif (isset($get['newthread']))
 {
-
+//  --------------------------------------------------------------------- NewThread---------------------------------------------------------------------
 
 
 
@@ -680,7 +736,7 @@ if (isset($_SESSION['username']))
 
  <tr>
     <td>Text:</td>
-    <td colspan="2"><textarea name="text" id="text" cols="45" rows="5"></textarea></td>
+    <td colspan="2"><textarea name="text" id="text" cols="100" rows="15"></textarea></td>
   </tr>
  <tr>
    <td>&nbsp;</td>
@@ -704,7 +760,7 @@ echo "Bitte Melden Sie sich an um auf diese Seite zu kommen!";
  
 } elseif (isset($post['newthread']))
 {
-
+//  --------------------------------------------------------------------- Post Newthread---------------------------------------------------------------
 
 
 
@@ -779,7 +835,7 @@ echo "Thema erfolgreich erstellt.<br><a href=index.php?site=forum&forum=$forumid
 
 } else
 {
-
+//  --------------------------------------------------------------------- FORUM----------------------------------------------------------------------
 
 
 
@@ -860,7 +916,7 @@ foreach ($forums as $forumid=>$threads) {
   <tr>
     <td><table width="100%" border="0">
       <tr>
-        <td width="10%" rowspan="2"><div align="center">Bild</div></td>
+        <td width="10%" rowspan="2"><div align="center"><img src="<?=$forum->getimage_f($row->ID)?>"></div></td>
         <td width="90%"><a href=index.php?site=forum&forum=<?=$row->ID?>><?=$row->titel?></a></td>
       </tr>
       <tr>
