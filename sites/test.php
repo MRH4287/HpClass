@@ -41,6 +41,9 @@ for ($a = 0; $a < 5; $a++) {
  
  echo $generated_password;
 
+echo "<br><br>";
+echo time();
+
 //$lang->savetodb();
 
 
