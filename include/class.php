@@ -355,11 +355,33 @@ $sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
+$titel = $post['titel'];
+$level = $post['level'];
+$type = $post['type'];
+$passwort = $post['passwort'];
+$visible = $post['visible'];
+$text = $post['text'];
 
-
-if (($row->userid == $_SESSION['ID']) or $right[$level]['forum_edit_post'])
+$pw = "";
+if (($passwort != "*") and ($passwort != ""))
 {
-$sql = "UPDATE `$dbpräfix"."threads` SET `text` = '".$post['text']."', `titel` = '".$post['titel']."' WHERE `ID` = ".$post['postid'];
+$pw = "`passwort` = '".md5($passwort)."' ,";
+} elseif ($passwort == "")
+{
+$pw = "`passwort` = '' ,";
+}
+$visible2 = "0";
+if ($visible == "on")
+{
+$visible2 = "1";
+}
+
+
+
+
+if (($row->userid == $_SESSION['ID']) or ($right[$level]['forum_edit_post']))
+{
+$sql = "UPDATE `$dbpräfix"."threads` SET `text` = '".$post['text']."', `level` = '$level', `type` = '$type', $pw `visible` = '$visible2', `titel` = '".$post['titel']."' WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $info->okn("Thread geändert");
 }

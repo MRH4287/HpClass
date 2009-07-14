@@ -370,6 +370,8 @@ $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
 $get = $hp->get();
+$right = $hp->getright();
+$level = $_SESSION['level'];
 
 $sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = '$vars'";
 $erg = $hp->mysqlquery($sql);
@@ -390,16 +392,122 @@ $row = mysql_fetch_object($erg);
 	});
 </script>
 <!-- /TinyMCE -->
-<center><b>Bearbeiten</b></center>
+
 <form action="index.php?site=forum&show=<?=$row->ID?>" method="post">
-<label>Titel: <input type="text" name="titel" value="<?=$row->titel?>"></label> 
-<textarea name="text" cols="100" rows="15"><?=$row->text?></textarea>
-<input type="hidden" name="postid" value="<?=$row->ID?>"><br>
-<button type="submit" name="forum_editthread"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
-</form>
-</td>
+<center><table border="1" widht="90%">
+<tr>
+<td>
+<table width="100%" border="0">
+  <tr>
+    <td width="80">&nbsp;</td>
+    <td colspan="2">Bearbeiten</td>
   </tr>
+  <tr>
+    <td>Thema:</td>
+    <td width="80"> &nbsp;
+    <table border="0" width="100%" height="5">
+    <tr>
+    <td width="90%">
+    <input type="text" name="titel" id="titel" value="<?=$row->titel?>"></td>
+    </td>
+    <td width="10%">
+    <a href="#" onclick="document.getElementById('more').style.display = '';">Erweitert</a>
+    </td>
+    </tr>
+    </table>
+  </tr>
+ 
+ <tr>
+  <td colspan="3">
+  <div id="more" style="display:none;">
+  <table border="0" width="100%">
+  <tr>
+    <td width="80">Level:</td>
+    
+    <td width="85%"><table width="100%">
+    <?
+    $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` <= '$level';";
+    $erg2 = $hp->mysqlquery($sql);
+    while ($row2 = mysql_fetch_object($erg2))
+    {
+        ?>
+    
+      <tr>
+        <td><label>
+          <input type="radio" name="level" value="<?=$row2->level?>" <? if ($row->level == $row2->level) { echo " checked=\"true\"";} ?>>
+          <?=$row2->name?></label></td>
+      </tr>
+     <?
+    }
+     ?> 
+    </table>
+      <p>Notiz: Jeder Benutzer eines höheren Levels kann dieses Forum trotzdem lesen!</p></td>
+  </tr>
+  <? if ($right[$level]['forum_canusetypes']) { ?>
+    <tr>
+    <td>Type</td>
+    <td>
+   <table width="100%">
+      <tr>
+        <td><label>
+          <input type="radio" name="type" value="0"  <? if ($row->type == "0") { echo " checked=\"true\"";} ?>>
+          Normal</label></td>
+      </tr>
+      <tr>
+        <td><label>
+          <input type="radio" name="type" value="1"   <? if ($row->type == "1") { echo " checked=\"true\"";} ?>>
+          Sticky</label></td>
+      </tr>
+      <tr>
+        <td><label>
+          <input type="radio" name="type" value="2"   <? if ($row->type == "2") { echo " checked=\"true\"";} ?>>
+          Announce</label></td>
+      </tr>
+   
+   
+   </table>
+   
+   </td>
+  </tr>
+ <? } else
+ {
+ ?>
+ <input type="hidden" name="type" value="0">
+ <?
+ } ?> 
+  <tr>
+    <td>Passwort</td>
+    <td><p>
+      <input type="text" name="passwort" id="passwort"  value="*">
+    </p>
+    <p>Notiz: Frei Lassen für öffentlich. * Lassen für keine Änderung.</p></td>
+  </tr>
+  <tr>
+    <td>Sichtbar:</td>
+    <td><p>
+        <input type="checkbox" name="visible" id="visible"  <? if ($row->visible == "1") { echo " checked=\"true\"";} ?>> 
+      Ja</p>
+      <p>Notiz: Das Thema ist für Benutzer eines geringeren Levels Sichtbar, Sie können aber nicht Antworten.</p></td>
+  </tr>
+  </table>
+</div> </td>
+
+ <tr>
+    <td>Text:</td>
+    <td colspan="2"><textarea name="text" id="text" cols="100" rows="15"><?=$row->text?></textarea></td>
+  </tr>
+ <tr>
+   <td>&nbsp;</td>
+   <td colspan="2"><button type="submit" name="forum_editthread"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button></td>
+ </tr>
 </table>
+</td>
+</tr>
+</table>
+</center>
+<input type="hidden" name="postid" value="<?=$vars?>">
+</form>
+
 <?
 
 }

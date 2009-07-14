@@ -20,7 +20,7 @@ $error->error("TEST", "2");
 $info->info("123");
 $info->okn("123");
 
-echo $lbs->link("forum_movethread", "Newsmeldung ändern", "1");
+echo $lbs->link("forum_editthread", "Newsmeldung ändern", "4");
 echo "<br>"; 
 $password_length = 5;
 $generated_password = "";

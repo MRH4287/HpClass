@@ -2,7 +2,6 @@
 // Class Config
 $hp = $this;
 $right = $hp->getright();
-$level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
 $dbpräfix = $hp->getpräfix();
@@ -20,9 +19,60 @@ if (!isset($_SESSION['level']))
 {
 $_SESSION['level'] = 0;
 }
-
+$level = $_SESSION['level'];
 //  --------------------------------------------------------------------- THREADS----------------------------------------------------------------------
 if (isset($get['forum']))
+{
+
+$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = ".$get['forum'];
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+if ($row->ID != "")
+{
+
+$levelok = true;
+ $visible = false;
+ 
+ if ($row->level > $level)
+ {
+ $levelok = false;
+ }
+ 
+ 
+ if ($levelok or ($row->visible == "1"))
+ {
+ $visible = true;
+ }
+ 
+if (!$visible)
+{
+
+$error->error("Das gewünschte Forum exsistiert nicht!");
+echo "Das gewünschte Forum exsistiert nicht oder Sie haben keine Bereichtigung diesen einzusehen!";
+} else
+{
+
+if (!is_array($_SESSION['forum_canread_F']))
+{
+$_SESSION['forum_canread_F'] = array();
+}
+
+
+if (($row->passwort != "") and (!in_array($row->ID, $_SESSION['forum_canread_F'])))
+{
+// Passwort
+?>Geben Sie das Passwort ein:
+
+<form method="post" action="index.php?site=forum">
+   Passwort:
+     <input type="text" name="password" id="password">
+     <input type="submit" name="sendpw_F" id="sendpw_F" value="Senden">
+     <input name="thread" type="hidden" id="thread" value="<?=$get['forum']?>">
+</form>
+
+<?
+} else
 {
 
 $countposts = array();
@@ -66,7 +116,7 @@ $page = 1;
 $postsasite = 20;
 
 $threads = array();
-$sql = "SELECT ID FROM `$dbpräfix"."threads` WHERE `forumid` = '$forumid' ORDER BY `lastpost` DESC";
+$sql = "SELECT ID, type FROM `$dbpräfix"."threads` WHERE `forumid` = '$forumid' ORDER BY `lastpost` DESC";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
@@ -77,11 +127,12 @@ $i = 0;
 
 krsort($threads);
 
+
 foreach ($threads as $type=>$array) {
-	
+
 foreach ($array as $key=>$ID) {
 	
-$sql = "SELECT ID FROM `$dbpräfix"."threads` WHERE `forumid` = '$ID'";
+$sql = "SELECT ID FROM `$dbpräfix"."threads` WHERE `ID` = '$ID'";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
@@ -105,13 +156,15 @@ $posts[$p][] = $row->ID;
  
  <?
 
- if (count($posts[$page]) == 0)
+ if ((count($posts[$page]) == 0) and ($page != "1"))
 {
 $this->fp->log($posts);
 $page = 1;
 $error->error("Diese Seite exsistiert nicht!");
 }
  
+ if (count($posts[$page]) != 0)
+{ 
  foreach ($posts[$page] as $key=>$ID) {
  	
  
@@ -185,6 +238,9 @@ $error->error("Diese Seite exsistiert nicht!");
  }
  }
  
+ }
+ 
+ 
  ?>
   
  <tr>
@@ -233,7 +289,10 @@ $error->error("Diese Seite exsistiert nicht!");
 </tr>
 
 </table>
-
+<?
+if ($levelok)
+{
+?>
 
 <style>
 #newtopic_button
@@ -257,8 +316,16 @@ background: url(forum/newtopic_hover.gif) no-repeat;
 </div>
 
 <?
+}
 
+} // Secure
+}
+} else
+{
+$error->error("Das gewünschte Forum exsistiert nicht!");
+echo "Das gewünschte Forum exsistiert nicht oder Sie haben keine Bereichtigung diesen einzusehen!";
 
+}
 
 
 } elseif (isset($get['show'])) 
@@ -272,6 +339,8 @@ $threadid = $get['show'];
 $sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = $threadid";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
+
+$closed = $row->closed;
 
 if ($row->ID == "")
 {
@@ -532,9 +601,9 @@ $row = mysql_fetch_object($erg);
 </table>
 
 <?
-if (($row->closed == "1") or ($_SESSION['level'] < $row->level))
+if (($closed == "1") or ($_SESSION['level'] < $row->level))
 {
-
+echo "Thema Geschlossen";
 } else
 {
 
@@ -612,12 +681,6 @@ window.location="index.php?site=forum&show=<?=$threadid?>";
 
 
 
-
-
-/*
-
-*/
-
 $threadid = $post['thread'];
 $password = $post['password'];
 
@@ -649,6 +712,43 @@ echo "<a href=index.php?site=forum>Zurück</a>";
 
 
 
+} elseif (isset($post['sendpw_F']))
+{
+//  --------------------------------------------------------------------- SendPW_F----------------------------------------------------------------------
+
+
+
+$threadid = $post['thread'];
+$password = $post['password'];
+
+$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = $threadid";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+$pw = $row->passwort;
+
+if ($pw == md5($password))
+{
+// OK
+$_SESSION['forum_canread_F'][] = $threadid;
+
+echo "Passwort OK<br>Weiterleitung erfolgt...";
+?>
+<script>
+window.location="index.php?site=forum&forum=<?=$threadid?>";
+</script>
+
+<?
+
+} else
+{
+// Nicht ok
+$error->error("Das eingegebene Passwort ist Falsch!");
+echo "<a href=index.php?site=forum>Zurück</a>";
+}
+
+
+
 } elseif (isset($get['newthread']))
 {
 //  --------------------------------------------------------------------- NewThread---------------------------------------------------------------------
@@ -659,6 +759,29 @@ echo "<a href=index.php?site=forum>Zurück</a>";
 if (isset($_SESSION['username']))
 {
 
+$forumid = $_SESSION['forumid'];
+
+$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = $forumid";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+
+
+$levelok = true;
+ $visible = false;
+ 
+ if ($row->level > $level)
+ {
+ $levelok = false;
+ }
+ 
+ 
+if (!$levelok)
+{
+$error->error("Dieses Forum ist geschossen!");
+echo "Dieses Forum ist geschlossen<br><a href=index.php?site=forum>zurück</a>";
+} else
+{
 
 ?>
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
@@ -711,7 +834,7 @@ if (isset($_SESSION['username']))
     
       <tr>
         <td><label>
-          <input type="radio" name="level" value="<?=$row->level?>">
+          <input type="radio" name="level" value="<?=$row->level?>" <? if ($row->level == "0") { echo " checked=\"true\"";} ?>>
           <?=$row->name?></label></td>
       </tr>
      <?
@@ -720,6 +843,38 @@ if (isset($_SESSION['username']))
     </table>
       <p>Notiz: Jeder Benutzer eines höheren Levels kann dieses Forum trotzdem lesen!</p></td>
   </tr>
+  <? if ($right[$level]['forum_canusetypes']) { ?>
+    <tr>
+    <td>Type</td>
+    <td>
+   <table width="100%">
+      <tr>
+        <td><label>
+          <input type="radio" name="type" value="0" checked="true">
+          Normal</label></td>
+      </tr>
+      <tr>
+        <td><label>
+          <input type="radio" name="type" value="1">
+          Sticky</label></td>
+      </tr>
+      <tr>
+        <td><label>
+          <input type="radio" name="type" value="2">
+          Announce</label></td>
+      </tr>
+   
+   
+   </table>
+   
+   </td>
+  </tr>
+ <? } else
+ {
+ ?>
+ <input type="hidden" name="type" value="0">
+ <?
+ } ?> 
   <tr>
     <td>Passwort</td>
     <td><p>
@@ -753,6 +908,8 @@ if (isset($_SESSION['username']))
 <input type="hidden" value="<?=$_SESSION['forumid']?>" name="forumid">
 </form>
 <?
+}
+
 } else
 {
 echo "Bitte Melden Sie sich an um auf diese Seite zu kommen!";
@@ -773,6 +930,7 @@ $passwort = $post['passwort'];
 $visible = $post['visible'];
 $text = $post['text'];
 $forumid = $post['forumid'];
+$type = $post['type'];
 
 if ($passwort != "")
 {
@@ -818,10 +976,11 @@ INSERT INTO `$dbpräfix"."threads` (
 `passwort` ,
 `visible` ,
 `lastpost`,
+`type`,
 `closed`
 )
 VALUES (
-NULL , '$titel', '$forumid', '".$_SESSION['ID']."', '".time()."', '$text', '$le', '".$passwort."', '$visible', '".time()."', '0'
+NULL , '$titel', '$forumid', '".$_SESSION['ID']."', '".time()."', '$text', '$le', '".$passwort."', '$visible', '".time()."', '$type', '0'
 );
 
 ";
@@ -836,7 +995,47 @@ echo "Thema erfolgreich erstellt.<br><a href=index.php?site=forum&forum=$forumid
 
 
 
+} elseif (isset($get['closethread']))
+{
+//  --------------------------------------------------------------------- Closethread----------------------------------------------------------------------
+$id = $get['closethread'];
+if ($right[$level]['forum_canclosethread'])
+{
+
+$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = $id";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+$close = $row->closed;
+
+if ($row->closed == "0")
+{
+$closed = "1";
 } else
+{
+$closed = 0;
+}
+
+$sql = "UPDATE `$dbpräfix"."threads` SET `closed` = '$closed' WHERE `ID` = $id";
+$erg = $hp->mysqlquery($sql);
+
+$info->okn("Thread geschlossen / geöffnet");
+
+$this->fp->log($sql);
+echo "OK";
+} else
+{
+echo "Fehler!";
+}
+
+?>
+<script>
+window.location="index.php?site=forum&show=<?=$id?>";
+</script>
+<?
+
+
+} else 
 {
 //  --------------------------------------------------------------------- FORUM----------------------------------------------------------------------
 
@@ -913,7 +1112,22 @@ foreach ($forums as $forumid=>$threads) {
   
   while ($row = mysql_fetch_object($erg))
   {
-  
+   $levelok = true;
+ $visible = false;
+ 
+ if ($row->level > $level)
+ {
+ $levelok = false;
+ }
+ 
+ 
+ if ($levelok or ($row->visible == "1"))
+ {
+ $visible = true;
+ }
+ 
+ if ( $visible )
+ {
   ?>
   
   <tr>
@@ -957,6 +1171,7 @@ foreach ($forums as $forumid=>$threads) {
   </tr>
   
 <?
+}
 }
 
 

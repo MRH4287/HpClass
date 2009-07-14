@@ -98,9 +98,19 @@ $new = true;
 }
 }
 
-// Lock
-// --- Level zu niedrig und Visiblle
+$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = $forum";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
 $lock = false;
+
+// Lock
+if (($row->closed == "1") or ($_SESSION['level'] < $row->level))
+{
+$lock = true;
+
+}
+
 
 
 $link = "forum/forum";
@@ -111,6 +121,11 @@ $link .= "_unread";
 {
 $link .= "_read";
 
+}
+
+if ($lock)
+{
+$link .= "_locked";
 }
 
 $link .= ".gif";
