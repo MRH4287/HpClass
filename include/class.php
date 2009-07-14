@@ -320,6 +320,72 @@ if(isset($get['lchange']) and ($_SESSION['username'] == "mrh"))
 {
 $_SESSION['level'] = $get['lchange']; 
 }
+
+$hp = $this;
+$dbpräfix = $hp->getpräfix();
+$right = $hp->getright();
+$level = $_SESSION['level'];
+$info = $hp->getinfo();
+
+if (isset($post['forum_editpost']))
+{
+
+$sql = "SELECT * FROM `$dbpräfix"."posts` WHERE `ID` = ".$post['postid'];
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+
+
+
+
+if (($row->userid == $_SESSION['ID']) or $right[$level]['forum_edit_post'])
+{
+$sql = "UPDATE `$dbpräfix"."posts` SET `text` = '".$post['text']."' WHERE `ID` = ".$post['postid'];
+$erg = $hp->mysqlquery($sql);
+$info->okn("Post geändert");
+}
+
+
+}
+
+if (isset($post['forum_editthread']))
+{
+
+$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = ".$post['postid'];
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+
+
+if (($row->userid == $_SESSION['ID']) or $right[$level]['forum_edit_post'])
+{
+$sql = "UPDATE `$dbpräfix"."threads` SET `text` = '".$post['text']."', `titel` = '".$post['titel']."' WHERE `ID` = ".$post['postid'];
+$erg = $hp->mysqlquery($sql);
+$info->okn("Thread geändert");
+}
+
+
+}
+
+if (isset($post['forum_movethread']))
+{
+
+$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = ".$post['postid'];
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+
+
+if (($row->userid == $_SESSION['ID']) or $right[$level]['forum_edit_post'])
+{
+$sql = "UPDATE `$dbpräfix"."threads` SET `forumid` = '".$post['moveto']."' WHERE `ID` = ".$post['postid'];
+$erg = $hp->mysqlquery($sql);
+$info->okn("Thread verschoben");
+}
+
+
+}
+
 }
 
 

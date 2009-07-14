@@ -321,6 +321,137 @@ echo $lang->word('noright');
 }
 
 
+function site_forum_editpost($vars)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+$get = $hp->get();
+
+$sql = "SELECT * FROM `$dbpräfix"."posts` WHERE `ID` = '$vars'";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+
+?>
+<table width="60%" border="0" align="center">
+  <tr>
+    <td><script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "simple"
+
+	});
+</script>
+<!-- /TinyMCE -->
+<center><b>Bearbeiten</b></center>
+<form action="index.php?site=forum&show=<?=$row->threadid?>" method="post">
+<textarea name="text" cols="100" rows="15"><?=$row->text?></textarea>
+<input type="hidden" name="postid" value="<?=$row->ID?>"><br>
+<button type="submit" name="forum_editpost"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
+</form>
+</td>
+  </tr>
+</table>
+<?
+
+}
+
+function site_forum_editthread($vars)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+$get = $hp->get();
+
+$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = '$vars'";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+
+
+
+?>
+<table width="60%" border="0" align="center">
+  <tr>
+    <td><script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "simple"
+
+	});
+</script>
+<!-- /TinyMCE -->
+<center><b>Bearbeiten</b></center>
+<form action="index.php?site=forum&show=<?=$row->ID?>" method="post">
+<label>Titel: <input type="text" name="titel" value="<?=$row->titel?>"></label> 
+<textarea name="text" cols="100" rows="15"><?=$row->text?></textarea>
+<input type="hidden" name="postid" value="<?=$row->ID?>"><br>
+<button type="submit" name="forum_editthread"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
+</form>
+</td>
+  </tr>
+</table>
+<?
+
+}
+
+
+function site_forum_movethread($vars)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+
+
+
+?>
+<br>
+<form action="index.php?site=forum&show=<?=$vars?>" method="post">
+<table width="200" border="0">
+  <tr>
+    <td>&nbsp;</td>
+    <td>Verschieben</td>
+  </tr>
+  <tr>
+    <td>Wohin:</td>
+    <td><select name="moveto" id="moveto">
+    <?
+    $sql = "SELECT * FROM `$dbpräfix"."forums`";
+    $erg = $hp->mysqlquery($sql);
+    while ($row = mysql_fetch_object($erg))
+    {
+    
+    ?>
+    <option value="<?=$row->ID?>"><?=$row->titel?></option>
+    <?
+    }
+    ?>
+    
+    </select>    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><button type="submit" name="forum_movethread"> <img src="images/ok.gif"> </button></td>
+  </tr>
+</table>
+<input type="hidden" name="postid" value="<?=$vars?>">
+</form>
+<?
+
+}
+
 
 } // CLASS ENDE !!
 

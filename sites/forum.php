@@ -234,6 +234,7 @@ $error->error("Diese Seite exsistiert nicht!");
 
 </table>
 
+
 <style>
 #newtopic_button
 {
@@ -419,7 +420,9 @@ foreach ($posts[$page] as $tmp=>$ID) {
     <td><table width="100%" border="0">
       <tr>
         <td width="80%">&nbsp;</td>
-        <td width="20%">Vote</td>
+        <td width="20%"><?
+        
+        ?></td>
       </tr>
     </table></td>
   </tr>
