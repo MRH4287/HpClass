@@ -604,7 +604,7 @@ $row = mysql_fetch_object($erg);
 if (($closed == "1") or ($_SESSION['level'] < $row->level))
 {
 echo "Thema Geschlossen";
-} else
+} elseif (isset($_SESSION['username']))
 {
 
  ?>

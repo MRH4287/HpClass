@@ -39,21 +39,12 @@ $dbuser,$dbpass);
 		print mysql_error($connection)."<br/>\n";
 		exit;					
 	}		
-
+$bildok = true;
 	$datei=mysql_fetch_assoc($result);
-	if(!$datei)
+	if(!$datei['bild'])
 	{
-		
-    
-    $image = imagecreate(200,400);
-    header('Content-Type: image/jpeg');
-imagejpeg($image);
-imagedestroy($image);
-exit;
-    
-    
-    
-    						
+		$bildok = false;
+    		$image2 = imagecreatefromjpeg('../nopic.jpg');				    						
 	}
 	
 
@@ -67,17 +58,38 @@ if (!isset($_GET['org']))
   $breite=$datei['width']; 
   $hoehe=$datei['height']; 
 
-  $neueBreite=150; 
-  $neueHoehe=intval($hoehe*$neueBreite/$breite); 
+ $neueBreite=150; 
 
- $data =$datei['bild'];
+
+if ($breite != 0)
+{
+
  
+  $neueHoehe=intval($hoehe*$neueBreite/$breite); 
+} else
+{
+$bildok = false;
+
+	    $aSize = getimagesize("../nopic.jpg");
+    $breite = $aSize[0];
+    $hoehe = $aSize[1];
+$neueHoehe=intval($hoehe*$neueBreite/$breite); 
+}
+ $data =$datei['bild'];
+
+
+
  try
 {
 set_error_handler(create_function('', "throw new Exception(); return true;"));
 
+if ($bildok)
+{
 $altesBild=@imagecreatefromstring($data);
-
+} else
+{
+$altesBild = $image2;
+}
         $neuesBild=ImageCreateTrueColor($neueBreite,$neueHoehe); 
         imagecopyresampled($neuesBild,$altesBild,0,0,0,0,$neueBreite,$neueHoehe,$breite,$hoehe); 
         header('Content-Type: image/jpeg');
@@ -98,11 +110,20 @@ $altesBild=@imagecreatefromstring($data);
 } else
 {
 
-//	header("Content-type: {$datei['dateityp']}");
+if ($bildok)
+{
 	header("Content-type: image/jpeg");
-//	header("Content-disposition: attachement; filename={$datei['dateiname']}");
-	
 	print $datei['bild'];	
+} else
+{
+  header('Content-Type: image/jpeg');
+imagejpeg($image2);
+imagedestroy($image2);
+exit;
+
+}
+
+
 }
 
 
