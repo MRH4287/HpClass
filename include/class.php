@@ -333,14 +333,11 @@ if (isset($post['forum_editpost']))
 $sql = "SELECT * FROM `$dbpräfix"."posts` WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
-
-
-
-
+$time = time();
 
 if (($row->userid == $_SESSION['ID']) or $right[$level]['forum_edit_post'])
 {
-$sql = "UPDATE `$dbpräfix"."posts` SET `text` = '".$post['text']."' WHERE `ID` = ".$post['postid'];
+$sql = "UPDATE `$dbpräfix"."posts` SET `text` = '".$post['text']."', `lastedit` = '$time' WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $info->okn("Post geändert");
 }
@@ -361,6 +358,7 @@ $type = $post['type'];
 $passwort = $post['passwort'];
 $visible = $post['visible'];
 $text = $post['text'];
+$time = time();
 
 $pw = "";
 if (($passwort != "*") and ($passwort != ""))
@@ -377,13 +375,51 @@ $visible2 = "1";
 }
 
 
-
-
 if (($row->userid == $_SESSION['ID']) or ($right[$level]['forum_edit_post']))
 {
-$sql = "UPDATE `$dbpräfix"."threads` SET `text` = '".$post['text']."', `level` = '$level', `type` = '$type', $pw `visible` = '$visible2', `titel` = '".$post['titel']."' WHERE `ID` = ".$post['postid'];
+$sql = "UPDATE `$dbpräfix"."threads` SET `text` = '".$post['text']."', `level` = '$level', `type` = '$type', $pw `visible` = '$visible2', `titel` = '".$post['titel']."', `lastedit` = '$time' WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $info->okn("Thread geändert");
+}
+
+
+}
+
+if (isset($post['forum_editforum']))
+{
+
+$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = ".$post['postid'];
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+$titel = $post['titel'];
+$level = $post['level'];
+$type = $post['type'];
+$passwort = $post['passwort'];
+$visible = $post['visible'];
+$text = $post['text'];
+
+
+$pw = "";
+if (($passwort != "*") and ($passwort != ""))
+{
+$pw = "`passwort` = '".md5($passwort)."' ,";
+} elseif ($passwort == "")
+{
+$pw = "`passwort` = '' ,";
+}
+$visible2 = "0";
+if ($visible == "on")
+{
+$visible2 = "1";
+}
+
+
+if (($row->userid == $_SESSION['ID']) or ($right[$level]['forum_edit_forum']))
+{
+$sql = "UPDATE `$dbpräfix"."forums` SET `description` = '".$post['text']."', `level` = '$level', `type` = '$type', $pw `visible` = '$visible2', `titel` = '".$post['titel']."' WHERE `ID` = ".$post['postid'];
+$erg = $hp->mysqlquery($sql);
+$info->okn("Forum geändert");
 }
 
 

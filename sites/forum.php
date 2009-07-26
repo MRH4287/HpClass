@@ -298,6 +298,7 @@ if ($levelok)
 #newtopic_button
 {
 background: url(forum/newtopic.gif) no-repeat; 
+cursor: pointer;
 }
 #newtopic_button:hover
 {
@@ -316,6 +317,13 @@ background: url(forum/newtopic_hover.gif) no-repeat;
 </div>
 
 <?
+}
+
+if ($right[$level]['forum_del_forum'])
+{
+
+      echo "&nbsp;";
+      echo $lbs->link("forum_delforum", '<img src="include/button.php?p=3&t=  Forum löschen  &f=red" >', $forumid); 
 }
 
 } // Secure
@@ -485,13 +493,29 @@ foreach ($posts[$page] as $tmp=>$ID) {
     <td align="left" valign="top"><?=$row->text?></td>
   </tr>
   <tr class="forumfooter">
-    <td height="21"><a href="index.php?site=pm&new&to=<?=$forum->getusername($row->userid)?>"><img src="images/pm.gif" width="24" height="24"></a></td>
+    <td height="21"><a href="index.php?site=pm&new&to=<?=$forum->getusername($row->userid)?>"><img src="images/pm.gif" width="24" height="24"></a>
+     <?
+     if (($_SESSION['ID'] == $row->userid) or ($right[$level]['forum_edit_post']))
+     {
+      echo $lbs->link("forum_editthread", '<img src="images/edit.gif" width="24" height="24">', $row->ID); 
+      }
+      if ($right[$level]['forum_edit_post'])
+      {
+      echo "&nbsp;";
+      echo $lbs->link("forum_movethread", '<img src="include/button.php?p=3&t=Verschieben" height="24">', $row->ID); 
+      echo "&nbsp;";
+      echo $lbs->link("forum_delthread", '<img src="images/abort.gif" width="24" height="24">', $row->ID); 
+     } 
+      ?></td> 
     <td><table width="100%" border="0">
       <tr>
-        <td width="80%">&nbsp;</td>
+        <td width="80%"><? if ($row->lastedit != "0") { echo "Letzte Bearbeitung: ";
+        echo date("d.m.Y H:i", $row->lastedit);
+          }  ?> &nbsp;</td>
         <td width="20%"><?
-        
-        ?></td>
+        // Vote
+        echo $forum->getvote($row->ID);
+        ?> <div id="voteok"></div></td>
       </tr>
     </table></td>
   </tr>
@@ -537,7 +561,19 @@ $row = mysql_fetch_object($erg);
     <td align="left" valign="top"><?=$row->text?></td>
   </tr>
   <tr class="forumfooter">
-    <td height="21"><a href="index.php?site=pm&new&to=<?=$forum->getusername($row->userid)?>"><img src="images/pm.gif" width="24" height="24"></a></td>
+    <td height="21"><a href="index.php?site=pm&new&to=<?=$forum->getusername($row->userid)?>"><img src="images/pm.gif" width="24" height="24"></a>
+         <?
+     if (($_SESSION['ID'] == $row->userid) or ($right[$level]['forum_edit_post']))
+     {
+      echo $lbs->link("forum_editpost", '<img src="images/edit.gif" width="24" height="24">', $row->ID); 
+     } 
+           if ($right[$level]['forum_edit_post'])
+      {
+      echo "&nbsp;";
+      echo $lbs->link("forum_delpost", '<img src="images/abort.gif" width="24" height="24">', $row->ID); 
+      }
+      ?>
+    </td>
     <td><table width="100%" border="0">
       <tr>
         <td width="80%">&nbsp;</td>
@@ -995,6 +1031,191 @@ echo "Thema erfolgreich erstellt.<br><a href=index.php?site=forum&forum=$forumid
 
 
 
+} elseif (isset($get['newforum']))
+{
+//  --------------------------------------------------------------------- NewForum---------------------------------------------------------------------
+
+
+
+
+if ($right[$level]['forum_edit_forum'])
+{
+
+?>
+<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "simple"
+
+	});
+</script>
+<!-- /TinyMCE -->
+<form action="index.php?site=forum" method="post">
+<center><table border="1" widht="90%">
+<tr>
+<td>
+<table width="100%" border="0">
+  <tr>
+    <td width="80">&nbsp;</td>
+    <td colspan="2">Neues Forum</td>
+  </tr>
+  <tr>
+    <td>Titel:</td>
+    <td width="80"> &nbsp;
+    <table border="0" width="100%" height="5">
+    <tr>
+    <td width="90%">
+    <input type="text" name="titel" id="titel"></td>
+    </td>
+    <td width="10%">
+    <a href="#" onclick="document.getElementById('more').style.display = '';">Erweitert</a>
+    </td>
+    </tr>
+    </table>
+  </tr>
+ 
+ <tr>
+  <td colspan="3">
+  <div id="more" style="display:none;">
+  <table border="0" width="100%">
+  <tr>
+    <td width="80">Level:</td>
+    
+    <td width="85%"><table width="100%">
+    <?
+    $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` <= '$level';";
+    $erg = $hp->mysqlquery($sql);
+    while ($row = mysql_fetch_object($erg))
+    {
+        ?>
+    
+      <tr>
+        <td><label>
+          <input type="radio" name="level" value="<?=$row->level?>" <? if ($row->level == "0") { echo " checked=\"true\"";} ?>>
+          <?=$row->name?></label></td>
+      </tr>
+     <?
+    }
+     ?> 
+    </table>
+      <p>Notiz: Jeder Benutzer eines höheren Levels kann dieses Forum trotzdem lesen!</p></td>
+  </tr>
+
+ <input type="hidden" name="type" value="0">
+ 
+  <tr>
+    <td>Passwort</td>
+    <td><p>
+      <input type="text" name="passwort" id="passwort">
+    </p>
+    <p>Notiz: Frei Lassen für öffentlich.</p></td>
+  </tr>
+  <tr>
+    <td>Sichtbar:</td>
+    <td><p>
+        <input type="checkbox" name="visible" id="visible"> 
+      Ja</p>
+      <p>Notiz: Das Forum ist für Benutzer eines geringeren Levels Sichtbar, Sie können aber nicht Antworten.</p></td>
+  </tr>
+  </table>
+</div> </td>
+
+ <tr>
+    <td>Beschreibung:</td>
+    <td colspan="2"><textarea name="text" id="text" cols="100" rows="15"></textarea></td>
+  </tr>
+ <tr>
+   <td>&nbsp;</td>
+   <td colspan="2"><button type="submit" name="newforum"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button></td>
+ </tr>
+</table>
+</td>
+</tr>
+</table>
+</center>
+
+</form>
+<?
+
+
+} else
+{
+echo "Sie dürfen diese Seite nicht betreten!";
+}
+ 
+ 
+ 
+ 
+} elseif (isset($post['newforum']))
+{
+//  --------------------------------------------------------------------- Post Newthread---------------------------------------------------------------
+
+
+
+$titel = $post['titel'];
+$le = $post['level'];
+$passwort = $post['passwort'];
+$visible = $post['visible'];
+$text = $post['text'];
+
+
+if ($passwort != "")
+{
+$passwort = md5($passwort);
+} else
+{
+$passwort = "";
+}
+
+$text = str_replace("<iframe", " >iframe", $text);
+$text = str_replace("<script", " >script", $text);
+$text = str_replace("<style", " >style", $text);
+
+if ($visible == "on")
+{
+$visible = "1";
+} else
+{
+$visible = "0";
+}
+
+if (!isset($le))
+{
+$le = 0;
+}
+
+
+
+
+$sql = "
+INSERT INTO `$dbpräfix"."forums` (
+`ID` ,
+`titel` ,
+`userid` ,
+`timestamp` ,
+`level` ,
+`passwort` ,
+`visible` ,
+`type`,
+`description`
+)
+VALUES (
+NULL , '$titel', '".$_SESSION['ID']."', '".time()."', '$le', '".$passwort."', '$visible', '$type', '$text'
+);
+
+";
+$erg = $hp->mysqlquery($sql);
+
+$info->okn("Forum erfolgreich erstellt.");
+echo "Forum erfolgreich erstellt.<br><a href=index.php?site=forum>Zurück</a>";
+
+
+// post
+
+
+
+
 } elseif (isset($get['closethread']))
 {
 //  --------------------------------------------------------------------- Closethread----------------------------------------------------------------------
@@ -1034,6 +1255,70 @@ window.location="index.php?site=forum&show=<?=$id?>";
 </script>
 <?
 
+
+} elseif (isset($post['delthread']))
+{
+//  --------------------------------------------------------------------- Delthread----------------------------------------------------------------------
+$threadid = $post['postid'];
+
+if ($right[$level]['forum_edit_post'])
+{
+$sql = "DELETE FROM `$dbpräfix"."threads` WHERE `ID` = '$threadid'";
+$erg = $hp->mysqlquery($sql);
+
+$sql = "DELETE FROM `$dbpräfix"."posts` WHERE `threadid` = '$threadid'";
+$erg = $hp->mysqlquery($sql);
+
+} else
+{
+$error->error("Sie haben keine Berechtigung Threads zu löschen!");
+}
+
+$info->okn("Thread gelöscht");
+} elseif (isset($post['delpost']))
+{
+//  --------------------------------------------------------------------- Delpost----------------------------------------------------------------------
+$postid = $post['postid'];
+
+if ($right[$level]['forum_edit_post'])
+{
+$sql = "DELETE FROM `$dbpräfix"."posts` WHERE `ID` = '$postid'";
+$erg = $hp->mysqlquery($sql);
+
+} else
+{
+$error->error("Sie haben keine Berechtigung Posts zu löschen!");
+}
+
+$info->okn("Post gelöscht");
+
+} elseif (isset($post['delforum']))
+{
+//  --------------------------------------------------------------------- Delforum----------------------------------------------------------------------
+$postid = $post['postid'];
+
+if ($right[$level]['forum_del_forum'])
+{
+$sql = "DELETE FROM `$dbpräfix"."forums` WHERE `ID` = '$postid'";
+$erg = $hp->mysqlquery($sql);
+
+$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `forumid` = '$postid'";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
+{
+$threadid = $row->ID;
+$sql = "DELETE FROM `$dbpräfix"."posts` WHERE `threadid` = '$threadid'";
+$erg = $hp->mysqlquery($sql);
+
+}
+$sql = "DELETE FROM `$dbpräfix"."threads` WHERE `forumid` = '$postid'";
+$erg = $hp->mysqlquery($sql);
+
+$info->okn("Forum mit allen Themen gelöscht");
+} else
+{
+$error->error("Sie haben keine Berechtigung Foren zu löschen!");
+}
 
 } else 
 {
@@ -1177,7 +1462,12 @@ foreach ($forums as $forumid=>$threads) {
 
 ?>
 </table>
-
 <?
+if ($right[$level]['forum_edit_forum'])
+{
+
+      echo "&nbsp;";
+      echo "<a href=?site=forum&newforum>".'<img src="include/button.php?p=3&t=Neues Forum">'."</a>"; 
+}
 }
 ?>

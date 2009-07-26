@@ -60,3 +60,44 @@ isupdate=update;
 xajax_checkvote(titelt, answer1t, answer2t, dayt, montht, yeart, hourt, mint, update);
 
 }
+
+// Forum
+function vote_effect(voteid, star)
+{
+var count = document.getElementById("vote"+voteid+"_count").value;
+
+
+var i = 1;
+for (i=1;i<star+1;i++)
+{
+var sternchen = document.getElementById("vote"+voteid+"_"+i);
+
+var stars = "";
+if (star != 0)
+{
+stars = star;
+}
+
+sternchen.className="forum_star"+stars;
+ 
+
+
+}
+for (i=star+1;i<6;i++)
+{
+var sternchen = document.getElementById("vote"+voteid+"_"+i);
+if (i > count)
+{
+sternchen.className="forum_star";
+} else
+{
+
+stars = count;
+
+
+sternchen.className="forum_star"+stars;
+}
+ 
+}
+}
+

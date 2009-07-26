@@ -512,6 +512,260 @@ $row = mysql_fetch_object($erg);
 
 }
 
+function site_forum_editforum($vars)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+$get = $hp->get();
+$right = $hp->getright();
+$level = $_SESSION['level'];
+
+$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = '$vars'";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+
+
+
+?>
+<table width="60%" border="0" align="center">
+  <tr>
+    <td><script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "simple"
+
+	});
+</script>
+<!-- /TinyMCE -->
+
+<form action="index.php?site=forum" method="post">
+<center><table border="1" width="90%">
+<tr>
+<td>
+<table width="100%" border="0">
+  <tr>
+    <td width="80">&nbsp;</td>
+    <td colspan="2">Bearbeiten</td>
+  </tr>
+  <tr>
+    <td>Titel:</td>
+    <td width="80"> &nbsp;
+    <table border="0" width="100%" height="5">
+    <tr>
+    <td width="90%">
+    <input type="text" name="titel" id="titel" value="<?=$row->titel?>"></td>
+    </td>
+    <td width="10%">
+    <a href="#" onclick="document.getElementById('more').style.display = '';">Erweitert</a>
+    </td>
+    </tr>
+    </table>
+  </tr>
+ 
+ <tr>
+  <td colspan="3">
+  <div id="more" style="display:none;">
+  <table border="0" width="100%">
+  <tr>
+    <td width="80">Level:</td>
+    
+    <td width="85%"><table width="100%">
+    <?
+    $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` <= '$level';";
+    $erg2 = $hp->mysqlquery($sql);
+    while ($row2 = mysql_fetch_object($erg2))
+    {
+        ?>
+    
+      <tr>
+        <td><label>
+          <input type="radio" name="level" value="<?=$row2->level?>" <? if ($row->level == $row2->level) { echo " checked=\"true\"";} ?>>
+          <?=$row2->name?></label></td>
+      </tr>
+     <?
+    }
+     ?> 
+    </table>
+      <p>Notiz: Jeder Benutzer eines höheren Levels kann dieses Forum trotzdem lesen!</p></td>
+  </tr>
+  
+ <input type="hidden" name="type" value="0">
+ 
+  <tr>
+    <td>Passwort</td>
+    <td><p>
+      <input type="text" name="passwort" id="passwort"  value="*">
+    </p>
+    <p>Notiz: Frei Lassen für öffentlich. * Lassen für keine Änderung.</p></td>
+  </tr>
+  <tr>
+    <td>Sichtbar:</td>
+    <td><p>
+        <input type="checkbox" name="visible" id="visible"  <? if ($row->visible == "1") { echo " checked=\"true\"";} ?>> 
+      Ja</p>
+      <p>Notiz: Das Thema ist für Benutzer eines geringeren Levels Sichtbar, Sie können aber nicht Antworten.</p></td>
+  </tr>
+  </table>
+</div> </td>
+
+ <tr>
+    <td>Beschreibung:</td>
+    <td colspan="2"><textarea name="text" id="text" cols="100" rows="15"><?=$row->description?></textarea></td>
+  </tr>
+ <tr>
+   <td>&nbsp;</td>
+   <td colspan="2"><button type="submit" name="forum_editforum"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button></td>
+ </tr>
+</table>
+</td>
+</tr>
+</table>
+</center>
+<input type="hidden" name="postid" value="<?=$vars?>">
+</form>
+
+<?
+
+}
+
+function site_forum_delthread($vars)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$lang=$hp->langclass;
+$fp = $hp->fp;
+$right = $hp->getright();
+$level = $_SESSION['level'];
+
+if($right[$level]['forum_edit_post'])
+{
+
+$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = '$vars';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+?>
+<p id="highlight">Möchten Sie das Thema und alle Beträge wirklich endgültig löschen?</p>
+<table width="100%">
+<tr valign="bottom">
+<td>
+<form method="POST" action="index.php?site=forum">
+  <p align="center"><input type="hidden" name="postid" size="3" value="<?=$vars?>"><input type="submit" value="Löschen" name="delthread"></form>
+</td>
+<td>
+</td>
+</tr>
+</table>
+<b>ID:</b> <?=$row->ID?><br>
+<b>Titel:</b> <?=$row->titel?><br>
+<b>
+
+<?
+} else
+{
+echo $lang->word('noright');
+}
+}
+
+function site_forum_delpost($vars)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$lang=$hp->langclass;
+$fp = $hp->fp;
+$right = $hp->getright();
+$level = $_SESSION['level'];
+
+if($right[$level]['forum_edit_post'])
+{
+
+$sql = "SELECT * FROM `$dbpräfix"."posts` WHERE `ID` = '$vars';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+?>
+<p id="highlight">Möchten Sie den Beitrag endgültig löschen?</p>
+<table width="100%">
+<tr valign="bottom">
+<td>
+<form method="POST" action="index.php?site=forum">
+  <p align="center"><input type="hidden" name="postid" size="3" value="<?=$vars?>"><input type="submit" value="Löschen" name="delpost"></form>
+</td>
+<td>
+</td>
+</tr>
+</table>
+<b>ID:</b> <?=$row->ID?><br>
+<b>
+
+<?
+} else
+{
+echo $lang->word('noright');
+}
+}
+
+function site_forum_delforum($vars)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$lang=$hp->langclass;
+$fp = $hp->fp;
+$right = $hp->getright();
+$level = $_SESSION['level'];
+
+if($right[$level]['forum_del_forum'])
+{
+
+$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = '$vars';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+?>
+<p id="highlight">Möchten Sie das <b>Komplette Forum</b> wirklich endgültig löschen?</p>
+<table width="100%">
+<tr valign="bottom">
+<td>
+<form method="POST" action="index.php?site=forum">
+  <p align="center"><input type="hidden" name="postid" size="3" value="<?=$vars?>"><input type="submit" value="Löschen" name="delforum"></form>
+</td>
+<td>
+</td>
+</tr>
+</table>
+<b>Themen:</b> <br>
+<ul>
+<?
+$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `forumid` = '$vars'";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
+{
+echo "<li>$row->titel</li>";
+}
+
+?>
+</ul>
+<b>
+
+<?
+} else
+{
+echo $lang->word('noright');
+}
+}
+
 
 function site_forum_movethread($vars)
 {

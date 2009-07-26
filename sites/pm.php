@@ -283,19 +283,6 @@ $error->error($lang->word('doublepost'),"2");
 } else {
 
 ?>
-<script type="text/javascript">
-function FensterOeffnen (Adresse) {
-  MeinFenster = window.open(Adresse, "Zweitfenster", "width=600,height=600,left=100,top=200,scrollbars=1");
-  MeinFenster.focus();
-}
-</script>
-<script language="JavaScript">
- function oeffnenFernbedienung(url){
-     var fernbedienung = window.open(url, "Buttons",
-         "width=300,height=500,scrollbars=yes,resizable=yes");
-
- }
- </script>
 
  <script language="javascript" type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script language="javascript" type="text/javascript">
@@ -508,6 +495,9 @@ $text = $post['Text'];
 $Betreff = "ERROR: ".$post['Betreff'];
 $timestamp = $post['timestamp'];
 
+$text = str_replace("<iframe", " >iframe", $text);
+$text = str_replace("<script", " >script", $text);
+$text = str_replace("<style", " >style", $text);
 
 $abfrage = "SELECT * FROM ".$dbpräfix."pm WHERE `timestamp` = '".$timestamp."'";
 $ergebnis = $hp->mysqlquery($abfrage);

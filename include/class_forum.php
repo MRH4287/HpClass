@@ -240,12 +240,6 @@ return $link;
 
 }
 
-/*
-if (($row->lastpost > $lastpost) and ($this->user_lastlogin($_SESSION['ID']) < $lastpost))
-{
-
-}
-*/
 
 function user_lastlogin($user)
 {
@@ -261,6 +255,79 @@ $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
 return $row->lastlogin;
+}
+
+function getvote($threadid)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+
+$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = $threadid";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+$ergebnisse = $row->ergebnisse;
+$erg = explode("<!--!>", $ergebnisse);
+$count = 0;
+$value = 0;
+foreach ($erg as $key=>$wert) {
+	$count++;
+	$value += $wert; 
+}
+$rating = 0;
+
+if ($count != 0)
+{
+$rating = round($value / $count);
+}
+
+$r1 = "";
+$r2 = "";
+$r3 = "";
+$r4 = "";
+$r5 = "";
+
+
+if ($rating >= 1)
+{
+$r1 = $rating;
+}
+if ($rating >= 2)
+{
+$r2 = $rating;
+}
+if ($rating >= 3)
+{
+$r3 = $rating;
+}
+if ($rating >= 4)
+{
+$r4 = $rating;
+}
+if ($rating == 5)
+{
+$r5 = $rating;
+}
+
+
+$text = '
+<table width="115" border="0" class="forum_rating_table"  onmouseout="vote_effect('.$threadid.',0)">
+  <tr>
+    <td>&nbsp;</td>
+    <td id="vote'.$threadid.'_1" onclick="xajax_forum_vote('.$threadid.', 1)" onmouseover="vote_effect('.$threadid.',1);" class="forum_star'.$r1.'">&nbsp;</td>
+    <td id="vote'.$threadid.'_2" onclick="xajax_forum_vote('.$threadid.', 2)" onmouseover="vote_effect('.$threadid.',2);" class="forum_star'.$r2.'">&nbsp;</td>
+    <td id="vote'.$threadid.'_3" onclick="xajax_forum_vote('.$threadid.', 3)" onmouseover="vote_effect('.$threadid.',3);" class="forum_star'.$r3.'">&nbsp;</td>
+    <td id="vote'.$threadid.'_4" onclick="xajax_forum_vote('.$threadid.', 4)" onmouseover="vote_effect('.$threadid.',4);" class="forum_star'.$r4.'">&nbsp;</td>
+    <td id="vote'.$threadid.'_5" onclick="xajax_forum_vote('.$threadid.', 5)" onmouseover="vote_effect('.$threadid.',5);" class="forum_star'.$r5.'">&nbsp;</td>
+    <td>&nbsp;<input type="hidden" value="'.$rating.'" id="vote'.$threadid.'_count" /></td>
+  </tr>
+</table>
+';
+return $text;
 }
 
 }

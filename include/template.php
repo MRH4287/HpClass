@@ -45,6 +45,7 @@ $template['js']='<script type="text/javascript" src="js/prototype.js"></script>
 <link rel="stylesheet" href="css/lightboxX2.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/votes.js"></script>
+<link rel="stylesheet" href="css/forum.css" type="text/css"/>
 ';
 
 ?>

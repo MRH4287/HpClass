@@ -445,6 +445,69 @@ $response->assign("kalender", "innerHTML", "$text");
 return $response;
 }
 
+
+function ax_forum_vote($ID, $vote)
+{
+$response = new xajaxResponse();
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+
+
+$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = $ID";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+
+
+$erg = explode("<!--!>", $row->ergebnisse);
+$erg[] = $vote;
+
+$user =  explode("<!--!>", $row->voted);
+
+if ((!in_array($_SESSION['ID'], $user)) and isset($_SESSION['ID']))
+{
+
+$user[] = $_SESSION['ID'];
+
+$ergebnisse = "";
+foreach ($erg as $key=>$value) {
+	if ($ergebnisse != "")
+	{
+  $ergebnisse .= "<!--!>".$value;
+  } else
+  {
+  $ergebnisse = $value;
+  }
+}
+
+$users = "";
+foreach ($user as $key=>$value) {
+	if ($users != "")
+	{
+  $users .= "<!--!>".$value;
+  } else
+  {
+  $users = $value;
+  }
+}
+
+$okn = "<img src=images/ok.gif height=12 width=12>";
+$response->assign("voteok", "innerHTML", $okn);
+
+$sql = "UPDATE `$dbpräfix"."threads` SET `ergebnisse` = '$ergebnisse', `voted` = '$users' WHERE `ID` = $ID";
+$erg = $hp->mysqlquery($sql);
+
+
+}
+return $response;
+}
+
+
+
 function open($funktion)
 {
 $this->func[] = $funktion;
