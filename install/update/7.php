@@ -1,0 +1,1 @@
+INSERT INTO `#!-PRÄFIX-!#config` VALUES(NULL, 'show_design_dropdown', 'true', 'Zeigt eine Dropdownliste bei den Designs anstatt eies Textfeldes', 'bool', '');

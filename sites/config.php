@@ -130,6 +130,23 @@ while($row = mysql_fetch_array($ergebnisss))
     </tr>
 <?
 
+$config = $hp->getconfig();
+if ($config['show_design_dropdown'])
+{
+$filearray = array();
+$handle = opendir("./template"); 
+while (false != ($file = readdir($handle))) {
+$exp = explode(".",$file);
+if ($exp[1] == "html")
+{
+$filearray[]=$exp[0];
+}
+}
+}
+
+
+
+
 
 foreach ($row2 as $key12=>$row) {
 	
@@ -143,8 +160,32 @@ foreach ($row2 as $key12=>$row) {
  $value = $row['ok'];
  $value = str_replace("\"", "'", $value);
 $value = str_replace("<", "&lt;", $value);
+// value="'."$value".'"
+if (($config['show_design_dropdown']) and ($row['name'] == "design"))
+{
+ echo '<td width="80" height="32" align="center"><select name="text['.$row['name'].']"> '; 
  
+ foreach ($filearray as $key2=>$value2) {
+ 	
+ 	echo "<option value=\"$value2\"";
+ 	
+ 	if ($value == $value2)
+ 	{
+   echo " selected=true ";
+   }
+   echo ">$value2</option>";
+ 	
+ }
+ 
+ 
+ echo "</select";
+
+} else
+{
  echo '<td width="80" height="32" align="center"><input type="text" name="text['.$row['name'].']" value="'."$value".'" '; 
+ }
+ 
+ 
  }
  else
 
