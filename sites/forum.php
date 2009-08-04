@@ -112,9 +112,11 @@ if (!isset($page))
 {
 $page = 1;
 }
-
-$postsasite = 20;
-
+// -.--------------------------------------------------------------------------------------------------------------------
+// Dieser Wert ist eher ein Richtwert und kann nicht 100%tig angenommen werden.
+// Das Liegt an der Rundung.
+$postsasite = 25;
+// -.--------------------------------------------------------------------------------------------------------------------
 $threads = array();
 $sql = "SELECT ID, type FROM `$dbpräfix"."threads` WHERE `forumid` = '$forumid' ORDER BY `lastpost` DESC";
 $erg = $hp->mysqlquery($sql);
@@ -128,8 +130,47 @@ $i = 0;
 krsort($threads);
 
 
+// Annkündigungen auf jeder Seite oben -->
+if (is_array($threads[2]))
+{
+$anzahla = count($threads[2]);
+
+$all = 0;
+foreach ($threads as $type=>$array) {
+	if ($type != 2)
+	{
+  foreach ($array as $key=>$value) {
+  	$all++;
+  }
+  }
+}
+$postsasite = $postsasite - $anzahla;
+
+
+if ($postsasite <= 0)
+{
+$postsasite  = 1;
+}
+$pages = ceil($all / ($postsasite));
+
+
+for ($i = 1; $i <= $pages; $i++) {
+
+ foreach ($threads[2] as $key=>$value) {
+ 	$posts[$i][] = $value;
+ }
+
+}
+
+}
+// --> Ende ...
+
+
 foreach ($threads as $type=>$array) {
 
+// Da sonst Ankündigungen auf der 1. Seite doppelt wären
+if ($type != 2)
+{
 foreach ($array as $key=>$ID) {
 	
 $sql = "SELECT ID FROM `$dbpräfix"."threads` WHERE `ID` = '$ID'";
@@ -144,6 +185,9 @@ $posts[$p][] = $row->ID;
 }
 }
 }
+
+}
+
 
 
 ?>
@@ -196,7 +240,22 @@ $error->error("Diese Seite exsistiert nicht!");
     <td><table width="100%" border="0">
       <tr>
         <td width="10%" rowspan="2"><div align="center"><img src="<?=$forum->getimage_t($row->ID)?>"></div></td>
-        <td width="90%"><a href="index.php?site=forum&show=<?=$row->ID?>"><?=$row->titel?></a></td>
+        <td width="90%"><a href="index.php?site=forum&show=<?=$row->ID?>"><?  
+        switch ($row->type) {
+        case 0:
+        echo "";	
+        	break;
+        case 1: 
+        echo "<b>Sticky:</b> ";
+        break;
+       case 2:
+        echo "<b>Ankündigung:</b> ";
+        break;
+        	
+        }
+        
+        
+          ?><?=$row->titel?></a></td>
       </tr>
       <tr>
         <td>von <? 
@@ -317,6 +376,13 @@ background: url(forum/newtopic_hover.gif) no-repeat;
 </div>
 
 <?
+}
+
+if ($right[$level]['forum_edit_forum'])
+{
+
+      echo "&nbsp;";
+      echo $lbs->link("forum_editforum", '<img src="include/button.php?p=3&t=  Forum bearbeiten  " >', $forumid); 
 }
 
 if ($right[$level]['forum_del_forum'])
