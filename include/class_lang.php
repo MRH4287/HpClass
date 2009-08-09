@@ -58,16 +58,11 @@ return $this->lang[$key1];
 
 function setlang($lang2)
 {
-if (!is_object($lang2)) 
-{
+
 $this->clang = $lang2;
 
 $_SESSION['language'] = $lang2;
-} else
-{
 
-echo "ERRORRROROOROROROROROR!!!!!";
-}
 }
 
 function word($word)
@@ -118,14 +113,9 @@ foreach ($langarray as $key=>$value) {
 	
 	
 }
-
-if ("$this->use" == "file")
-{
 $this->incfiles();
-} elseif ("$this->use"  == "db")
-{
 $this->loadfromdb();
-}
+
 
 }
 
@@ -254,7 +244,7 @@ $array = explode("tp_", $key);
   }
 }
 }
-} else {// $fp->warn("Langclass Warnt: this->lang[this->clang] ist kein Array"); 
+} else { $fp->warn("Langclass Warnt: this->lang[this->clang] ist kein Array"); 
 }
 }
 
