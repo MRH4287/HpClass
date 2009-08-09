@@ -447,6 +447,81 @@ $info->okn("Thread verschoben");
 }
 
 
+function lostpassword($user)
+{
+$hp = $this;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+
+
+if (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0.1"))
+{
+$local = true;
+}
+
+
+
+
+$password_length = 15;
+$generated_password = "";
+$valid_characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+$i = 0;
+
+
+ $chars_length = strlen($valid_characters) - 1;
+ for($i = $password_length; $i--; ) {
+  $generated_password .= $valid_characters[mt_rand(0, $chars_length)];
+ }
+
+ $code = $generated_password;
+ 
+ 
+// $passwort = md5($code);
+ 
+ 
+ $sql = "UPDATE `$dbpräfix"."user` SET `pass` = '$code' WHERE `user` = '$user';";
+ $erg = $hp->mysqlquery($sql);
+ 
+ 
+ 
+ $mail['mailcomefrom']="admin@".$_SERVER['HTTP_HOST']; // Die Emailadresse, von der angezeigt wird, dass die E-Mail kommt
+$mail['mailbetreff']="Ihr Passwort"; // Der angezeigt  Betreff in der Registrations E-mail
+
+$mail['mailtext']="Ihr Passwort wurde erfolgreich zurückgesetzt.\n\r Es lautet: $code";
+// Der Text, der nach der Aktivierungsmai stehen soll.
+$mail['mailfooter']="\n \r Vielen dank für ihr interesse!";
+
+ 
+ 
+ 
+ if (!$local)
+{
+
+foreach ($mail as $key=>$value) {
+	$$key = $value;
+}
+$info->okn("Ihr Passwort wurde zurückgesetzt");
+ mail($email, $mailbetreff, $mailtext.$mailfooter ,"from:$mailcomefrom");
+ echo "Eine E-Mail mit ihrem Passwort wurde an ihre E-Mail Adresse geschickt!";
+ 
+} else
+{
+echo ("Ihr Passwort wurde zurückgesetzt<br>");
+echo ("Es lautet $code ");
+
+
+
+}
+
+
+
+
+}
+
+
 function checksite($site)
 {
 // Verschoben wegen Config

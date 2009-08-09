@@ -30,6 +30,7 @@ $dbpräfix = $hp->getpräfix();
       <font color="black">'.$lang->word('password').':</font><br>
       <input type="password" name="passwort" size="15"><input type="submit" value="'.$lang->word('loginbutt').'" name="login">
       <a href=index.php?site=register><font color="black">&raquo;&nbsp;'.$lang->word('register').'</font></a>
+      <a href=index.php?site=lostpw><font color="black">&raquo;&nbsp;Passwort vergesen?</font></a>
     </form>');
      } else { 
      $abfrage = "SELECT * FROM ".$dbpräfix."anwaerter";

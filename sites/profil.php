@@ -289,7 +289,7 @@ if (isset ($post['pwändern'])) {
   <table border="0" width="318">
     <tr>
       <td width="127"><?=$lang->word('oldpw')?>:</td>
-      <td width="175"><input type="text" name="passwortalt" size="24" maxlength="20"></td>
+      <td width="175"><input type="password" name="passwortalt" size="24" maxlength="20"></td>
     </tr>
     <tr>
       <td width="127"></td>
@@ -297,15 +297,16 @@ if (isset ($post['pwändern'])) {
     </tr>
     <tr>
       <td width="127"><?=$lang->word('newpw')?>:</td>
-      <td width="175"><input type="text" name="passwort" size="24" maxlength="20"></td>
+      <td width="175"><input type="password" name="passwort" size="24" maxlength="20"></td>
     </tr>
     <tr>
       <td width="127"><?=$lang->word('repnewpw')?></td>
-      <td width="175"><input type="text" name="passwort2" size="24" maxlength="20"></td>
+      <td width="175"><input type="password" name="passwort2" size="24" maxlength="20"></td>
     </tr>
     <tr>
       <td width="302" colspan="2">
-        <p align="center"><input type="submit" value="<?=$lang->word('ok')?>" name="pwneu"></td>
+        <p align="center"><button type="submit" name="pwneu"> <img src="images/ok.gif"> </button></td>
+        <!--<input type="submit" value="<?=$lang->word('ok')?>" name="pwneu">-->
     </tr>
   </table>
   <p align="center">&nbsp;</p>
