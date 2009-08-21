@@ -124,7 +124,7 @@ echo "Erfolgeich eingetragen!";
 
 <table border="1" width="433" align="center" bordercolor="#9999FF">
   <tr>
-    <td width="423"><b><font size="4">Hochladen als: <?echo $_SESSION['username'];?>
+    <td width="423"><b><font size="4">Hochladen als: <?php echo $_SESSION['username'];?>
     
     <form enctype="multipart/form-data" action="index.php?site=upload" method=post>
           </font></b>
@@ -162,7 +162,7 @@ echo "Erfolgeich eingetragen!";
           <td width="222">
           
           <select name="kat">
-      <?
+      <?php
        $abfrage = "SELECT * FROM ".$dbpräfix."download_kat";
 $ergebnis = $hp->mysqlquery($abfrage);
    echo mysql_error(); 
@@ -171,8 +171,8 @@ while($row2 = mysql_fetch_object($ergebnis))
    {
       
       ?>   
-          <option value="<?=$row2->ID?>"><? echo $row2->name; ?></option>   
-   <?
+          <option value="<?php echo $row2->ID?>"><?php echo $row2->name; ?></option>   
+   <?php
   } 
    ?>
       </select> <a href="index.php?site=upload&katnew">Katigorien erstellen</a>
@@ -205,7 +205,7 @@ while($row2 = mysql_fetch_object($ergebnis))
       </td>
   </tr>
 </table>
-<?} elseif (isset($get['filechange']))
+<?php } elseif (isset($get['filechange']))
 {
 
  $abfrage2 = "SELECT * FROM ".$dbpräfix."download WHERE `ID` = '".$get['filechange']."'";
@@ -228,14 +228,14 @@ while($row = mysql_fetch_object($ergebnis2))
         <tr>
           <td width="95">Titel:</td>
           <td width="222">
-              <input type="text" name="titel" size="20" maxlength="20" value="<?=$row->titel?>">
+              <input type="text" name="titel" size="20" maxlength="20" value="<?php echo $row->titel?>">
             
           </td>
         </tr>
                 <tr>
           <td width="95">Level:</td>
           <td width="222">
-              <input type="text" name="level" size="20" maxlength="20" value="<?=$row->level?>">
+              <input type="text" name="level" size="20" maxlength="20" value="<?php echo $row->level?>">
             
           </td>
         </tr>
@@ -249,7 +249,7 @@ while($row = mysql_fetch_object($ergebnis2))
           <td width="95">Beschreibung:</td>
           <td width="222">
 
-   <textarea rows="3" name="S1" cols="24" ><?=$row->beschreibung?></textarea>
+   <textarea rows="3" name="S1" cols="24" ><?php echo $row->beschreibung?></textarea>
                </td>
         </tr>
                 <tr>
@@ -257,7 +257,7 @@ while($row = mysql_fetch_object($ergebnis2))
           <td width="222">
           
           <select name="kat">
-      <?
+      <?php
        $abfrage = "SELECT * FROM ".$dbpräfix."download_kat";
 $ergebnis = $hp->mysqlquery($abfrage);
    echo mysql_error(); 
@@ -266,8 +266,8 @@ while($row2 = mysql_fetch_object($ergebnis))
    {
       
       ?>   
-          <option value="<?=$row2->ID?>"><? echo $row2->name; ?></option>   
-   <?
+          <option value="<?php echo $row2->ID?>"><?php echo $row2->name; ?></option>   
+   <?php
   } 
    ?>
       </select> <a href="index.php?site=upload&katnew">Katigorien erstellen</a>
@@ -283,7 +283,7 @@ while($row2 = mysql_fetch_object($ergebnis))
         <tr>
           <td colspan="2" width="261">
             <p align="center"><input type="submit" value="Daten Abschicken" name="changefile">      
-      <input type="hidden" value="<?=$row->ID?>" name="ID">
+      <input type="hidden" value="<?php echo $row->ID?>" name="ID">
       </form>
       
       
@@ -295,7 +295,7 @@ while($row2 = mysql_fetch_object($ergebnis))
 </tr>
 </table>
 
-<?
+<?php
 }
 
 } elseif (isset($post['changefile']))
@@ -441,7 +441,7 @@ echo "Datei erfolgreich modifiziert!<br><a href=index.php?site=upload>zurück</a>
       </table>
 </td></tr></table>
 
-<?
+<?php
 } elseif (isset($post['katnew']))
 {
 
@@ -490,14 +490,14 @@ while($row = mysql_fetch_object($ergebnis2))
         <tr>
           <td width="95">Titel:</td>
           <td width="222">
-              <input type="text" name="titel" size="20" maxlength="20" value="<?=$row->name?>">
+              <input type="text" name="titel" size="20" maxlength="20" value="<?php echo $row->name?>">
             
           </td>
         </tr>
                 <tr>
           <td width="95">Level:</td>
           <td width="222">
-              <input type="text" name="level" size="20" maxlength="20" value="<?=$row->level?>">
+              <input type="text" name="level" size="20" maxlength="20" value="<?php echo $row->level?>">
             
           </td>
         </tr>
@@ -506,7 +506,7 @@ while($row = mysql_fetch_object($ergebnis2))
           <td width="95">Beschreibung:</td>
           <td width="222">
 
-   <textarea rows="3" name="S1" cols="24" ><?=$row->description?></textarea>
+   <textarea rows="3" name="S1" cols="24" ><?php echo $row->description?></textarea>
                </td>
         </tr>
 
@@ -519,7 +519,7 @@ while($row = mysql_fetch_object($ergebnis2))
         <tr>
           <td colspan="2" width="261">
             <p align="center"><input type="submit" value="Daten Abschicken" name="katchange">      
-      <input type="hidden" value="<?=$row->ID?>" name="ID">
+      <input type="hidden" value="<?php echo $row->ID?>" name="ID">
       </form>
       
       
@@ -529,7 +529,7 @@ while($row = mysql_fetch_object($ergebnis2))
       </table>
 </td></tr></table>
 
-<?
+<?php
 }
 } elseif (isset($post['katchange']))
 {
@@ -632,7 +632,7 @@ $ergebnis = $hp->mysqlquery($abfrage);
 </table></center>
 
 
-<?
+<?php
 }
 
 }?>

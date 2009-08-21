@@ -1,4 +1,4 @@
-<?
+<?php
 // Class Config
 $hp = $this;
 $right = $hp->getright();
@@ -28,10 +28,10 @@ while($row = mysql_fetch_object($ergebnis))
    {
    ?>
    <td class="BildRahmen2" align="center" bgcolor="#dae3e9"">
-   <center><?="$row->Titel"?> (<?="$row->user"?>) <? if ($right[$level]['delvideo']) { echo "<a href=index.php?site=videos&del=$row->ID>Löschen</a>"; } ?></center><br>
-   <center><?="$row->HTML"?>
+   <center><?php echo "$row->Titel"?> (<?php echo "$row->user"?>) <?php if ($right[$level]['delvideo']) { echo "<a href=index.php?site=videos&del=$row->ID>Löschen</a>"; } ?></center><br>
+   <center><?php echo "$row->HTML"?>
    </td></tr><tr>
-   <?
+   <?php
   }
 
 ?>

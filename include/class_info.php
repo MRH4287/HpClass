@@ -76,12 +76,12 @@ $string = str_replace("'", '\\"', $string);
 <script type="text/javascript">
 
 var errordiv = document.getElementById('infodiv');
-errordiv.innerHTML = '<p align="center"><?=$string?></p>';
+errordiv.innerHTML = '<p align="center"><?php echo $string?></p>';
 errordiv.style.display = '';
 
 </script>
 
-<?
+<?php
 
 }
 
@@ -108,12 +108,12 @@ $string = str_replace("'", '\"', $string);
 <script type="text/javascript">
 
 var errordiv = document.getElementById('okdiv');
-errordiv.innerHTML = '<p align="center"><?=$string?></p>';
+errordiv.innerHTML = '<p align="center"><?php echo $string?></p>';
 errordiv.style.display = '';
 
 </script>
 
-<?
+<?php
 
 }
 

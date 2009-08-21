@@ -1,4 +1,4 @@
-<?
+<?php
 // Hier eine Liste aller im Script vorhandenen Variablen:
 // $path = Pfad zum Modulverzeichnis (moduls/$path/ für eine korrekte verlinkung!)
 // $name = Name des Scripts!

@@ -1,4 +1,4 @@
-<?
+<?php
  // Hier stehem Unistall Rutinen, wie das verschieben von Daten!
  // Der Datenbank Inhalt wird automatisch gelöschr!
  // Hier dürfen echo Anweisungen stehen (oder print)

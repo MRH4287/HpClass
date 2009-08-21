@@ -1,4 +1,4 @@
-<?
+<?php
 $nutzer['admin']="install";
 
 $fmeldung="Dieser Bereich ist nur für das Updaten des Systems gedacht!<br>

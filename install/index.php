@@ -47,13 +47,13 @@ if (!isset($s1) and !isset($s2))
   <input type="checkbox" name="dbonlyconfig" value="ON">Nur Config erzeugen
   <input type="submit" value="Abschicken" name="s1"></p>
 </form> </p>
-<?
+<?php
 } else
 {
 if (!isset($s2) and !isset($dbonlyconfig)) {
 ?>
 <p align="left"><font size="4">Verlauf:</font></p>
-<?  
+<?php  
 
 
 $db = mysql_connect($dbserver,
@@ -133,12 +133,12 @@ echo "<p align=\"center\"><font size=\"4\">Die Datenbank wurde konfiguriert!</fo
 ?>
 <br>
 <p>Config mit standardwerten erstellen?</p>
-<?
+<?php
 echo" <form method=\"POST\" action=\"index.php?dbserver=$dbserver&dbuser=$dbuser&dbpass=$dbpass&dbdatenbank=$dbdatenbank&dbpraefix=$dbpraefix\">";
 ?>
   <p><input type="checkbox" name="config" value="ON">JA&nbsp;&nbsp;&nbsp; <input type="submit" value="OK" name="s2"></p>
 </form>
-<?
+<?php
 
 }
 }

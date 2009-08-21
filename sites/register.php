@@ -68,7 +68,7 @@ if (!isset($post['register'])) {
       <td width="365"><input type="text" name="email" size="20"></td>
     </tr>
     
-    <?  // [ADD] 21.04.08 ändern der Registrieren page!  ?>
+    <?php  // [ADD] 21.04.08 ändern der Registrieren page!  ?>
       <tr>
       <td width="150">Wohnort: *+</td>
       <td width="365"><input type="text" name="wohnort" size="20"  maxlength="20"></td>
@@ -82,7 +82,7 @@ if (!isset($post['register'])) {
       <td width="365"><input type="radio" value="M" checked name="geschlecht">Mänlich / <input type="radio" name="geschlecht" value="W"> Weiblich</td>
     </tr> 
     
-        <? /* ?>
+        <?php /* ?>
     <tr>
       <td width="150">Bewerbungstext: *</td>
       <td width="365" rowspan="2"><textarea rows="2" name="btext" cols="44"></textarea></td>
@@ -90,7 +90,7 @@ if (!isset($post['register'])) {
     <? */ ?>
     <tr>
     </tr>
-    <?
+    <?php
 
     if ($captcha) {  ?>
     <tr>
@@ -107,7 +107,7 @@ echo '<input type="hidden" name="id" value="' . $c->getId() . '" />';
 <input type="text" name="captcha" /><br /></td>
 
     </tr>
-    <? } ?>
+    <?php } ?>
     <tr>
       <td width="136"></td>
     </tr>
@@ -121,7 +121,7 @@ echo '<input type="hidden" name="id" value="' . $c->getId() . '" />';
     </tr>
   </table>
 </form>
-<? } else
+<?php } else
 {
 if ($post['passwort12'] == $post['passwort212'])
 {
@@ -251,7 +251,7 @@ echo '<a href='.$pageadress."?site=mailagree&user=$user&code=$code>$pageadress?s
 
 
 
-<?
+<?php
 }
 else{echo "Fehler: ".mysql_error(); }
 }

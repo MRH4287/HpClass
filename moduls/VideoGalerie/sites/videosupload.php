@@ -26,7 +26,7 @@ if (!isset($post['sendfiles']))
 ?>
 <table border="1" width="433" align="center" bordercolor="#9999FF">
   <tr>
-    <td width="423"><b><font size="4">Eintragen als: <?echo $_SESSION['username'];?>
+    <td width="423"><b><font size="4">Eintragen als: <?php echo $_SESSION['username'];?>
     
     <form action="index.php?site=videosupload" method=post>
           </font></b>
@@ -75,7 +75,7 @@ if (!isset($post['sendfiles']))
       </td>
   </tr>
 </table>
-<? } else
+<?php } else
 {
 $user = $_SESSION['username'];
 $Titel = $_POST['titel'];

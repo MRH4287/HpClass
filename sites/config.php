@@ -113,7 +113,7 @@ while($row = mysql_fetch_array($ergebnisss))
   <form method="POST" action="index.php?site=config">
 
   <table border="1" width="677" height="7" bordercolor="#4E6F81">
-  <?
+  <?php
   foreach ($cfg as $key=>$row2) {
   	
   if ($key == "")
@@ -123,12 +123,12 @@ while($row = mysql_fetch_array($ergebnisss))
   ?>
     <tr>
       
-      <td width="757" height="25" bgcolor="#5A8196"><?=$key?></td>
+      <td width="757" height="25" bgcolor="#5A8196"><?php echo $key?></td>
       <td width="80" height="21" bgcolor="#5A8196">
         <p align="center"></p>
       </td>
     </tr>
-<?
+<?php
 
 $config = $hp->getconfig();
 if ($config['show_design_dropdown'])
@@ -218,7 +218,7 @@ if (($config['show_design_dropdown']) and ($row['name'] == "design"))
 
   </table>
   </center>
-  <? if ($_SESSION['username'] == "mrh") { ?>
+  <?php if ($_SESSION['username'] == "mrh") { ?>
 </form>
   <form method="POST" action="index.php?site=config">
 <table border="1" width="160">
@@ -244,7 +244,7 @@ if (($config['show_design_dropdown']) and ($row['name'] == "design"))
 
 </form>
 
-<? 
+<?php 
 }
 
 

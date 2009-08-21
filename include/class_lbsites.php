@@ -1,4 +1,4 @@
-<?
+<?php
 class lbsites
 {
 var $error;
@@ -35,7 +35,7 @@ $funktions = get_class_methods($this);
 <td height=100%>
 <center><a href="#" onclick="resolution();">Ausrichten</a><br>
 
-<?
+<?php
 if (in_array("site_".$site, $funktions))
 {
 $site="site_".$site;
@@ -50,7 +50,7 @@ echo "Seite nicht gefunden!";
 </tr>
 <tr>
 <td>
-<?
+<?php
 
 echo "<br><br><a href=\"#\" class=\"lbAction\" rel=\"deactivate\"><p align=\"right\"><img src=images/close.gif></p> </center>";
 ?>
@@ -58,7 +58,7 @@ echo "<br><br><a href=\"#\" class=\"lbAction\" rel=\"deactivate\"><p align=\"rig
 </tr>
 </table>
 <script>resolution();</script>
-<?
+<?php
 }
 
 function site_Test($vars)
@@ -104,17 +104,17 @@ $row = mysql_fetch_object($erg);
 <tr valign="bottom">
 <td>
 <form method="POST" action="index.php?site=vote">
-  <p align="center"><input type="hidden" name="voteiddel" size="3" value="<?=$vars?>"><input type="submit" value="Löschen" name="votedel"></form>
+  <p align="center"><input type="hidden" name="voteiddel" size="3" value="<?php echo $vars?>"><input type="submit" value="Löschen" name="votedel"></form>
 </td>
 <td>
 </td>
 </tr>
 </table>
-<b>ID:</b> <?=$row->ID?><br>
-<b>Titel:</b> <?=$row->name?><br>
+<b>ID:</b> <?php echo $row->ID?><br>
+<b>Titel:</b> <?php echo $row->name?><br>
 <b>
 
-<?
+<?php
 } else
 {
 echo $lang->word('noright');
@@ -178,22 +178,22 @@ while($row = mysql_fetch_object($ergebnis))
 <form method="POST" action="index.php?site=news">
 
   <p align="left">Überschrift:<br>
-  <input type="text" name="newstitel" size="80" value="<?="$row->titel"?>"></p>
-  <input type="hidden" name="newsid" size="80" value="<?=$site?>">
+  <input type="text" name="newstitel" size="80" value="<?php echo "$row->titel"?>"></p>
+  <input type="hidden" name="newsid" size="80" value="<?php echo $site?>">
   <p align="left">Datum:<br>
-  <input type="text" name="newsdate" size="20" value="<?="$row->datum"?>"></p>
+  <input type="text" name="newsdate" size="20" value="<?php echo "$row->datum"?>"></p>
     <p align="left">Typ: <select size="1" name="newstyp">
     <option selected>Info</option>
     <option>Event</option>
     <option>Gameserver</option>
     <option>Member</option>
-  </select> Level <input type="text" name="newslevel" size="1" value="<?="$row->level"?>"><br>Die Berechtigungen können in der Seite "Rechte" geändert werden. Level 0 bedeutet öffentlich.</p>
+  </select> Level <input type="text" name="newslevel" size="1" value="<?php echo "$row->level"?>"><br>Die Berechtigungen können in der Seite "Rechte" geändert werden. Level 0 bedeutet öffentlich.</p>
   <p align="left">
-  <textarea rows="15" name="newstext" cols="74" id="t1"><?=$newstext?></textarea>
+  <textarea rows="15" name="newstext" cols="74" id="t1"><?php echo $newstext?></textarea>
   <button type="submit" name="newsedit"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
 </form>
 
-<? } 
+<?php } 
 
 
 
@@ -221,13 +221,13 @@ if (!$right[$level]['newswrite'])
   <table border="1" width="554" height="360">
     <tr>
       <td width="554" height="360" align="center">
-        <p align="center"><?=$lang->word('nonewswrite')?></p>
-        <p align="center"><?=$lang->word('questions-webmaster')?></td>
+        <p align="center"><?php echo $lang->word('nonewswrite')?></p>
+        <p align="center"><?php echo $lang->word('questions-webmaster')?></td>
     </tr>
   </table>
 </div>
 
-<?
+<?php
 } else
 {
 
@@ -253,10 +253,10 @@ if (!$right[$level]['newswrite'])
 </script>
 <!-- /TinyMCE -->
 
-<p align="left"><font size="3"><u><?=$lang->word('newnews')?></u></font></p>
+<p align="left"><font size="3"><u><?php echo $lang->word('newnews')?></u></font></p>
 <form method="POST" action="index.php?site=news">
 
-  <p align="left"><?=$lang->word('headline')?><br>
+  <p align="left"><?php echo $lang->word('headline')?><br>
   <input type="text" name="newstitel" size="80"></p>
     <p align="left">Typ: <select size="1" name="newstyp"> 
     <option selected>Info</option>
@@ -268,10 +268,10 @@ if (!$right[$level]['newswrite'])
 
   <p align="left">
 
-  <textarea rows="15" name="newstext" cols="74" id="t1"></textarea><!--<input type="submit" value="<?=$lang->word('post')?>" name="newswrite">--></p>
+  <textarea rows="15" name="newstext" cols="74" id="t1"></textarea><!--<input type="submit" value="<?php echo $lang->word('post')?>" name="newswrite">--></p>
  <p align="left"> <button type="submit" name="newswrite"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button></p>
 </form>
-<?
+<?php
 } // Wegen Rechte
 
 
@@ -302,18 +302,18 @@ $row = mysql_fetch_object($erg);
 <tr valign="bottom">
 <td>
 <form method="POST" action="index.php?site=news">
-  <p align="center"><input type="hidden" name="newsiddel" size="3" value="<?=$vars?>"><input type="submit" value="Löschen" name="newsdel"></form>
+  <p align="center"><input type="hidden" name="newsiddel" size="3" value="<?php echo $vars?>"><input type="submit" value="Löschen" name="newsdel"></form>
 </td>
 <td>
 </td>
 </tr>
 </table>
-<b>ID:</b> <?=$row->ID?><br>
-<b>Newstitel:</b> <?=$row->titel?><br>
-<b>Ersteller:</b> <?=$row->ersteller?><br>
+<b>ID:</b> <?php echo $row->ID?><br>
+<b>Newstitel:</b> <?php echo $row->titel?><br>
+<b>Ersteller:</b> <?php echo $row->ersteller?><br>
 <b>
 
-<?
+<?php
 } else
 {
 echo $lang->word('noright');
@@ -349,15 +349,15 @@ $row = mysql_fetch_object($erg);
 </script>
 <!-- /TinyMCE -->
 <center><b>Bearbeiten</b></center>
-<form action="index.php?site=forum&show=<?=$row->threadid?>" method="post">
-<textarea name="text" cols="100" rows="15"><?=$row->text?></textarea>
-<input type="hidden" name="postid" value="<?=$row->ID?>"><br>
+<form action="index.php?site=forum&show=<?php echo $row->threadid?>" method="post">
+<textarea name="text" cols="100" rows="15"><?php echo $row->text?></textarea>
+<input type="hidden" name="postid" value="<?php echo $row->ID?>"><br>
 <button type="submit" name="forum_editpost"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
 </form>
 </td>
   </tr>
 </table>
-<?
+<?php
 
 }
 
@@ -393,7 +393,7 @@ $row = mysql_fetch_object($erg);
 </script>
 <!-- /TinyMCE -->
 
-<form action="index.php?site=forum&show=<?=$row->ID?>" method="post">
+<form action="index.php?site=forum&show=<?php echo $row->ID?>" method="post">
 <center><table border="1" widht="90%">
 <tr>
 <td>
@@ -408,7 +408,7 @@ $row = mysql_fetch_object($erg);
     <table border="0" width="100%" height="5">
     <tr>
     <td width="90%">
-    <input type="text" name="titel" id="titel" value="<?=$row->titel?>"></td>
+    <input type="text" name="titel" id="titel" value="<?php echo $row->titel?>"></td>
     </td>
     <td width="10%">
     <a href="#" onclick="document.getElementById('more').style.display = '';">Erweitert</a>
@@ -425,7 +425,7 @@ $row = mysql_fetch_object($erg);
     <td width="80">Level:</td>
     
     <td width="85%"><table width="100%">
-    <?
+    <?php
     $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` <= '$level';";
     $erg2 = $hp->mysqlquery($sql);
     while ($row2 = mysql_fetch_object($erg2))
@@ -434,33 +434,33 @@ $row = mysql_fetch_object($erg);
     
       <tr>
         <td><label>
-          <input type="radio" name="level" value="<?=$row2->level?>" <? if ($row->level == $row2->level) { echo " checked=\"true\"";} ?>>
-          <?=$row2->name?></label></td>
+          <input type="radio" name="level" value="<?php echo $row2->level?>" <?php if ($row->level == $row2->level) { echo " checked=\"true\"";} ?>>
+          <?php echo $row2->name?></label></td>
       </tr>
-     <?
+     <?php
     }
      ?> 
     </table>
       <p>Notiz: Jeder Benutzer eines höheren Levels kann dieses Forum trotzdem lesen!</p></td>
   </tr>
-  <? if ($right[$level]['forum_canusetypes']) { ?>
+  <?php if ($right[$level]['forum_canusetypes']) { ?>
     <tr>
     <td>Type</td>
     <td>
    <table width="100%">
       <tr>
         <td><label>
-          <input type="radio" name="type" value="0"  <? if ($row->type == "0") { echo " checked=\"true\"";} ?>>
+          <input type="radio" name="type" value="0"  <?php if ($row->type == "0") { echo " checked=\"true\"";} ?>>
           Normal</label></td>
       </tr>
       <tr>
         <td><label>
-          <input type="radio" name="type" value="1"   <? if ($row->type == "1") { echo " checked=\"true\"";} ?>>
+          <input type="radio" name="type" value="1"   <?php if ($row->type == "1") { echo " checked=\"true\"";} ?>>
           Sticky</label></td>
       </tr>
       <tr>
         <td><label>
-          <input type="radio" name="type" value="2"   <? if ($row->type == "2") { echo " checked=\"true\"";} ?>>
+          <input type="radio" name="type" value="2"   <?php if ($row->type == "2") { echo " checked=\"true\"";} ?>>
           Announce</label></td>
       </tr>
    
@@ -469,11 +469,11 @@ $row = mysql_fetch_object($erg);
    
    </td>
   </tr>
- <? } else
+ <?php } else
  {
  ?>
  <input type="hidden" name="type" value="0">
- <?
+ <?php
  } ?> 
   <tr>
     <td>Passwort</td>
@@ -485,7 +485,7 @@ $row = mysql_fetch_object($erg);
   <tr>
     <td>Sichtbar:</td>
     <td><p>
-        <input type="checkbox" name="visible" id="visible"  <? if ($row->visible == "1") { echo " checked=\"true\"";} ?>> 
+        <input type="checkbox" name="visible" id="visible"  <?php if ($row->visible == "1") { echo " checked=\"true\"";} ?>> 
       Ja</p>
       <p>Notiz: Das Thema ist für Benutzer eines geringeren Levels Sichtbar, Sie können aber nicht Antworten.</p></td>
   </tr>
@@ -494,7 +494,7 @@ $row = mysql_fetch_object($erg);
 
  <tr>
     <td>Text:</td>
-    <td colspan="2"><textarea name="text" id="text" cols="100" rows="15"><?=$row->text?></textarea></td>
+    <td colspan="2"><textarea name="text" id="text" cols="100" rows="15"><?php echo $row->text?></textarea></td>
   </tr>
  <tr>
    <td>&nbsp;</td>
@@ -505,10 +505,10 @@ $row = mysql_fetch_object($erg);
 </tr>
 </table>
 </center>
-<input type="hidden" name="postid" value="<?=$vars?>">
+<input type="hidden" name="postid" value="<?php echo $vars?>">
 </form>
 
-<?
+<?php
 
 }
 
@@ -559,7 +559,7 @@ $row = mysql_fetch_object($erg);
     <table border="0" width="100%" height="5">
     <tr>
     <td width="90%">
-    <input type="text" name="titel" id="titel" value="<?=$row->titel?>"></td>
+    <input type="text" name="titel" id="titel" value="<?php echo $row->titel?>"></td>
     </td>
     <td width="10%">
     <a href="#" onclick="document.getElementById('more').style.display = '';">Erweitert</a>
@@ -576,7 +576,7 @@ $row = mysql_fetch_object($erg);
     <td width="80">Level:</td>
     
     <td width="85%"><table width="100%">
-    <?
+    <?php
     $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` <= '$level';";
     $erg2 = $hp->mysqlquery($sql);
     while ($row2 = mysql_fetch_object($erg2))
@@ -585,10 +585,10 @@ $row = mysql_fetch_object($erg);
     
       <tr>
         <td><label>
-          <input type="radio" name="level" value="<?=$row2->level?>" <? if ($row->level == $row2->level) { echo " checked=\"true\"";} ?>>
-          <?=$row2->name?></label></td>
+          <input type="radio" name="level" value="<?php echo $row2->level?>" <?php if ($row->level == $row2->level) { echo " checked=\"true\"";} ?>>
+          <?php echo $row2->name?></label></td>
       </tr>
-     <?
+     <?php
     }
      ?> 
     </table>
@@ -607,7 +607,7 @@ $row = mysql_fetch_object($erg);
   <tr>
     <td>Sichtbar:</td>
     <td><p>
-        <input type="checkbox" name="visible" id="visible"  <? if ($row->visible == "1") { echo " checked=\"true\"";} ?>> 
+        <input type="checkbox" name="visible" id="visible"  <?php if ($row->visible == "1") { echo " checked=\"true\"";} ?>> 
       Ja</p>
       <p>Notiz: Das Thema ist für Benutzer eines geringeren Levels Sichtbar, Sie können aber nicht Antworten.</p></td>
   </tr>
@@ -616,7 +616,7 @@ $row = mysql_fetch_object($erg);
 
  <tr>
     <td>Beschreibung:</td>
-    <td colspan="2"><textarea name="text" id="text" cols="100" rows="15"><?=$row->description?></textarea></td>
+    <td colspan="2"><textarea name="text" id="text" cols="100" rows="15"><?php echo $row->description?></textarea></td>
   </tr>
  <tr>
    <td>&nbsp;</td>
@@ -627,10 +627,10 @@ $row = mysql_fetch_object($erg);
 </tr>
 </table>
 </center>
-<input type="hidden" name="postid" value="<?=$vars?>">
+<input type="hidden" name="postid" value="<?php echo $vars?>">
 </form>
 
-<?
+<?php
 
 }
 
@@ -658,17 +658,17 @@ $row = mysql_fetch_object($erg);
 <tr valign="bottom">
 <td>
 <form method="POST" action="index.php?site=forum">
-  <p align="center"><input type="hidden" name="postid" size="3" value="<?=$vars?>"><input type="submit" value="Löschen" name="delthread"></form>
+  <p align="center"><input type="hidden" name="postid" size="3" value="<?php echo $vars?>"><input type="submit" value="Löschen" name="delthread"></form>
 </td>
 <td>
 </td>
 </tr>
 </table>
-<b>ID:</b> <?=$row->ID?><br>
-<b>Titel:</b> <?=$row->titel?><br>
+<b>ID:</b> <?php echo $row->ID?><br>
+<b>Titel:</b> <?php echo $row->titel?><br>
 <b>
 
-<?
+<?php
 } else
 {
 echo $lang->word('noright');
@@ -699,16 +699,16 @@ $row = mysql_fetch_object($erg);
 <tr valign="bottom">
 <td>
 <form method="POST" action="index.php?site=forum">
-  <p align="center"><input type="hidden" name="postid" size="3" value="<?=$vars?>"><input type="submit" value="Löschen" name="delpost"></form>
+  <p align="center"><input type="hidden" name="postid" size="3" value="<?php echo $vars?>"><input type="submit" value="Löschen" name="delpost"></form>
 </td>
 <td>
 </td>
 </tr>
 </table>
-<b>ID:</b> <?=$row->ID?><br>
+<b>ID:</b> <?php echo $row->ID?><br>
 <b>
 
-<?
+<?php
 } else
 {
 echo $lang->word('noright');
@@ -739,7 +739,7 @@ $row = mysql_fetch_object($erg);
 <tr valign="bottom">
 <td>
 <form method="POST" action="index.php?site=forum">
-  <p align="center"><input type="hidden" name="postid" size="3" value="<?=$vars?>"><input type="submit" value="Löschen" name="delforum"></form>
+  <p align="center"><input type="hidden" name="postid" size="3" value="<?php echo $vars?>"><input type="submit" value="Löschen" name="delforum"></form>
 </td>
 <td>
 </td>
@@ -747,7 +747,7 @@ $row = mysql_fetch_object($erg);
 </table>
 <b>Themen:</b> <br>
 <ul>
-<?
+<?php
 $sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `forumid` = '$vars'";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
@@ -759,7 +759,7 @@ echo "<li>$row->titel</li>";
 </ul>
 <b>
 
-<?
+<?php
 } else
 {
 echo $lang->word('noright');
@@ -780,7 +780,7 @@ $fp = $hp->fp;
 
 ?>
 <br>
-<form action="index.php?site=forum&show=<?=$vars?>" method="post">
+<form action="index.php?site=forum&show=<?php echo $vars?>" method="post">
 <table width="200" border="0">
   <tr>
     <td>&nbsp;</td>
@@ -789,15 +789,15 @@ $fp = $hp->fp;
   <tr>
     <td>Wohin:</td>
     <td><select name="moveto" id="moveto">
-    <?
+    <?php
     $sql = "SELECT * FROM `$dbpräfix"."forums`";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
     {
     
     ?>
-    <option value="<?=$row->ID?>"><?=$row->titel?></option>
-    <?
+    <option value="<?php echo $row->ID?>"><?php echo $row->titel?></option>
+    <?php
     }
     ?>
     
@@ -808,9 +808,9 @@ $fp = $hp->fp;
     <td><button type="submit" name="forum_movethread"> <img src="images/ok.gif"> </button></td>
   </tr>
 </table>
-<input type="hidden" name="postid" value="<?=$vars?>">
+<input type="hidden" name="postid" value="<?php echo $vars?>">
 </form>
-<?
+<?php
 
 }
 

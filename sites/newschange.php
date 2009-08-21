@@ -97,10 +97,10 @@ exit;
 
 ?>
 <p align="center"><font size="5">News Bearbeiten:</font></p>
-<p align="center"><?=$error2?></p>
+<p align="center"><?php echo $error2?></p>
 <p align="left"><font size="3"><u>Neue News:</u></font></p>
  <br>
-<?
+<?php
 
 $newsidchange=$_POST['newsid'];
 //$newsidchange=$_GET['newsid'];
@@ -135,7 +135,7 @@ $ergebnis = mysql_query($eingabe);
   }
  ?>
  <a href =index.php>Zurück zur Startseite</a>
- <?
+ <?php
  } else {
  
 
@@ -195,23 +195,23 @@ function FensterOeffnen (Adresse) {
 <form method="POST" action="../index.php?site=newschange">
 
   <p align="left">Überschrift:<br>
-  <input type="text" name="newstitel" size="80" value="<?="$row->titel"?>"></p>
-  <input type="hidden" name="newsid" size="80" value="<?=$newsidchange?>">
+  <input type="text" name="newstitel" size="80" value="<?php echo "$row->titel"?>"></p>
+  <input type="hidden" name="newsid" size="80" value="<?php echo $newsidchange?>">
   <p align="left">Datum:<br>
-  <input type="text" name="newsdate" size="20" value="<?="$row->datum"?>"></p>
+  <input type="text" name="newsdate" size="20" value="<?php echo "$row->datum"?>"></p>
     <p align="left">Typ: <select size="1" name="newstyp">
     <option selected>Info</option>
     <option>Event</option>
     <option>Gameserver</option>
     <option>Member</option>
-  </select> Level <input type="text" name="newslevel" size="1" value="<?="$row->level"?>"><br>0 = jeder, 1 = user, 2 = Moderator, 3 = Admin (oder jeweils alle darüber! d.h Admin kann auch 1 lesen)</p>
+  </select> Level <input type="text" name="newslevel" size="1" value="<?php echo "$row->level"?>"><br>0 = jeder, 1 = user, 2 = Moderator, 3 = Admin (oder jeweils alle darüber! d.h Admin kann auch 1 lesen)</p>
   <p align="left">Text:
-  <textarea rows="15" name="newstext" cols="74" id="t1"><?=$newstext?></textarea><input type="submit" value="Ändern" name="newswrite"></p>
+  <textarea rows="15" name="newstext" cols="74" id="t1"><?php echo $newstext?></textarea><input type="submit" value="Ändern" name="newswrite"></p>
 </form>
-<? } 
+<?php } 
 ?>
 <a href =../index.php>Zurück zur Startseite</a>
-<?
+<?php
 }
 
 echo "<br>$error2<br>";

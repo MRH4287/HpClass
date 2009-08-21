@@ -1,4 +1,4 @@
-<?
+<?php
 $font = 10;
 $bild = $_GET['p'];
 $farbe1 = $_GET['f'];

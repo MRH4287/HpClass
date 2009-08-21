@@ -81,7 +81,7 @@ echo "Erfolgeich eingetragen!";
 
 <table border="1" width="433" align="center" bordercolor="#9999FF">
   <tr>
-    <td width="423"><b><font size="4">Hochladen als: <?echo $_SESSION['username'];?>
+    <td width="423"><b><font size="4">Hochladen als: <?php echo $_SESSION['username'];?>
     
     <form enctype="multipart/form-data" action="index.php?site=upload" method=post>
           </font></b>
@@ -141,6 +141,6 @@ echo "Erfolgeich eingetragen!";
       </td>
   </tr>
 </table>
-<?}
+<?php }
 
 }?>

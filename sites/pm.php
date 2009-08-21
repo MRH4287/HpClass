@@ -1,4 +1,4 @@
-<?
+<?php
 // Class Config
 $hp = $this;
 $right = $hp->getright();
@@ -18,7 +18,7 @@ if (isset($_SESSION['username']))
  ?>
  <center><table width="21%" border="0">
   <tr>
-    <th bgcolor="<?=$defaultcolor?>" scope="col"><div align="center"><span class="Stil2"><a href="index.php?site=pm">PM-Menu</a></span></div></th>
+    <th bgcolor="<?php echo $defaultcolor?>" scope="col"><div align="center"><span class="Stil2"><a href="index.php?site=pm">PM-Menu</a></span></div></th>
   </tr>
 </table></center>
 
@@ -39,31 +39,31 @@ $error->error(mysql_error(), "2");
 ?>
 <form action="index.php?site=pm" method="POST">
 <table width="100%" border="0">
-  <tr bgcolor="<?=$defaultcolor?>">
+  <tr bgcolor="<?php echo $defaultcolor?>">
     <th height="25" scope="col"><!--ID:--></th>
-    <th scope="col"><?=$lang->word('absender')?>:</th>
-    <th scope="col"><?=$lang->word('betreff')?>:</th>
-    <th scope="col"><?=$lang->word('datum')?>:</th>
+    <th scope="col"><?php echo $lang->word('absender')?>:</th>
+    <th scope="col"><?php echo $lang->word('betreff')?>:</th>
+    <th scope="col"><?php echo $lang->word('datum')?>:</th>
     <th scope="col">&nbsp;</th>
   </tr>
   
-  <?
+  <?php
   $numbers = 0;
   while($row = mysql_fetch_object($ergebnis))
   {
   $numbers = $numbers +1;
    ?>
    <tr bgcolor="#4E6F8">
-    <td scope="col"><div align="center"><!--<?="$row->ID"?>--><input type="checkbox" name="del[]" value="<?="$row->ID"?>">
+    <td scope="col"><div align="center"><!--<?php echo "$row->ID"?>--><input type="checkbox" name="del[]" value="<?php echo "$row->ID"?>">
                                                               </div></td>
-    <td scope="col"><div align="center"><?="$row->von"?></div></td>
-    <td scope="col"><div align="center"><a href="index.php?site=pm&read=<?="$row->ID"?>"><? if ("$row->gelesen" == "0") { echo "<b>"; } ?><?="$row->Betreff"?><? if ("$row->gelesen" == "0") { echo "</b>"; } ?></a></div></td>
-    <td scope="col"><div align="center"><?="$row->Datum"?></div></td>
-    <td scope="col"><div align="center"><!--<a href=index.php?site=pm&del=<?="$row->ID"?>>Löschen</a>--></div></td>
+    <td scope="col"><div align="center"><?php echo "$row->von"?></div></td>
+    <td scope="col"><div align="center"><a href="index.php?site=pm&read=<?php echo "$row->ID"?>"><?php if ("$row->gelesen" == "0") { echo "<b>"; } ?><?php echo "$row->Betreff"?><?php if ("$row->gelesen" == "0") { echo "</b>"; } ?></a></div></td>
+    <td scope="col"><div align="center"><?php echo "$row->Datum"?></div></td>
+    <td scope="col"><div align="center"><!--<a href=index.php?site=pm&del=<?php echo "$row->ID"?>>Löschen</a>--></div></td>
  </tr>
  
  
-  <? 
+  <?php 
   
   }?>  
 
@@ -71,22 +71,22 @@ $error->error(mysql_error(), "2");
 
 
   <table width="100%" border="0">
-  <? if ($numbers != 0){ ?>
+  <?php if ($numbers != 0){ ?>
   <tr>
-  <th bgcolor="#4E6F8" width="25%"><input type="submit" value="<?=$lang->word('delet')?>"></form></th>
-    <th bgcolor="<?=$defaultcolor?>" width="50%"><a href="index.php?site=pm&new"><?=$lang->word('newpm')?></a>
+  <th bgcolor="#4E6F8" width="25%"><input type="submit" value="<?php echo $lang->word('delet')?>"></form></th>
+    <th bgcolor="<?php echo $defaultcolor?>" width="50%"><a href="index.php?site=pm&new"><?php echo $lang->word('newpm')?></a>
                                       </th>
-    <td width="25%" bgcolor="<?=$defaultcolor?>"><div align="center"><a href="index.php?site=pm&ausgang"><?=$lang->word('postausgang')?>g</a></div></td>
+    <td width="25%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href="index.php?site=pm&ausgang"><?php echo $lang->word('postausgang')?>g</a></div></td>
   </tr>
-  <? } else { ?>
+  <?php } else { ?>
    <tr>
-    <th bgcolor="<?=$defaultcolor?>" width="50%"><a href="index.php?site=pm&new"><?=$lang->word('newpm')?></a>
+    <th bgcolor="<?php echo $defaultcolor?>" width="50%"><a href="index.php?site=pm&new"><?php echo $lang->word('newpm')?></a>
                                       </th>
-    <td width="50%" bgcolor="<?=$defaultcolor?>"><div align="center"><a href="index.php?site=pm&ausgang"><?=$lang->word('postausgang')?></a></div></td>
+    <td width="50%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href="index.php?site=pm&ausgang"><?php echo $lang->word('postausgang')?></a></div></td>
   </tr> 
-  <? } ?>
+  <?php } ?>
 </table>
-<?
+<?php
 } elseif (isset($get['read']))
 {
 ob_start(showcontent);
@@ -106,46 +106,46 @@ $ergebnis2 = $hp->mysqlquery($eingabe2);
 ?>
 
 <table width="100%" border="0">
-<? if ($_SESSION['username'] != "$row->von") { ?>
+<?php if ($_SESSION['username'] != "$row->von") { ?>
   <tr>
-    <th width="22%" bgcolor="<?=$defaultcolor?>" scope="col"><?=$lang->word('von')?>:</th>
-    <th width="78%" bgcolor="<?=$defaultcolor?>"><div align="center"><a href=index.php?site=user&show=<?="$row->von"?>><?="$row->von"?></a></div></th>
+    <th width="22%" bgcolor="<?php echo $defaultcolor?>" scope="col"><?php echo $lang->word('von')?>:</th>
+    <th width="78%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href=index.php?site=user&show=<?php echo "$row->von"?>><?php echo "$row->von"?></a></div></th>
   </tr>
-  <? } else { ?>
+  <?php } else { ?>
     <tr>
-    <th width="22%" bgcolor="<?=$defaultcolor?>" scope="col"><?=$lang->word('von')?>:</th>
-    <th width="78%" bgcolor="<?=$defaultcolor?>"><div align="center"><a href=index.php?site=user&show=<?="$row->von"?>><?="$row->von"?></div></th>
+    <th width="22%" bgcolor="<?php echo $defaultcolor?>" scope="col"><?php echo $lang->word('von')?>:</th>
+    <th width="78%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href=index.php?site=user&show=<?php echo "$row->von"?>><?php echo "$row->von"?></div></th>
   </tr>
     <tr>
-    <th width="22%" bgcolor="<?=$defaultcolor?>" scope="col"><?=$lang->word('für')?>:</th>
-    <th width="78%" bgcolor="<?=$defaultcolor?>"><div align="center"><a href=index.php?site=user&show=<?="$row->zu"?>><?="$row->zu"?></div></th>
+    <th width="22%" bgcolor="<?php echo $defaultcolor?>" scope="col"><?php echo $lang->word('für')?>:</th>
+    <th width="78%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href=index.php?site=user&show=<?php echo "$row->zu"?>><?php echo "$row->zu"?></div></th>
   </tr>
   
-  <? } ?>
+  <?php } ?>
   <tr>
-    <th bgcolor="<?=$defaultcolor?>" scope="row"><?=$lang->word('datum')?>:</th>
-    <td bgcolor="<?=$defaultcolor?>"><div align="center"><?="$row->Datum"?></div></td>
+    <th bgcolor="<?php echo $defaultcolor?>" scope="row"><?php echo $lang->word('datum')?>:</th>
+    <td bgcolor="<?php echo $defaultcolor?>"><div align="center"><?php echo "$row->Datum"?></div></td>
   </tr>
   <tr>
-    <th bgcolor="<?=$defaultcolor?>" scope="row"><?=$lang->word('betreff')?></th>
-    <td bgcolor="<?=$defaultcolor?>"><div align="center"><?="$row->Betreff"?></div></td>
+    <th bgcolor="<?php echo $defaultcolor?>" scope="row"><?php echo $lang->word('betreff')?></th>
+    <td bgcolor="<?php echo $defaultcolor?>"><div align="center"><?php echo "$row->Betreff"?></div></td>
   </tr>
   <tr>
-    <th colspan="2" scope="row" ><br><div align="left"><?="$row->Text"?></div></th>
+    <th colspan="2" scope="row" ><br><div align="left"><?php echo "$row->Text"?></div></th>
   </tr>
   
   </table>
-  <? if ($_SESSION['username'] != "$row->von") { ?>
+  <?php if ($_SESSION['username'] != "$row->von") { ?>
   <table width="100%" border="0">
   
   <tr>
-        <th width="50%" bgcolor="<?=$defaultcolor?>"><div align="center"><a href="index.php?site=pm&new&to=<?="$row->von"?>&bet=<?="$row->Betreff"?>"><?=$lang->word('antworten')?></a></div></th>
-    <td width="50%" bgcolor="<?=$defaultcolor?>"><div align="center"><a href=index.php?site=pm&del=<?="$row->ID"?>><?=$lang->word('delet')?></a></div></td>
+        <th width="50%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href="index.php?site=pm&new&to=<?php echo "$row->von"?>&bet=<?php echo "$row->Betreff"?>"><?php echo $lang->word('antworten')?></a></div></th>
+    <td width="50%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href=index.php?site=pm&del=<?php echo "$row->ID"?>><?php echo $lang->word('delet')?></a></div></td>
   </tr>
 </table>
 
 
-<?
+<?php
 ob_end_flush();
 }
 } else
@@ -319,25 +319,25 @@ $error->error($lang->word('doublepost'),"2");
 		apply_source_formatting : true,
 	});
 	</script>
-<? echo '<form action="index.php?site=pm&new&post&" '. SID .'method="post">' ?>
+<?php echo '<form action="index.php?site=pm&new&post&" '. SID .'method="post">' ?>
 <table width="100%" border="0">
   <tr>
-    <th colspan="2" bgcolor="<?=$defaultcolor?>" scope="col"><?=$lang->word('newpm')?>: </th>
+    <th colspan="2" bgcolor="<?php echo $defaultcolor?>" scope="col"><?php echo $lang->word('newpm')?>: </th>
   </tr>
   <tr>
-    <th width="31%" bgcolor="<?=$defaultcolor?>" scope="col"><?=$lang->word('empfänger')?>:</th>
+    <th width="31%" bgcolor="<?php echo $defaultcolor?>" scope="col"><?php echo $lang->word('empfänger')?>:</th>
     <th width="69%" scope="col"><div align="center">
       <label>
-      <input name="zu" size="80"  type="text" value="<?=$get['to']?>" />
+      <input name="zu" size="80"  type="text" value="<?php echo $get['to']?>" />
       </label>
     </div></th>
   </tr>
   <tr>
-    <th bgcolor="<?=$defaultcolor?>" scope="row"><?=$lang->word('betreff')?>:</th>
-    <td><div align="center"><input type="text" name="Betreff" size="80" value="<?=$bet?>" /></div></td>
+    <th bgcolor="<?php echo $defaultcolor?>" scope="row"><?php echo $lang->word('betreff')?>:</th>
+    <td><div align="center"><input type="text" name="Betreff" size="80" value="<?php echo $bet?>" /></div></td>
   </tr>
   <tr>
-    <th bgcolor="<?=$defaultcolor?>" scope="row"><?=$lang->word('text')?>:</th>
+    <th bgcolor="<?php echo $defaultcolor?>" scope="row"><?php echo $lang->word('text')?>:</th>
     <td><div align="center">
       <label>
       <textarea name="Text" cols="80" rows="20" id="ta"></textarea>
@@ -347,20 +347,20 @@ $error->error($lang->word('doublepost'),"2");
 </table>
   <table width="100%" border="0">
   <tr>
-    <th bgcolor="<?=$defaultcolor?>" width="50%"><input type="submit" name="post" value="<?=$lang->word('post')?>">
+    <th bgcolor="<?php echo $defaultcolor?>" width="50%"><input type="submit" name="post" value="<?php echo $lang->word('post')?>">
                                       </th>
-    <td width="50%" bgcolor="<?=$defaultcolor?>"><div align="center"><a href=index.php?site=pm><?=$lang->word('back')?></a></div></td>
+    <td width="50%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href=index.php?site=pm><?php echo $lang->word('back')?></a></div></td>
   </tr>
 </table>
-<input name="timestamp" size="200"  type="hidden" value="<?=time()?>" />
+<input name="timestamp" size="200"  type="hidden" value="<?php echo time()?>" />
 </form>
   <table width="100%" border="0">
  <!-- <tr>
-    <th bgcolor="<?=$defaultcolor?>" width="50%"><a href="smilies.php" onclick="FensterOeffnen(this.href); return false">Smilies</a></th>
-    <td width="50%" bgcolor="<?=$defaultcolor?>"><div align="center"> <a href="#" onClick="oeffnenFernbedienung('buttons/fb.php');">Öffne Button-Liste</a></div></td>
+    <th bgcolor="<?php echo $defaultcolor?>" width="50%"><a href="smilies.php" onclick="FensterOeffnen(this.href); return false">Smilies</a></th>
+    <td width="50%" bgcolor="<?php echo $defaultcolor?>"><div align="center"> <a href="#" onClick="oeffnenFernbedienung('buttons/fb.php');">Öffne Button-Liste</a></div></td>
   </tr> -->
 </table>
-<?
+<?php
 }
 
 
@@ -376,31 +376,31 @@ $ergebnis =$hp->mysqlquery($abfrage);
 
 ?>
 <table width="100%" border="0">
-  <tr bgcolor="<?=$defaultcolor?>">
+  <tr bgcolor="<?php echo $defaultcolor?>">
     <th height="25" scope="col">ID:</th>
-    <th scope="col"><?=$lang->word('empfänger')?>:</th>
-    <th scope="col"><?=$lang->word('betreff')?>:</th>
-    <th scope="col"><?=$lang->word('datum')?>:</th>
-    <th scope="col"><?=$lang->word('gelesen')?>:</th>
+    <th scope="col"><?php echo $lang->word('empfänger')?>:</th>
+    <th scope="col"><?php echo $lang->word('betreff')?>:</th>
+    <th scope="col"><?php echo $lang->word('datum')?>:</th>
+    <th scope="col"><?php echo $lang->word('gelesen')?>:</th>
   </tr>
   
-  <?
+  <?php
   while($row = mysql_fetch_object($ergebnis))
   {
    ?>
-   <tr bgcolor="<?=$defaultcolor?>">
-    <td scope="col"><div align="center"><?="$row->ID"?></div></td>
-    <td scope="col"><div align="center"><?="$row->zu"?></div></td>
-    <td scope="col"><div align="center"><a href="index.php?site=pm&read=<?="$row->ID"?>"><?="$row->Betreff"?></a></div></td>
-    <td scope="col"><div align="center"><?="$row->Datum"?></div></td>
-    <td scope="col"><div align="center"><? if ("$row->gelesen" == "1") { echo "<b>".$lang->word('yes')."</b>"; } else { echo $lang->word('no'); } ?></div></td>
+   <tr bgcolor="<?php echo $defaultcolor?>">
+    <td scope="col"><div align="center"><?php echo "$row->ID"?></div></td>
+    <td scope="col"><div align="center"><?php echo "$row->zu"?></div></td>
+    <td scope="col"><div align="center"><a href="index.php?site=pm&read=<?php echo "$row->ID"?>"><?php echo "$row->Betreff"?></a></div></td>
+    <td scope="col"><div align="center"><?php echo "$row->Datum"?></div></td>
+    <td scope="col"><div align="center"><?php if ("$row->gelesen" == "1") { echo "<b>".$lang->word('yes')."</b>"; } else { echo $lang->word('no'); } ?></div></td>
   </tr>
-  <? 
+  <?php 
   
   }?>  
   
 </table>
-<?
+<?php
 }
 
 
@@ -454,15 +454,15 @@ if (!isset($get['post']))
 <form action="index.php?site=pm&report&post" method="post">
 <table width="100%" border="0">
   <tr>
-    <th colspan="2" bgcolor="<?=$defaultcolor?>" scope="col"><?=$lang->word('posterror')?>: </th>
+    <th colspan="2" bgcolor="<?php echo $defaultcolor?>" scope="col"><?php echo $lang->word('posterror')?>: </th>
   </tr>
 
   <tr>
-    <th bgcolor="<?=$defaultcolor?>" scope="row"><?=$lang->word('betreff')?>:</th>
-    <td><div align="center"><input type="text" name="Betreff" size="80" value="<?=$bet?>" /></div></td>
+    <th bgcolor="<?php echo $defaultcolor?>" scope="row"><?php echo $lang->word('betreff')?>:</th>
+    <td><div align="center"><input type="text" name="Betreff" size="80" value="<?php echo $bet?>" /></div></td>
   </tr>
   <tr>
-    <th bgcolor="<?=$defaultcolor?>" scope="row"><?=$lang->word('text')?>:</th>
+    <th bgcolor="<?php echo $defaultcolor?>" scope="row"><?php echo $lang->word('text')?>:</th>
     <td><div align="center">
       <label>
       <textarea name="Text" cols="80" rows="20" id="ta"></textarea>
@@ -472,16 +472,16 @@ if (!isset($get['post']))
 </table>
   <table width="100%" border="0">
   <tr>
-    <th bgcolor="<?=$defaultcolor?>" width="50%"><input type="submit" name="post" value="<?=$lang->word('post')?>">
+    <th bgcolor="<?php echo $defaultcolor?>" width="50%"><input type="submit" name="post" value="<?php echo $lang->word('post')?>">
                                       </th>
-    <td width="50%" bgcolor="<?=$defaultcolor?>"><div align="center"><a href=index.php?site=pm><?=$lang->word('back')?></a></div></td>
+    <td width="50%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href=index.php?site=pm><?php echo $lang->word('back')?></a></div></td>
   </tr>
 </table>
-<input name="timestamp" size="200"  type="hidden" value="<?=time()?>" />
+<input name="timestamp" size="200"  type="hidden" value="<?php echo time()?>" />
 <input name="zu" size="80"  type="hidden" value="mrh" />
 </form>
 
-<?
+<?php
 } else
 {
 //POST

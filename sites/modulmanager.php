@@ -116,7 +116,7 @@ echo "<b>Liste Installierter Module:</b>";
     <th width="359" scope="col">Beschreibung</th>
     <th colspan="2" scope="col">Optionen</th>
   </tr>
-<?  
+<?php  
 $abfrage = "SELECT * FROM ".$dbpräfix."modul";
 $ergebnis = $hp->mysqlquery($abfrage);
 echo mysql_error();
@@ -126,26 +126,26 @@ while($row = mysql_fetch_object($ergebnis))
 
 ?>  
   <tr>
-    <td><?=$row->Name?></td>
-    <td><?=$row->path?></td>
-    <td><?=$row->description?></td>
-    <?
+    <td><?php echo $row->Name?></td>
+    <td><?php echo $row->path?></td>
+    <td><?php echo $row->description?></td>
+    <?php
     if ($row->active == "1")
     {
     ?>
-    <td width="88"><a href="index.php?site=modulmanager&deak=<?=$row->ID?>">Deaktivieren</a></td>
-    <td width="86"><a href="index.php?site=modulmanager&deinstall=<?=$row->ID?>">Deinstallieren</a></td>
-    <?
+    <td width="88"><a href="index.php?site=modulmanager&deak=<?php echo $row->ID?>">Deaktivieren</a></td>
+    <td width="86"><a href="index.php?site=modulmanager&deinstall=<?php echo $row->ID?>">Deinstallieren</a></td>
+    <?php
     } else
     {
     ?>
-    <td width="88"><a href="index.php?site=modulmanager&ak=<?=$row->ID?>">Aktivieren</a></td>
-    <td width="86"><a href="index.php?site=modulmanager&deinstall=<?=$row->ID?>">Deinstallieren</a></td>
-    <?
+    <td width="88"><a href="index.php?site=modulmanager&ak=<?php echo $row->ID?>">Aktivieren</a></td>
+    <td width="86"><a href="index.php?site=modulmanager&deinstall=<?php echo $row->ID?>">Deinstallieren</a></td>
+    <?php
     }
     ?>  
   </tr>
-<? 
+<?php 
 $installed[]=$row->path;
 }  
 echo "</table><br><br>";
@@ -161,7 +161,7 @@ echo "<b>Liste der deinstallierten Module:</b>";
 
     <th colspan="2" scope="col">Optionen</th>
   </tr>
-  <?
+  <?php
   
 $filearray = array();
 $modulsvor = false;
@@ -189,23 +189,23 @@ if (($file == "install.php.txt") and ($value != "Muster") and (!in_array($value,
   ?>
     <tr>
 
-    <td><?=$value?></td>
+    <td><?php echo $value?></td>
 
 
     
-    <td width="88"><a href="index.php?site=modulmanager&reinst=<?=$value?>">Neu installieren</a></td>
+    <td width="88"><a href="index.php?site=modulmanager&reinst=<?php echo $value?>">Neu installieren</a></td>
     
  
   </tr>
   
-  <?
+  <?php
   }
   }
   }
   ?>
 
 </table>
-<?
+<?php
 
 
 // ...

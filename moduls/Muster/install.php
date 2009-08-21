@@ -1,4 +1,4 @@
-<?
+<?php
 // Das ist eine Srandartdatei, diese Kopieren um dieses System zu ;enutzen 
 $Name = "Test-Script";
 $Run = "autorun.php";

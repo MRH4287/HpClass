@@ -84,12 +84,12 @@ $string = str_replace("'", '"', $string);
 <script type="text/javascript">
 
 var errordiv = document.getElementById('errordiv');
-errordiv.innerHTML = '<p align="center">ERROR: <?=$string?></p>';
+errordiv.innerHTML = '<p align="center">ERROR: <?php echo $string?></p>';
 errordiv.style.display = '';
 
 </script>
 
-<?
+<?php
 
 }
 

@@ -1,4 +1,4 @@
-<?
+<?php
 $sql = 'DROP TABLE `'.$dbpräfix.'download_kat`';
 $result=$hp->mysqlquery($sql);
 if (!$result)

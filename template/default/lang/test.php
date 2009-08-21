@@ -1,1 +1,1 @@
-<? $lang = array();  ?>
+<?php $lang = array();  ?>

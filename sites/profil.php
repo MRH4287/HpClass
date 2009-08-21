@@ -1,4 +1,4 @@
-<?
+<?php
 // Class Config
 $hp = $this;
 $right = $hp->getright();
@@ -34,22 +34,22 @@ while($row = mysql_fetch_object($ergebnis))
   <table border="0" width="318">
     <tr>
       <td width="300" colspan="2">
-        <p align="center"><?=$lang->word("page-intern")?>:</td>
+        <p align="center"><?php echo $lang->word("page-intern")?>:</td>
     </tr>
     <tr>
-      <td width="125"><?=$lang->word('username')?>:</td>
-      <td width="175"><?=$_SESSION['username']?></td>
+      <td width="125"><?php echo $lang->word('username')?>:</td>
+      <td width="175"><?php echo $_SESSION['username']?></td>
     </tr>
     <tr>
-      <td width="125"><?=$lang->word('password')?>:</td>
-      <td width="175"><input type="submit" value="<?=$lang->word('changepw')?>" name="pwändern"></td>
+      <td width="125"><?php echo $lang->word('password')?>:</td>
+      <td width="175"><input type="submit" value="<?php echo $lang->word('changepw')?>" name="pwändern"></td>
       </form>
       
     </tr>
         <tr>
-      <td width="125"><?=$lang->word('avatar')?>:</td>
+      <td width="125"><?php echo $lang->word('avatar')?>:</td>
       <td width="175">
-      <?
+      <?php
       // Einbinden des Bildes!!
 /*
   //$aImage = array("include/userpics.php?id=$row->ID");
@@ -102,10 +102,10 @@ echo '<img border="0" src="include/userpics.php?id='."$row->ID".'" >';
       
 
       
-      	<form enctype="multipart/form-data" action="index.php?site=userpicchange&id=<?="$row->ID"?>" method="post">
+      	<form enctype="multipart/form-data" action="index.php?site=userpicchange&id=<?php echo "$row->ID"?>" method="post">
 		<input name="FILE" type="file">
 		<input type="hidden" name="MAX_FILE_SIZE" value="30000">
-		<input type="submit" value="<?=$lang->word('upload-picture')?>" name="sendfiles" />
+		<input type="submit" value="<?php echo $lang->word('upload-picture')?>" name="sendfiles" />
 	</form>
       
       </td>
@@ -123,35 +123,35 @@ echo '<img border="0" src="include/userpics.php?id='."$row->ID".'" >';
   <table border="0" width="318">
     <tr>
       <td width="300" colspan="2">
-        <p align="center"><?=$lang->word('persönliches')?>:</td>
+        <p align="center"><?php echo $lang->word('persönliches')?>:</td>
     </tr>
     <tr>
-      <td width="125"><?=$lang->word('name')?>: </td>
-      <td width="175"><input  name="name" size="24" value="<?="$row->name"?>" ></td>
+      <td width="125"><?php echo $lang->word('name')?>: </td>
+      <td width="175"><input  name="name" size="24" value="<?php echo "$row->name"?>" ></td>
     </tr>
     <tr>
-      <td width="125"><?=$lang->word('nachname')?>: </td>
-      <td width="175"><input  name="nachname" size="24" value="<?="$row->nachname"?>"></td>
+      <td width="125"><?php echo $lang->word('nachname')?>: </td>
+      <td width="175"><input  name="nachname" size="24" value="<?php echo "$row->nachname"?>"></td>
     </tr>
     <tr>
-      <td width="125"><?=$lang->word('alter')?>:</td>
-      <td width="175"><input  name="alter" size="24" value="<?="$row->alter"?>" ></td>
+      <td width="125"><?php echo $lang->word('alter')?>:</td>
+      <td width="175"><input  name="alter" size="24" value="<?php echo "$row->alter"?>" ></td>
     </tr>
     <tr>
-      <td width="125"><?=$lang->word('birthday')?>:</td>
-      <td width="175"><input  name="geburtstag" size="24" value="<?="$row->geburtstag"?>" ></td>
+      <td width="125"><?php echo $lang->word('birthday')?>:</td>
+      <td width="175"><input  name="geburtstag" size="24" value="<?php echo "$row->geburtstag"?>" ></td>
     </tr>
     <tr>
-      <td width="125"><?=$lang->word('wohnort')?>:</td>
-      <td width="175"><input  name="wohnort" size="24" value="<?="$row->wohnort"?>" ></td>
+      <td width="125"><?php echo $lang->word('wohnort')?>:</td>
+      <td width="175"><input  name="wohnort" size="24" value="<?php echo "$row->wohnort"?>" ></td>
     </tr>
         <tr>
-      <td width="125"><?=$lang->word('telephone')?>:</td>
-      <td width="175"><input  name="tel" size="24" value="<?="$row->tel"?>" ></td>
+      <td width="125"><?php echo $lang->word('telephone')?>:</td>
+      <td width="175"><input  name="tel" size="24" value="<?php echo "$row->tel"?>" ></td>
     </tr>
         <tr>
-      <td width="125"><?=$lang->word('email')?>:</td>
-      <td width="175"><?="$row->email"?></td>
+      <td width="125"><?php echo $lang->word('email')?>:</td>
+      <td width="175"><?php echo "$row->email"?></td>
     </tr>
     <tr>
       <td width="125"></td>
@@ -159,9 +159,9 @@ echo '<img border="0" src="include/userpics.php?id='."$row->ID".'" >';
     </tr>
     <tr>
       <td width="300" colspan="2">
-     <!--   <p align="center"><input type="submit" value="<?=$lang->word('ok')?>" name="go"></td> -->
-     <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="<?=$lang->word('ok')?>"></button>
-     <button type="reset" name="go"><img src="images/abort.gif" alt="<?=$lang->word('delet')?>"></button></p></td>
+     <!--   <p align="center"><input type="submit" value="<?php echo $lang->word('ok')?>" name="go"></td> -->
+     <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="<?php echo $lang->word('ok')?>"></button>
+     <button type="reset" name="go"><img src="images/abort.gif" alt="<?php echo $lang->word('delet')?>"></button></p></td>
      
      
     </tr>
@@ -172,25 +172,25 @@ echo '<img border="0" src="include/userpics.php?id='."$row->ID".'" >';
     
     <tr>
       <td width="300" colspan="2">
-        <p align="center"><?=$lang->word('sonstiges')?>:</td>
+        <p align="center"><?php echo $lang->word('sonstiges')?>:</td>
     </tr>
 
     
     <tr>
-      <td width="125"><?=$lang->word('cpu')?>:</td>
-      <td width="175"><input type="text" name="cpu" value="<?="$row->cpu"?>" size="24" maxlength="30"></td>
+      <td width="125"><?php echo $lang->word('cpu')?>:</td>
+      <td width="175"><input type="text" name="cpu" value="<?php echo "$row->cpu"?>" size="24" maxlength="30"></td>
     </tr>
     <tr>
-      <td width="125"><?=$lang->word('ram')?>:</td>
-      <td width="175"><input type="text" name="ram" value="<?="$row->ram"?>" size="24" maxlength="30"></td>
+      <td width="125"><?php echo $lang->word('ram')?>:</td>
+      <td width="175"><input type="text" name="ram" value="<?php echo "$row->ram"?>" size="24" maxlength="30"></td>
     </tr>
     <tr>
-      <td width="125"><?=$lang->word('graka')?>:</td>
-      <td width="175"><input type="text" name="graka" value="<?="$row->graka"?>" size="24" maxlength="30"></td>
+      <td width="125"><?php echo $lang->word('graka')?>:</td>
+      <td width="175"><input type="text" name="graka" value="<?php echo "$row->graka"?>" size="24" maxlength="30"></td>
     </tr>
     <tr>
-      <td width="125"><?=$lang->word('hdd')?>:</td>
-      <td width="175"><input type="text" name="hdd" value="<?="$row->hdd"?>" size="24" maxlength="30"></td>
+      <td width="125"><?php echo $lang->word('hdd')?>:</td>
+      <td width="175"><input type="text" name="hdd" value="<?php echo "$row->hdd"?>" size="24" maxlength="30"></td>
     </tr>
     
     <tr>
@@ -199,9 +199,9 @@ echo '<img border="0" src="include/userpics.php?id='."$row->ID".'" >';
     </tr>
     <tr>
       <td width="300" colspan="2">
-             <!--   <p align="center"><input type="submit" value="<?=$lang->word('ok')?>" name="go"></td> -->
-     <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="<?=$lang->word('ok')?>"></button>
-     <button type="reset" name="go"><img src="images/abort.gif" alt="<?=$lang->word('delet')?>"></button></p></td>
+             <!--   <p align="center"><input type="submit" value="<?php echo $lang->word('ok')?>" name="go"></td> -->
+     <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="<?php echo $lang->word('ok')?>"></button>
+     <button type="reset" name="go"><img src="images/abort.gif" alt="<?php echo $lang->word('delet')?>"></button></p></td>
     </tr>
   </table>
   </div>
@@ -210,26 +210,26 @@ echo '<img border="0" src="include/userpics.php?id='."$row->ID".'" >';
     
     <tr>
       <td width="300" colspan="2">
-        <p align="center"><?=$lang->word('clan')?>:</td>
+        <p align="center"><?php echo $lang->word('clan')?>:</td>
     </tr>
 
     
     <tr>
-      <td width="125"><?=$lang->word('clanname')?>:</td>
-      <td width="175"><input type="text" name="clan" value="<?="$row->clan"?>" size="24" maxlength="30"></td>
+      <td width="125"><?php echo $lang->word('clanname')?>:</td>
+      <td width="175"><input type="text" name="clan" value="<?php echo "$row->clan"?>" size="24" maxlength="30"></td>
     </tr>
 
     <tr>
-      <td width="125"><?=$lang->word('clantag')?>:</td>
-      <td width="175"><input type="text" name="clantag" value="<?="$row->clantag"?>" size="24" maxlength="30"></td>
+      <td width="125"><?php echo $lang->word('clantag')?>:</td>
+      <td width="175"><input type="text" name="clantag" value="<?php echo "$row->clantag"?>" size="24" maxlength="30"></td>
     </tr>
     <tr>
-      <td width="125"><?=$lang->word('clanhp')?>:</td>
-      <td width="175"><input type="text" name="clanhomepage" value="<?="$row->clanhomepage"?>" size="24" maxlength="30"></td>
+      <td width="125"><?php echo $lang->word('clanhp')?>:</td>
+      <td width="175"><input type="text" name="clanhomepage" value="<?php echo "$row->clanhomepage"?>" size="24" maxlength="30"></td>
     </tr>
         <tr>
-      <td width="125"><?=$lang->word('clanhist')?>:</td>
-      <td width="175"><textarea rows="2" name="clanhistory" cols="40"><?="$row->clanhistory"?></textarea></td>
+      <td width="125"><?php echo $lang->word('clanhist')?>:</td>
+      <td width="175"><textarea rows="2" name="clanhistory" cols="40"><?php echo "$row->clanhistory"?></textarea></td>
     </tr>
     
     <tr>
@@ -238,9 +238,9 @@ echo '<img border="0" src="include/userpics.php?id='."$row->ID".'" >';
     </tr>
     <tr>
       <td width="300" colspan="2">
-             <!--   <p align="center"><input type="submit" value="<?=$lang->word('ok')?>" name="go"></td> -->
-     <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="<?=$lang->word('ok')?>"></button>
-     <button type="reset" name="go"><img src="images/abort.gif" alt="<?=$lang->word('delet')?>"></button></p></td>
+             <!--   <p align="center"><input type="submit" value="<?php echo $lang->word('ok')?>" name="go"></td> -->
+     <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="<?php echo $lang->word('ok')?>"></button>
+     <button type="reset" name="go"><img src="images/abort.gif" alt="<?php echo $lang->word('delet')?>"></button></p></td>
     </tr>
   </table>
   </div>
@@ -261,14 +261,14 @@ var page4 = document.getElementById('page4');
 
 
 
-<input type="button" value="<?=$lang->word('start')?>" onclick="page1.style.display = ''; page2.style.display = 'none'; page3.style.display = 'none'; page4.style.display = 'none'; ">
-<input type="button" value="<?=$lang->word('persönliches')?>" onclick="page2.style.display = ''; page1.style.display = 'none'; page3.style.display = 'none'; page4.style.display = 'none'; ">
-<input type="button" value="<?=$lang->word('sonstiges')?>" onclick="page3.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none'; page4.style.display = 'none'; ">
-<input type="button" value="<?=$lang->word('clan')?>" onclick="page4.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none'; page3.style.display = 'none'; ">
-<? /* ?><input type="button" value="Team" onclick="page5.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none'; page3.style.display = 'none'; page4.style.display = 'none';"><? */ ?>
+<input type="button" value="<?php echo $lang->word('start')?>" onclick="page1.style.display = ''; page2.style.display = 'none'; page3.style.display = 'none'; page4.style.display = 'none'; ">
+<input type="button" value="<?php echo $lang->word('persönliches')?>" onclick="page2.style.display = ''; page1.style.display = 'none'; page3.style.display = 'none'; page4.style.display = 'none'; ">
+<input type="button" value="<?php echo $lang->word('sonstiges')?>" onclick="page3.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none'; page4.style.display = 'none'; ">
+<input type="button" value="<?php echo $lang->word('clan')?>" onclick="page4.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none'; page3.style.display = 'none'; ">
+<?php /* ?><input type="button" value="Team" onclick="page5.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none'; page3.style.display = 'none'; page4.style.display = 'none';"><? */ ?>
 
 
-<? } 
+<?php } 
 } else
 {
 //include("../include/config.php");
@@ -288,7 +288,7 @@ if (isset ($post['pwändern'])) {
 <form method="POST" action="index.php?site=profil">
   <table border="0" width="318">
     <tr>
-      <td width="127"><?=$lang->word('oldpw')?>:</td>
+      <td width="127"><?php echo $lang->word('oldpw')?>:</td>
       <td width="175"><input type="password" name="passwortalt" size="24" maxlength="20"></td>
     </tr>
     <tr>
@@ -296,24 +296,24 @@ if (isset ($post['pwändern'])) {
       <td width="175"></td>
     </tr>
     <tr>
-      <td width="127"><?=$lang->word('newpw')?>:</td>
+      <td width="127"><?php echo $lang->word('newpw')?>:</td>
       <td width="175"><input type="password" name="passwort" size="24" maxlength="20"></td>
     </tr>
     <tr>
-      <td width="127"><?=$lang->word('repnewpw')?></td>
+      <td width="127"><?php echo $lang->word('repnewpw')?></td>
       <td width="175"><input type="password" name="passwort2" size="24" maxlength="20"></td>
     </tr>
     <tr>
       <td width="302" colspan="2">
         <p align="center"><button type="submit" name="pwneu"> <img src="images/ok.gif"> </button></td>
-        <!--<input type="submit" value="<?=$lang->word('ok')?>" name="pwneu">-->
+        <!--<input type="submit" value="<?php echo $lang->word('ok')?>" name="pwneu">-->
     </tr>
   </table>
   <p align="center">&nbsp;</p>
 </form>
 
 
-<?
+<?php
 }
 if (isset ($post['pwneu'])) {
 $passwortalt=$post['passwortalt'];

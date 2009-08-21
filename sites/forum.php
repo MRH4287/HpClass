@@ -68,10 +68,10 @@ if (($row->passwort != "") and (!in_array($row->ID, $_SESSION['forum_canread_F']
    Passwort:
      <input type="text" name="password" id="password">
      <input type="submit" name="sendpw_F" id="sendpw_F" value="Senden">
-     <input name="thread" type="hidden" id="thread" value="<?=$get['forum']?>">
+     <input name="thread" type="hidden" id="thread" value="<?php echo $get['forum']?>">
 </form>
 
-<?
+<?php
 } else
 {
 
@@ -198,7 +198,7 @@ $posts[$p][] = $row->ID;
     <td width="29%"><div align="center">Letzte Antwort</div></td>
   </tr>
  
- <?
+ <?php
 
  if ((count($posts[$page]) == 0) and ($page != "1"))
 {
@@ -239,8 +239,8 @@ $error->error("Diese Seite exsistiert nicht!");
   <tr>
     <td><table width="100%" border="0">
       <tr>
-        <td width="10%" rowspan="2"><div align="center"><img src="<?=$forum->getimage_t($row->ID)?>"></div></td>
-        <td width="90%"><a href="index.php?site=forum&show=<?=$row->ID?>"><?  
+        <td width="10%" rowspan="2"><div align="center"><img src="<?php echo $forum->getimage_t($row->ID)?>"></div></td>
+        <td width="90%"><a href="index.php?site=forum&show=<?php echo $row->ID?>"><?php  
         switch ($row->type) {
         case 0:
         echo "";	
@@ -255,10 +255,10 @@ $error->error("Diese Seite exsistiert nicht!");
         }
         
         
-          ?><?=$row->titel?></a></td>
+          ?><?php echo $row->titel?></a></td>
       </tr>
       <tr>
-        <td>von <? 
+        <td>von <?php 
         $sql = "SELECT * FROM `$dbpräfix"."user` WHERE `ID` = '".$row->userid."'";
         $erg2 = $hp->mysqlquery($sql);
         $row2 = mysql_fetch_object($erg2);
@@ -266,13 +266,13 @@ $error->error("Diese Seite exsistiert nicht!");
         echo "<a href=index.php?site=user&show=".$row2->user.">$row2->user</a>";
         
         
-          ?> am <?  echo date("d.m.Y H:i", $row->timestamp);  ?>  </td>
+          ?> am <?php  echo date("d.m.Y H:i", $row->timestamp);  ?>  </td>
       </tr>
     </table></td>
-    <td align="center" valign="middle"><? if ($countposts[$row->ID] != "") { echo $countposts[$row->ID]; } else { echo "0"; } ?></td>
+    <td align="center" valign="middle"><?php if ($countposts[$row->ID] != "") { echo $countposts[$row->ID]; } else { echo "0"; } ?></td>
     <td><table width="100%" border="0">
       <tr>
-        <td><?  if ($lastpost[$row->ID] != "")
+        <td><?php  if ($lastpost[$row->ID] != "")
         {
         echo "von ";
         $sql = "SELECT * FROM `$dbpräfix"."user` WHERE `ID` = '".$lastpost[$row->ID]."'";
@@ -285,14 +285,14 @@ $error->error("Diese Seite exsistiert nicht!");
           ?></td>
       </tr>
       <tr>
-        <td><? if ($lastpost[$row->ID] != "")
+        <td><?php if ($lastpost[$row->ID] != "")
         { echo "am "; 
          echo date("d.m.Y H:i", $lasttime[$row->ID]); } ?></td>
       </tr>
     </table></td>
   </tr>
  
- <?
+ <?php
  }
  }
  }
@@ -304,7 +304,7 @@ $error->error("Diese Seite exsistiert nicht!");
   
  <tr>
  <td align="right" colspan="3">
- Seite: <?   
+ Seite: <?php   
  $pagec = count($posts);
  $rangetof = $page - 1;
  $rangetol = $pagec - $page;
@@ -312,33 +312,33 @@ $error->error("Diese Seite exsistiert nicht!");
  if ($rangetof > 2)
  {
  ?>
- <a href="index.php?site=forum&forum=<?=$forumid?>&page=1">1</a> ... 
- <a href="index.php?site=forum&forum=<?=$forumid?>&page=<?=$page-1?>"><?=$page-1?></a>
- <?
+ <a href="index.php?site=forum&forum=<?php echo $forumid?>&page=1">1</a> ... 
+ <a href="index.php?site=forum&forum=<?php echo $forumid?>&page=<?php echo $page-1?>"><?php echo $page-1?></a>
+ <?php
  } else
  {
  for ($i=1;$i < $page; $i++) {
  	?>
- 	<a href="index.php?site=forum&forum=<?=$forumid?>&page=<?=$i?>"><?=$i?></a>
- 	<?
+ 	<a href="index.php?site=forum&forum=<?php echo $forumid?>&page=<?php echo $i?>"><?php echo $i?></a>
+ 	<?php
  }
  }
   	?>
- 	<b><?=$page?></b>
- 	<?
+ 	<b><?php echo $page?></b>
+ 	<?php
  	if ($rangetol > 2)
  {
  ?>
- <a href="index.php?site=forum&forum=<?=$forumid?>&page=<?=$page+1?>"><?=$page+1?></a> ...
- <a href="index.php?site=forum&forum=<?=$forumid?>&page=<?=$pagec?>"><?=$pagec?></a>
+ <a href="index.php?site=forum&forum=<?php echo $forumid?>&page=<?php echo $page+1?>"><?php echo $page+1?></a> ...
+ <a href="index.php?site=forum&forum=<?php echo $forumid?>&page=<?php echo $pagec?>"><?php echo $pagec?></a>
  
- <?
+ <?php
  } else
  {
  for ($i=$page+1;$i < $pagec+1; $i++) {
  	?>
- 	<a href="index.php?site=forum&forum=<?=$forumid?>&page=<?=$i?>"><?=$i?></a>
- 	<?
+ 	<a href="index.php?site=forum&forum=<?php echo $forumid?>&page=<?php echo $i?>"><?php echo $i?></a>
+ 	<?php
  }
  }
  
@@ -348,7 +348,7 @@ $error->error("Diese Seite exsistiert nicht!");
 </tr>
 
 </table>
-<?
+<?php
 if ($levelok)
 {
 ?>
@@ -375,7 +375,7 @@ background: url(forum/newtopic_hover.gif) no-repeat;
 </table>
 </div>
 
-<?
+<?php
 }
 
 if ($right[$level]['forum_edit_forum'])
@@ -466,10 +466,10 @@ if (($row->passwort != "") and (!in_array($row->ID, $_SESSION['forum_canread']))
    Passwort:
      <input type="text" name="password" id="password">
      <input type="submit" name="sendpw" id="sendpw" value="Senden">
-     <input name="thread" type="hidden" id="thread" value="<?=$get['show']?>">
+     <input name="thread" type="hidden" id="thread" value="<?php echo $get['show']?>">
 </form>
 
-<?
+<?php
 } else
 {
 
@@ -512,7 +512,7 @@ background-color:#E5E5E5;
 
 </style>
 <table width="100%" border="0">
-<?
+<?php
 
 if (count($posts[$page]) == 0)
 {
@@ -532,13 +532,13 @@ foreach ($posts[$page] as $tmp=>$ID) {
  <td> 
 <table width="100%" border="1">
   <tr class="forumtitel" >
-    <td width="15%"><?=$forum->getusername($row->userid)?></td>
+    <td width="15%"><?php echo $forum->getusername($row->userid)?></td>
     <td width="85%"><table width="100%" border="0">
       <tr>
-        <td><?=$row->titel?></td>
+        <td><?php echo $row->titel?></td>
       </tr>
       <tr>
-        <td><? echo "am "; 
+        <td><?php echo "am "; 
          echo date("d.m.Y H:i", $row->timestamp); ?></td>
       </tr>
     </table></td>
@@ -547,20 +547,20 @@ foreach ($posts[$page] as $tmp=>$ID) {
     <td height="375" align="left" valign="top">
     <table width="100%" border="0" height="100%">
       <tr align="center" width="200">
-        <td height="160"><img src="include/userpics.php?id=<?=$row->userid?>"></td>
+        <td height="160"><img src="include/userpics.php?id=<?php echo $row->userid?>"></td>
       </tr>
       <tr>
-        <td height="25" valign="top"><?=$forum->getrank($row->userid)?></td>
+        <td height="25" valign="top"><?php echo $forum->getrank($row->userid)?></td>
       </tr>
       <tr>
-        <td valign="top">Anzahl der Beiträge: <?=$forum->getcountposts($row->userid)?></td>
+        <td valign="top">Anzahl der Beiträge: <?php echo $forum->getcountposts($row->userid)?></td>
       </tr>
     </table></td>
-    <td align="left" valign="top"><?=$row->text?></td>
+    <td align="left" valign="top"><?php echo $row->text?></td>
   </tr>
   <tr class="forumfooter">
-    <td height="21"><a href="index.php?site=pm&new&to=<?=$forum->getusername($row->userid)?>"><img src="images/pm.gif" width="24" height="24"></a>
-     <?
+    <td height="21"><a href="index.php?site=pm&new&to=<?php echo $forum->getusername($row->userid)?>"><img src="images/pm.gif" width="24" height="24"></a>
+     <?php
      if (($_SESSION['ID'] == $row->userid) or ($right[$level]['forum_edit_post']))
      {
       echo $lbs->link("forum_editthread", '<img src="images/edit.gif" width="24" height="24">', $row->ID); 
@@ -575,10 +575,10 @@ foreach ($posts[$page] as $tmp=>$ID) {
       ?></td> 
     <td><table width="100%" border="0">
       <tr>
-        <td width="80%"><? if ($row->lastedit != "0") { echo "Letzte Bearbeitung: ";
+        <td width="80%"><?php if ($row->lastedit != "0") { echo "Letzte Bearbeitung: ";
         echo date("d.m.Y H:i", $row->lastedit);
           }  ?> &nbsp;</td>
-        <td width="20%"><?
+        <td width="20%"><?php
         // Vote
         echo $forum->getvote($row->ID);
         ?> <div id="voteok"></div></td>
@@ -589,7 +589,7 @@ foreach ($posts[$page] as $tmp=>$ID) {
 </td>
 </tr>
 
-<?
+<?php
 
 } else
 {
@@ -603,10 +603,10 @@ $row = mysql_fetch_object($erg);
  <td>
 <table width="100%" border="1">
   <tr class="forumtitel" >
-    <td width="15%"><?=$forum->getusername($row->userid)?></td>
+    <td width="15%"><?php echo $forum->getusername($row->userid)?></td>
     <td width="85%"><table width="100%" border="0">
       <tr>
-        <td><? echo "am "; 
+        <td><?php echo "am "; 
          echo date("d.m.Y H:i", $row->timestamp); ?></td>
       </tr>
     </table></td>
@@ -615,20 +615,20 @@ $row = mysql_fetch_object($erg);
     <td height="375" align="left" valign="top">
     <table width="100%" border="0" height="100%">
       <tr align="center"  width="200">
-        <td height="160"><img src="include/userpics.php?id=<?=$row->userid?>"></td>
+        <td height="160"><img src="include/userpics.php?id=<?php echo $row->userid?>"></td>
       </tr>
       <tr>
-        <td height="25" valign="top"><?=$forum->getrank($row->userid)?></td>
+        <td height="25" valign="top"><?php echo $forum->getrank($row->userid)?></td>
       </tr>
       <tr>
-        <td valign="top">Anzahl der Beiträge: <?=$forum->getcountposts($row->userid)?></td>
+        <td valign="top">Anzahl der Beiträge: <?php echo $forum->getcountposts($row->userid)?></td>
       </tr>
     </table></td>
-    <td align="left" valign="top"><?=$row->text?></td>
+    <td align="left" valign="top"><?php echo $row->text?></td>
   </tr>
   <tr class="forumfooter">
-    <td height="21"><a href="index.php?site=pm&new&to=<?=$forum->getusername($row->userid)?>"><img src="images/pm.gif" width="24" height="24"></a>
-         <?
+    <td height="21"><a href="index.php?site=pm&new&to=<?php echo $forum->getusername($row->userid)?>"><img src="images/pm.gif" width="24" height="24"></a>
+         <?php
      if (($_SESSION['ID'] == $row->userid) or ($right[$level]['forum_edit_post']))
      {
       echo $lbs->link("forum_editpost", '<img src="images/edit.gif" width="24" height="24">', $row->ID); 
@@ -650,7 +650,7 @@ $row = mysql_fetch_object($erg);
 </table>
 </td>
 </tr>
-<?
+<?php
 
 }
 }
@@ -658,7 +658,7 @@ $row = mysql_fetch_object($erg);
 
 <tr>
  <td align="right">
- Seite: <?   
+ Seite: <?php   
  $pagec = count($posts);
  $rangetof = $page - 1;
  $rangetol = $pagec - $page;
@@ -666,33 +666,33 @@ $row = mysql_fetch_object($erg);
  if ($rangetof > 2)
  {
  ?>
- <a href="index.php?site=forum&show=<?=$threadid?>&page=1">1</a> ... 
- <a href="index.php?site=forum&show=<?=$threadid?>&page=<?=$page-1?>"><?=$page-1?></a>
- <?
+ <a href="index.php?site=forum&show=<?php echo $threadid?>&page=1">1</a> ... 
+ <a href="index.php?site=forum&show=<?php echo $threadid?>&page=<?php echo $page-1?>"><?php echo $page-1?></a>
+ <?php
  } else
  {
  for ($i=1;$i < $page; $i++) {
  	?>
- 	<a href="index.php?site=forum&show=<?=$threadid?>&page=<?=$i?>"><?=$i?></a>
- 	<?
+ 	<a href="index.php?site=forum&show=<?php echo $threadid?>&page=<?php echo $i?>"><?php echo $i?></a>
+ 	<?php
  }
  }
   	?>
- 	<b><?=$page?></b>
- 	<?
+ 	<b><?php echo $page?></b>
+ 	<?php
  	if ($rangetol > 2)
  {
  ?>
- <a href="index.php?site=forum&show=<?=$threadid?>&page=<?=$page+1?>"><?=$page+1?></a> ...
- <a href="index.php?site=forum&show=<?=$threadid?>&page=<?=$pagec?>"><?=$pagec?></a>
+ <a href="index.php?site=forum&show=<?php echo $threadid?>&page=<?php echo $page+1?>"><?php echo $page+1?></a> ...
+ <a href="index.php?site=forum&show=<?php echo $threadid?>&page=<?php echo $pagec?>"><?php echo $pagec?></a>
  
- <?
+ <?php
  } else
  {
  for ($i=$page+1;$i < $pagec+1; $i++) {
  	?>
- 	<a href="index.php?site=forum&show=<?=$threadid?>&page=<?=$i?>"><?=$i?></a>
- 	<?
+ 	<a href="index.php?site=forum&show=<?php echo $threadid?>&page=<?php echo $i?>"><?php echo $i?></a>
+ 	<?php
  }
  }
  
@@ -702,7 +702,7 @@ $row = mysql_fetch_object($erg);
 </tr>
 </table>
 
-<?
+<?php
 if (($closed == "1") or ($_SESSION['level'] < $row->level))
 {
 echo "Thema Geschlossen";
@@ -725,13 +725,13 @@ echo "Thema Geschlossen";
 <center><b>Antworten</b></center>
 <form action="index.php?site=forum" method="post">
 <textarea name="text" cols="100" rows="15"></textarea>
-<input type="hidden" name="threadid" value="<?=$threadid?>"><br>
+<input type="hidden" name="threadid" value="<?php echo $threadid?>"><br>
 <button type="submit" name="newpost"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
 </form>
 </td>
   </tr>
 </table>
-<?
+<?php
 } // Close
 
 } // Passwort
@@ -773,9 +773,9 @@ $erg = $hp->mysqlquery($sql);
 echo "Erfolgreich erstellt<br>Weiterleitung erfolgt...";
 ?>
 <script>
-window.location="index.php?site=forum&show=<?=$threadid?>";
+window.location="index.php?site=forum&show=<?php echo $threadid?>";
 </script>
-<?
+<?php
 
 } elseif (isset($post['sendpw']))
 {
@@ -800,10 +800,10 @@ $_SESSION['forum_canread'][] = $threadid;
 echo "Passwort OK<br>Weiterleitung erfolgt...";
 ?>
 <script>
-window.location="index.php?site=forum&show=<?=$threadid?>";
+window.location="index.php?site=forum&show=<?php echo $threadid?>";
 </script>
 
-<?
+<?php
 
 } else
 {
@@ -837,10 +837,10 @@ $_SESSION['forum_canread_F'][] = $threadid;
 echo "Passwort OK<br>Weiterleitung erfolgt...";
 ?>
 <script>
-window.location="index.php?site=forum&forum=<?=$threadid?>";
+window.location="index.php?site=forum&forum=<?php echo $threadid?>";
 </script>
 
-<?
+<?php
 
 } else
 {
@@ -927,7 +927,7 @@ echo "Dieses Forum ist geschlossen<br><a href=index.php?site=forum>zurück</a>";
     <td width="80">Level:</td>
     
     <td width="85%"><table width="100%">
-    <?
+    <?php
     $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` <= '$level';";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
@@ -936,16 +936,16 @@ echo "Dieses Forum ist geschlossen<br><a href=index.php?site=forum>zurück</a>";
     
       <tr>
         <td><label>
-          <input type="radio" name="level" value="<?=$row->level?>" <? if ($row->level == "0") { echo " checked=\"true\"";} ?>>
-          <?=$row->name?></label></td>
+          <input type="radio" name="level" value="<?php echo $row->level?>" <?php if ($row->level == "0") { echo " checked=\"true\"";} ?>>
+          <?php echo $row->name?></label></td>
       </tr>
-     <?
+     <?php
     }
      ?> 
     </table>
       <p>Notiz: Jeder Benutzer eines höheren Levels kann dieses Forum trotzdem lesen!</p></td>
   </tr>
-  <? if ($right[$level]['forum_canusetypes']) { ?>
+  <?php if ($right[$level]['forum_canusetypes']) { ?>
     <tr>
     <td>Type</td>
     <td>
@@ -971,11 +971,11 @@ echo "Dieses Forum ist geschlossen<br><a href=index.php?site=forum>zurück</a>";
    
    </td>
   </tr>
- <? } else
+ <?php } else
  {
  ?>
  <input type="hidden" name="type" value="0">
- <?
+ <?php
  } ?> 
   <tr>
     <td>Passwort</td>
@@ -1007,9 +1007,9 @@ echo "Dieses Forum ist geschlossen<br><a href=index.php?site=forum>zurück</a>";
 </tr>
 </table>
 </center>
-<input type="hidden" value="<?=$_SESSION['forumid']?>" name="forumid">
+<input type="hidden" value="<?php echo $_SESSION['forumid']?>" name="forumid">
 </form>
-<?
+<?php
 }
 
 } else
@@ -1149,7 +1149,7 @@ if ($right[$level]['forum_edit_forum'])
     <td width="80">Level:</td>
     
     <td width="85%"><table width="100%">
-    <?
+    <?php
     $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` <= '$level';";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
@@ -1158,10 +1158,10 @@ if ($right[$level]['forum_edit_forum'])
     
       <tr>
         <td><label>
-          <input type="radio" name="level" value="<?=$row->level?>" <? if ($row->level == "0") { echo " checked=\"true\"";} ?>>
-          <?=$row->name?></label></td>
+          <input type="radio" name="level" value="<?php echo $row->level?>" <?php if ($row->level == "0") { echo " checked=\"true\"";} ?>>
+          <?php echo $row->name?></label></td>
       </tr>
-     <?
+     <?php
     }
      ?> 
     </table>
@@ -1202,7 +1202,7 @@ if ($right[$level]['forum_edit_forum'])
 </center>
 
 </form>
-<?
+<?php
 
 
 } else
@@ -1317,9 +1317,9 @@ echo "Fehler!";
 
 ?>
 <script>
-window.location="index.php?site=forum&show=<?=$id?>";
+window.location="index.php?site=forum&show=<?php echo $id?>";
 </script>
-<?
+<?php
 
 
 } elseif (isset($post['delthread']))
@@ -1456,7 +1456,7 @@ foreach ($forums as $forumid=>$threads) {
     <td width="27%"><div align="center">Letzter Beitrag</div></td>
   </tr>
   
-  <?
+  <?php
   
   $sql = "SELECT * FROM `$dbpräfix"."forums`";
   $erg = $hp->mysqlquery($sql);
@@ -1484,18 +1484,18 @@ foreach ($forums as $forumid=>$threads) {
   <tr>
     <td><table width="100%" border="0">
       <tr>
-        <td width="10%" rowspan="2"><div align="center"><img src="<?=$forum->getimage_f($row->ID)?>"></div></td>
-        <td width="90%"><a href=index.php?site=forum&forum=<?=$row->ID?>><?=$row->titel?></a></td>
+        <td width="10%" rowspan="2"><div align="center"><img src="<?php echo $forum->getimage_f($row->ID)?>"></div></td>
+        <td width="90%"><a href=index.php?site=forum&forum=<?php echo $row->ID?>><?php echo $row->titel?></a></td>
       </tr>
       <tr>
-        <td><?=$row->description?></td>
+        <td><?php echo $row->description?></td>
       </tr>
     </table></td>
-    <td align="center" valign="middle"><?=$countthreads[$row->ID]?></td>
-    <td align="center" valign="middle"><? if ($countposts[$row->ID] != "") { echo $countposts[$row->ID]; } else { echo "0"; }?></td>
+    <td align="center" valign="middle"><?php echo $countthreads[$row->ID]?></td>
+    <td align="center" valign="middle"><?php if ($countposts[$row->ID] != "") { echo $countposts[$row->ID]; } else { echo "0"; }?></td>
     <td><table width="100%" border="0">
       <tr>
-        <td><? if ($lastpost[$row->ID] != "")
+        <td><?php if ($lastpost[$row->ID] != "")
         {
         $sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` ='".$lastthread[$row->ID]."'";
         $erg2 = $hp->mysqlquery($sql);
@@ -1514,21 +1514,21 @@ foreach ($forums as $forumid=>$threads) {
           ?></td>
       </tr>
       <tr>
-        <td><? if ($lastpost[$row->ID] != "")
+        <td><?php if ($lastpost[$row->ID] != "")
         {  echo date("d.m.Y H:i", $lasttime[$row->ID]);
         } ?></td>
       </tr>
     </table></td>
   </tr>
   
-<?
+<?php
 }
 }
 
 
 ?>
 </table>
-<?
+<?php
 if ($right[$level]['forum_edit_forum'])
 {
 

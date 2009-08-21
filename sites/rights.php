@@ -202,7 +202,7 @@ $hp->mysqlquery($sql);
         <p align="center">Ok?</p>
       </td>
     </tr>
-<?
+<?php
 
 
 $sql = "SELECT * FROM `".$dbpräfix."right`";
@@ -273,7 +273,7 @@ if ("$row->right" != "userdelet")
 
   </table>
   </center>
-  <? if ($_SESSION['username'] == "mrh") { ?>
+  <?php if ($_SESSION['username'] == "mrh") { ?>
 </form>
   <form method="POST" action="index.php?site=rights">
 <table border="1" width="160">
@@ -307,7 +307,7 @@ if ("$row->right" != "userdelet")
 
 </form>
 
-<? 
+<?php 
 }
 
 

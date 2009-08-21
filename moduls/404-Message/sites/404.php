@@ -10,7 +10,7 @@
 <script type='text/javascript'>
 <!--
 var tl=new Array(
-"Die Datei \"<?=$site.".php"?>\" konnte nicht gefunden werden.",
+"Die Datei \"<?php echo $site.".php"?>\" konnte nicht gefunden werden.",
 "Keine Spur!",
 "Ich hab alles versucht.",
 "Nichts half.",

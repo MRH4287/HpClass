@@ -1,4 +1,4 @@
-<?
+<?php
 
 $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `zu` = '".$_SESSION['username']."' AND `gelesen` = '0' ORDER BY `ID`;";
 

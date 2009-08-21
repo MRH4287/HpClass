@@ -1,4 +1,4 @@
-<?
+<?php
 
 // Class Config
 $hp = $this;
@@ -13,7 +13,7 @@ $error = $hp->geterror();
 
 ?>
 
-<p align="center"><font size="4"><?=$lang->word('bewerbungen')?>:</font></p>
+<p align="center"><font size="4"><?php echo $lang->word('bewerbungen')?>:</font></p>
 <p align="center">&nbsp;</p>
 <?php
 if (!isset ($_SESSION['username'])) {
@@ -90,21 +90,21 @@ while($row = mysql_fetch_object($ergebnis))
 
 <table border="1" width="671">
   <tr>
-    <td width="176"><?=$lang->word('username')?></td>
-    <td width="198"><?=$lang->word('name')?>:</td>
-    <td width="186"><?=$lang->word('nachname')?></td>
-    <td width="373"><?=$lang->word('datum')?>:</td>
-    <td width="967"><?=$lang->word('bewebungstext')?>:</td>
+    <td width="176"><?php echo $lang->word('username')?></td>
+    <td width="198"><?php echo $lang->word('name')?>:</td>
+    <td width="186"><?php echo $lang->word('nachname')?></td>
+    <td width="373"><?php echo $lang->word('datum')?>:</td>
+    <td width="967"><?php echo $lang->word('bewebungstext')?>:</td>
     <td width="152">&nbsp;</td>
   </tr>
   <tr>
-    <td width="176"><?="$row->user"?></td>
-    <td width="198"><?="$row->name"?></td>
-    <td width="186"><?="$row->nachname"?></td>
-    <td width="373"><?="$row->datum"?></td>
-    <td width="967"><?="$row->text"?></td>
-    <td width="152"><a href=index.php?site=anwaerter&register=<?="$row->user"?>><?=$lang->word('yes')?></a>/<a href=index.php?site=anwaerter&delet=<?="$row->user"?>><?=$lang->word('no')?></a></td>
+    <td width="176"><?php echo "$row->user"?></td>
+    <td width="198"><?php echo "$row->name"?></td>
+    <td width="186"><?php echo "$row->nachname"?></td>
+    <td width="373"><?php echo "$row->datum"?></td>
+    <td width="967"><?php echo "$row->text"?></td>
+    <td width="152"><a href=index.php?site=anwaerter&register=<?php echo "$row->user"?>><?php echo $lang->word('yes')?></a>/<a href=index.php?site=anwaerter&delet=<?php echo "$row->user"?>><?php echo $lang->word('no')?></a></td>
   </tr>
 </table>
-<?
+<?php
 } ?>

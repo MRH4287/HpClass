@@ -62,6 +62,6 @@ $hp->lostpassword($user);
   </tr>
 </table>
 </form>
-<?
+<?php
 }
 ?>
