@@ -101,3 +101,17 @@ sternchen.className="forum_star"+stars;
 }
 }
 
+
+function addanswer()
+{
+
+    var table    = document.getElementById("answers");
+    var tr       = document.createElement('tr');
+    var tdt      = document.createElement('td');	
+
+
+    tdt.innerHTML = '<input type="text" name="antwort[]" size="70" />';
+    tr.appendChild( tdt );
+		table.appendChild( tr );		
+
+}
