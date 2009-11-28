@@ -26,6 +26,7 @@ if (isset($get['addvote']))
 {
 
 ?>
+<script type="text/javascript" src="js/votes.js"></script>
 <form action="index.php?site=vote" method="post">
 <table width="100%" border="0">
   <tr>
