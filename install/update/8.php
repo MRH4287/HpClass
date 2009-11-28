@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS `#!-PRÄFIX-!#ranks` (  `level` int(11) NOT NULL,   `name` varchar(100) COLLATE latin1_general_ci NOT NULL,     PRIMARY KEY (`level`)  ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+INSERT INTO `#!-PRÄFIX-!#ranks` (`level`, `name`) VALUES (0, 'Besucher'),  (1, 'Mitglied'),  (2, 'Moderator'),(3, 'Administrator'),(4, 'Super Admin');
