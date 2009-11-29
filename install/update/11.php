@@ -1,0 +1,1 @@
+ ALTER TABLE `#!-PRÄFIX-!#user` ADD `width` INT( 100 ) NOT NULL ,ADD `height` INT( 100 ) NOT NULL 
