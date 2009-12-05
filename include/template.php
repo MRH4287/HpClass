@@ -37,8 +37,15 @@ $template['svnrev']="Kein SVN!";
 }
 
 // JS
-$template['js']='<script type="text/javascript" src="js/prototype.js"></script>
-<script type="text/javascript" src="js/scriptaculous.js?load=effects,builder"></script>
+$template['jsu']='<script src="js/scriptaculous/prototype.js"></script>
+<script src="js/scriptaculous/scriptaculous.js"></script>
+<script src="js/drag&drop.js"></script> 
+';
+
+$template['js']='
+
+
+
 <script type="text/javascript" src="js/lightbox.js"></script>
 <link rel="stylesheet" href="css/lightbox.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/lightboxX2.js"></script>
@@ -47,6 +54,8 @@ $template['js']='<script type="text/javascript" src="js/prototype.js"></script>
 <script type="text/javascript" src="js/fade_effekt.js"></script>
 <script type="text/javascript" src="js/votes.js"></script>
 <link rel="stylesheet" href="css/forum.css" type="text/css"/>
+<link rel="stylesheet" href="css/widget.css" type="text/css"/>
+
 ';
 
 ?>
