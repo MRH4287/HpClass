@@ -519,5 +519,91 @@ return implode(" \n ", $this->func);
 }
 
 
+
+
+
+
+
+
+
+// ----------------------------------< DRAG & DROP >------------------------------------------------
+
+var $div_list = array();
+
+
+function decodeinfo($info)
+{
+$infos = array();
+$split = explode("<!--!>", $info);
+
+foreach ($split as $key=>$value) {
+	
+	$temp = explode(":=", $value);
+	
+	$infos[$temp[0]] = $temp[1];
+	
+}
+
+return $infos;
+}
+
+
+          
+function ax_dragevent($dropper, $drag, $info = "", $info_droppable = "", $dividlist = "")
+{
+$response = new xajaxResponse();
+
+// Dekodiere Info:
+$infos = $this->decodeinfo($info);
+$infos_droppable = $this->decodeinfo($info_droppable);
+
+
+
+
+if ($infos_droppable['innerHTML'] == "")
+{
+
+
+// Erzeuge den HTML Code für eine Div Box, mit der selben CSS Klasse:
+$div = "<div class=\"".$infos['className']."\">".$infos['innerHTML']."</div>";
+
+// Füge die neue Div-Box, dem alten Inhalt hinzu:
+$text = $div;
+
+$response->assign($dropper, "innerHTML", $text);
+
+
+//$response->script("$('$dropper').highlight();");
+
+$response->script("$('".$infos['id']."').hide($('".$infos['id']."'));");
+
+}
+
+
+return $response;
+}
+
+
+
+
+// ---------------------------------- </ DRAG & DROP >------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 ?>

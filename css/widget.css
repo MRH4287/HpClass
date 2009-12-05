@@ -1,0 +1,27 @@
+ .drag
+ {
+ border: 1px outset;
+ width: 100px;
+/* background-color: red;  */
+ }
+ 
+
+ 
+  .dropp
+ {
+
+  height: 100%;
+  width: 100%;
+ 
+ 
+ border: 2px rgb(0,0,0) dashed;
+ 
+background-color: rgb(255,255,204);
+ }
+    .hclass
+ {
+/* width: 150px;
+ height: 150px;  */
+ background-color: orange;
+ }
+ 
