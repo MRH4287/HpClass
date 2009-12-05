@@ -27,6 +27,7 @@ $info       = new infoclass;
 $lbsites    = new lbsites;
 $xajaxF     = new Xajax_Funktions;
 $forum      = new forum;
+$widgets    = new widgets;
 // ----------------------------------------------------------------------------
 
 //--------------------------------------SET Area-------------------------------
@@ -48,6 +49,8 @@ $hp->setlbsites($lbsites);
 $hp->setxajaxF($xajaxF);
 $forum->sethp($hp);
 $hp->setforum($forum);
+$widgets->sethp($hp);
+$hp->setwidgets($widgets);
 // ----------------------------------------------------------------------------
 
 //-----------------------------------MYSQL Area (DB Verbindung)----------------
@@ -84,6 +87,10 @@ $post = $hp->post();
 $xajaxF->processRequest();
 
 
+//--------------------------------Widgets---------------------------------------
+ $widgets->replace();
+
+
 //------------------------------Template Steuerung-----------------------------
 // 1. Inportieren der Template Dateien
 include 'include/template.php';
@@ -92,6 +99,12 @@ include 'include/login.php';
 
 // 2. Übergeben des Template Arrays am die Funktion
 $temp->settemplate($template);
+
+//-----------Widgets----------
+ $widgets->addtotemp();
+
+
+
 // 3. Laden der HTML Datei
 $error->outputdiv();
 $info->outputdiv();

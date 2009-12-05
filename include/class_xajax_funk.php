@@ -528,7 +528,7 @@ return implode(" \n ", $this->func);
 
 // ----------------------------------< DRAG & DROP >------------------------------------------------
 
-var $div_list = array();
+
 
 
 function decodeinfo($info)
@@ -546,16 +546,26 @@ foreach ($split as $key=>$value) {
 
 return $infos;
 }
+ 
 
 
-          
-function ax_dragevent($dropper, $drag, $info = "", $info_droppable = "", $dividlist = "")
+
+         
+function ax_dragevent($dropper, $drag, $infon = "", $info_droppable = "")
 {
 $response = new xajaxResponse();
 
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$fp = $hp->firephp;
+
+
+
+
 // Dekodiere Info:
-$infos = $this->decodeinfo($info);
+$infos = $this->decodeinfo($infon);
 $infos_droppable = $this->decodeinfo($info_droppable);
+
 
 
 
@@ -564,18 +574,27 @@ if ($infos_droppable['innerHTML'] == "")
 {
 
 
-// Erzeuge den HTML Code für eine Div Box, mit der selben CSS Klasse:
-$div = "<div class=\"".$infos['className']."\">".$infos['innerHTML']."</div>";
+$response->script("Droppables.remove($('".$dropper."'));");
 
-// Füge die neue Div-Box, dem alten Inhalt hinzu:
-$text = $div;
+
+
+$response->script("$('$dropper').highlight();");
+
+$response->script("$('".$drag."').hide($('".$drag."'));");
+
+
+
+
+$text = "<div id=\"".$drag."\">".$infos['innerHTML']."</div>";
 
 $response->assign($dropper, "innerHTML", $text);
+$response->assign($dropper, "className", "");
 
 
-//$response->script("$('$dropper').highlight();");
+// Eintragen in die DB:
+//$sql = "INSERT INTO `$dbpräfix"."template` (`ID`, `source`) VALUES ('$dropper', '$drag');";
+//$erg = $hp->mysqlquery($sql);
 
-$response->script("$('".$infos['id']."').hide($('".$infos['id']."'));");
 
 }
 
@@ -584,6 +603,28 @@ return $response;
 }
 
 
+function ax_widget_del($ID)
+{
+$response = new xajaxResponse();
+
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+ $fp->log("->e");
+//$ID = mysql_escape_string($ID);
+
+//$sql = "DELETE FROM `$dbpräfix"."template` WHERE `ID` = '$ID';";
+//$erg = $hp->mysqlquery($sql);
+
+
+
+//$response->assign($ID, "innerHTML", "entfernt");
+
+return $response;
+}
+ 
 
 
 // ---------------------------------- </ DRAG & DROP >------------------------------------------------
@@ -591,7 +632,12 @@ return $response;
 
 
 
-
+ function ax_test($a)
+ {
+ $response = new xajaxResponse();
+ 
+ return $response;
+ }
 
 
 

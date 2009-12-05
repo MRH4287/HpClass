@@ -20,9 +20,9 @@ var $replace = "
 
 <script>
 
-Droppables.add('<!--ID-->',{onDrop: function(drag) {
+Droppables.add('<!--ID-->',{onDrop: function(drag, base) {
 
-xajax_test(drag.id);
+xajax_dragevent(base.id, drag.id, getinfo(drag), getinfo(base));
 
  }, hoverclass: 'hclass'});
  
@@ -34,7 +34,7 @@ xajax_test(drag.id);
 </table>
 ";
 
- //xajax_dragevent(base.id, drag.id, getinfo(drag), getinfo(base));
+
 function setwidgets()
 {
 
@@ -163,7 +163,51 @@ foreach ($this->placeholder as $key=>$value) {
 
 
 
+function addtotemp()
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+$temp = $hp->template;
 
+
+
+foreach ($this->template as $key=>$value) {
+	
+	$temp->addtemp($key, $value);
+	
+}
+
+}
+
+
+function getwidgets()
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+$temp = $hp->template;
+
+
+
+$widgets = array();
+
+foreach ($this->widgets as $key=>$value) {
+	// if (!in_array($key, $this->placed))
+   {
+   $widgets[$key] = $value;
+   }
+}
+
+
+return $widgets;
+}
 
 
 

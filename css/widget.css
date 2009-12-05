@@ -1,8 +1,12 @@
+/* Widgets */
+
  .drag
  {
  border: 1px outset;
- width: 100px;
-/* background-color: red;  */
+/*  width: 100px;
+ 
+ 
+ background-color: red;  */
  }
  
 
@@ -25,3 +29,10 @@ background-color: rgb(255,255,204);
  background-color: orange;
  }
  
+/*  .widget-del
+  {
+  text-align: center;
+ background-color: rgb(255,255,204);
+ border: 1px ridge; 
+  
+  }         */
