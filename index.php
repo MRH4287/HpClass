@@ -15,6 +15,7 @@ require_once 'include/xajax_core/xajax.inc.php';
 require_once 'include/FirePHP.class.php';
 require_once 'include/class_xajax_funk.php';
 require_once 'include/class_forum.php';
+require_once 'include/class_widgets.php';
 //----------------------------------------------------------------------------
 
 //--------------------------------------Class Area----------------------------
