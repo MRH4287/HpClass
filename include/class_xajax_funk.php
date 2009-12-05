@@ -592,8 +592,8 @@ $response->assign($dropper, "className", "");
 
 
 // Eintragen in die DB:
-//$sql = "INSERT INTO `$dbpräfix"."template` (`ID`, `source`) VALUES ('$dropper', '$drag');";
-//$erg = $hp->mysqlquery($sql);
+$sql = "INSERT INTO `$dbpräfix"."template` (`ID`, `source`) VALUES ('$dropper', '$drag');";
+$erg = $hp->mysqlquery($sql);
 
 
 }
@@ -613,14 +613,14 @@ $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
  $fp->log("->e");
-//$ID = mysql_escape_string($ID);
+$ID = mysql_escape_string($ID);
 
-//$sql = "DELETE FROM `$dbpräfix"."template` WHERE `ID` = '$ID';";
-//$erg = $hp->mysqlquery($sql);
+$sql = "DELETE FROM `$dbpräfix"."template` WHERE `ID` = '$ID';";
+$erg = $hp->mysqlquery($sql);
 
 
 
-//$response->assign($ID, "innerHTML", "entfernt");
+$response->assign($ID, "innerHTML", "entfernt");
 
 return $response;
 }
