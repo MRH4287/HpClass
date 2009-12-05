@@ -12,6 +12,8 @@ $error = $hp->geterror();
 $info = $hp->getinfo();
 
 
+$widgets = $hp->widgets->getwidgets();
+
 ?>
 
 
@@ -23,25 +25,31 @@ $info = $hp->getinfo();
     <table width="500" height="50" border="1">
      <tr>
      <td width="">
-               
-       
-       
-       
+   
  <?php
+ 
+ foreach ($widgets as $key=>$value) {
+ 	
+ 	echo "<div id=$key>$value</div>";
+ 	
+ }
  
  
  ?>
     </td>
     </tr>
     </table>
+ <?php
+ echo '<script>';
+ foreach ($widgets as $key=>$value) {
+ 	
+ 	echo "new Draggable('$key',{revert: true}); ";
+ 	
+ }
+  echo '</script>';
+ 
+ ?>
 
-    <script>
-   new Draggable('bewegmich',{revert: true}); 
-   new Draggable('bewegmich2',{revert: true}); 
-   new Draggable('bewegmich3',{revert: true}); 
-    
-
-</script>
 
 
 

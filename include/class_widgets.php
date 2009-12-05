@@ -84,7 +84,8 @@ $this->addwidget('navigation',
 
 </table>
 ');
-$this->addwidget("test", "Das ist ein TEst");
+
+//$this->addwidget("test", "Das ist ein TEst");
 
 
 
@@ -121,24 +122,24 @@ $get = $hp->get();
 
 
 
-//  // Datenbank Abfrage, ob bereits ein Widget verschoben wurde:
-// $sql = "SELECT * FROM `$dbpräfix"."template`";
-// $erg = $hp->mysqlquery($sql);
-// while ($row = mysql_fetch_object($erg))
-// {
-// 
-//  if ($get['site'] == "dragdrop")
-//  {
-// // $del1 = "<div id=\"$row->ID\" class=widget-del>";
-// // $del2 = "<br><a href=# onclick=xajax_widget_del('$row->ID')>Löschen</a></div>";
-//  }
-// 
-//  //$temp->addtemp($row->ID, $this->widgets[$row->source]);
-//  $this->template[$row->ID] = $del1.$this->widgets[$row->source].$del2;
-//  $this->placed[] = $row->source;
-//  $this->placed[] = $row->ID;
-// 
-// }
+ // Datenbank Abfrage, ob bereits ein Widget verschoben wurde:
+$sql = "SELECT * FROM `$dbpräfix"."template`";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
+{
+
+ if ($get['site'] == "dragdrop")
+ {
+ $del1 = "<div id=\"$row->ID\" class=widget-del>";
+ $del2 = "<br><a href=# onclick=xajax_widget_del('$row->ID')>Löschen</a></div>";
+ }
+
+ //$temp->addtemp($row->ID, $this->widgets[$row->source]);
+ $this->template[$row->ID] = $del1.$this->widgets[$row->source].$del2;
+ $this->placed[] = $row->source;
+ $this->placed[] = $row->ID;
+
+}
 
 
 // Wenn die Seite dragdrop offen ist, ersetze alle Placeholder mit dem Drroppable Code:
@@ -146,7 +147,7 @@ $get = $hp->get();
  {
 
 foreach ($this->placeholder as $key=>$value) {
-//	if (!in_array($value, $this->placed))
+	if (!in_array($value, $this->placed))
 	{
 	$temp->addtemp($value, str_replace("<!--ID-->", $value, $this->replace));
 	//$this->template[$value] = str_replace("<!--ID-->", $value, $this->replace);
@@ -199,7 +200,7 @@ $temp = $hp->template;
 $widgets = array();
 
 foreach ($this->widgets as $key=>$value) {
-	// if (!in_array($key, $this->placed))
+	 if (!in_array($key, $this->placed))
    {
    $widgets[$key] = $value;
    }
