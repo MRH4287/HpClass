@@ -6,7 +6,7 @@ var $placed = array();
 var $template = array();
 
 //Definiert alle Platzhalter im Template:
-var $placeholder = array("placeholder1", "placeholder2", "placeholder3");
+var $placeholder = array("placeholder1", "placeholder2", "placeholder3", "placeholder4", "placeholder5");
 // Leeres Array für die Widgets:
 var $widgets = array();
 
@@ -85,10 +85,65 @@ $this->addwidget('navigation',
 </table>
 ');
 
-//$this->addwidget("test", "Das ist ein TEst");
+$this->addwidget("SVN", '
+<table bgcolor="#89A9B8"  width="170" border="0" cellpadding="0" cellspacing="0" class="news"  align="center" style="border:solid 1px black" >
+<tr>
+<td class="rubrik">&nbsp;SVN</td>
+</tr>
+<tr>
+<td >
+<center><img src="template/SVN/bild.php" height="100" width="100"></center>
+</td>
+</tr>
+</table>
+');
+
+$this->addwidget("Member", '
+<table  width="170" border="0" cellpadding="0" cellspacing="0"  bgcolor="#D5E0E6"  id="menu" align="center" style="border:solid 1px black;" >
+<tr>
+<td class="rubrik" width="165">&nbsp;Mitglieder</td>
+</tr>
+<!--member-->
+
+</table>');
 
 
+$this->addwidget("Uhr",'<table bgcolor="#89A9B8"  width="170" border="0" cellpadding="0" cellspacing="0" class="news"  align="center" style="border:solid 1px black" >
+<tr>
+<td class="rubrik">&nbsp;Zeit</td>
+</tr>
+<tr>
+<td >
 
+<div name="uhrzeit" id="uhrzeit"></div>
+<script type=\'text/javascript\'>
+<!--
+function zeit()
+{
+var heute = new Date();
+        var std = heute.getHours();
+        var min = heute.getMinutes();
+        var sek = heute.getSeconds();
+
+
+        if(std < 10){std = "0" + std};
+        if(min < 10){min = "0" + min};
+        if(sek < 10){sek = "0" + sek};
+                
+        var genzei = std + ":" + min + " " + sek;
+
+
+        document.getElementById(\'uhrzeit\').innerHTML="<center>"+genzei+"</center>";
+
+        setTimeout("zeit()",1000)
+}
+
+zeit();
+//-->
+</script>     
+</td>
+</tr>
+</table>');
 
 }
 
@@ -120,7 +175,7 @@ $temp = $hp->template;
 $get = $hp->get();
 
 
-
+$superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
 
  // Datenbank Abfrage, ob bereits ein Widget verschoben wurde:
 $sql = "SELECT * FROM `$dbpräfix"."template`";
@@ -128,7 +183,7 @@ $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
 
- if ($get['site'] == "dragdrop")
+ if (($get['site'] == "dragdrop") and $superadmin)
  {
  $del1 = "<div id=\"$row->ID\" class=widget-del>";
  $del2 = "<br><a href=# onclick=xajax_widget_del('$row->ID')>Löschen</a></div>";
@@ -143,7 +198,7 @@ while ($row = mysql_fetch_object($erg))
 
 
 // Wenn die Seite dragdrop offen ist, ersetze alle Placeholder mit dem Drroppable Code:
- if ($get['site'] == "dragdrop")
+ if (($get['site'] == "dragdrop") and ($superadmin))
  {
 
 foreach ($this->placeholder as $key=>$value) {
@@ -174,9 +229,11 @@ $error = $hp->error;
 $fp = $hp->fp;
 $temp = $hp->template;
 
+$template = $hp->template->spezialsigs($this->template);
 
 
-foreach ($this->template as $key=>$value) {
+
+foreach ($template as $key=>$value) {
 	
 	$temp->addtemp($key, $value);
 	
@@ -196,10 +253,10 @@ $fp = $hp->fp;
 $temp = $hp->template;
 
 
-
+$widgets_replace = $hp->template->spezialsigs($this->widgets);
 $widgets = array();
 
-foreach ($this->widgets as $key=>$value) {
+foreach ($widgets_replace as $key=>$value) {
 	 if (!in_array($key, $this->placed))
    {
    $widgets[$key] = $value;

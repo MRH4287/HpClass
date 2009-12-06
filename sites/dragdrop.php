@@ -31,7 +31,7 @@ $widgets = $hp->widgets->getwidgets();
  foreach ($widgets as $key=>$value) {
  	
  	echo "<div id=$key>$value</div>";
- 	
+ 	echo "<br>";
  }
  
  

@@ -559,7 +559,9 @@ $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
 $fp = $hp->firephp;
 
-
+$superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
+if ($superadmin)
+{
 
 
 // Dekodiere Info:
@@ -598,6 +600,8 @@ $erg = $hp->mysqlquery($sql);
 
 }
 
+}
+
 
 return $response;
 }
@@ -612,7 +616,10 @@ $dbpräfix = $hp->getpräfix();
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
- $fp->log("->e");
+
+if (in_array($_SESSION['username'], $hp->getsuperadmin()))
+{
+
 $ID = mysql_escape_string($ID);
 
 $sql = "DELETE FROM `$dbpräfix"."template` WHERE `ID` = '$ID';";
@@ -621,6 +628,8 @@ $erg = $hp->mysqlquery($sql);
 
 
 $response->assign($ID, "innerHTML", "entfernt");
+
+}
 
 return $response;
 }

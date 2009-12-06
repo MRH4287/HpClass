@@ -158,6 +158,12 @@ function getfirephp()
 {
 return $this->firephp;
 }
+
+function getsuperadmin()
+{
+return $this->superadmin;
+}
+
 // Versions überprüfung
 // 4.1
 

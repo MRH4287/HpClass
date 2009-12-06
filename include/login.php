@@ -70,11 +70,12 @@ echo mysql_error();
     <a href=index.php?site=pm>'); if ($number2 != 0) { $login->addstr("<b>"); } $login->addstr('<font color="black">&raquo;&nbsp;PM-Menu</font>'); if ($number2 != 0) {  $login->addstr("</b>"); } $login->addstr('</a>'.$br.'
     <a href=index.php?site=profil><font color="black">&raquo;&nbsp;'.$lang->word('editprofile').'</font></a>'.$br.'');
      
-    if (($_SESSION['username'] == "admin") or ($_SESSION['username'] == "mrh"))
+    if (in_array($_SESSION['username'], $hp->getsuperadmin()))
     {
     
         $login->addstr('<a href=index.php?site=rights><font color="black">&raquo;&nbsp;Rechte</font></a>'.$br.'');
         $login->addstr('<a href=index.php?site=config><font color="black">&raquo;&nbsp;Konfiguration</font></a>'.$br.'');
+        $login->addstr('<a href=index.php?site=dragdrop><font color="black">&raquo;&nbsp;Widget System</font></a>'.$br.'');
     
     }
 }
