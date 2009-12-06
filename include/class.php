@@ -51,7 +51,7 @@ $this->superadmin = array("admin", "mrh");
 
 // Siteckeckup
 $this->restrict       = array("login");
-$this->superadminonly = array("rights", "config", "test");
+$this->superadminonly = array("rights", "config", "dragdrop", "test");
 
 // Version
 $this->checkversionurl = "http://mrh.mr.ohost.de/version/version.php?name=HPClass";
