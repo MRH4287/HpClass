@@ -594,9 +594,11 @@ $response->assign($dropper, "className", "");
 
 
 // Eintragen in die DB:
-$sql = "INSERT INTO `$dbpräfix"."template` (`ID`, `source`) VALUES ('$dropper', '$drag');";
+$sql = "INSERT INTO `$dbpräfix"."widget` (`ID`, `source`) VALUES ('$dropper', '$drag');";
 $erg = $hp->mysqlquery($sql);
 
+
+$response->script('setTimeout("location.reload(true);",200);');
 
 }
 
@@ -622,12 +624,14 @@ if (in_array($_SESSION['username'], $hp->getsuperadmin()))
 
 $ID = mysql_escape_string($ID);
 
-$sql = "DELETE FROM `$dbpräfix"."template` WHERE `ID` = '$ID';";
+$sql = "DELETE FROM `$dbpräfix"."widget` WHERE `ID` = '$ID';";
 $erg = $hp->mysqlquery($sql);
 
 
 
 $response->assign($ID, "innerHTML", "entfernt");
+
+$response->script('setTimeout("location.reload(true);",200);');
 
 }
 

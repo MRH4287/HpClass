@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS `#!-PRÄFIX-!#widget` (  `ID` varchar(500) COLLATE latin1_general_ci NOT NULL,  `source` varchar(500) COLLATE latin1_general_ci NOT NULL,  PRIMARY KEY (`ID`)) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci

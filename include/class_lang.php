@@ -244,7 +244,12 @@ $array = explode("tp_", $key);
   }
 }
 }
-} else { $fp->warn("Langclass Warnt: this->lang[this->clang] ist kein Array"); 
+} else { 
+$fp->warn("Langclass Warnt: this->lang[this->clang] ist kein Array");
+$fp->group("Infos:"); 
+$fp->log($this->clang, "Current Lang");
+$fp->groupend();
+
 }
 }
 

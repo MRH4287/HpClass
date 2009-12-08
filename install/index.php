@@ -14,8 +14,8 @@ if (!array_key_exists($_SERVER['PHP_AUTH_USER'], $nutzer) ||
  }
 
 
-extract($HTTP_GET_VARS);
-extract($HTTP_POST_VARS);
+extract($_GET);
+extract($_POST);
 //require 'ProgressClass.php';
 
 if (file_exists("../include/config.php")){

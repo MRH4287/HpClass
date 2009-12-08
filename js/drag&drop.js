@@ -1,6 +1,6 @@
 function getinfo(element)
 {
-info = "";
+var info = "";
 
 info += "id:="+element.id;
 info += "<!--!>";

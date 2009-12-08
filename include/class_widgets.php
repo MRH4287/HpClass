@@ -178,7 +178,7 @@ $get = $hp->get();
 $superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
 
  // Datenbank Abfrage, ob bereits ein Widget verschoben wurde:
-$sql = "SELECT * FROM `$dbpräfix"."template`";
+$sql = "SELECT * FROM `$dbpräfix"."widget`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {

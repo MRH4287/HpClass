@@ -247,7 +247,7 @@ function resolution()
 
 		if (width >= document.body.clientWidth) 
 			{
-			lb.style.left = '0px';
+			lb.style.left = '200px';
 			//document.getElementById('fade').style.width = width+'px';
 			}
 		else

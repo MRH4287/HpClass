@@ -58,6 +58,8 @@ echo "<br><br><a href=\"#\" class=\"lbAction\" rel=\"deactivate\"><p align=\"rig
 </tr>
 </table>
 <script>resolution();</script>
+<center><a href="#" onclick="resolution();">Ausrichten</a><br>
+
 <?php
 }
 
