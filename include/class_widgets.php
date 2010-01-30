@@ -35,27 +35,6 @@ xajax_dragevent(base.id, drag.id, getinfo(drag), getinfo(base));
 ";
 
 
-function setwidgets()
-{
-
-// -------------------------------- WIDGETS: ----------------------------------------------
-
-// Hier werden Widgets Definiert, die für jedes Template gelten sollen:
-
-// Alle anderen Widgets sind definiert unter:
-// template/ <Designname> / widgets/ *.php (*.php bedeutet, beliebiger Dateiname mit Endung .php)
-
-
-}
-
-
-// ....................................................................................
-
-function __construct()
-{
-$this->setwidgets();
-}
-
 
 function sethp($hp)
 {
