@@ -2,7 +2,7 @@
 
 $config = array(
 
-"title_front" => "<font color=\"red\">",
+"title_front" => "<font color=\"black\">",
 "title_back" => "</font>",
 "list_front" => "<font color=\"black\">",
 "list_back" => "</font>",
