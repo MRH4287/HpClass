@@ -124,6 +124,22 @@ $this->lang=$lang;
 }
 
 
+function getloginconfig($path)
+{
+
+if (is_file("template/$path/login.php"))
+{
+
+include "template/$path/login.php";
+
+return $config;
+} else
+{
+return null;
+}
+
+
+}
 
 
 }

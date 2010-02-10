@@ -2,6 +2,59 @@
 class login
 {
 var $login;
+var $config;
+
+function __construct()
+{
+// Standard Config:
+$this->config = array(
+
+"title_front" => "<font color=\"black\">",
+"title_back" => "</font>",
+"list_front" => "<font color=\"black\">",
+"list_back" => "</font>",
+"list_symbol" => "&raquo;&nbsp;",
+"list_behind_link" => "",
+"list_before_link" => ""
+
+);
+
+
+}
+
+function tf()
+{
+return $this->config["title_front"];
+}
+
+function tb()
+{
+return $this->config["title_back"];
+}
+
+function lf()
+{
+return $this->config["list_front"];
+}
+function lb()
+{
+return $this->config["list_back"];
+}
+function ls()
+{
+return $this->config["list_symbol"];
+}
+
+function lvl()
+{
+return $this->config["list_behind_link"];
+}
+
+function lnl()
+{
+return $this->config["list_before_link"];
+}
+
 
 function addstr($str)
 {
@@ -13,9 +66,28 @@ function getlogin()
 return $this->login;
 }
 
+function getconfig($template, $design)
+{
+ if (is_object($template))
+ {
+  $config = $template->getloginconfig($design);
+  
+   if (is_array($config))
+   {
+    $this->config = $config;
+   }
+
+
+ }
+}
+
+
 }
 
 $login = new login;
+$login->getconfig($temp, $design);
+// Short Cut
+$l = $login;
 
 $dbpräfix = $hp->getpräfix();
 
@@ -25,12 +97,12 @@ $dbpräfix = $hp->getpräfix();
  if (!isset($_SESSION['username'])) { 
  
       $login->addstr('<form method="POST" action="sites/login.php">
-      <font color="black">'.$lang->word('username').':</font><br>
+      '.$l->tf().$lang->word('username').':'.$l->tb().'<br>
       <input type="text" name="user" size="15"><br>
-      <font color="black">'.$lang->word('password').':</font><br>
+      '.$l->tf().$lang->word('password').':'.$l->tb().'<br>
       <input type="password" name="passwort" size="15"><input type="submit" value="'.$lang->word('loginbutt').'" name="login">
-      <a href=index.php?site=register><font color="black">&raquo;&nbsp;'.$lang->word('register').'</font></a>
-      <a href=index.php?site=lostpw><font color="black">&raquo;&nbsp;Passwort vergesen?</font></a>
+      '.$l->lvl().'<a href=index.php?site=register>'.$l->lf().$l->ls().$lang->word('register').$l->lb().'</a>'.$l->lnl().'
+      '.$l->lvl().'<a href=index.php?site=lostpw>'.$l->lf().$l->ls().'Passwort vergesen?'.$l->lb().'</a>'.$l->lnl().'
     </form>');
      } else { 
      $abfrage = "SELECT * FROM ".$dbpräfix."anwaerter";
@@ -55,27 +127,25 @@ echo mysql_error();
    $number2=$number2+1;
    }
     }
-    //    $br = "<br>"; 
+ 
     
-   $login->addstr('<font color="black">'.$lang->word('loggedas').'</font><br><br>
+   $login->addstr($l->tf().$lang->word('loggedas').$l->tb().'<br><br>
    
-   <b><font color="black"> '.$_SESSION['username']." (".$_SESSION['level'].') </font></b><br>
+   <b>'.$l->tf().$_SESSION['username']." (".$_SESSION['level'].')'.$l->lb().'</b><br>
    
    
+    '.$l->lvl().'<a href=sites/login.php?logout>'.$l->lf().$l->ls()."Logout".$l->lb().'</a>'.$l->lnl().'
     
-    <a href=sites/login.php?logout><font color="black">&raquo;&nbsp;Logout</font></a>'.$br.'
-    
-
-    <a href=index.php?site=admin>'); if ($number != 0) { $login->addstr("<b>"); } $login->addstr('<font color="black">&raquo;&nbsp;Administration</font>'); if ($number != 0) { $login->addstr("</b>"); } $login->addstr('</a>'.$br.'
-    <a href=index.php?site=pm>'); if ($number2 != 0) { $login->addstr("<b>"); } $login->addstr('<font color="black">&raquo;&nbsp;PM-Menu</font>'); if ($number2 != 0) {  $login->addstr("</b>"); } $login->addstr('</a>'.$br.'
-    <a href=index.php?site=profil><font color="black">&raquo;&nbsp;'.$lang->word('editprofile').'</font></a>'.$br.'');
+    '.$l->lvl().'<a href=index.php?site=admin>'); if ($number != 0) { $login->addstr("<b>"); } $login->addstr($l->lf().$l->ls()."Administration".$l->lb()); if ($number != 0) { $login->addstr("</b>"); } $login->addstr('</a>'.$l->lnl().'
+    '.$l->lvl().'<a href=index.php?site=pm>'); if ($number2 != 0) { $login->addstr("<b>"); } $login->addstr($l->lf().$l->ls()."PM-Menu".$l->lb()); if ($number2 != 0) {  $login->addstr("</b>"); } $login->addstr('</a>'.$l->lnl().'
+    '.$l->lvl().'<a href=index.php?site=profil>'.$l->lf().$l->ls().$lang->word('editprofile').$l->lb().'</a>'.$l->lnl());
      
     if (in_array($_SESSION['username'], $hp->getsuperadmin()))
     {
     
-        $login->addstr('<a href=index.php?site=rights><font color="black">&raquo;&nbsp;Rechte</font></a>'.$br.'');
-        $login->addstr('<a href=index.php?site=config><font color="black">&raquo;&nbsp;Konfiguration</font></a>'.$br.'');
-        $login->addstr('<a href=index.php?site=dragdrop><font color="black">&raquo;&nbsp;Widget System</font></a>'.$br.'');
+        $login->addstr($l->lvl().'<a href=index.php?site=rights>'.$l->lf().$l->ls()."Rechte".$l->lb().'</a>'.$l->lnl());
+        $login->addstr($l->lvl().'<a href=index.php?site=config>'.$l->lf().$l->ls()."Konfiguration".$l->lb().'</a>'.$l->lnl());
+        $login->addstr($l->lvl().'<a href=index.php?site=dragdrop>'.$l->lf().$l->ls()."Widget System".$l->lb().'</a>'.$l->lnl());
     
     }
 }

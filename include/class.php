@@ -755,7 +755,7 @@ $value = "false";
 {
 $typ = "string";
 
-$value = str_replace('"', "'", $value);
+$value = str_replace('\'', "\"", $value);
 $value = str_replace("<", "&lt;", $value);
 
 }
