@@ -101,7 +101,12 @@ $akt = $this->getversion();
 $files = $this->versions();
 $updates = array();
 
+sort($files);
+
+
 foreach ($files as $key=>$value) {
+
+
 	if ($value > $akt)
 	{
   $updates[] = $value;

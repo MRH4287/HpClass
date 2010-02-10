@@ -27,9 +27,13 @@ foreach ($filearray as $key=>$value) {
   $last = $value;
   }
 }
-
+if (is_file("./version/mysql.php"))
+{
 $version = file_get_contents("./version/mysql.php");
-
+} else
+{
+$version = 0;
+}
 if ($last > $version)
 {
 echo "Es gibt ein neues Mysqlupdate!<br>Sie müssen dieses erst übernehmen, bevor Sie das System starten können!<br>".
