@@ -34,7 +34,7 @@ $error = $hp->geterror();
 $info = $hp->getinfo();
 
 
-if (isset ($get['del2']) and $_SESSION['level'] = 3)
+if (isset ($get['del2']) and ($right[$level]['upload_del']))
 {
 /*
 $abfrage = "DELETE FROM ".$dbpräfix."download WHERE `ID`=".$get['del'];
@@ -72,7 +72,7 @@ if (!isset($_SESSION['username']))
 {
 $error->error($lang->word('noright2'),"2");
 
-} elseif (isset ($get['del']) and $right[$level]['upload'])
+} elseif (isset ($get['del']) and $right[$level]['upload_del'])
 {
 $del = $get['del'];
 $info->info("Möchten Sie die Datei wirklick löschen? <a href=index.php?site=download&del2=$del>Ja</a> <a href=index.php>Nein</a>");

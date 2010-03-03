@@ -144,9 +144,11 @@ VALUES (
 $hp->mysqlquery($sql);
 echo mysql_error();
 
+
+echo "$sql<br>";
 	
 }
-
+echo "<hr>";
 
 } elseif (isset($post['sub3']))
 {
