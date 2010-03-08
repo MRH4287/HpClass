@@ -23,7 +23,7 @@ if (isset($_SESSION['username']))
 </table></center>
 
 <?php
-if (!isset($get['read']) and !isset($post['del'])and !isset($get['new']) and !isset($get['del']) and !isset($get['ausgang']) and !isset($get['report']))
+if (!isset($get['read']) and !isset($post['del']) and !isset($post['mark']) and !isset($get['new']) and !isset($get['del']) and !isset($get['ausgang']) and !isset($get['report']) and !isset($get['getres']))
 {
 
 $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `zu` = '".$_SESSION['username']."' ORDER BY `ID` DESC;";
@@ -37,7 +37,26 @@ $error->error(mysql_error(), "2");
  
 
 ?>
-<form action="index.php?site=pm" method="POST">
+ <script type="text/javascript">
+<!-- Begin
+function checkAll(field)
+{
+for (i = 0; i < field.length; i++)
+	field[i].checked = true ;
+	return false;
+}
+
+function uncheckAll(field)
+{
+for (i = 0; i < field.length; i++)
+	field[i].checked = false ;
+	return false;
+}
+//  End -->
+</script>
+
+
+<form action="index.php?site=pm" method="POST" name="selform">
 <table width="100%" border="0">
   <tr bgcolor="<?php echo $defaultcolor?>">
     <th height="25" scope="col"><!--ID:--></th>
@@ -54,7 +73,7 @@ $error->error(mysql_error(), "2");
   $numbers = $numbers +1;
    ?>
    <tr bgcolor="#4E6F8">
-    <td scope="col"><div align="center"><!--<?php echo "$row->ID"?>--><input type="checkbox" name="del[]" value="<?php echo "$row->ID"?>">
+    <td scope="col"><div align="center"><!--<?php echo "$row->ID"?>--><input type="checkbox" name="sel[]" value="<?php echo "$row->ID"?>">
                                                               </div></td>
     <td scope="col"><div align="center"><?php echo "$row->von"?></div></td>
     <td scope="col"><div align="center"><a href="index.php?site=pm&read=<?php echo "$row->ID"?>"><?php if ("$row->gelesen" == "0") { echo "<b>"; } ?><?php echo "$row->Betreff"?><?php if ("$row->gelesen" == "0") { echo "</b>"; } ?></a></div></td>
@@ -68,15 +87,20 @@ $error->error(mysql_error(), "2");
   }?>  
 
 </table>
-
+<!--
+  <input type=button  value="Check All"	onClick="checkAll(document.selform)">
+ <input type=button value="Uncheck All"	onClick="uncheckAll(document.selform)">
+-->
+<a href="#" onClick="checkAll(document.selform)">Check all</a>
+<a href="#" onClick="uncheckAll(document.selform)">Uncheck all</a>
 
   <table width="100%" border="0">
   <?php if ($numbers != 0){ ?>
   <tr>
-  <th bgcolor="#4E6F8" width="25%"><input type="submit" value="<?php echo $lang->word('delet')?>"></form></th>
+  <th bgcolor="#4E6F8" width="25%"><input type="submit" name="del" value="<?php echo $lang->word('delet')?>"><input type="submit" name="mark" value="Als gelesen makieren"></form></th>
     <th bgcolor="<?php echo $defaultcolor?>" width="50%"><a href="index.php?site=pm&new"><?php echo $lang->word('newpm')?></a>
                                       </th>
-    <td width="25%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href="index.php?site=pm&ausgang"><?php echo $lang->word('postausgang')?>g</a></div></td>
+    <td width="25%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href="index.php?site=pm&ausgang"><?php echo $lang->word('postausgang')?></a></div></td>
   </tr>
   <?php } else { ?>
    <tr>
@@ -86,6 +110,8 @@ $error->error(mysql_error(), "2");
   </tr> 
   <?php } ?>
 </table>
+
+
 <?php
 } elseif (isset($get['read']))
 {
@@ -157,7 +183,9 @@ $error->error($lang->word('messagenotforyou'),"2");
 //POST DEL
 }elseif (isset($post['del']))
 {
-$dellarr = $post['del'];
+$dellarr = array();
+$dellarr = $post['sel'];
+
 foreach ($dellarr as $id)
 {
 
@@ -186,12 +214,46 @@ echo mysql_error();
   }
   else
   {
-  $error->error($lang->word('cantdelmessage'),"2");
+  $error->error($lang->word('cantdelmessage'),"2", __FILE__.":".__LINE__);
   }
 } //foreach
 
+} elseif (isset($post['mark']))
+{
+
+$sellarr = array();
+$sellarr = $post['sel'];
+
+foreach ($sellarr as $id)
+{
+
+$abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `ID` = '".$id."' ORDER BY `ID`;";
+$ergebnis = $hp->mysqlquery($abfrage);
+      while($row = mysql_fetch_object($ergebnis))
+  {
+  if (strtolower($_SESSION['username']) == strtolower("$row->zu"))
+  {
+  $ok=true;
+  }
+  }
+  if ($ok == true)
+  {
+  $eintrag = "UPDATE `".$dbpräfix."pm` SET `gelesen` = 1 WHERE `ID`= ".$id;
+$eintragen = $hp->mysqlquery($eintrag);
+
+
+if ($eintragen == true)
+{
+echo "Als gelesen makiert<br>";
+} else
+{
+echo mysql_error();
+}
+
+}
+}
 //GET DEL
-}elseif (isset($get['del']))
+} elseif (isset($get['del']))
 {
 $del = $get['del'];
 
@@ -220,7 +282,7 @@ echo mysql_error();
   }
   else
   {
-  $error->error($lang->word('cantdelmessage'),"2");
+  $error->error($lang->word('cantdelmessage'),"2", __FILE__.":".__LINE__);
   }
  //foreach
 
