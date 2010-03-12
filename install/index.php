@@ -1,17 +1,11 @@
 <?php
+require 'class_login.php';
+$login_class = new login("index.php");
+$login_class->user_add("admin", "install");
+$login_class->set_message("<br>Dieser Bereich ist nur für die Installation des Systems gedacht!<br>
+Das Passwort und der Benutzername befinden sich in der Readme Datei!<br><br>");
 
-$nutzer['admin']="install";
-
-$fmeldung="Dieser Bereich ist nur für die Installation des Systems gedacht!<br>
-Das Passwort und der Benutzername befinden sich in der Readme Datei!";
-
-if (!array_key_exists($_SERVER['PHP_AUTH_USER'], $nutzer) ||
- $_SERVER['PHP_AUTH_PW'] != $nutzer[$_SERVER['PHP_AUTH_USER']]) {
- header("HTTP/1.1 401 Unauthorized");
- header("WWW-Authenticate: Basic realm=".$bereich);
- echo $fmeldung;
- exit;
- }
+$login_class->check();
 
 
 extract($_GET);
