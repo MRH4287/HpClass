@@ -59,17 +59,18 @@ function print_formular($adress)
 {
 
 ?>
-<table width="100%" border="1">
+<center>
+<table width="500" border="1">
   <tr>
-    <td><p align="center"><b>Login</b>:</p>
+    <td><p align="center"><b>Login</b>:
     &nbsp;
     <form method="post" action="<?php echo $adress; ?>">
-      <table width="100%" border="0">
+      <table width="50%" border="0">
         <tr>
-          <td width="16%"><p>
+          <td width="40%"><p>
             Benutzername:
           </p></td>
-          <td width="84%"><input type="text" name="user" id="user" /></td>
+          <td width="60%"><input type="text" name="user" id="user" /></td>
         </tr>
         <tr>
           <td>Passwort: </td>
@@ -77,7 +78,7 @@ function print_formular($adress)
         </tr>
         <tr>
           <td>&nbsp;</td>
-          <td><p>&nbsp;</p>
+          <td>&nbsp;</p>
             <button type="submit" name="login"> <img src="../images/ok.gif"> </button> <button type="reset"> <img src="../images/abort.gif"> </button></td>
         </tr>
       </table>
@@ -85,7 +86,7 @@ function print_formular($adress)
 </form></td>
   </tr>
 </table>
-
+</center>
 <?php
 
 }
