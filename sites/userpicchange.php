@@ -59,7 +59,7 @@ $numsendfiles = count($_FILES);
 		if(!$result)
 		{
 			print "Fehler beim Schreiben der Daten in die Datenbank.<br/>\n";
-			print mysql_error($db)."<br/>\n";
+			print mysql_error()."<br/>\n";
 			exit;
 		}
 		

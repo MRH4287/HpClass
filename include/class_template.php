@@ -67,6 +67,9 @@ $zeile = fgets($userdatei,1000000);
  {
  $this->temp = array_merge($this->temp, $temp); 
  } 
+ 
+   $this->addVote();
+ 
 	$data = $this->spezialsigs($data);
  
 
@@ -138,6 +141,119 @@ return $config;
 return null;
 }
 
+}
+
+function addVote()
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+
+
+$sql = "SELECT * FROM `$dbpräfix"."vote`";
+$erg = $hp->mysqlquery($sql);
+
+
+while ($row = mysql_fetch_object($erg))
+{
+$text = "";
+
+
+$ergebniss = explode("<!--!>", $row->ergebnisse);
+$voted = count($ergebniss);
+if ($ergebniss[0] == "")
+{
+$voted--;
+}
+$whov = explode("<!--!>", $row->voted);
+
+$text = '
+
+<table width="160" border="0">
+   <tr>
+    <td><strong>'.$row->name.'</strong></td>
+  </tr>
+  <tr>
+    <td>
+    <div id="ergebnisse'. $row->ID.'">';
+    
+    
+   
+   if ($row->upto > time())
+    {
+    
+   if (!in_array($_SESSION['ID'], $whov))
+   { 
+
+   $text .= '<div id="voteok'.$row->ID.'">
+      <table width="160">';
+      
+      $answers = explode("<!--!>", $row->antworten);
+    
+      foreach ($answers as $key=>$value) {
+      
+   $text .= '<tr>
+          <td><label  onclick="setvote('.$key.', \''.$row->ID.'\');">
+            <input type="radio" name="answer" value="'.$row->ID.'"/>
+            '.$value.'</label></td>
+        </tr>';
+        
+        }
+        
+        $text .= '
+    </table>      
+      <p>';
+       if (isset($_SESSION['ID'])) { 
+        $text .= '
+        <input type="submit" name="button" id="button" value="Senden" onclick="postvote(\''.$row->ID.'\');" />
+        <input type="hidden" name="vote" id="vote'.$row->ID.'" />';
+         } else { $text .= "<b>Zum Abstimmen müssen Sie sich einloggen!</b>"; } 
+         $text .='
+      </p>
+      </div>';
+      
+      } else
+      {
+      $text .= "<br><center><img src=images/alert.gif><br>Bereits abgestimmt</center><br>";
+      }
+      
+      } else
+      {
+      $text .= "<br><center><img src=images/alert.gif><br>Abstimmung abgelaufen</center><br>";
+      }
+      
+      $text .='
+      <p>Bereits <strong> '.$voted.' </strong>Stimmen abgegeben.<br />
+     <input type="button" onclick="xajax_vote_result('.$row->ID.')" value="Ergebnisse"></p>
+     
+      </div>
+      
+    </td>
+  </tr>';
+
+  if ($right[$level]['manage_vote'])
+  {
+  
+  $text .= '
+  <tr>
+   <td>
+   <a href="index.php?site=vote&editvote='.$row->ID.'">Bearbeiten</a> \ ';
+    $text .= $lbs->link("delvote", "Löchen", $row->ID);
+    $text .= '
+   </td> 
+  </tr>';
+  
+  }
+  
+ $text .= '</table>';
+
+ $this->temp['vote#'.$row->ID] = $text;
+ 
+ 
+}
 
 }
 

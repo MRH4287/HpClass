@@ -581,7 +581,7 @@ $site = $this->site;
 // Verlegung der Funktion wegen Config
 //4.2b
 $site= $this->checksite($site);
-
+ 
 
 if (($this->sitepath[$site] != "") and (!in_array($site, $this->redirectlock)))
 {

@@ -139,7 +139,8 @@ echo mysql_error();
     '.$l->lvl().'<a href=index.php?site=admin>'); if ($number != 0) { $login->addstr("<b>"); } $login->addstr($l->lf().$l->ls()."Administration".$l->lb()); if ($number != 0) { $login->addstr("</b>"); } $login->addstr('</a>'.$l->lnl().'
     '.$l->lvl().'<a href=index.php?site=pm>'); if ($number2 != 0) { $login->addstr("<b>"); } $login->addstr($l->lf().$l->ls()."PM-Menu".$l->lb()); if ($number2 != 0) {  $login->addstr("</b>"); } $login->addstr('</a>'.$l->lnl().'
     '.$l->lvl().'<a href=index.php?site=profil>'.$l->lf().$l->ls().$lang->word('editprofile').$l->lb().'</a>'.$l->lnl());
-     
+    $login->addstr($l->lvl().'<a href=index.php?site=vote>'.$l->lf().$l->ls()."Votes".$l->lb().'</a>'.$l->lnl());
+  
     if (in_array($_SESSION['username'], $hp->getsuperadmin()))
     {
     
