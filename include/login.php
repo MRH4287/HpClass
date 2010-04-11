@@ -53,12 +53,12 @@ return $this->config["list_symbol"];
 
 function lvl()
 {
-return $this->config["list_behind_link"];
+return $this->config["list_before_link"];
 }
 
 function lnl()
 {
-return $this->config["list_before_link"];
+return $this->config["list_behind_link"];
 }
 
 

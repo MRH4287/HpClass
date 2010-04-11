@@ -7,8 +7,8 @@ $config = array(
 "list_front" => "<font color=\"black\">",
 "list_back" => "</font>",
 "list_symbol" => "&raquo;&nbsp;",
-"list_behind_link" => "",
-"list_before_link" => ""
+"list_before_link" => "",
+"list_behind_link" => ""
 
 );
 
