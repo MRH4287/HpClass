@@ -198,7 +198,7 @@ $dbpräfix = $hp->getpräfix();
    "index.php?site=admin!adminsite" => "Administration",
    "index.php?site=pm" => "PM-Menu",
    "index.php?site=profil" =>  $lang->word('editprofile'),
-   "index.php?site=vote!manage_vote" => "Vote",
+   "index.php?site=vote!manage_vote" => "Umfragen",
    "!addlinks",
    "index.php?site=rights!superadmin" => "Rechte",
    "index.php?site=config!superadmin" => "Konfiguration",
