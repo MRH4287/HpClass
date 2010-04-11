@@ -3,6 +3,7 @@ class login
 {
 var $login;
 var $config;
+var $hp;
 
 function __construct()
 {
@@ -20,6 +21,11 @@ $this->config = array(
 );
 
 
+}
+
+function set_hp($hp)
+{
+$this->hp = $hp;
 }
 
 function tf()
@@ -81,10 +87,85 @@ function getconfig($template, $design)
  }
 }
 
+function getlinks()
+{
+ if (is_array($this->config['links']))
+ {
+ return $this->config['links'];
+ } else
+ {
+ return array();
+ }
+
+}
+
+function output($array)
+{
+
+    foreach ($array as $key=>$value) {
+    	
+    	if ($key == "!addlinks")
+    	{
+      $links = $this->getlinks();
+      } else
+      {
+      $links = array($key => $value);
+      
+      }
+    $this->addlinks($links);	
+    	
+    }
+
+    
+
+}
+
+
+function addlinks($links)
+{
+ 
+ $l = $this;
+ $hp = $this->hp;
+ $right = $hp->getright();
+ $level = $_SESSION['level'];
+
+$superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
+ 
+
+ foreach ($links as $key=>$value) {
+ 	
+ 	$data = explode("!", $key);
+ 	
+ 	if ($data[1] != "")
+ 	{
+ 	  
+ 	  if (($data[1] == "superadmin") and $superadmin)
+ 	  {
+        $this->addstr($l->lvl().'<a href='.$data[0].'>'.$l->lf().$l->ls().$value.$l->lb().'</a>'.$l->lnl());
+     
+     } else
+      {
+ 	
+        if ($right[$level][$data[1]])
+        {
+        	$this->addstr($l->lvl().'<a href='.$data[0].'>'.$l->lf().$l->ls().$value.$l->lb().'</a>'.$l->lnl());
+
+        }
+      }  
+   } else
+   { 	
+ 	  $this->addstr($l->lvl().'<a href='.$key.'>'.$l->lf().$l->ls().$value.$l->lb().'</a>'.$l->lnl());
+ 	 }
+ 	
+ }
+
+
+}
 
 }
 
 $login = new login;
+$login->set_hp($hp);
 $login->getconfig($temp, $design);
 // Short Cut
 $l = $login;
@@ -105,50 +186,28 @@ $dbpräfix = $hp->getpräfix();
       '.$l->lvl().'<a href=index.php?site=lostpw>'.$l->lf().$l->ls().'Passwort vergesen?'.$l->lb().'</a>'.$l->lnl().'
     </form>');
      } else { 
-     $abfrage = "SELECT * FROM ".$dbpräfix."anwaerter";
-$ergebnis = $hp->mysqlquery($abfrage);
-    if ($ergebnis == false)
-{
-echo mysql_error();
-}
-    $number=0;
-while($row = mysql_fetch_object($ergebnis))
-   { $number=$number+1; }
 
-$abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `zu` = '".$_SESSION['username']."' ORDER BY `ID`;";
-$ergebnis = $hp->mysqlquery($abfrage);
-    if ($ergebnis == false)
-{
-echo mysql_error();
-}
-    while($row = mysql_fetch_object($ergebnis))
-   {  if ("$row->gelesen" == "0")
-   {
-   $number2=$number2+1;
-   }
-    }
  
     
    $login->addstr($l->tf().$lang->word('loggedas').$l->tb().'<br><br>
    
-   <b>'.$l->tf().$_SESSION['username']." (".$_SESSION['level'].')'.$l->lb().'</b><br>
+   <b>'.$l->tf().$_SESSION['username']." (".$_SESSION['level'].')'.$l->lb().'</b><br>');
    
+   $links = array(
+   "sites/login.php?logout" => "Logout",
+   "index.php?site=admin!adminsite" => "Administration",
+   "index.php?site=pm" => "PM-Menu",
+   "index.php?site=profil" =>  $lang->word('editprofile'),
+   "index.php?site=vote!manage_vote" => "Vote",
+   "!addlinks",
+   "index.php?site=rights!superadmin" => "Rechte",
+   "index.php?site=config!superadmin" => "Konfiguration",
+   "index.php?site=dragdrop!superadmin" => "Widget System"
+   );
    
-    '.$l->lvl().'<a href=sites/login.php?logout>'.$l->lf().$l->ls()."Logout".$l->lb().'</a>'.$l->lnl().'
-    
-    '.$l->lvl().'<a href=index.php?site=admin>'); if ($number != 0) { $login->addstr("<b>"); } $login->addstr($l->lf().$l->ls()."Administration".$l->lb()); if ($number != 0) { $login->addstr("</b>"); } $login->addstr('</a>'.$l->lnl().'
-    '.$l->lvl().'<a href=index.php?site=pm>'); if ($number2 != 0) { $login->addstr("<b>"); } $login->addstr($l->lf().$l->ls()."PM-Menu".$l->lb()); if ($number2 != 0) {  $login->addstr("</b>"); } $login->addstr('</a>'.$l->lnl().'
-    '.$l->lvl().'<a href=index.php?site=profil>'.$l->lf().$l->ls().$lang->word('editprofile').$l->lb().'</a>'.$l->lnl());
-    $login->addstr($l->lvl().'<a href=index.php?site=vote>'.$l->lf().$l->ls()."Votes".$l->lb().'</a>'.$l->lnl());
-  
-    if (in_array($_SESSION['username'], $hp->getsuperadmin()))
-    {
-    
-        $login->addstr($l->lvl().'<a href=index.php?site=rights>'.$l->lf().$l->ls()."Rechte".$l->lb().'</a>'.$l->lnl());
-        $login->addstr($l->lvl().'<a href=index.php?site=config>'.$l->lf().$l->ls()."Konfiguration".$l->lb().'</a>'.$l->lnl());
-        $login->addstr($l->lvl().'<a href=index.php?site=dragdrop>'.$l->lf().$l->ls()."Widget System".$l->lb().'</a>'.$l->lnl());
-    
-    }
+   $login->output($links);
+
+
 }
 //$login->addstr('</p>');
 

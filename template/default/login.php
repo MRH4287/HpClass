@@ -13,4 +13,21 @@ $config = array(
 );
 
 
+/*
+
+$config = array(
+
+...
+"links" => array (
+ 
+ "Adresse!Berechtigung" => "Angezeigter Name"
+ 
+ )
+
+)
+
+
+*/
+
+
 ?>

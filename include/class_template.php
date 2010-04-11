@@ -51,14 +51,8 @@ $this->error->error("Standard Template wurde nicht gefunden!","3");
 }
 }
 
-$temp = "";
+$temp = file_get_contents("template/$path.html");
 
-$userdatei = fopen ("template/$path.html","r");
-while (!feof($userdatei))
-   {
-$zeile = fgets($userdatei,1000000);
- $temp=$temp.$zeile;
-}
 
    $data = explode("<!--next-->", $temp);
 
@@ -68,15 +62,15 @@ $zeile = fgets($userdatei,1000000);
  $this->temp = array_merge($this->temp, $temp); 
  } 
  
-   $this->addVote();
- 
-	$data = $this->spezialsigs($data);
+ $this->addVote();
+
+ $data = $this->spezialsigs($data);
  
 
    
-$this->template['header']=$this->template['header'].$data[0];
+$this->template['header'].=$data[0];
 
-$this->template['footer']=$this->template['footer'].$data[1];
+$this->template['footer'].=$data[1];
 
 
 }
