@@ -1,0 +1,1 @@
+ALTER TABLE `#!-PRÄFIX-!#ranks` CHANGE `level` `level` VARCHAR( 11 ) NOT NULL 
