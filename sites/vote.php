@@ -321,12 +321,12 @@ echo "Erfolreich aktualisiert<br><a href=index.php?site=vote>Zurück</a>";
 
 
 
-} elseif (isset($post['delvote']))
+} elseif (isset($post['votedel']))
 {
 $sql = "DELETE FROM `$dbpräfix"."vote` WHERE `ID` = ".$post['voteiddel'];
 $erg = $hp->mysqlquery($sql);
 
-$info->ok("Umfrage erfolgreich gelöscht!");
+$info->okm("Umfrage erfolgreich gelöscht!");
 echo "Umfrage erfolgreich gelöscht.<br><a href=index.php?site=vote>Zurück</a>";
 
 
