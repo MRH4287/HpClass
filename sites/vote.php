@@ -118,7 +118,7 @@ $monat = "0".$monat;
       <input type="hidden" name="year" id="year" size="4" maxlength="4" value="<?php echo $year?>"  onchange="checkvote(false)"/> 
        <input type="hidden" name="hour" id="hour" size="2" maxlength="2" value="00"  onchange="checkvote(false)"/>
         <input type="hidden" name="min" id="min" size="2" maxlength="2" value="00"  onchange="checkvote(false)"/>
-        <div id="kalender" align="center"></div></td>
+        <div id="kalender_vote" align="center"></div></td>
       <td><div id="datewarn">Überprüfen Sie die Eingaben</div>
       <br>Aktuelle Auswahl: <div id="aktdate"><?php echo "$tag.$monat.$year"; ?></div></td>
   
@@ -132,7 +132,7 @@ $monat = "0".$monat;
 </table>
 </form>
 <?php
-$xajaxF->open("xajax_calender();");
+$xajaxF->open("xajax_calender_vote();");
 
 } elseif (isset($post['addvote']))
 {
@@ -259,7 +259,7 @@ $monat = "0".$monat;
       <input type="hidden" name="year" id="year" size="4" maxlength="4" value="<?php echo $year?>"  onchange="checkvote(true)"/> 
        <input type="hidden" name="hour" id="hour" size="2" maxlength="2" value="00"  onchange="checkvote(true)"/>
         <input type="hidden" name="min" id="min" size="2" maxlength="2" value="00"  onchange="checkvote(true)"/>
-        <div id="kalender" align="center"></div></td>
+        <div id="kalender_vote" align="center"></div></td>
       <td><div id="datewarn">Überprüfen Sie die Eingaben</div>
       <br>Aktuelle Auswahl: <div id="aktdate"><?php echo "$tag.$monat.$year"; ?></div></td>
   

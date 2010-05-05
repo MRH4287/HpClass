@@ -20,6 +20,7 @@ function __construct()
 function sethp($hp)
 {
 $this->hp = $hp;
+
 }
 
  public function registerFunctions($object) {
@@ -35,6 +36,7 @@ $this->hp = $hp;
     }
 
 
+
 function printjs()
 {
 
@@ -44,6 +46,186 @@ $this->xajax->printJavascript("include/");
 function processRequest()
 {
 $this->xajax->processRequest();
+}
+
+
+
+
+
+function ax_calender_vote($month = "X", $jahr = "X")
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->firephp;
+$lb = $hp->lbsites;
+$config = $hp->getconfig();
+$response = new xajaxResponse();
+
+
+$arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
+$date = getdate();
+
+
+$tag = $date['mday'];
+$monat2 = $date['mon'];
+
+
+if ($month != "X")
+{
+$monat = $month;
+$tag = 0;
+} else
+{
+$monat = $monat2;
+}
+if ($jahr == "X")
+{
+$jahr = $date['year'];
+}
+
+
+
+
+$style = 4;
+
+
+$text = '<link href="./css/style'.$style.'.css" rel="stylesheet">';
+
+            $iWochenTag  = date(w, mktime(0, 0, 0, $monat, 1, $jahr));
+            $iAnzahltage = date(t, mktime(0, 0, 0, $monat, 1, $jahr));
+            $iZeilen = ($iWochenTag==1 && $iAnzahltage==28) ? 4 : (($iAnzahltage == 31 && ($iWochenTag == 6 || $iWochenTag == 0))|| ($iWochenTag  == 0 && $iAnzahltage == 30)) ? 6 : 5; 
+
+
+            
+                        //Nächster Monat
+            if($monat==12){
+                $nmonat=1;
+                $njahr=$jahr+1;
+            } else {
+                $nmonat=$monat+1;
+                $njahr=$jahr;  
+            }
+
+            //Vorheriger Monat    
+            if($monat==1){
+                $vmonat=12;
+                $vjahr=$jahr-1;
+            } else {
+                $vmonat=$monat-1;
+                $vjahr=$jahr;  
+            }
+
+            $iAnzahltageVormonat = date(t, mktime(0, 0, 0, $vmonat, 1, $vjahr));
+            
+            if ($monat == 1) { $lnzjahr = $jahr - 1; $monlz = 12; } else { $lnzjahr = $jahr; $monlz = $monat-1; }
+            if ($monat == 12) { $lnvjahr = $jahr + 1; $monlv = 1; } else { $lnvjahr = $jahr; $monlv = $monat+1; }
+            
+            $text .= '<table id="cal"><tr>'.
+                  '<th>'.
+                  '<a onclick="xajax_calender_vote('.$monlz.', '.$lnzjahr.'); return false;" href="#"><img src="images/arrowp.gif" width="9" height="11" alt="&gt;"></a>' . // Xajax regelung, dass der Kalender aktualisiert wird
+                  '</th>'.
+                  '<th colspan="5">'.htmlentities($arr_monate[$monat-1]).' '.$jahr.'</th>'.
+                  '<th >'.
+                  '<a onclick="xajax_calender_vote('.$monlv.', '.$lnvjahr.'); return false;" href="#"><img src="images/arrown.gif" width="9" height="11"></a>' .
+                  '</th>'.
+                  
+                  '</tr>
+                    <tr>
+                      <th >Mo</th>
+                      <th >Di</th>
+                      <th >Mi</th>
+                      <th >Do</th>
+                      <th >Fr</th>
+                      <th >Sa</th>
+                      <th >So</th>
+                    </tr>';
+            
+            
+            
+            $iTag = 0; //Tag im Monat
+            $i=0;
+            do{ // while($i < $iZeilen);
+                $text=$text. '<tr>';
+            
+                $j=1;
+                do { //while($j <= 7);
+            
+
+            
+                    //Hilfsvariable Mo=1, Di=2 .... So=7
+                    $m = ($iWochenTag==0) ? 7 :  $iWochenTag;
+
+                    //Nicht jeder Monat beginnt am Monat
+                    if($m == $j && $j <= 7 && $iTag == 0){
+                        $iTag = 1;
+                    }
+                    
+                    
+                    $preTag = ($iAnzahltageVormonat+$j-$m+1);
+                    
+                    if ($iTag == 0){           // Tage vorMonat
+                      $evt = false;
+                      $text=$text. '<td ';
+
+                        $text=$text. 'id="amonat">'; 
+                     //  echo $m-1;
+                     
+                     $link = '<a href="#" onClick="setdate('.$preTag.', '.($monat -1).', '.$jahr.'); return false;">'.$preTag.'</a>';
+                     
+                      $text=$text. $link;
+              
+                      $text=$text. "</td>";
+                    }
+                    
+                    if ($iTag > $iAnzahltage){ // Tage des Nächsten Monats
+                      ++$ntmp;
+                    $evt = false;
+                      $text=$text. '<td ';
+ $text=$text. 'id="amonat">' ;     
+
+                          $link = '<a href="#" onClick="setdate('.$ntmp.', '.($monat +1).', '.$jahr.'); return false;">'.$ntmp.'</a>';            
+                      $text=$text. $link;
+                      
+                     // $m + 1
+                      $text=$text. '</td>';
+                    }
+                    
+                    if ($iTag != 0 && $iTag <= $iAnzahltage){ // Tage im Monat drinnen :D
+                      $evt = false;
+                      $text=$text. '<td ';
+ $text=$text. 'id="monat">';    
+                        
+     $link = '<a href="#" onClick="setdate('.$iTag.', '.$monat.', '.$jahr.'); return false;">'.$iTag.'</a>';
+                     
+                                          if (($daytod == $iTag) and ($montod == $monat) and ($yeartod == $jahr))
+                     {
+                     $text .="<b>$link</b>";
+                     } else
+                     {                     
+                     $text=$text. $link;
+                     }          
+                      
+                      
+                                           
+                     $text=$text. '</td>'."\n";
+                      ++$iTag;
+                    }
+
+                    
+                } while(++$j <= 7);
+            
+                $text=$text. '</tr>';
+            
+            } while(++$i < $iZeilen);
+            $text=$text. '</table>';
+
+$response->assign("kalender_vote", "innerHTML", "$text");
+
+
+return $response;
 }
 
 
@@ -123,7 +305,6 @@ $response->assign("post", "innerHTML", $postok);
 
 return $response;
 }
-
 function ax_vote($ID, $vote)
 {
 $response = new xajaxResponse();
@@ -269,181 +450,6 @@ return $response;
 
 
 
-function ax_calender($month = "X", $jahr = "X")
-{
-$hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
-$game = $hp->game;
-$info = $hp->info;
-$error = $hp->error;
-$fp = $hp->firephp;
-$lb = $hp->lbsites;
-$config = $hp->getconfig();
-$response = new xajaxResponse();
-
-
-$arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
-$date = getdate();
-
-
-$tag = $date['mday'];
-$monat2 = $date['mon'];
-
-
-if ($month != "X")
-{
-$monat = $month;
-$tag = 0;
-} else
-{
-$monat = $monat2;
-}
-if ($jahr == "X")
-{
-$jahr = $date['year'];
-}
-
-
-
-
-$style = 4;
-
-
-$text = '<link href="./css/style'.$style.'.css" rel="stylesheet">';
-
-            $iWochenTag  = date(w, mktime(0, 0, 0, $monat, 1, $jahr));
-            $iAnzahltage = date(t, mktime(0, 0, 0, $monat, 1, $jahr));
-            $iZeilen = ($iWochenTag==1 && $iAnzahltage==28) ? 4 : (($iAnzahltage == 31 && ($iWochenTag == 6 || $iWochenTag == 0))|| ($iWochenTag  == 0 && $iAnzahltage == 30)) ? 6 : 5; 
-
-
-            
-                        //Nächster Monat
-            if($monat==12){
-                $nmonat=1;
-                $njahr=$jahr+1;
-            } else {
-                $nmonat=$monat+1;
-                $njahr=$jahr;  
-            }
-
-            //Vorheriger Monat    
-            if($monat==1){
-                $vmonat=12;
-                $vjahr=$jahr-1;
-            } else {
-                $vmonat=$monat-1;
-                $vjahr=$jahr;  
-            }
-
-            $iAnzahltageVormonat = date(t, mktime(0, 0, 0, $vmonat, 1, $vjahr));
-            
-            if ($monat == 1) { $lnzjahr = $jahr - 1; $monlz = 12; } else { $lnzjahr = $jahr; $monlz = $monat-1; }
-            if ($monat == 12) { $lnvjahr = $jahr + 1; $monlv = 1; } else { $lnvjahr = $jahr; $monlv = $monat+1; }
-            
-            $text .= '<table id="cal"><tr>'.
-                  '<th>'.
-                  '<a onclick="xajax_calender('.$monlz.', '.$lnzjahr.')" href="#"><img src="images/arrowp.gif" width="9" height="11" alt="&gt;"></a>' . // Xajax regelung, dass der Kalender aktualisiert wird
-                  '</th>'.
-                  '<th colspan="5">'.htmlentities($arr_monate[$monat-1]).' '.$jahr.'</th>'.
-                  '<th >'.
-                  '<a onclick="xajax_calender('.$monlv.', '.$lnvjahr.')" href="#"><img src="images/arrown.gif" width="9" height="11"></a>' .
-                  '</th>'.
-                  
-                  '</tr>
-                    <tr>
-                      <th >Mo</th>
-                      <th >Di</th>
-                      <th >Mi</th>
-                      <th >Do</th>
-                      <th >Fr</th>
-                      <th >Sa</th>
-                      <th >So</th>
-                    </tr>';
-            
-            
-            
-            $iTag = 0; //Tag im Monat
-            $i=0;
-            do{ // while($i < $iZeilen);
-                $text=$text. '<tr>';
-            
-                $j=1;
-                do { //while($j <= 7);
-            
-
-            
-                    //Hilfsvariable Mo=1, Di=2 .... So=7
-                    $m = ($iWochenTag==0) ? 7 :  $iWochenTag;
-
-                    //Nicht jeder Monat beginnt am Monat
-                    if($m == $j && $j <= 7 && $iTag == 0){
-                        $iTag = 1;
-                    }
-                    
-                    
-                    $preTag = ($iAnzahltageVormonat+$j-$m+1);
-                    
-                    if ($iTag == 0){           // Tage vorMonat
-                      $evt = false;
-                      $text=$text. '<td ';
-
-                        $text=$text. 'id="amonat">'; 
-                     //  echo $m-1;
-                     
-                     $link = '<a href="#" onClick="setdate('.$preTag.', '.($monat -1).', '.$jahr.')">'.$preTag.'</a>';
-                     
-                      $text=$text. $link;
-              
-                      $text=$text. "</td>";
-                    }
-                    
-                    if ($iTag > $iAnzahltage){ // Tage des Nächsten Monats
-                      ++$ntmp;
-                    $evt = false;
-                      $text=$text. '<td ';
- $text=$text. 'id="amonat">' ;     
-
-                          $link = '<a href="#" onClick="setdate('.$ntmp.', '.($monat +1).', '.$jahr.')">'.$ntmp.'</a>';            
-                      $text=$text. $link;
-                      
-                     // $m + 1
-                      $text=$text. '</td>';
-                    }
-                    
-                    if ($iTag != 0 && $iTag <= $iAnzahltage){ // Tage im Monat drinnen :D
-                      $evt = false;
-                      $text=$text. '<td ';
- $text=$text. 'id="monat">';    
-                        
-     $link = '<a href="#" onClick="setdate('.$iTag.', '.$monat.', '.$jahr.')">'.$iTag.'</a>';
-                     
-                                          if (($daytod == $iTag) and ($montod == $monat) and ($yeartod == $jahr))
-                     {
-                     $text .="<b>$link</b>";
-                     } else
-                     {                     
-                     $text=$text. $link;
-                     }          
-                      
-                      
-                                           
-                     $text=$text. '</td>'."\n";
-                      ++$iTag;
-                    }
-
-                    
-                } while(++$j <= 7);
-            
-                $text=$text. '</tr>';
-            
-            } while(++$i < $iZeilen);
-            $text=$text. '</table>';
-
-$response->assign("kalender", "innerHTML", "$text");
-
-
-return $response;
-}
 
 
 function ax_forum_vote($ID, $vote)
@@ -505,24 +511,6 @@ $erg = $hp->mysqlquery($sql);
 }
 return $response;
 }
-
-
-
-function open($funktion)
-{
-$this->func[] = $funktion;
-}
-
-function getfunk()
-{
-return implode(" \n ", $this->func);
-}
-
-
-
-
-
-
 
 
 
@@ -639,21 +627,19 @@ return $response;
 }
  
 
+function open($funktion)
+{
+$this->func[] = $funktion;
+}
+
+function getfunk()
+{
+return implode(" \n ", $this->func);
+}
+
+
 
 // ---------------------------------- </ DRAG & DROP >------------------------------------------------
-
-
-
-
- function ax_test($a)
- {
- $response = new xajaxResponse();
- 
- return $response;
- }
-
-
-
 
 
 
@@ -661,12 +647,8 @@ return $response;
 
 
 
-
-
-
 function extend($path)
 {
-
 if (is_file("template/$path/xajax.php"))
 {
 
@@ -693,13 +675,13 @@ $this->registerFunctions($object);
 
 }
 }
-
 }
 
 
 
 
-
-
 }
+
+
+
 ?>
