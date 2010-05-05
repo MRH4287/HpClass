@@ -417,7 +417,7 @@ $whov = explode("<!--!>", $row->voted);
   ?>
   <tr>
    <td>
-   <a href="index.php?site=vote&editvote=<?php echo $row->ID?>">Bearbeiten</a> \ <?php echo $lbs->link("delvote", "Löchen", $row->ID); ?>
+   <a href="index.php?site=vote&editvote=<?php echo $row->ID?>">Bearbeiten</a> \ <?php echo $lbs->link("delvote", "Löschen", $row->ID); ?>
    </td> 
   </tr>
   <?php

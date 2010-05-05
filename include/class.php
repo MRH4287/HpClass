@@ -285,6 +285,12 @@ return mysql_real_escape_string($string);
 
 function handelinput ($get, $post)
 {
+
+foreach ($get as $key=>$value) {
+	$get[$key] = mysql_escape_string($value);
+}
+
+
 if (isset($get))
 {
 foreach ($get as $key=>$value) {

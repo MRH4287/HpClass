@@ -165,7 +165,7 @@ function addplaceholder($name)
 
 if (!in_array($name, $this->placeholder))
 {
-$this->placeholder = $name;
+$this->placeholder[] = $name;
 }
 
 
