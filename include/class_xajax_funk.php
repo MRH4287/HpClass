@@ -11,7 +11,7 @@ var $func = array();
 function __construct()
 {
          $this->xajax = new xajax();
-         $this->registerFunctions();
+         $this->registerFunctions($this);
 
 
 }
@@ -22,14 +22,14 @@ function sethp($hp)
 $this->hp = $hp;
 }
 
- public function registerFunctions() {
-    		$methods = get_class_methods($this);
+ public function registerFunctions($object) {
+    		$methods = get_class_methods($object);
     		
     		foreach ($methods as $m) {
 			$p = $this->ajaxFuncPrefix;
     			if (preg_match("/^{$p}[a-z]/", $m)) {
     				$m2 = preg_replace("/^{$p}([a-z])/e", "strtolower('$1')", $m);
-    				$this->xajax->registerFunction(array($m2, &$this, $m));
+    				$this->xajax->registerFunction(array($m2, &$object, $m));
     			}
     		}
     }
@@ -657,7 +657,44 @@ return $response;
 
 
 
+// ---------------------------------------- Erweiterungen ----------------------------------------------
 
+
+
+
+
+
+function extend($path)
+{
+
+if (is_file("template/$path/xajax.php"))
+{
+
+
+include "template/$path/xajax.php";
+
+try
+{
+$object = new XajaxTemplate();
+$object->sethp($this->hp);
+
+} catch(Exception $ex)
+{
+$object = null;
+}
+
+
+
+if (is_object($object))
+{
+
+$this->registerFunctions($object);
+
+
+}
+}
+
+}
 
 
 

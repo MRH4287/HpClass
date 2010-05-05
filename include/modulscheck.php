@@ -7,7 +7,7 @@ $hp->addredirectlock($value);
 
 
 
-if ($_SESSION['level'] == 3)
+if (in_array($_SESSION['username'], $hp->getsuperadmin()))
 {
 $filearray = array();
 $modulsvor = false;
@@ -54,7 +54,6 @@ while($reihe = mysql_fetch_object($daswasrauskommt))
   
 $path = $reihe->path;
 $run = $reihe->run;
-$name = $reihe->Name;
 
  include "moduls/".$path."/".$run; 
    

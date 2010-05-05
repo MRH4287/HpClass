@@ -1,0 +1,1 @@
+INSERT INTO `#!-PRÄFIX-!#modul` (`Name` ,`run` ,`description` ,`date` ,`path`, `active`)VALUES ( 'Xajax Tepmlate Extention', 'autorun.php', 'Ermöglicht das laden von Dynamischen Inhalten über den Template Ornder', '5.5.10', 'XAJAXTemplate', '1');
