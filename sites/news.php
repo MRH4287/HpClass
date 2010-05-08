@@ -24,15 +24,15 @@ if ($right[$level]['newsedit'])
 $newsidchange=$post['newsid'];
 
 if (isset($post['newsedit'])) {
-$newsdatum=$_POST['newsdate'];
-$newstitel=$_POST['newstitel'];
+$newsdatum=$post['newsdate'];
+$newstitel=$post['newstitel'];
 $newstitel = str_replace('<',"&lt;" ,$newstitel);
-$newstyp=$_POST['newstyp'];
-$newstext=$_POST['newstext'];
+$newstyp=$post['newstyp'];
+$newstext=$post['newstext'];
 $newstext = str_replace('<?',"&lt;?" ,$newstext);
 $newstext = str_replace('[bild]',"<img src=\"smilies/" ,$newstext);
 $newstext = str_replace('[/bild]',"\">" ,$newstext);
-$newslevel=$_POST['newslevel'];
+$newslevel=$post['newslevel'];
 //$newstext = mysql_real_escape_string($newstext);
 $newstitel = mysql_real_escape_string($newstitel);
 $newsersteller = mysql_real_escape_string($newsersteller);

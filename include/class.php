@@ -711,8 +711,8 @@ VALUES
 
 function stripScript($text)
 {
-$reg = "{<.*script[^>]*>}";
-return preg_replace($reg, "$1", $text);
+$reg = "(<[^>]*script[^>]*>)";
+return preg_replace($reg, "$2", $text, -1);
 }
 
 
