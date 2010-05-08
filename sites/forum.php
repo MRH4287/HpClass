@@ -418,10 +418,6 @@ $sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = $threadid";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
-$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = '$row->forum'";
-$erg2 = $hp->mysqlquery($sql);
-$row2 = mysql_fetch_object($erg2);
-$forumtitel = $row2->titel;
 
 $closed = $row->closed;
 
@@ -736,9 +732,9 @@ echo "Thema Geschlossen";
 	});
 </script>
 <!-- /TinyMCE -->
-<center><b>Antworten</b></center>
+<center><b>Antworten</b>
 <form action="index.php?site=forum" method="post">
-<textarea name="text" cols="100" rows="15"></textarea>
+<textarea name="text" cols="75" rows="15"></textarea></center>
 <input type="hidden" name="threadid" value="<?php echo $threadid?>"><br>
 <button type="submit" name="newpost"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
 </form>
