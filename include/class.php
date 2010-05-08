@@ -287,7 +287,44 @@ function handelinput ($get, $post)
 {
 
 foreach ($get as $key=>$value) {
-	$get[$key] = mysql_escape_string($value);
+
+  if (!is_array($get[$key]))
+  {
+  
+  	$get[$key] = $this->stripScript(mysql_escape_string($value));
+  	
+  } else
+  {
+  
+   foreach ($value as $key2=>$value2) {
+    if (!is_array($value2))
+    {
+    	$get[$key][$key2] = $this->stripScript(mysql_escape_string($value2));
+   	}
+   }
+   
+  }
+  
+}
+
+foreach ($post as $key=>$value)
+{
+  if (!is_array($post[$key]))
+  {
+  
+  	$post[$key] = $this->stripScript(mysql_escape_string($value));
+  	
+  } else
+  {
+  
+   foreach ($value as $key2=>$value2) {
+    if (!is_array($value2))
+    {
+    	$post[$key][$key2] = $this->stripScript(mysql_escape_string($value2));
+    }
+   }
+   
+  }
 }
 
 
@@ -668,6 +705,17 @@ VALUES
 ('$von', '$datum', '$zu', '$text', '$Betreff', '0', '$time')";
 @$this->mysqlquery($eintragintodb);
 }
+
+
+// ---------------------------------------- Security --------------------------------
+
+function stripScript($text)
+{
+$reg = "{<.*script[^>]*>}";
+return preg_replace($reg, "$1", $text);
+}
+
+
 
 // ------------------------------------------CONFIG----------------------------------
 // Config Area:

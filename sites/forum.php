@@ -28,6 +28,7 @@ $sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = ".$get['forum'];
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
+
 if ($row->ID != "")
 {
 
@@ -164,6 +165,9 @@ for ($i = 1; $i <= $pages; $i++) {
 
 }
 // --> Ende ...
+
+//Link:
+echo $forum->createLink($forumid);
 
 
 foreach ($threads as $type=>$array) {
@@ -414,6 +418,11 @@ $sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = $threadid";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
+$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = '$row->forum'";
+$erg2 = $hp->mysqlquery($sql);
+$row2 = mysql_fetch_object($erg2);
+$forumtitel = $row2->titel;
+
 $closed = $row->closed;
 
 if ($row->ID == "")
@@ -497,6 +506,9 @@ $posts[$p][] = $row->ID;
 }
 
 
+//Link:
+echo $forum->createLink(0, $threadid);
+
 
 ?>
 <style>
@@ -511,6 +523,7 @@ background-color:#E5E5E5;
 }
 
 </style>
+
 <table width="100%" border="0">
 <?php
 
@@ -578,10 +591,11 @@ foreach ($posts[$page] as $tmp=>$ID) {
         <td width="80%"><?php if ($row->lastedit != "0") { echo "Letzte Bearbeitung: ";
         echo date("d.m.Y H:i", $row->lastedit);
           }  ?> &nbsp;</td>
-        <td width="20%"><?php
+        <td width="20%">
+        <div id="vote"><?php
         // Vote
         echo $forum->getvote($row->ID);
-        ?> <div id="voteok"></div></td>
+        ?></div> <div id="voteok"></div></td>
       </tr>
     </table></td>
   </tr>
@@ -1444,6 +1458,8 @@ foreach ($forums as $forumid=>$threads) {
 	
 }
 
+//Link:
+echo $forum->createLink();
 
 ?>
 

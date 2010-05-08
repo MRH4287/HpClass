@@ -457,10 +457,11 @@ function ax_forum_vote($ID, $vote)
 $response = new xajaxResponse();
 $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
-$game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
+$forum = $hp->forum;
+
 
 
 $sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = $ID";
@@ -507,6 +508,7 @@ $response->assign("voteok", "innerHTML", $okn);
 $sql = "UPDATE `$dbpräfix"."threads` SET `ergebnisse` = '$ergebnisse', `voted` = '$users' WHERE `ID` = $ID";
 $erg = $hp->mysqlquery($sql);
 
+$response->assign("vote", "innerHTML", $forum->getvote($ID));
 
 }
 return $response;

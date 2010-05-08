@@ -330,5 +330,51 @@ $text = '
 return $text;
 }
 
+
+function createLink($forum = 0, $thread = 0)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+
+
+$link = '<a href="index.php?site=forum">Forum</a>';
+
+if (($forum == 0) and ($thread != 0))
+{
+
+$sql = "SELECT forumid FROM `$dbpräfix"."threads` WHERE `ID` = '$thread'";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+$forum = $row->forumid;
+}
+
+
+if ($forum != 0)
+{
+$sql = "SELECT titel FROM `$dbpräfix"."forums` WHERE `ID` = '$forum'";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+
+$link .=" > ".'<a href="index.php?site=forum&forum='.$forum.'">'.$row->titel.'</a>';
+}
+
+
+if ($thread != 0)
+{
+$sql = "SELECT titel FROM `$dbpräfix"."threads` WHERE `ID` = '$thread'";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+
+$link .=" > ".'<a href="index.php?site=forum&show='.$thread.'">'.$row->titel.'</a>';
+}
+
+
+return $link;
+
+}
+
 }
 ?>
