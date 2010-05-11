@@ -195,6 +195,52 @@ while($row = mysql_fetch_object($ergebnis))
   <button type="submit" name="newsedit"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
 </form>
 
+ <?php
+$data = "";
+
+$sql = "SELECT * FROM `$dbpräfix"."usedpics`";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
+{
+
+         $breite=$row->width; 
+         $hoehe=$row->height; 
+
+         $neueHoehe=100;
+         $neueBreite=intval($breite*$neueHoehe/$hoehe); 
+         
+        // $neueBreite=100; 
+        // $neueHoehe=intval($hoehe*$neueHoehe/$breite); 
+
+        $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
+       
+        
+        if ($data == "")
+        {
+        $data = "'".$img."'";
+        } else
+        {
+          $data .= ", '".$img."'";
+        }
+      
+
+
+}
+?> 
+    
+<div class="picturelist">
+<div class="picturelist_left" OnMouseOver="picturelist_on = true; picturelist_goleft();" OnMouseOut="picturelist_on = false;" onclick="picturelist_left()"></div><div class="picturelist_holder" id="picturelist_holder"></div><div class="picturelist_right"  OnMouseOver="picturelist_on = true; picturelist_goright();" OnMouseOut="picturelist_on = false;" onclick="picturelist_right()"></div>
+</div>
+
+
+<script>
+picturelist_setdata(new Array (<?php echo $data; ?>));
+
+picturelist_print();
+
+</script>
+
+
 <?php } 
 
 
@@ -274,10 +320,7 @@ if (!$right[$level]['newswrite'])
  <p align="left"> <button type="submit" name="newswrite"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button></p>
 </form>
 
-
-
-
- <link rel="stylesheet" href="include/usedpics/css/usedpics.css" type="text/css" />
+<link rel="stylesheet" href="include/usedpics/css/usedpics.css" type="text/css" />
  
 
 <?php
@@ -307,14 +350,10 @@ while ($row = mysql_fetch_object($erg))
         {
           $data .= ", '".$img."'";
         }
-      
-
 
 }
 ?> 
     
-
-
 <div class="picturelist">
 <div class="picturelist_left" OnMouseOver="picturelist_on = true; picturelist_goleft();" OnMouseOut="picturelist_on = false;" onclick="picturelist_left()"></div><div class="picturelist_holder" id="picturelist_holder"></div><div class="picturelist_right"  OnMouseOver="picturelist_on = true; picturelist_goright();" OnMouseOut="picturelist_on = false;" onclick="picturelist_right()"></div>
 </div>
@@ -326,8 +365,6 @@ picturelist_setdata(new Array (<?php echo $data; ?>));
 picturelist_print();
 
 </script>
-
-
 <?php
 } // Wegen Rechte
 
