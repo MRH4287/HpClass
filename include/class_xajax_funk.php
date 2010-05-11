@@ -515,6 +515,61 @@ return $response;
 }
 
 
+function ax_picturelist_delElement($id)
+{
+$response = new xajaxResponse();
+
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$right = $hp->getright();
+$level = $_SESSION['level'];
+
+
+if ($right[$level]["usedpics"])
+{
+
+$sql = "DELETE FROM `$dbpräfix"."usedpics` WHERE `ID` = '$id'";
+$erg = $hp->mysqlquery($sql);
+
+// Aktualisieren:
+
+$data = "";
+
+$sql = "SELECT * FROM `$dbpräfix"."usedpics`";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
+{
+
+         $breite=$row->width; 
+         $hoehe=$row->height; 
+
+         $neueHoehe=100;
+         $neueBreite=intval($breite*$neueHoehe/$hoehe); 
+         
+        $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\" onclick=\"del_a_pic($row->ID)\"> ";
+       
+        
+        if ($data == "")
+        {
+        $data = "'".$img."'";
+        } else
+        {
+          $data .= ", '".$img."'";
+        }
+      
+
+
+}
+
+$response->script("picturelist_data = new Array ($data);");
+$response->script("picturelist_print();");
+
+
+}
+
+return $response;
+}
+
 
 // ----------------------------------< DRAG & DROP >------------------------------------------------
 

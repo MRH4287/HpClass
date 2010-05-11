@@ -9,6 +9,11 @@ $dbpräfix = $hp->getpräfix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 
+if ($right[$level]["usedpics"])
+{
+
+
+
 if (!isset($_SESSION["file_info"]))
 {
 $_SESSION["file_info"] = array();
@@ -104,10 +109,7 @@ while ($row = mysql_fetch_object($erg))
          $neueHoehe=100;
          $neueBreite=intval($breite*$neueHoehe/$hoehe); 
          
-        // $neueBreite=100; 
-        // $neueHoehe=intval($hoehe*$neueHoehe/$breite); 
-
-        $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
+        $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\" onclick=\"del_a_pic($row->ID)\"> ";
        
         
         if ($data == "")
@@ -122,7 +124,26 @@ while ($row = mysql_fetch_object($erg))
 
 }
 ?> 
-    
+
+<script>
+
+function del_a_pic(id)
+{
+$("question").innerHTML = "Möchten Sie das eben gewähle Element löschen?<br>"+
+"<a href=\"#\" onclick=\" del_click("+id+"); return false;\">Ja</a>  "+
+"<a href=\"#\" onclick=\" document.getElementById('question').innerHTML=''; return false;\">Nein</a>";
+
+}
+
+function del_click(id)
+{
+xajax_picturelist_delElement(id);
+$("question").innerHTML ="";
+
+
+}
+
+</script>    
 
 
 <div class="picturelist">
@@ -130,7 +151,14 @@ while ($row = mysql_fetch_object($erg))
 <div class="picturelist_holder" id="picturelist_holder"></div>
 <div class="picturelist_right"  OnMouseOver="picturelist_on = true; picturelist_goright();" OnMouseOut="picturelist_on = false;" onclick="picturelist_right()"></div>
 </div>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div id="question" style="float:none"></div>
 
 <script>
 picturelist_data = new Array (<?php echo $data; ?>);
@@ -138,3 +166,14 @@ picturelist_data = new Array (<?php echo $data; ?>);
 picturelist_print();
 
 </script>
+
+
+<?php
+
+} else
+{
+echo "Keine Berechtigung";
+
+}
+
+?>
