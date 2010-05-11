@@ -92,7 +92,7 @@ $_SESSION["file_info"] = array();
     </div><br>
     
  
- <link rel="stylesheet" href="include/usedpics/css/usedpics.css" type="text/css" />
+ 
 
 
 <?php
