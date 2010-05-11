@@ -1,4 +1,6 @@
 <?php
+$template['header'] ="";
+
 $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
 

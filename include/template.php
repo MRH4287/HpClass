@@ -18,6 +18,10 @@ $design = $config['design'];
 $version = $hp->getversion();
 $version = $version['version'];
 // Template
+
+$template['header']='<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">';
+
 $template['headline']=$headline;
 $template['titel']=$titel;
 $template['mainheadline']=$mainheadline;

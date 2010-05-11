@@ -106,9 +106,11 @@ $temp->settemplate($template);
 
 
 // 3. Laden der HTML Datei
+$temp->load($design);
+echo $temp->getHeader();
 $error->outputdiv();
 $info->outputdiv();
-$temp->load($design);
+
 
 // 4. Ausgeben des Headers
 echo $temp->gettemp('header');

@@ -110,6 +110,12 @@ return $template;
 
 }
 
+function getHeader()
+{
+return $this->temp['header'];
+}
+
+
 function sethp($hp)
 {
 $this->hp = $hp;
