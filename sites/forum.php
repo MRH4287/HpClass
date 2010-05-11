@@ -1425,7 +1425,7 @@ $forums[$row->forumid][] = $row->ID;
 
 
 foreach ($forums as $key=>$value) {
-	$lasttime[$key] = time();
+	$lasttime[$key] = 0;
 }
 
 
@@ -1441,7 +1441,7 @@ foreach ($forums as $forumid=>$threads) {
    
 
    
-   if ($lasttime[$forumid] > $row->timestamp )
+   if ($lasttime[$forumid] < $row->timestamp )
    {
    $lasttime[$forumid] = $row->timestamp;
    $lastpost[$forumid] = $row->userid;

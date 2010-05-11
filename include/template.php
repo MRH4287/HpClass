@@ -45,6 +45,7 @@ $template['jsu']='<script src="js/scriptaculous/prototype.js"></script>
 <script src="js/scriptaculous/scriptaculous.js"></script>
 <script src="js/drag&drop.js"></script> 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="include/usedpics/js/picturelist.js"></script>
 ';
 
 $template['js']='
@@ -55,6 +56,7 @@ $template['js']='
 <script type="text/javascript" src="js/votes.js"></script>
 <link rel="stylesheet" href="css/forum.css" type="text/css"/>
 <link rel="stylesheet" href="css/widget.css" type="text/css"/>
+
 
 ';
 
