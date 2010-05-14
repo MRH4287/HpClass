@@ -183,7 +183,7 @@ $dbpräfix = $hp->getpräfix();
       '.$l->tf().$lang->word('password').':'.$l->tb().'<br>
       <input type="password" name="passwort" size="15"><input type="submit" value="'.$lang->word('loginbutt').'" name="login">
       '.$l->lvl().'<a href=index.php?site=register>'.$l->lf().$l->ls().$lang->word('register').$l->lb().'</a>'.$l->lnl().'
-      '.$l->lvl().'<a href=index.php?site=lostpw>'.$l->lf().$l->ls().'Passwort vergesen?'.$l->lb().'</a>'.$l->lnl().'
+      '.$l->lvl().'<a href=index.php?site=lostpw>'.$l->lf().$l->ls().'Passwort vergessen?'.$l->lb().'</a>'.$l->lnl().'
     </form>');
      } else { 
 
@@ -200,6 +200,7 @@ $dbpräfix = $hp->getpräfix();
    "index.php?site=profil" =>  $lang->word('editprofile'),
    "index.php?site=vote!manage_vote" => "Umfragen",
    "!addlinks",
+   "index.php?site=usedpics!usedpics" => "Benutzte Bilder",
    "index.php?site=rights!superadmin" => "Rechte",
    "index.php?site=config!superadmin" => "Konfiguration",
    "index.php?site=dragdrop!superadmin" => "Widget System"

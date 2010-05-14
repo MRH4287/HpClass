@@ -56,8 +56,8 @@ $template['js']='
 <script type="text/javascript" src="js/votes.js"></script>
 <link rel="stylesheet" href="css/forum.css" type="text/css"/>
 <link rel="stylesheet" href="css/widget.css" type="text/css"/>
-
-
+<link rel="stylesheet" href="include/usedpics/css/usedpics.css" type="text/css" />
+<link rel="stylesheet" href="css/news.css" type="text/css"/>
 ';
 
 ?>

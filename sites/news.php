@@ -1,6 +1,5 @@
 
-<div class="headline">
-  <p align="center"><font face="Haettenschweiler" size="5">News:</font></div>
+
 
 <!--NEWS-->
 <?php
@@ -187,16 +186,15 @@ elseif
 if ($ok == true)
 {
  ?>  
-      <table class="liste" width="100%" border="1" bordercolor="#000000" bordercolorlight="#000000">
-      <tr>
-      
-            <th bgcolor="<?php echo $defaultcolor?>">
+ 
+ <div class="newsbox">
+<div class="newsbox_info"><b><?php echo"$row->titel";  if ("$row->level" <> "0") {echo " --Level $row->level --";} ?> <?php echo $lang->word('by')?> <a href=index.php?site=user&show=<?php echo "$row->ersteller"?>><?php echo "$row->ersteller"?></a></b></div>
+<div class="newsbox_info_date"><b>  geschrieben am <i><?php echo "$row->datum"?></i></b></div>
+<div class="newsbox_inhalt">
+<?php echo "$row->text"?>
 
-               <table width="100%" cellpadding="0" height="48">
-               <tr>
-               	<td rowspan="2" height="46"><img src="images/news_<?php echo "$row->typ"?>.gif" width="40" height="40"></td>
-               	<td colspan="2" style="padding-bottom: 1px;" height="22" valign="bottom" width="100%"><span><b><?php echo"$row->titel";  if ("$row->level" <> "0") {echo " --Level $row->level --";} ?></b></span></td>
-               	<td colspan="3" style="padding-bottom: 1px;" height="22" valign="bottom" width="100%"><span> <?php
+<br>
+               	<?php
                  if (isset($get['delet']))
                  {
 if ($right[$level]['newsedit'])
@@ -209,42 +207,15 @@ if ($right[$level]['newsdel'])
 echo '<a href="index.php?lbsite=delnews&vars='.$row->ID.'" class="lbOn">Löschen</a> ';
 }    
 }         
-                   ?> </span></td>
-               </tr>
-               <tr>   
-                  <td valign="top" height="22"><span><?php echo "$row->datum"?> <?php echo $lang->word('by')?> <a href=index.php?site=user&show=<?php echo "$row->ersteller"?>><?php echo "$row->ersteller"?></a></span></td>
+                  ?> 
+</div> 
+</div>
 
-                  <td valign="top" align="right" height="22">
-                  <?php if (file_exists("sites/comments.php")) { ?>
-                  <a href="index.php?site=comments&id=<?php echo "$row->ID"?>"><?php echo $lang->word('comments')?> <?php   
-                            
-                  $abfrage2 = "SELECT * FROM ".$dbpräfix."kommentar WHERE `zuid`= '$row->ID'";
-                  
-$ergebnis2 = $hp->mysqlquery($abfrage2);
-    
- $nummer = 0; 
-while($row2 = mysql_fetch_object($ergebnis2))
-   { 
-$nummer=$nummer+1;
-    }
-      echo " ($nummer)";            
-                  
-                  } ?>
-   </a>
-                  </td>
-               </tr>
-               </table>         
-            </th>         
-      
-      </tr>
+               	
 
-      
-      <tr>
-      	<td class="lcell"><span><?php echo "$row->text"?></span></td>
-
-      </tr>
-      
-      </table><br>      
+              
+              
+              <br>      
 <?php }  }   
 
 
