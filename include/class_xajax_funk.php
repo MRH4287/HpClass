@@ -570,6 +570,42 @@ $response->script("picturelist_print();");
 return $response;
 }
 
+function ax_savewidgetconfig($temp, $config)
+{
+$response = new xajaxResponse();
+
+
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$widget = $hp->widgets;
+
+
+if (in_array($_SESSION['username'], $hp->getsuperadmin()))
+{
+
+
+$array = explode("<!--!>",$config);
+$config = array();
+
+foreach ($array as $key=>$value) {
+	
+	$array2 = explode("<!=!>", $value);
+	$config[$array2[0]] = $array2[1];
+	
+}
+
+
+$widget->saveConfig($temp, $config);
+
+} else
+{
+$response->script("alert('wieso solltest du das wollen?!');");
+}
+
+//$response->assign("testinput", "value", "hallo");
+return $response;
+}
+
 
 // ----------------------------------< DRAG & DROP >------------------------------------------------
 

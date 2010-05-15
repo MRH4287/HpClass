@@ -4,6 +4,7 @@ class widgets
 var $hp;
 var $placed = array();
 var $template = array();
+var $tempconfig = array();
 
 //Definiert alle Platzhalter im Template:
 var $placeholder = array("placeholder1", "placeholder2", "placeholder3", "placeholder4", "placeholder5");
@@ -135,15 +136,26 @@ $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
 $temp = $hp->template;
-
+$lbs = $hp->lbsites;
 
 $widgets_replace = $hp->template->spezialsigs($this->widgets);
 $widgets = array();
+
+
+
+
 
 foreach ($widgets_replace as $key=>$value) {
 	 if (!in_array($key, $this->placed))
    {
    $widgets[$key] = $value;
+   if (array_key_exists($key, $this->tempconfig))
+   {
+   $widgets[$key] .= "<center>".$lbs->link($this->tempconfig[$key], "<img src=\"images/edit.gif\">")."</center>";
+   
+   }
+   
+   
    }
 }
 
@@ -221,7 +233,11 @@ $design = $config['design'];
         	
         }
         
-        
+      if (is_array($tempconfig))
+      {
+        $this->tempconfig = array_merge($this->tempconfig, $tempconfig);
+      //  print_r($this->tempconfig);
+      }  
         
 
     }
@@ -244,6 +260,11 @@ $row = mysql_fetch_object($erg);
 
 $config = unserialize($row->config);
 
+if (!is_array($config))
+{
+$config = array();
+}
+
 return $config;
 }
 
@@ -258,7 +279,6 @@ $sql = "REPLACE INTO `$dbpräfix"."widgetconfig` (`widget`, `config`) VALUES ('$w
 $erg = $hp->mysqlquery($sql);
 
 }
-
  
  
  }

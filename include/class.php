@@ -15,7 +15,7 @@ public    $lbsites;
 public    $template;
 public    $xajaxF;
 public    $forum;
-public    $widget;
+public    $widgets;
 
 
 // Geschützte Variablen

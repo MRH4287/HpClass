@@ -20,10 +20,16 @@ echo "<b>Dies ist eine Testseite!</b><br>Solltet ihr sie finden, ignoriert sie ^
 
 //$lang->savetodb();
 
-echo $lbs->link("newsite", "test");
+
+$widget = $hp->widgets;
+
+print_r($widget->getConfig("test"));
 
 
 
 
 ?>
+
+
+
 
