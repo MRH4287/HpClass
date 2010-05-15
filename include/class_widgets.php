@@ -232,6 +232,33 @@ $design = $config['design'];
 }
 
  
+function getConfig($widget)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+
+
+$sql = "SELECT * FROM `$dbpräfix"."widgetconfig` WHERE `widget` = '$widget';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+$config = unserialize($row->config);
+
+return $config;
+}
+
+function saveConfig($widget, $config)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+
+$text = serialize($config);
+
+$sql = "REPLACE INTO `$dbpräfix"."widgetconfig` (`widget`, `config`) VALUES ('$widget', '$text');";
+$erg = $hp->mysqlquery($sql);
+
+}
+
  
  
  }

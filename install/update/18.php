@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS `#!-PRÄFIX-!#widgetconfig` (`widget` varchar(250) NOT NULL,  `config` text NOT NULL,   PRIMARY KEY (`widget`)) ENGINE=MyISAM DEFAULT CHARSET=latin1

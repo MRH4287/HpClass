@@ -6,6 +6,8 @@ var $hp;
 var $lang;
 var $info;
 var $fp;
+var $liste = array();
+var $funkadd = array();
 
 function sethp($hp)
 {
@@ -14,6 +16,32 @@ $this->error = $hp->geterror();
 $this->lang = $hp->getlangclass();
 $this->info = $hp->getinfo();
 $this->fp = $hp->firephp;
+}
+
+function addFunctions($ext)
+{
+
+if (is_object($ext))
+{
+//$ext->sethp($this->hp);
+
+$funktions = get_class_methods($ext);
+
+foreach ($funktions as $key=>$value) {
+
+  $split = explode("_", $value);
+  if ($split[1] != "")
+  {
+	$this->liste[$value] = $ext;
+	$this->funkadd[] = $value;
+	}
+}
+
+
+
+}
+
+
 }
 
 function link($site, $text, $vars = "", $class = "lbOn")
@@ -28,6 +56,7 @@ function load($site, $vars)
 ob_start("ob");
 
 $funktions = get_class_methods($this);
+$site = "site_".$site;
 ?>
 
 <table width="100%" height="100%">
@@ -36,9 +65,15 @@ $funktions = get_class_methods($this);
 <center><a href="#" onclick="resolution();">Ausrichten</a><br>
 
 <?php
-if (in_array("site_".$site, $funktions))
+if (in_array($site, $this->funkadd))
 {
-$site="site_".$site;
+$ext = $this->liste[$site];
+
+$ext->$site($vars);
+} else
+if (in_array($site, $funktions))
+{
+
 $this->$site($vars);
 } else
 {
@@ -907,6 +942,53 @@ $fp = $hp->fp;
 <?php
 
 }
+
+
+
+ function inctempfiles()
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->firephp;
+$config = $hp->getconfig();
+
+$design = $config['design'];
+
+  if (is_dir("template/".$design."/lbsites/"))
+  {
+
+
+  $handle = @opendir("./template/".$design."/lbsites/"); 
+    while ($file = @readdir($handle)) {
+
+	     $n= @explode(".",$file);
+       $art = @strtolower($n[1]);
+
+
+    if ($art == "php")
+    {
+        $widget = array();
+        $placeholder = array();
+        if (file_exists("./template/".$design."/lbsites/$file"))
+        include ("./template/".$design."/lbsites/$file");
+
+        $ext = @new lbsitesTemplate();
+        
+        if (is_object($ext))
+        {
+        $this->addFunctions($ext);
+        }
+               
+
+    }
+  } 
+
+
+ } 
+}
+
 
 
 } // CLASS ENDE !!
