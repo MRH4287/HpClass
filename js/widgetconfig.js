@@ -21,5 +21,6 @@ widget_config_text+=add;
 
 function widget_save(temp)
 {
-xajax_savewidgetconfig(temp, widget_config_text);
+xajax_savewidgetconfig(temp, widget_config_text);  
+widget_config_text = "";
 }
