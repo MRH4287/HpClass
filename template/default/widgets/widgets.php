@@ -10,6 +10,12 @@ $placeholder = array();
 // In dieser Datei werden Widgets definiert, die Später über das Design aufgerufen werden.
 
 
+// Widgetconfig:
+// Hier werden die Unterseiten von Lbsites definiert, die als Konfigurationsseite angezeigt werden sollen, wenn die Widgets in
+// der Liste sind.
+//$tempconfig = array ("SVN" => "Test");
+
+
 $widget = array (
 
 // SVN Widget:
