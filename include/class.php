@@ -806,15 +806,6 @@ $this->standardsite=$this->config['standardsite'];
 }
 
 
-// Checkversion
-// 4.1
-
-if (($this->config['checkversion'] == true) and ($this->outputg['login'] == "j"))
-{
-$this->checkversion();
-}
-
-
 // Redirectlock Config
 //4.2
 $redirectlock = explode(", ", $this->config['redirectlock']);

@@ -1,0 +1,1 @@
+DELETE FROM `#!-PRÄFIX-!#config` WHERE `name` = 'checkversion';
