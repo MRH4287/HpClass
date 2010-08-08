@@ -32,8 +32,6 @@ protected $redirectlock;
 protected $config;
 protected $restrict;
 protected $superadminonly;
-protected $checkversionurl;
-protected $pathtoversion;
 protected $pathtomysqlversion;
 protected $superadmin;
 protected $standardsite;
@@ -53,9 +51,6 @@ $this->superadmin = array("admin", "mrh");
 $this->restrict       = array("login");
 $this->superadminonly = array("rights", "config", "dragdrop", "test");
 
-// Version
-$this->checkversionurl = "http://mrh.mr.ohost.de/version/version.php?name=HPClass";
-$this->pathtoversion   = "version/version.php";
 
 //Mysql
 $this->pathtomysqlversion = "version/mysql.php";
@@ -163,56 +158,6 @@ function getsuperadmin()
 {
 return $this->superadmin;
 }
-
-// Versions überprüfung
-// 4.1
-
-//---------------------VERSION----------------------------------------------
-function getmysqlversion()
-{
-$path = $this->pathtomysqlversion;
-$version = @file_get_contents($path);
-
-if ($version == "")
-{
-return false;
-} else
-{
-return $version;
-}
-}
-
-function getversion()
-{
-$path = $this->pathtoversion;
-include($path);
-return array( 'version' => "$version", 'changelog' => "$changelog");
-}
-
-function checkversion()
-{
-$url = $this->checkversionurl;
-
-$version= @file_get_contents($url);
-// Error-Handler
-if ($version == "")
-{
-$this->setconfig("checkversion", false);
-    $this->error->error("Konnte keine Versionsprüfung durchführen! Update-Prüf Funktion Deaktiviert!", "2");
-} else
-{
-
-$array = $this->getversion();
-$version2 = $array['version'];
-
-if (($version != $version2) and (in_array($_SESSION['username'], $this->superadmin)))
-{
-$this->info->info("Ihre Version ist nicht mehr auf dem neusten Stand! ($version2 - $version)");
-
-}
-} // Error -Handler
-}
-//-----------------------------/VERSION----------------------------------------------- 
 
 function geterror()
 {

@@ -15,8 +15,7 @@ if ($config['design'] != "")
 {
 $design = $config['design'];
 }
-$version = $hp->getversion();
-$version = $version['version'];
+
 // Template
 
 $template['header']='<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -26,7 +25,6 @@ $template['headline']=$headline;
 $template['titel']=$titel;
 $template['mainheadline']=$mainheadline;
 $template['username']=$_SESSION['username'];
-$template['info']="MRH HPClass CMS V$version";
 
 if (file_exists(".svn/entries"))
 {
