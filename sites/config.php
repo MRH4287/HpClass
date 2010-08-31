@@ -112,7 +112,7 @@ while($row = mysql_fetch_array($ergebnisss))
   <center>
   <form method="POST" action="index.php?site=config">
 
-  <table border="1" width="677" height="7" bordercolor="#4E6F81">
+  <table border="1" width="100%" height="7" bordercolor="#4E6F81">
   <?php
   foreach ($cfg as $key=>$row2) {
   	

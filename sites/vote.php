@@ -36,7 +36,7 @@ if (isset($get['addvote']))
   </tr>
   <tr>
     <td>Titel</td>
-    <td><input type="text" name="titel" id="titel"  size="70"  onchange="checkvote(false)"/></td>
+    <td><input type="text" name="titel" id="titel"  size="50"  onchange="checkvote(false)"/></td>
     <td><div id="titelwarn">Bitte Geben Sie einen Titel ein.</div></td>
   </tr>
   <tr>
@@ -44,11 +44,11 @@ if (isset($get['addvote']))
     <td><table width="100%" border="0" id="answers">
       <tr>
         <td>
-            <input type="text" name="antwort[]" id="antwort1" size="70"  onchange="checkvote(false)" /> </td>
+            <input type="text" name="antwort[]" id="antwort1" size="50"  onchange="checkvote(false)" /> </td>
       </tr>
         <tr>
         <td>
-            <input type="text" name="antwort[]" id="antwort2" size="70"  onchange="checkvote(false)" /> </td>
+            <input type="text" name="antwort[]" id="antwort2" size="50"  onchange="checkvote(false)" /> </td>
       </tr>
       
     </table>
@@ -58,11 +58,11 @@ if (isset($get['addvote']))
     <table width="100%" border="0" id="answers">
       <tr>
         <td>
-            <input type="text" name="antwort[]"  size="70"  /> </td>
+            <input type="text" name="antwort[]"  size="50"  /> </td>
       </tr>
         <tr>
         <td>
-            <input type="text" name="antwort[]"  size="70"   /> </td>
+            <input type="text" name="antwort[]"  size="50"   /> </td>
       </tr>
       
     </table>
@@ -205,7 +205,7 @@ $row = mysql_fetch_object($erg);
   </tr>
   <tr>
     <td>Titel</td>
-    <td><input type="text" name="titel" id="titel"  size="70" value="<?php echo $row->name?>"  onchange="checkvote(true)" /></td>
+    <td><input type="text" name="titel" id="titel"  size="50" value="<?php echo $row->name?>"  onchange="checkvote(true)" /></td>
     <td><div id="titelwarn">Bitte Geben Sie einen Titel ein.</div></td>
   </tr>
   <tr>
@@ -221,7 +221,7 @@ $row = mysql_fetch_object($erg);
     ?>
       <tr>
         <td>
-            <input type="text" name="antwort[]" id="antwort<?php echo $i?>" size="70"  onchange="checkvote(true)" value="<?php echo $value?>" /> </td>
+            <input type="text" name="antwort[]" id="antwort<?php echo $i?>" size="50"  onchange="checkvote(true)" value="<?php echo $value?>" /> </td>
       </tr>
 
       <?php
@@ -273,7 +273,7 @@ $monat = "0".$monat;
 </table>
 </form>
 <?php
-$xajaxF->open("xajax_calender();");
+$xajaxF->open("xajax_calender_vote();");
 $xajaxF->open("checkvote(true);");
 
 

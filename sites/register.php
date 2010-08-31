@@ -133,6 +133,7 @@ $text=$post['btext'];
 $email = $post['email'];
 $passwort12 = str_replace('<',"&lt;" ,$passwort12);
 $user = str_replace('<',"&lt;" ,$user);
+$user = str_replace(' ',"_" ,$user);
 $name = str_replace('<',"&lt;" ,$name);
 $name = str_replace(' ',"_" ,$name);
 $nachname = str_replace('<',"&lt;" ,$nachname);

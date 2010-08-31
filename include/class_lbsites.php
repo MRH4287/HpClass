@@ -37,7 +37,7 @@ foreach ($funktions as $key=>$value) {
 	}
 }
 
-
+    
 
 }
 
@@ -979,6 +979,7 @@ $design = $config['design'];
         if (is_object($ext))
         {
         $this->addFunctions($ext);
+        $ext->sethp($hp);
         }
                
 

@@ -196,7 +196,7 @@ $hp->mysqlquery($sql);
   <center>
   <form method="POST" action="index.php?site=rights">
 
-  <table border="1" width="677" height="7" bordercolor="#4E6F81">
+  <table border="1" width="100%" height="7" bordercolor="#4E6F81">
     <tr>
       <td width="40" height="22" bgcolor="#5A8196">Level</td>
       <td width="757" height="25" bgcolor="#5A8196">Name</td>

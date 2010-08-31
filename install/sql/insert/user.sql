@@ -23,5 +23,5 @@ INSERT INTO `#!-PRÄFIX-!#user` (
 `tel`
 )
 VALUES (
-NULL , 'admin', 'install', NULL , NULL , NULL , NULL , NULL , NULL , '', '3', '', NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , ''
+NULL , 'admin', 'install', NULL , NULL , NULL , NULL , NULL , NULL , '', '4', '', NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , ''
 );
