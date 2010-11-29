@@ -41,17 +41,14 @@ function createDropBox(holderT, key)
   newNode.setAttribute('class', "dropp");
   //newNode.innerHTML = value;
   
-  
   holder.appendChild(newNode);
   
-
 Droppables.add(key,{onDrop: function(drag, base) {
 
 xajax_dragevent(base.id, drag.id, getinfo(drag), getinfo(base));
 
  }, hoverclass: 'hclass'});
  
-
 }
 
 
