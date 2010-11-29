@@ -19,6 +19,7 @@ function createWidgetBox(holderT, key, value)
 
   var newNode = document.createElement('div');
   newNode.setAttribute('id', key);
+  newNode.setAttribute("class", "drag");
   newNode.innerHTML = value;
   
   

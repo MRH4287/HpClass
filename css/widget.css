@@ -2,9 +2,10 @@
 
  .drag
  {
- border: 1px outset;
+/* border: 1px outset;  */
+ cursor: move;
 /*  width: 100px;
- 
+    
  
  background-color: red;  */
  }
