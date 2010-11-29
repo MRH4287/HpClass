@@ -733,14 +733,8 @@ $fp = $hp->fp;
 
  $widgets = $hp->widgets->getwidgets();
 $code = "";
-$code2 = "";
-
   foreach ($widgets as $key=>$value) {
  	 	
- 	 if ($key == "Uhr")
-    {
-   // continue;
-    }	
  	 	
  	 $value = str_replace("'", "\'", $value);
  	 $value = str_replace("\n", "", $value);

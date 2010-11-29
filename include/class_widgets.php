@@ -75,23 +75,28 @@ while ($row = mysql_fetch_object($erg))
  }
 
  //$temp->addtemp($row->ID, $this->widgets[$row->source]);
- $this->template[$row->ID] = $del1.$this->widgets[$row->source].$del2;
+ $value = $del1.$this->widgets[$row->source].$del2;
+ $this->template[$row->ID] = "<div id='widget_".$row->source."'>$value</div>";
  $this->placed[] = $row->source;
  $this->placed[] = $row->ID;
 
 }
 
 
-// Wenn die Seite dragdrop offen ist, ersetze alle Placeholder mit dem Drroppable Code:
- if (($get['site'] == "dragdrop") and ($superadmin))
- {
+// Wenn die Seite dragdrop offen ist, ersetze alle Placeholder mit dem Droppable Code:
+
 
 foreach ($this->placeholder as $key=>$value) {
 	if (!in_array($value, $this->placed))
 	{
-	$temp->addtemp($value, str_replace("<!--ID-->", $value, $this->replace));
+	 if (($get['site'] == "dragdrop") and ($superadmin))
+    {
+  	$temp->addtemp($value, str_replace("<!--ID-->", $value, $this->replace));
 	//$this->template[$value] = str_replace("<!--ID-->", $value, $this->replace);
-	}
+	 } else
+	 {
+    $temp->addtemp($value, "<div id='placeholder_".$value."'></div>");
+   }
 }
 
  }
@@ -142,9 +147,6 @@ $widgets_replace = $hp->template->spezialsigs($this->widgets);
 $widgets = array();
 
 
-
-
-
 foreach ($widgets_replace as $key=>$value) {
 	 if (!in_array($key, $this->placed))
    {
@@ -163,7 +165,10 @@ foreach ($widgets_replace as $key=>$value) {
 return $widgets;
 }
 
-
+function getPlaceholder()
+{
+return $this->placeholder;
+}
 
 
 function addwidget($name, $value)

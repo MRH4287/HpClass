@@ -15,13 +15,6 @@ $info = $hp->getinfo();
 $widgets = $hp->widgets->getwidgets();
 
 ?>
-
-
-
-
-
-
-
     <table width="500" height="50" border="1">
      <tr>
      <td width="" id="widgetContainer">
