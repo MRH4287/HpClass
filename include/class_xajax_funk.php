@@ -13,7 +13,6 @@ function __construct()
          $this->xajax = new xajax();
          $this->registerFunctions($this);
 
-
 }
 
 
@@ -640,6 +639,9 @@ $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
 $fp = $hp->firephp;
 
+$dropper = mysql_real_escape_string($dropper);
+$drag = mysql_real_escape_string($drag);
+
 $superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
 if ($superadmin)
 {
@@ -663,23 +665,33 @@ $response->script("Droppables.remove($('".$dropper."'));");
 
 $response->script("$('$dropper').highlight();");
 
-$response->script("$('".$drag."').hide($('".$drag."'));");
+//$response->script("$('".$drag."').hide($('".$drag."'));");
+$response->script("killElement('$drag');");
+
+  $value =  $infos['innerHTML'];
+      
+  $value = str_replace("'", "\'", $value);
+ 	$value = str_replace("\n", "", $value);
+ 	$value = str_replace("\r", "", $value);
+
+$response->script("createWidgetBox('widget_$dropper', '$drag', '".$value."')");
 
 
+//$text = "<div id=\"".$drag."\">".$infos['innerHTML']."</div>";
 
-
-$text = "<div id=\"".$drag."\">".$infos['innerHTML']."</div>";
-
-$response->assign($dropper, "innerHTML", $text);
+//$response->assign($dropper, "innerHTML", $text);
 $response->assign($dropper, "className", "");
 
+
+$sql = "DELETE FROM `$dbpräfix"."widget` WHERE `source` = '$drag'";
+$erg = $hp->mysqlquery($sql);
 
 // Eintragen in die DB:
 $sql = "INSERT INTO `$dbpräfix"."widget` (`ID`, `source`) VALUES ('$dropper', '$drag');";
 $erg = $hp->mysqlquery($sql);
 
 
-$response->script('setTimeout("location.reload(true);",200);');
+//$response->script('setTimeout("location.reload(true);",200);');
 
 }
 
@@ -690,7 +702,7 @@ return $response;
 }
 
 
-function ax_widget_del($ID)
+function ax_widget_del($dropper, $drag, $infon = "", $info_droppable = "")
 {
 $response = new xajaxResponse();
 
@@ -702,18 +714,8 @@ $fp = $hp->fp;
 
 if (in_array($_SESSION['username'], $hp->getsuperadmin()))
 {
-
-$ID = mysql_escape_string($ID);
-
-$sql = "DELETE FROM `$dbpräfix"."widget` WHERE `ID` = '$ID';";
-$erg = $hp->mysqlquery($sql);
-
-
-
-$response->assign($ID, "innerHTML", "entfernt");
-
-$response->script('setTimeout("location.reload(true);",200);');
-
+  $sql = "DELETE FROM `$dbpräfix"."widget` WHERE `source` = '$drag'";
+  $erg = $hp->mysqlquery($sql);
 }
 
 return $response;
@@ -721,7 +723,7 @@ return $response;
  
  
  
-function ax_reloadWidgets($reload = false)
+function ax_reloadWidgets()
 {
 $response = new xajaxResponse();
 
@@ -731,7 +733,7 @@ $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
 
- $widgets = $hp->widgets->getwidgets();
+ $widgets = $hp->widgets->getwidgets(true, false);
 $code = "";
   foreach ($widgets as $key=>$value) {
  	 	
@@ -743,26 +745,69 @@ $code = "";
   // $value =  preg_replace($reg, "$2", $value, -1); 
     	
  	 //Löschen der Elemente
- 	 $code .= "var element = document.getElementById('$key');
+   $placed = $hp->widgets->isPlaced($key);
+   
+   if ($placed)
+   {
+       $parent =  $hp->widgets->getParent($key);
+       
+        
+     $response->assign("widget_$parent", "innerHTML", "");
+   
+      $this->open("createWidgetBox('widget_$parent', '$key', '$value')");   
+           
+   } else
+   {       
+   $code .= "var element = document.getElementById('$key');
  	 if (element != null)
  	 {
  	 var papa = element.parentNode;
    if (papa) papa.removeChild(element);
    }";
-
-   $this->open("createWidgetBox('widgetContainer', '$key', '$value')");
+   
+      $this->open("createWidgetBox('widgetContainer', '$key', '$value')");
+      
+   }
+ 
    
   } 
-     
-    
-  $response->script($code);
-  if ($reload)
+      
+
+  $placeholder = $hp->widgets->getPlaceholder();
+  
+  foreach ($placeholder as $key=>$value)
   {
-  //  $response->script($code2);
+       
+      $response->script("killElement('$value');"); 
+       
+     $wert = str_replace("<!--ID-->", $value, $hp->widgets->replace);
+     
+     $response->assign("widget_$value", "innerHTML", $wert);
+     
+     $script = "Droppables.add('$value',{onDrop: function(drag, base) {
+
+      widgetDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));
+
+      }, hoverclass: 'hclass'});";
+      
+      //$script = str_replace("'", "\'", $script);
+ 	    $script = str_replace("\n", "", $script);
+ 	    $script = str_replace("\r", "", $script);
+      $script = str_replace("\t", "", $script);
+     
+     $response->script($script);    
+  
+  }
+
+
+
+
+  $response->script($code);
+
     foreach ($this->func as $key=>$value) {
       $response->script("$value");	
     	
-    }
+    
   }
 
 

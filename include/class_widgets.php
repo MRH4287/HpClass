@@ -12,27 +12,28 @@ var $placeholder = array("placeholder1", "placeholder2", "placeholder3", "placeh
 var $widgets = array();
 
 // Der Text, der Statt den Widgets angezeigt wird, wenn dragdrop geöffnet wurde:
-var $replace = "
+public $replace = "
 <table width=\"100%\" height=\"50\">
 
 <tr>
 <td>
 <div id=\"<!--ID-->\" class=\"dropp\"></div>
 
+</td>
+</tr>
+</table>
+
 <script>
 
 Droppables.add('<!--ID-->',{onDrop: function(drag, base) {
 
-xajax_dragevent(base.id, drag.id, getinfo(drag), getinfo(base));
+widgetDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));
 
  }, hoverclass: 'hclass'});
  
 
 </script>
 
-</td>
-</tr>
-</table>
 ";
 
 
@@ -70,13 +71,13 @@ while ($row = mysql_fetch_object($erg))
 
  if (($get['site'] == "dragdrop") and $superadmin)
  {
- $del1 = "<div id=\"$row->ID\" class=widget-del>";
- $del2 = "<br><a href=# onclick=xajax_widget_del('$row->ID')>Löschen</a></div>";
+// $del1 = "<div id=\"$row->ID\" class=widget-del>";
+ //$del2 = "<br><a href=# onclick=xajax_widget_del('$row->ID')>Löschen</a></div>";
  }
 
  //$temp->addtemp($row->ID, $this->widgets[$row->source]);
  $value = $del1.$this->widgets[$row->source].$del2;
- $this->template[$row->ID] = "<div id='widget_".$row->source."'>$value</div>";
+ $this->template[$row->ID] = "<div id='widget_".$row->ID."'>$value</div>";
  $this->placed[] = $row->source;
  $this->placed[] = $row->ID;
 
@@ -91,19 +92,34 @@ foreach ($this->placeholder as $key=>$value) {
 	{
 	 if (($get['site'] == "dragdrop") and ($superadmin))
     {
-  	$temp->addtemp($value, str_replace("<!--ID-->", $value, $this->replace));
+  	$temp->addtemp($value, str_replace("<!--ID-->", $value, "<div id='widget_".$value."'>$this->replace</div>"));
 	//$this->template[$value] = str_replace("<!--ID-->", $value, $this->replace);
 	 } else
 	 {
-    $temp->addtemp($value, "<div id='placeholder_".$value."'></div>");
+    $temp->addtemp($value, "<div id='widget_".$value."'></div>");
    }
 }
 
  }
 
 
+}
 
 
+function getParent($widget)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+
+$sql = "SELECT * FROM `$dbpräfix"."widget` WHERE `source` = '$widget';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+return $row->ID;
 
 }
 
@@ -132,7 +148,12 @@ foreach ($template as $key=>$value) {
 }
 
 
-function getwidgets()
+function isPlaced($widget)
+{
+return in_array($widget, $this->placed);
+}
+
+function getwidgets($placed = false, $config = true)
 {
 $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
@@ -148,10 +169,10 @@ $widgets = array();
 
 
 foreach ($widgets_replace as $key=>$value) {
-	 if (!in_array($key, $this->placed))
+	 if (!in_array($key, $this->placed) or $placed)
    {
    $widgets[$key] = $value;
-   if (array_key_exists($key, $this->tempconfig))
+   if (array_key_exists($key, $this->tempconfig) and $config)
    {
    $widgets[$key] .= "<center>".$lbs->link($this->tempconfig[$key], "<img src=\"images/edit.gif\">")."</center>";
    
@@ -165,9 +186,29 @@ foreach ($widgets_replace as $key=>$value) {
 return $widgets;
 }
 
-function getPlaceholder()
+
+function getPlaceholder($emptyOnly = true)
+{
+
+if (!$emptyOnly)
 {
 return $this->placeholder;
+}  else
+{
+
+  $result = array();
+
+  foreach ($this->placeholder as $key=>$value) {
+	
+	   if (!in_array($value, $this->placed))
+     {
+      $result[] = $value;
+     }	
+	
+  }
+
+  return $result;
+}
 }
 
 

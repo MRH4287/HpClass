@@ -19,79 +19,32 @@ $widgets = $hp->widgets->getwidgets();
      <tr>
      <td width="" id="widgetContainer">
    
- <?php
  
- foreach ($widgets as $key=>$value) {
- 	
- 	echo "<div id=$key>$value</div>";
- 	echo "<br>";
- }
- 
- 
- ?>
     </td>
     </tr>
     </table>
- <?php
- echo '<script>';
- foreach ($widgets as $key=>$value) {
- 	
- 	echo "new Draggable('$key',{revert: true}); ";
- 	
- }
-
-  echo '</script>';
- 
- ?>
-
-  <script>
-  
-  function reloadWidgets()
-  {
-  
-  var holder = document.getElementById("widgetContainer");
-  
-  <?php
-  foreach ($widgets as $key=>$value) {
- 	?>
- 	
- 	 //Löschen der Elemente
- 	 var element = document.getElementById('<?php echo $key; ?>');
- 	 if (element != null)
- 	 {
- 	 var papa = element.parentNode;
-   if (papa) papa.removeChild(element);
-   }
-
-   /*
-  //Elemente neu erstellen
-  var newNode = document.createElement('div');
-  newNode.setAttribute('id', "<?php echo $key; ?>");
-  var content = document.createTextNode("");
-  newNode.appendChild(content)
-  
-  
-  holder.appendChild(newNode);
-  
-  new Draggable('<?php echo $key; ?>',{revert: true});
-    */
- 	<?php
- } 
- ?>
-  
-
-  
-
-  
-  
-  }
-  
-  
-  </script>
 
 
+ <table width="150" height="50">
+
+<tr>
+<td>
+<div id="widget_DelWidgets" class="droppDel" valign="middle">Löschen</div>
+
+</td>
+</tr>
+</table>
+
+<script>
+
+Droppables.add('widget_DelWidgets',{onDrop: function(drag, base) {
+
+widgetDeletDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));
+
+ }, hoverclass: 'hclass'});
  
 
+</script>
 
 
 <div id="info">

@@ -19,8 +19,6 @@ function createWidgetBox(holderT, key, value)
 
   var newNode = document.createElement('div');
   newNode.setAttribute('id', key);
-  //var content = document.createTextNode(value);
-  //newNode.appendChild(content)
   newNode.innerHTML = value;
   
   
@@ -28,4 +26,56 @@ function createWidgetBox(holderT, key, value)
   
   new Draggable(key,{revert: true});
 
+}
+
+
+
+function createDropBox(holderT, key)
+{
+
+ var holder = document.getElementById(holderT);
+
+  var newNode = document.createElement('div');
+  newNode.setAttribute('id', key);
+  newNode.setAttribute('class', "dropp");
+  //newNode.innerHTML = value;
+  
+  
+  holder.appendChild(newNode);
+  
+
+Droppables.add(key,{onDrop: function(drag, base) {
+
+xajax_dragevent(base.id, drag.id, getinfo(drag), getinfo(base));
+
+ }, hoverclass: 'hclass'});
+ 
+
+}
+
+
+function widgetDropEvent(dropper, drag, infon, info_droppable)
+{
+xajax_dragevent(dropper, drag, infon, info_droppable);
+xajax_reloadWidgets();
+
+}
+
+
+function widgetDeletDropEvent(dropper, drag, infon, info_droppable)
+{
+xajax_widget_del(dropper, drag, infon, info_droppable);
+xajax_reloadWidgets();
+
+}
+
+
+function killElement(key)
+{
+var element = document.getElementById(key);
+ 	 if (element != null)
+ 	 {
+ 	 var papa = element.parentNode;
+   if (papa) papa.removeChild(element);
+   }
 }
