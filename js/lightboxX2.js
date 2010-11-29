@@ -258,7 +258,7 @@ function resolution()
 			}
 		if (height >= document.body.clientHeight) 
 			{
-			lb.style.top = '0px';
+			lb.style.top = '200px';
 			//document.getElementById('fade').style.height = height+'px';
 			}
 		else

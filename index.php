@@ -85,12 +85,8 @@ $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
 
-//--------------------------------Xajax Request--------------------------------
-$xajaxF->processRequest();
-
-
 //--------------------------------Widgets---------------------------------------
- $widgets->replace();
+$widgets->replace();
 
 
 //------------------------------Template Steuerung-----------------------------
@@ -102,13 +98,17 @@ include 'include/login.php';
 // 2. Übergeben des Template Arrays am die Funktion
 $temp->settemplate($template);
 
+
 //-----------Widgets----------
  $widgets->addtotemp();
 
+ // 3. Laden der HTML Datei
+ $temp->load($design);
+ 
+//--------------------------------Xajax Request--------------------------------
+$xajaxF->processRequest();
 
 
-// 3. Laden der HTML Datei
-$temp->load($design);
 echo $temp->getHeader();
 $error->outputdiv();
 $info->outputdiv();

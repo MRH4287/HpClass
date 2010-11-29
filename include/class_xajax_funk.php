@@ -719,15 +719,105 @@ $response->script('setTimeout("location.reload(true);",200);');
 return $response;
 }
  
+ 
+ 
+function ax_reloadWidgets($reload = false)
+{
+$response = new xajaxResponse();
+
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+
+ $widgets = $hp->widgets->getwidgets();
+$code = "";
+$code2 = "";
+
+  foreach ($widgets as $key=>$value) {
+ 	 	
+ 	 if ($key == "Uhr")
+    {
+   // continue;
+    }	
+ 	 	
+ 	 $value = str_replace("'", "\'", $value);
+ 	 $value = str_replace("\n", "", $value);
+ 	 $value = str_replace("\r", "", $value);
+  // $reg = "(<!--[^>]*-->)";
+  // $value =  preg_replace($reg, "$2", $value, -1); 
+    	
+ 	 //Löschen der Elemente
+ 	 $code .= "var element = document.getElementById('$key');
+ 	 if (element != null)
+ 	 {
+ 	 var papa = element.parentNode;
+   if (papa) papa.removeChild(element);
+   }";
+
+   $this->open("createWidgetBox('widgetContainer', '$key', '$value')");
+   
+  } 
+     
+    
+  $response->script($code);
+  if ($reload)
+  {
+  //  $response->script($code2);
+    foreach ($this->func as $key=>$value) {
+      $response->script("$value");	
+    	
+    }
+  }
+
+
+
+
+return $response;
+}
+ 
+ 
 
 function open($funktion)
 {
 $this->func[] = $funktion;
 }
 
-function getfunk()
+function getfunk($del = false)
 {
-return implode(" \n ", $this->func);
+$str = implode(" \n ", $this->func);   
+
+ if ($del)
+ {
+ $this->func = array();
+ }
+
+return $str;
+
+}
+
+function ax_reloadScripts($del = true)
+{
+ $response = new xajaxResponse();
+
+ $hp = $this->hp;
+ $dbpräfix = $hp->getpräfix();
+ $info = $hp->info;
+ $error = $hp->error;
+ $fp = $hp->fp;
+
+    foreach ($this->func as $key=>$value) {
+      $response->script("$value");	
+    	
+    }
+   
+ if ($del)
+ {
+ $this->func = array();
+ }
+    
+  return $response;
 }
 
 

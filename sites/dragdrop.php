@@ -24,7 +24,7 @@ $widgets = $hp->widgets->getwidgets();
 
     <table width="500" height="50" border="1">
      <tr>
-     <td width="">
+     <td width="" id="widgetContainer">
    
  <?php
  
@@ -46,11 +46,55 @@ $widgets = $hp->widgets->getwidgets();
  	echo "new Draggable('$key',{revert: true}); ";
  	
  }
+
   echo '</script>';
  
  ?>
 
+  <script>
+  
+  function reloadWidgets()
+  {
+  
+  var holder = document.getElementById("widgetContainer");
+  
+  <?php
+  foreach ($widgets as $key=>$value) {
+ 	?>
+ 	
+ 	 //Löschen der Elemente
+ 	 var element = document.getElementById('<?php echo $key; ?>');
+ 	 if (element != null)
+ 	 {
+ 	 var papa = element.parentNode;
+   if (papa) papa.removeChild(element);
+   }
 
+   /*
+  //Elemente neu erstellen
+  var newNode = document.createElement('div');
+  newNode.setAttribute('id', "<?php echo $key; ?>");
+  var content = document.createTextNode("");
+  newNode.appendChild(content)
+  
+  
+  holder.appendChild(newNode);
+  
+  new Draggable('<?php echo $key; ?>',{revert: true});
+    */
+ 	<?php
+ } 
+ ?>
+  
+
+  
+
+  
+  
+  }
+  
+  
+  </script>
 
 
  

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS `#!-PRÄFIX-!#token` (`user` varchar(100) NOT NULL, `token` text NOT NULL,  `verfall` int(100) NOT NULL, PRIMARY KEY (`user`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;

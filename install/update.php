@@ -257,6 +257,7 @@ $update = new update;
        $sql = $v;
 	
 	     $sql = str_replace("#!-PRÄFIX-!#", $update->getpräfix(), $sql);
+	     $sql = str_replace("#!-PREFIX-!#", $update->getpräfix(), $sql);
   	  
         if (($sql != "") and ($sql != "<br>"))
  	      {

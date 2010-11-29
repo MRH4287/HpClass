@@ -465,6 +465,60 @@ $local = true;
 
 
 
+$code = $this->generateToken();
+ 
+ 
+ //Ermittlung des Ablaufdatums
+ $verfall = time() + 172800;
+ 
+ $sql = "REPLACE INTO `$dbpräfix"."token` (`user`, `token`, `verfall`) VALUES ('$user', '$code', '$verfall')";
+ $erg = $hp->mysqlquery($sql);
+
+ 
+ $mail['mailcomefrom']="admin@".$_SERVER['HTTP_HOST']; // Die Emailadresse, von der angezeigt wird, dass die E-Mail kommt
+$mail['mailbetreff']="Ihr Passwort"; // Der angezeigt  Betreff in der Registrations E-mail
+
+$mail['mailtext']="Bitte folgen Sie folgenden Link um ihr Passwort zurückzusetzten:\r\n";
+$mail['mailtext'].="http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?site=lostpw&change=$code";
+// Der Text, der nach der Aktivierungsmai stehen soll.
+$mail['mailfooter']="\n \r Vielen dank für ihr interesse!";
+
+
+ 
+
+ if (!$local)
+{
+
+foreach ($mail as $key=>$value) {
+	$$key = $value;
+}
+$sql = "SELECT email FROM `$dbpräfix"."user` WHERE `user` = '$user'";
+ $erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+
+$info->okn("Eine Bestätigungs E-Mail wurde an Sie geschickt.");
+//print_r($mail);
+ mail($row->email, $mailbetreff, $mailtext.$mailfooter ,"from:$mailcomefrom");
+ echo "Eine E-Mail mit einer Bestätigung wurde an ihre E-Mail Adresse geschickt!";
+ 
+} else
+{
+echo ("Bitte gehen Sie auf folgende Seite:<br>");
+echo ("<a href=\"http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?site=lostpw&change=$code\">Passwort zurücksetzten</a>");
+
+
+
+}
+ 
+ 
+
+
+}
+
+
+function generateToken()
+{
 $password_length = 15;
 $generated_password = "";
 $valid_characters = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -476,49 +530,8 @@ $i = 0;
   $generated_password .= $valid_characters[mt_rand(0, $chars_length)];
  }
 
- $code = $generated_password;
+ return $generated_password;
  
- 
-// $passwort = md5($code);
- 
- 
- $sql = "UPDATE `$dbpräfix"."user` SET `pass` = '$code' WHERE `user` = '$user';";
- $erg = $hp->mysqlquery($sql);
- 
- 
- 
- $mail['mailcomefrom']="admin@".$_SERVER['HTTP_HOST']; // Die Emailadresse, von der angezeigt wird, dass die E-Mail kommt
-$mail['mailbetreff']="Ihr Passwort"; // Der angezeigt  Betreff in der Registrations E-mail
-
-$mail['mailtext']="Ihr Passwort wurde erfolgreich zurückgesetzt.\n\r Es lautet: $code";
-// Der Text, der nach der Aktivierungsmai stehen soll.
-$mail['mailfooter']="\n \r Vielen dank für ihr interesse!";
-
- 
- 
- 
- if (!$local)
-{
-
-foreach ($mail as $key=>$value) {
-	$$key = $value;
-}
-$info->okn("Ihr Passwort wurde zurückgesetzt");
- mail($email, $mailbetreff, $mailtext.$mailfooter ,"from:$mailcomefrom");
- echo "Eine E-Mail mit ihrem Passwort wurde an ihre E-Mail Adresse geschickt!";
- 
-} else
-{
-echo ("Ihr Passwort wurde zurückgesetzt<br>");
-echo ("Es lautet $code ");
-
-
-
-}
-
-
-
-
 }
 
 

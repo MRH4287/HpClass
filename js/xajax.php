@@ -3,7 +3,7 @@
 //xajax_checkres();
 
 <?php
-print ($xajaxF->getfunk()); // ['xajax_funk']
+print ($xajaxF->getfunk(true)); // ['xajax_funk']
 ?>
 
 
