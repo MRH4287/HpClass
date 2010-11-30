@@ -54,6 +54,7 @@ xajax_dragevent(base.id, drag.id, getinfo(drag), getinfo(base));
 
 function widgetDropEvent(dropper, drag, infon, info_droppable)
 {
+killElement(drag);
 xajax_dragevent(dropper, drag, infon, info_droppable);
 xajax_reloadWidgets();
 
@@ -62,6 +63,7 @@ xajax_reloadWidgets();
 
 function widgetDeletDropEvent(dropper, drag, infon, info_droppable)
 {
+killElement(drag);
 xajax_widget_del(dropper, drag, infon, info_droppable);
 xajax_reloadWidgets();
 
