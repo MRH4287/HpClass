@@ -45,7 +45,7 @@ function createDropBox(holderT, key)
   
 Droppables.add(key,{onDrop: function(drag, base) {
 
-xajax_dragevent(base.id, drag.id, getinfo(drag), getinfo(base));
+widgetDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));
 
  }, hoverclass: 'hclass'});
  

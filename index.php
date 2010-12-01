@@ -16,6 +16,7 @@ require_once 'include/FirePHP.class.php';
 require_once 'include/class_xajax_funk.php';
 require_once 'include/class_forum.php';
 require_once 'include/class_widgets.php';
+require_once 'include/class_subpages.php';
 //----------------------------------------------------------------------------
 
 //--------------------------------------Class Area----------------------------
@@ -28,6 +29,7 @@ $lbsites    = new lbsites;
 $xajaxF     = new Xajax_Funktions;
 $forum      = new forum;
 $widgets    = new widgets;
+$subpages   = new subpages;
 // ----------------------------------------------------------------------------
 
 //--------------------------------------SET Area-------------------------------
@@ -51,6 +53,8 @@ $forum->sethp($hp);
 $hp->setforum($forum);
 $widgets->sethp($hp);
 $hp->setwidgets($widgets);
+$subpages->sethp($hp);
+$hp->setsubpages($subpages);
 // ----------------------------------------------------------------------------
 
 //-----------------------------------MYSQL Area (DB Verbindung)----------------

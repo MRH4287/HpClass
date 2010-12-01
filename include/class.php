@@ -16,6 +16,7 @@ public    $template;
 public    $xajaxF;
 public    $forum;
 public    $widgets;
+public    $subpages;
 
 
 // Geschützte Variablen
@@ -115,6 +116,11 @@ $this->forum = $forum;
 function setwidgets($widgets)
 {
 $this->widgets = $widgets;
+}
+
+function setsubpages($subpage)
+{
+$this->subpages = $subpage;
 }
 
 //  Ende set-Area
