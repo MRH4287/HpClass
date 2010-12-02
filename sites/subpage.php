@@ -72,6 +72,29 @@ function NaviDropEvent(dropper, drag, infon, info_droppable)
 <?php
 
 
+ if (isset($get['page']))
+ {
+ 
+  $subpage = $subpages->loadSite($get['page']);
+  
+  if ($subpage == false)
+  {
+  echo "Die gewünschte Seite existiert nicht!";
+  } else
+   {
+   
+   echo $subpage;
+   
+   }
+  
+ }
+
+
+
+
+
+
+/*
 $edit = isset($get['edit']);
 
 
@@ -119,7 +142,7 @@ foreach ($elements as $key=>$value) {
  echo "createNaviDropBox('holder_navi_drop_box', 'navi_drop')";
  echo "</script>";
 
-
+ */
 
 
 ?>

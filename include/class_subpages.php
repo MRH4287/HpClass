@@ -3,11 +3,49 @@ class subpages
 {
 var $hp;
 
+var $templatePath;
+var $dynContent = array();
+
+var $dynContentPrefix = "dy_";
+
+function __construct()
+{
+// Konfiguration:
+
+// Der Pfad zu dem Templates der Unterseiten:
+$this->templatePath = "./subpages/";
+
+
+$this->registerFunctions($this);
+
+}
+
+
 
 function sethp($hp)
 {
 $this->hp = $hp;
 }
+
+ public function registerFunctions($object) {
+    		$methods = get_class_methods($object);
+    		
+    		foreach ($methods as $m) {
+			$p = $this->dynContentPrefix;
+    			if (preg_match("/^{$p}[a-z]/", $m)) {
+    				$m2 = preg_replace("/^{$p}([a-z])/e", "strtolower('$1')", $m);
+    				//$this->xajax->registerFunction(array($m2, &$object, $m));
+    				$data = array();
+    				$data["name"] = $m2;
+    				$data["function"] = $m;
+    				$data["object"] = $object;
+    				
+    				$this->dynContent[$m2] = $data;
+    				
+    			}
+    		}
+    }
+
 
 function getChilds($parent)
 {
@@ -91,6 +129,173 @@ function printTree($element, $depth = 0)
  return $string;
 
 }
+
+
+function loadSite($site)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$game = $hp->game;
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+
+
+$page = $this->getSite($site);
+
+if ($site == false)
+{
+return false;
+}
+
+$template = $page['template'];
+
+$tempPath = $this->templatePath.$template.".html";
+$fp->log("Lade Template vom Pfad: $tempPath");
+
+if (!is_file($tempPath) || !file_exists($tempPath))
+{
+return false;
+}
+
+// Importieren der Konfiguration 
+$tempConfig = $this->getTemplateConfig($template);
+
+if ($tempConfig == false)
+{
+$error->error("Fehlerhafte SubPage-Config für das Template ".$template);
+return false;
+
+}
+
+
+// Lade die Datei in das System
+$content = file_get_contents($tempPath);
+
+// Binde Dynamische Inhalte ein
+$content = $this->appendDynamicContent($site, $content);
+
+
+// Lade die Tamplate Datem für diese Unterseite und ersetzte die Statischen Inhalte
+$templateArray = $this->getTemplateData($site);
+
+foreach ($templateArray as $key=>$value) {
+  
+  // Füge nur Daten ein, die auch in der Konfigurations-Datei stehen
+  if (in_array($key, $tempConfig["template"]))
+  {	
+  $content = str_replace("<!--$key-->", $value, $content);	
+	}
+}
+
+
+//Liefere die so erstellte Seite zurück:
+return $content;
+
+
+
+}
+
+
+function getTemplateData($site)
+{
+
+$page = $this->getSite($site);
+
+if ($page == false)
+{
+return false;
+}
+
+
+$content = $page["content"];
+
+$template = array();
+
+$elementSplit = explode("<!--!>", $content);
+
+  foreach ($elementSplit as $k=>$line) {
+  	
+  	$data = explode("<!=!>", $line);
+  	
+  	$template[$data[0]] = $data[1];
+  	
+  	
+  }
+
+  return $template;
+}
+
+
+function appendDynamicContent($site, $content)
+{
+
+ $config = $this->getTemplateConfig($site);
+  
+  
+  $dynContent = $config["dyncontent"];
+  
+  foreach ($dynContent as $pl=>$type) {
+        if (is_array($this->dynContent[$type]) && ($this->dynContent[$type]["object"] != null))
+        {
+            $data = $this->dynContent[$type];
+            $f = $data["function"];
+            $o = $data["object"];
+            
+            $result = $o->$f($site, $config);
+        
+            $content = str_replace("<!--$pl-->", $result, $content);
+        
+        
+        } else
+        {
+        $content = str_replace("<!--$pl-->", "<img src=\"images/alert2.gif\"> Fehler: Dyanmisches Template exsistiert nicht <img src=\"images/alert2.gif\">", $content);
+        }
+         	
+  }
+  
+  
+
+return $content;
+
+
+}
+
+
+function getTemplateConfig($template)
+{
+  $tempPath = $this->templatePath.$template."_config.php";
+    if (!is_file($tempPath) || !file_exists($tempPath))
+    {
+      return false;
+    }
+    
+  // Importieren der gefundenen Datei:
+     include $tempPath;
+
+     if (is_array($subpageconfig))
+     {
+     return $subpageconfig;
+     } else
+     {
+     return false;
+     }
+
+}
+
+
+// ------------------------- Dynamische Inhalte ------------------------------
+
+//      Alle Funktionen müssen mit dy_ anfangen und die Argumente $site und $templateConfig haben
+//      und muss einen String, mit dem Inhalt haben
+
+
+function dy_test($site, $templateConfig)
+{
+return " :)";
+}
+
+
 
 
 
