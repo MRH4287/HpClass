@@ -47,6 +47,31 @@ $this->hp = $hp;
     }
 
 
+
+function loadTemplateFile($template)
+{
+
+$path = "template/$template/dynamicContent.php";
+
+  if ((file_exists($path)) && (is_file($path)))
+  {
+  
+  include $path;
+
+  $obj = new dynContent();
+  $obj->sethp($this->hp);
+  
+  $this->registerFunctions($obj);
+  
+
+  }
+
+}
+
+
+
+
+
 function getChilds($parent)
 {
 $hp = $this->hp;

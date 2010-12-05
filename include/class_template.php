@@ -67,6 +67,8 @@ $temp = file_get_contents("template/$path.html");
  $data = $this->spezialsigs($data);
  
 
+ $this->hp->subpages->loadTemplateFile($path);
+
    
 $this->template['header'].=$data[0];
 
