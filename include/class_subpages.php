@@ -309,6 +309,55 @@ function getTemplateConfig($template)
 }
 
 
+function getAllTemplatesWithDynContent($dynContent)
+{
+$pages = array();
+ 
+$handle = @opendir("./subpages/"); 
+while (false !== ($file = readdir($handle))) {
+$n = explode(".", $file);
+$a = $n[0];
+$b = $n[1];
+
+if ($b == "php")
+{
+
+  $array = explode("_", $a);
+  if ($array[1] == "config")
+  {
+
+    $path = "./subpages/$file";
+    if (is_file($path) && file_exists($path))
+    {
+
+
+      include "./subpages/$file";
+      
+      if (in_array($dynContent, $subpageconfig["dyncontent"]))
+      {
+        $pages[]  = $array[0];
+      }
+      
+      
+    }
+
+
+
+  }
+
+
+ 
+}
+ 
+ 
+ 
+}
+
+return $pages;
+
+}
+
+
 // ------------------------- Dynamische Inhalte ------------------------------
 
 //      Alle Funktionen müssen mit dy_ anfangen und die Argumente $site und $templateConfig haben
