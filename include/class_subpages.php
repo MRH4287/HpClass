@@ -70,9 +70,78 @@ $path = "template/$template/dynamicContent.php";
 
 
 
+function getNavigationID($siteID)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$fp = $fp->fp;
 
 
-function getChilds($parent)
+$sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `site` = '$siteID' AND `dynamic` = '1';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+return $row->ID;
+
+}
+
+
+function getSubpageID($naviID)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$fp = $fp->fp;
+
+
+$sql = "SELECT site FROM `$dbpräfix"."navigation` WHERE `ID` = '$naviID' OR `name` = '$naviID';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+$sql = "SELECT ID FROM `$dbpräfix"."subpages` WHERE `ID` = '$row->site' OR `name` = '$row->site';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+return $row->ID;
+
+
+}
+
+function getSiteTemplate($ID, $navigation = false)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$fp = $fp->fp;
+
+
+$template = "";
+
+if ($navigation)
+{
+$sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `ID` = '$ID' OR `name` = '$ID';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+$ID = $row->name;
+}                
+
+
+$sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `ID` = '$ID' OR `name` = '$ID';";
+$erg = $hp->mysqlquery($sql);
+$row = mysql_fetch_object($erg);
+
+return $row->template;        
+
+}
+
+
+
+function getChilds($parent, $navigationID = true)
 {
 $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
@@ -81,7 +150,16 @@ $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
 
-$sql = "SELECT ID FROM `$dbpräfix"."subpages` WHERE `parent` = '$parent' ORDER BY `order` ASC;";
+
+if (!$navigationID)
+{
+$parent = $this->getNavigationID($parent);
+
+}
+
+
+
+$sql = "SELECT name FROM `$dbpräfix"."navigation` WHERE `parent` = '$parent' ORDER BY `order` ASC;";
 $erg = $hp->mysqlquery($sql);
 
 $childs = array();
@@ -89,7 +167,7 @@ $childs = array();
   while ($row = mysql_fetch_object($erg))
   {
 
-  $childs[] = $this->getSite($row->ID);
+  $childs[] = $row->name;
 
   }
 
@@ -120,40 +198,75 @@ $fp = $hp->fp;
 
   $array = mysql_fetch_array($erg);
   
-    if (is_array($array))
-    {
-  
-      $fp->log($array['ID']);
-     $childs = $this->getChilds($array['ID']);
-      if ($childs != false)
-      {
-      $array['childs'] = $childs;
-       
-      }
-    }
 
   return ((is_array($array)) ? $array : false);
   
 }
 
 
-function printTree($element, $depth = 0)
+function printNavigation($maxdepth = 5)
 {
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$fp = $fp->fp;
 
- $string = "".$depth."<!>".$element['ID']."<!>".$element['name']."</el>";
- 
- if (is_array($element['childs']))
- {
-  foreach ($element['childs'] as $key=>$value) {
-  	
-  	$string .= $this->printTree($value, $depth+1);
-  	
-  }
+$result = "";
 
- }
- return $string;
+$sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `parent` = '0' ORDER BY `order` ASC;";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
+{
+$result .=$this->printNavigation_r($row, $maxdepth, 0);
 
 }
+
+return $result;
+
+
+}
+
+
+
+function printNavigation_r($element, $maxdepth, $depth)
+{
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$fp = $fp->fp;
+
+
+ if ($depth > $maxdepth)
+ {
+ return "";
+ }
+ //depth, titel, name, dynamic
+ $out = $depth."<!>".$element->name."<!>".$element->site."<!>".$element->dynamic."</el>";
+ 
+ $childs = $this->getChilds($element->ID, true);
+
+ foreach ($childs as $key=>$value) {
+ 
+  $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `name` = '$value';";
+  $erg = $hp->mysqlquery($sql);
+  while ($row = mysql_fetch_object($erg))
+  {
+   $out .=$this->printNavigation_r($row, $maxdepth, $depth+1);
+
+  }
+ 
+ 
+ 
+ 	
+ }
+
+ return $out;
+
+
+}
+
 
 
 function loadSite($site)
@@ -201,7 +314,7 @@ $content = file_get_contents($tempPath);
 $content = $this->appendDynamicContent($site, $content);
 
 
-// Lade die Tamplate Datem für diese Unterseite und ersetzte die Statischen Inhalte
+// Lade die Template Daten für diese Unterseite und ersetzte die statischen Inhalte
 $templateArray = $this->getTemplateData($site);
 
 foreach ($templateArray as $key=>$value) {
@@ -255,7 +368,9 @@ $elementSplit = explode("<!--!>", $content);
 function appendDynamicContent($site, $content)
 {
 
- $config = $this->getTemplateConfig($site);
+
+ $template = $this->getSiteTemplate($site);
+ $config = $this->getTemplateConfig($template);
   
   
   $dynContent = $config["dyncontent"];

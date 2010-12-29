@@ -87,20 +87,22 @@ function NaviDropEvent(dropper, drag, infon, info_droppable)
    
    }
   
- }
+ } else
+ 
+ {
 
 
 
 
 
 
-/*
+
 $edit = isset($get['edit']);
 
 
-$mSites = $subpages->getChilds(0);
 
-$text = $subpages->printTree($mSites[0]);
+
+$text = $subpages->printNavigation();
 $elements = explode("</el>", $text);
 
 $scripts = array();
@@ -110,8 +112,10 @@ foreach ($elements as $key=>$value) {
 	 $infos = explode("<!>", $value);
 	 
 	 $depth = $infos[0];
-	 $ID = $infos[1];
-	 $name = $infos[2];
+	 $name = $infos[1];
+	 $site = $infos[2];
+	 $dynamic = $infos[3];
+	 
 	 
 	 $output = ""; 
 	 for ($i = 0; $i < $depth; $i++) {
@@ -127,7 +131,10 @@ foreach ($elements as $key=>$value) {
   
   } else
   {
-  $output .= "<a href=\"#$ID\">$name</a><br>";
+  
+    $output .= "<a href=\"?site=$site\">$name</a><br>";
+
+  
   }
 	 
 	echo $output; 
@@ -142,7 +149,7 @@ foreach ($elements as $key=>$value) {
  echo "createNaviDropBox('holder_navi_drop_box', 'navi_drop')";
  echo "</script>";
 
- */
+ }
 
 
 ?>

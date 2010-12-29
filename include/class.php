@@ -242,7 +242,7 @@ foreach ($get as $key=>$value) {
   if (!is_array($get[$key]))
   {
   
-  	$get[$key] = $this->stripScript(mysql_escape_string($value));
+  	$get[$key] = $this->stripScript(mysql_real_escape_string($value));
   	
   } else
   {
@@ -250,7 +250,7 @@ foreach ($get as $key=>$value) {
    foreach ($value as $key2=>$value2) {
     if (!is_array($value2))
     {
-    	$get[$key][$key2] = $this->stripScript(mysql_escape_string($value2));
+    	$get[$key][$key2] = $this->stripScript(mysql_real_escape_string($value2));
    	}
    }
    
@@ -601,6 +601,9 @@ $sitesp = "sites";
 if (file_exists("$sitesp/$site.php") and (is_file("$sitesp/$site.php")))
  {
  include "$sitesp/$site.php";
+ } elseif (($content = $this->subpages->loadSite($site)) != false)
+ {
+  echo $content; 
  } else
   {
   if ($this->sitepath['404'] != "")

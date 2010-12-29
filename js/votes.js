@@ -110,7 +110,7 @@ function addanswer()
     var tdt      = document.createElement('td');	
 
 
-    tdt.innerHTML = '<input type="text" name="antwort[]" size="70" />';
+    tdt.innerHTML = '<input type="text" name="antwort[]" size="50" />';
     tr.appendChild( tdt );
 		table.appendChild( tr );		
 
