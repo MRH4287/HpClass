@@ -14,6 +14,8 @@ or print "Die Datenbank existiert nicht.";
 $user=$_POST['user'];
 $passwort=$_POST['passwort'];
 
+$user = mysql_real_escape_string($user); 
+
 $passwort = md5($passwort);
 
 $ok = false;
@@ -26,87 +28,68 @@ $ergebnis = mysql_query($abfrage);
     
 while($row = mysql_fetch_object($ergebnis))
    {
-   if ($user == "$row->user" and $passwort == "$row->pass")
-   {
-   $_SESSION['username']="$user";
-  $ok=true; 
-   } elseif ($passwort != $row->pass) // Kein Md5
-   {
-   if ($passwort == md5($row->pass))
-   {
-   // KEin MD5 ...
-   $sql = "UPDATE `".$dbpräfix."user` SET `pass` = MD5( '$row->pass' ) WHERE `user` = '".$user."'";
-   mysql_query($sql);
-   echo mysql_error();
-    $_SESSION['username']="$user";
-    $ok = true;
-   }
+    if ($user == "$row->user" and $passwort == "$row->pass")
+    {
+       $_SESSION['username']="$user";
+       $ok=true; 
+    } elseif ($passwort != $row->pass) // Kein Md5
+    {
+      if ($passwort == md5($row->pass))
+      {
+      // KEin MD5 ...
+      $sql = "UPDATE `".$dbpräfix."user` SET `pass` = MD5( '$row->pass' ) WHERE `user` = '".$user."'";
+      mysql_query($sql);
+      echo mysql_error();
+      $_SESSION['username']="$user";
+      $ok = true;
+      }
    
-   }
     }
+   }
+ if ($ok)
+ {
 
-$abfrage = "SELECT * FROM ".$dbpräfix."user WHERE `user` = '".$user."'";
-$ergebnis =  mysql_query($abfrage);
-    
-    
-while($row = mysql_fetch_object($ergebnis))
+ $abfrage = "SELECT * FROM ".$dbpräfix."user WHERE `user` = '".$user."'";
+ $ergebnis =  mysql_query($abfrage);
+ while($row = mysql_fetch_object($ergebnis))
    {
    $_SESSION['level']="$row->level";
    $_SESSION['pass']="$row->pass";
    $_SESSION['ID'] = $row->ID;
-    }
-$time =(int) time();
-$eingabe2 = "UPDATE `".$dbpräfix."user` SET `lastlogin` = '$time' WHERE `user` = '".$user."';";
-$ergebnis2 = mysql_query($eingabe2);
-echo mysql_error();
-
-if ($log)
-{
-$eintrag = "INSERT INTO ".$dbpräfix."log
-(user, timestamp, Ereignis)
-VALUES
-('$user', '$time', 'Login')";
-$eintragen = mysql_query($eintrag);
-echo mysql_error();
-}
+   }
+  $time =(int) time();
+  $eingabe2 = "UPDATE `".$dbpräfix."user` SET `lastlogin` = '$time' WHERE `user` = '".$user."';";
+  $ergebnis2 = mysql_query($eingabe2);
+  echo mysql_error();
+ }
 }
 if (isset($_GET['logout']))
 {
-$user = $_SESSION['username'];
-session_unregister("username");
-session_unregister("level");
-setcookie ("username", "", time() -1);
-setcookie ("level", "", time() -1);
-session_destroy();
-$time =(int) time();
-if ($log)
-{
-$eintrag = "INSERT INTO ".$dbpräfix."log
-(user, timestamp, Ereignis)
-VALUES
-('$user', '$time', 'Logout')";
-$eintragen =  mysql_query($eintrag);
-echo mysql_error();
-}
-
-
+  $user = $_SESSION['username'];
+  session_unregister("username");
+  session_unregister("level");
+  setcookie ("username", "", time() -1);
+  setcookie ("level", "", time() -1);
+  session_destroy();
+  $time =(int) time();
 }
 if ($ok == true)
 {
-if (isset($_GET['logout']))
-{
-$loginok="lo";
-}else{
-$loginok="j";
-}
+  if (isset($_GET['logout']))
+  {
+    $loginok="lo";
+  }else{
+    $loginok="j";
+  }
 } else
 {
-$loginok="n";
+  $loginok="n";
 }
 if (!isset($_POST['login']))
 {
-$loginok="j";
+  $loginok="j";
 }
+
 header ("Location: ../index.php?login=$loginok");
 
 ?>
