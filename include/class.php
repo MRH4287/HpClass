@@ -475,7 +475,7 @@ $code = $this->generateToken();
  
  
  //Ermittlung des Ablaufdatums
- $verfall = time() + 172800;
+ $verfall = time() + 7200;
  
  $sql = "REPLACE INTO `$dbpräfix"."token` (`user`, `token`, `verfall`) VALUES ('$user', '$code', '$verfall')";
  $erg = $hp->mysqlquery($sql);
