@@ -1,6 +1,6 @@
 <?php
 // Das ist eine Srandartdatei, diese Kopieren um dieses System zu ;enutzen 
-$Name = "Xajax Tepmlate Extention";
+$Name = "Xajax Template Extention";
 $Run = "autorun.php";
 $description = "Ermöglicht das laden von Dynamischen Inhalten über den Template Ornder";
 $date = date('j').".".date('n').".".date('y');
