@@ -22,8 +22,9 @@ public $replace = "
 </td>
 </tr>
 </table>
-
-<script>
+";
+/*
+  <script>
 
 Droppables.add('<!--ID-->',{onDrop: function(drag, base) {
 
@@ -33,9 +34,7 @@ widgetDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));
  
 
 </script>
-
-";
-
+*/
 
 
 function sethp($hp)
@@ -49,7 +48,6 @@ function replace()
 {
 $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
-$game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
@@ -61,7 +59,7 @@ $get = $hp->get();
 $this->incwidgetfiles();
 
 
-$superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
+$superadmin = ( isset($_SESSION['username']) and in_array($_SESSION['username'], $hp->getsuperadmin()));
 
  // Datenbank Abfrage, ob bereits ein Widget verschoben wurde:
 $sql = "SELECT * FROM `$dbpräfix"."widget`";
@@ -69,14 +67,8 @@ $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
 
- if (($get['site'] == "dragdrop") and $superadmin)
- {
-// $del1 = "<div id=\"$row->ID\" class=widget-del>";
- //$del2 = "<br><a href=# onclick=xajax_widget_del('$row->ID')>Löschen</a></div>";
- }
-
  //$temp->addtemp($row->ID, $this->widgets[$row->source]);
- $value = $del1.$this->widgets[$row->source].$del2;
+ $value = $this->widgets[$row->source];
  $this->template[$row->ID] = "<div id='widget_".$row->ID."'>$value</div>";
  $this->placed[] = $row->source;
  $this->placed[] = $row->ID;
@@ -90,10 +82,10 @@ while ($row = mysql_fetch_object($erg))
 foreach ($this->placeholder as $key=>$value) {
 	if (!in_array($value, $this->placed))
 	{
-	 if (($get['site'] == "dragdrop") and ($superadmin))
+	 if (($hp->site == "dragdrop") and ($superadmin))
     {
-  	$temp->addtemp($value, str_replace("<!--ID-->", $value, "<div id='widget_".$value."'>$this->replace</div>"));
-	//$this->template[$value] = str_replace("<!--ID-->", $value, $this->replace);
+  	$temp->addtemp($value, str_replace("<!--ID-->", $value, "<div id='widget_".$value."'></div>"));         //$this->replace
+
 	 } else
 	 {
     $temp->addtemp($value, "<div id='widget_".$value."'></div>");
@@ -110,7 +102,6 @@ function getParent($widget)
 {
 $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
-$game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
@@ -129,7 +120,6 @@ function addtotemp()
 {
 $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
-$game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
@@ -157,7 +147,6 @@ function getwidgets($placed = false, $config = true)
 {
 $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
-$game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
@@ -165,13 +154,19 @@ $temp = $hp->template;
 $lbs = $hp->lbsites;
 
 $widgets_replace = $hp->template->spezialsigs($this->widgets);
+
+
 $widgets = array();
 
 
 foreach ($widgets_replace as $key=>$value) {
+
+
 	 if (!in_array($key, $this->placed) or $placed)
    {
    $widgets[$key] = $value;
+   
+   
    if (array_key_exists($key, $this->tempconfig) and $config)
    {
    $widgets[$key] .= "<center>".$lbs->link($this->tempconfig[$key], "<img src=\"images/edit.gif\">")."</center>";
@@ -214,6 +209,13 @@ return $this->placeholder;
 
 function addwidget($name, $value)
 {
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->firephp;
+$config = $hp->getconfig();
+
 $this->widgets[$name] = $value;
 }
 
@@ -279,7 +281,7 @@ $design = $config['design'];
         	
         }
         
-      if (is_array($tempconfig))
+      if (isset($tempconfig) && is_array($tempconfig))
       {
         $this->tempconfig = array_merge($this->tempconfig, $tempconfig);
       //  print_r($this->tempconfig);

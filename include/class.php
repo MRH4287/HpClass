@@ -18,6 +18,9 @@ public    $forum;
 public    $widgets;
 public    $subpages;
 
+//Wegen Makro Fehlern:
+public    $game = null;
+
 
 // Geschützte Variablen
 protected $outputg;
@@ -56,7 +59,7 @@ $this->superadminonly = array("rights", "config", "dragdrop", "test");
 //Mysql
 $this->pathtomysqlversion = "version/mysql.php";
 
-$this->hp = this;
+$this->hp = $this;
 }
 // ------------------------------------------------------------------
 // In diesem Bereich werden alle Variablen an die Klasse übergeben
@@ -316,7 +319,7 @@ $this->langclass->setlang($get['lang']);
 $this->setlang($this->langclass);
 }
 
-if ($get['login'] == "n")
+if (isset($get["login"]) && ($get['login'] == "n"))
 {
 $loginfail = $this->langclass->word("loginfail");
 $this->error->error($loginfail, "2");
@@ -567,7 +570,7 @@ $ok = false;
 }
 }
 
-if (!in_array($_SESSION['username'], $this->superadmin)) {
+if (isset($_SESSION['username']) and !in_array($_SESSION['username'], $this->superadmin)) {
 if(in_array($site, $this->superadminonly)) { $ok = false; }
 }
 
@@ -590,7 +593,7 @@ $site = $this->site;
 $site= $this->checksite($site);
  
 
-if (($this->sitepath[$site] != "") and (!in_array($site, $this->redirectlock)))
+if (isset($this->sitepath[$site]) and ($this->sitepath[$site] != "") and (!in_array($site, $this->redirectlock)))
 {
 $sitesp = $this->sitepath[$site];
 } else
@@ -606,7 +609,7 @@ if (file_exists("$sitesp/$site.php") and (is_file("$sitesp/$site.php")))
   echo $content; 
  } else
   {
-  if ($this->sitepath['404'] != "")
+  if (isset($this->sitepath['404']) and ($this->sitepath['404'] != ""))
    {
    $sitesp = $this->sitepath['404'];
    include "$sitesp/404.php";
@@ -645,6 +648,8 @@ while($row = mysql_fetch_object($ergebnisss))
    $rright = "$row->right";
    
    $right[$rlevel][$rright] = $value;
+   // Wegen neuer PHP Version
+   $right[0][$rright] = false;
    }
 
 return $right;
@@ -852,6 +857,7 @@ function addredirectlock($site)
 {
 $this->redirectlock[]=$site;
 }
+
 
 
 } // Class Ende!

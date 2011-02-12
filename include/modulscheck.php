@@ -7,7 +7,7 @@ $hp->addredirectlock($value);
 
 
 
-if (in_array($_SESSION['username'], $hp->getsuperadmin()))
+if (isset($_SESSION['username']) and in_array($_SESSION['username'], $hp->getsuperadmin()))
 {
 $filearray = array();
 $modulsvor = false;

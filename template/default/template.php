@@ -1,11 +1,13 @@
 <?php
-$template['header'] ="";
+//$template['header'] ="";
 
 $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
 
 $sqlr = "SELECT * FROM `$dbpräfix"."ranks` ORDER BY `level` DESC";
 $ergr = $hp->mysqlquery($sqlr);
+
+$template['member'] = "";
 while ($rowr = mysql_fetch_object($ergr))
 {
 if ($rowr->level != 0)
@@ -21,5 +23,6 @@ while($row = mysql_fetch_object($ergebnis))
 
 }
 }
+
 
 ?>

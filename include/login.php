@@ -89,7 +89,7 @@ function getconfig($template, $design)
 
 function getlinks()
 {
- if (is_array($this->config['links']))
+ if (isset($this->config['links']) and is_array($this->config['links']))
  {
  return $this->config['links'];
  } else
@@ -136,7 +136,7 @@ $superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
  	
  	$data = explode("!", $key);
  	
- 	if ($data[1] != "")
+ 	if ((count($data) > 1) and ($data[1] != ""))
  	{
  	  
  	  if (($data[1] == "superadmin") and $superadmin)

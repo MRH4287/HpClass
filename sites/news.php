@@ -1,6 +1,3 @@
-
-
-
 <!--NEWS-->
 <?php
 
@@ -90,6 +87,11 @@ $get['delet'] = true;
 // Newsdel
 
 
+
+//News schreiben!
+if (isset($post['newswrite']))
+{
+
 // Newswrite
 $newskat=$post['newskat'];
 $newstitel=$post['newstitel'];
@@ -110,9 +112,6 @@ $newstitel = mysql_real_escape_string($newstitel);
 $newsersteller = mysql_real_escape_string($newsersteller);
 //$newstext = str_replace("\n",'<br>',$newstext);
 
-//News schreiben!
-if (isset($post['newswrite']))
-{
 
 
 if (!$right[$level]['newswrite'])

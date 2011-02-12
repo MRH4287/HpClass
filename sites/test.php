@@ -10,26 +10,26 @@ $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
 $lbs = $hp->lbsites;
+$fp = $hp->fp;
 
-
-echo "<b>Dies ist eine Testseite!</b><br>Solltet ihr sie finden, ignoriert sie ^^<br><br><hr>";
-
-//echo "<pre>";
-//print_r($lang->getlang());
-//echo "</pre>";
-
-//$lang->savetodb();
-
-
-$widget = $hp->widgets;
-
-print_r($widget->getConfig("test"));
 
 
 
 
 ?>
 
+<script>
+
+function testFunktion()
+{
+ocument.getElementById('test').innerHTML = 'bla';
+
+}
 
 
+
+</script>
+
+<div id="test"></div>
+<a href="#" onclick="xajax_test2('a')">a</a>
 

@@ -210,7 +210,7 @@ $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
 $info = $hp->info;
 $error = $hp->error;
-$fp = $fp->fp;
+$fp = $hp->fp;
 
 $result = "";
 
@@ -235,7 +235,7 @@ $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
 $info = $hp->info;
 $error = $hp->error;
-$fp = $fp->fp;
+$fp = $hp->fp;
 
 
  if ($depth > $maxdepth)

@@ -15,6 +15,8 @@ return info;
 
 function createWidgetBox(holderT, key, value)
 {
+//alert("Widget erstellen: "+key+" "+holderT+" "+value);
+
   var holder = document.getElementById(holderT);
 
   var newNode = document.createElement('div');

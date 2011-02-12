@@ -6,7 +6,7 @@ var $lang = array();
 var $clang;
 var $error;
 var $hp;
-var $temppath;
+var $temppath = "";
 
 
 
@@ -28,13 +28,16 @@ $this->loadfromdb();
 
 
 $config = $this->hp->getconfig();
-if ($config['design'] != "")
-{
-$design = $config['design'];
-}
 
 
-$this->temppath=$desgin;
+  if ($config['design'] != "")
+  {
+   $design = $config['design'];
+   $this->temppath= $design;
+  }  
+
+
+
 
 
 $this->inctempfiles();
@@ -47,7 +50,14 @@ return $this->lang;
 
 function getlang()
 {
-return $this->lang[$this->clang];
+  if (isset($this->lang[$this->clang]))
+  {
+    return $this->lang[$this->clang];
+  } 
+  else
+  {
+    return array();
+  }
 }
 
 function getlang2($key1)
@@ -260,7 +270,13 @@ $mrharray = array();
 
 foreach ($lang as $key=>$value) {
 $key = (string) $key;
-$mrharray = $this->lang[$key];
+  if (isset($this->lang[$key]))
+  {
+   $mrharray = $this->lang[$key];   
+  } else
+  {
+   $mrharray = null;
+  }
 
 if (!is_array($mrharray))
 {

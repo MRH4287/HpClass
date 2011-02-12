@@ -5,12 +5,10 @@ if ($config['titel'] != "")
 {
 $titel = $config['titel'];
 }
-if ($config['mainheadline'] != "")
-{
-$mainheadline = $config['mainheadline'];
-$mainheadline = str_replace("&lt;", "<", $mainheadline);
-$mainheadline = str_replace("'", "\"", $mainheadline);
-}
+
+
+
+
 if ($config['design'] != "")
 {
 $design = $config['design'];
@@ -21,10 +19,15 @@ $design = $config['design'];
 $template['header']='<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">';
 
-$template['headline']=$headline;
 $template['titel']=$titel;
-$template['mainheadline']=$mainheadline;
-$template['username']=$_SESSION['username'];
+  if (isset($_SESSION['username']))
+  {
+   $template['username']=$_SESSION['username'];
+  } else
+  {
+   $template['username'] = "NONE";
+  }
+
 
 if (file_exists(".svn/entries"))
 {

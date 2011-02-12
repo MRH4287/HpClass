@@ -70,9 +70,9 @@ $temp = file_get_contents("template/$path.html");
  $this->hp->subpages->loadTemplateFile($path);
 
    
-$this->template['header'].=$data[0];
+$this->template['header']=$data[0];
 
-$this->template['footer'].=$data[1];
+$this->template['footer']=$data[1];
 
 
 }
@@ -149,10 +149,14 @@ function addVote()
 {
 $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
-$game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
+$right = $hp->getright();
+$lbs = $hp->lbsites;
+
+$level = $_SESSION["level"];
+
 
 
 $sql = "SELECT * FROM `$dbpräfix"."vote`";

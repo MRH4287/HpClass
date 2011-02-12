@@ -16,6 +16,9 @@ $placeholder = array();
 //$tempconfig = array ("SVN" => "Test");
 
 
+//$widget = array("test" => "inhalt");
+
+
 $widget = array (
 
 // SVN Widget:
@@ -40,44 +43,6 @@ $widget = array (
 </tr>
 <!--member-->
 
-</table>',
-
-// Uhrzeit:
-"Uhr" =>'<table bgcolor="#89A9B8"  width="170" border="0" cellpadding="0" cellspacing="0" class="news"  align="center" style="border:solid 1px black" >
-<tr>
-<td class="rubrik">&nbsp;Zeit</td>
-</tr>
-<tr>
-<td >
-
-<div name="uhrzeit" id="uhrzeit"></div>
-<script type=\'text/javascript\'>
-<!--
-function zeit()
-{
-var heute = new Date();
-        var std = heute.getHours();
-        var min = heute.getMinutes();
-        var sek = heute.getSeconds();
-
-
-        if(std < 10){std = "0" + std};
-        if(min < 10){min = "0" + min};
-        if(sek < 10){sek = "0" + sek};
-                
-        var genzei = std + ":" + min + " " + sek;
-
-
-        document.getElementById(\'uhrzeit\').innerHTML="<center>"+genzei+"</center>";
-
-        setTimeout("zeit()",1000)
-}
-
-zeit();
-//-->
-</script>     
-</td>
-</tr>
 </table>'
 
 );
