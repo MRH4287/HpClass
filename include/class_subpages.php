@@ -116,7 +116,7 @@ $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
 $info = $hp->info;
 $error = $hp->error;
-$fp = $fp->fp;
+$fp = $hp->fp;
 
 
 $template = "";
@@ -355,9 +355,10 @@ $elementSplit = explode("<!--!>", $content);
   foreach ($elementSplit as $k=>$line) {
   	
   	$data = explode("<!=!>", $line);
-  	
-  	$template[$data[0]] = $data[1];
-  	
+  	if (count($data) == 2)
+  	{
+  	 $template[$data[0]] = $data[1];
+  	}
   	
   }
 
@@ -376,7 +377,8 @@ function appendDynamicContent($site, $content)
   $dynContent = $config["dyncontent"];
   
   foreach ($dynContent as $pl=>$type) {
-        if (is_array($this->dynContent[$type]) && ($this->dynContent[$type]["object"] != null))
+        if (isset($this->dynContent[$type]) &&  is_array($this->dynContent[$type]) &&
+        isset($this->dynContent[$type]["object"]) && ($this->dynContent[$type]["object"] != null))
         {
             $data = $this->dynContent[$type];
             $f = $data["function"];
