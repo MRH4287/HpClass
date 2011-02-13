@@ -92,7 +92,7 @@ if (!isset($post['register'])) {
     </tr>
     <?php
 
-    if ($captcha) {  ?>
+    if (isset($captcha)) {  ?>
     <tr>
     <td width="150"></td>
     <td width="365" rowspan="2"><?php
