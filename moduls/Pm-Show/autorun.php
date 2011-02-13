@@ -1,6 +1,5 @@
 <?php
 
-
 if (isset($_SESSION['username']))
 {
 $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `zu` = '".$_SESSION['username']."' AND `gelesen` = '0' ORDER BY `ID`;";
