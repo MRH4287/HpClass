@@ -390,13 +390,13 @@ $error->error($lang->word('doublepost'),"2");
     <th width="31%" bgcolor="<?php echo $defaultcolor?>" scope="col"><?php echo $lang->word('empfänger')?>:</th>
     <th width="69%" scope="col"><div align="center">
       <label>
-      <input name="zu" size="80"  type="text" value="<?php echo $get['to']?>" />
+      <input name="zu" size="80"  type="text" value="<?php if (isset($get["to"])) { echo $get["to"]; } ?>" />
       </label>
     </div></th>
   </tr>
   <tr>
     <th bgcolor="<?php echo $defaultcolor?>" scope="row"><?php echo $lang->word('betreff')?>:</th>
-    <td><div align="center"><input type="text" name="Betreff" size="80" value="<?php echo $bet?>" /></div></td>
+    <td><div align="center"><input type="text" name="Betreff" size="80" value="<?php if (isset($get["bet"])) { echo $get["bet"]; } ?>" /></div></td>
   </tr>
   <tr>
     <th bgcolor="<?php echo $defaultcolor?>" scope="row"><?php echo $lang->word('text')?>:</th>
@@ -521,7 +521,7 @@ if (!isset($get['post']))
 
   <tr>
     <th bgcolor="<?php echo $defaultcolor?>" scope="row"><?php echo $lang->word('betreff')?>:</th>
-    <td><div align="center"><input type="text" name="Betreff" size="80" value="<?php echo $bet?>" /></div></td>
+    <td><div align="center"><input type="text" name="Betreff" size="80" value="<?php if (isset($get["bet"])) { echo $get["bet"]; } ?>" /></div></td>
   </tr>
   <tr>
     <th bgcolor="<?php echo $defaultcolor?>" scope="row"><?php echo $lang->word('text')?>:</th>

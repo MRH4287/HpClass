@@ -137,6 +137,7 @@ $filearray = array();
 $handle = opendir("./template"); 
 while (false != ($file = readdir($handle))) {
 $exp = explode(".",$file);
+if (count($exp) >= 2)
 if ($exp[1] == "html")
 {
 $filearray[]=$exp[0];

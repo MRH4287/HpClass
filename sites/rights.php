@@ -40,9 +40,13 @@ foreach ($levels as $keyh=>$valueh) {
 	
 
 
-
+if (isset($post['right'.$valueh]))
+{
 $temp = $post['right'.$valueh];
-
+} else
+{
+$temp = array();
+}
 
 $temp['lol']= "1337";
 

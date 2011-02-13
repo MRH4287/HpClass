@@ -1,8 +1,28 @@
 <?php
 $font = 10;
+if (isset($_GET['p']))
+{
 $bild = $_GET['p'];
+}
+
+if (isset($_GET['f']))
+{
 $farbe1 = $_GET['f'];
+} else
+{
+$farbe1 = "black";
+}
+
+if (isset($_GET['t']))
+{
 $text = $_GET['t'];
+} else
+{
+$text = "";
+}
+
+
+
 if (isset($bild) and ($bild !== '')){
 
 $bild= "../images/button/button$bild.png";

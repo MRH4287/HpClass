@@ -54,7 +54,7 @@ echo "Das gewünschte Forum exsistiert nicht oder Sie haben keine Bereichtigung d
 } else
 {
 
-if (!is_array($_SESSION['forum_canread_F']))
+if (!isset($_SESSION['forum_canread_F']) or !is_array($_SESSION['forum_canread_F']))
 {
 $_SESSION['forum_canread_F'] = array();
 }
@@ -84,10 +84,13 @@ $sql = "SELECT * FROM `$dbpräfix"."posts`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
-
+if (!isset($countposts[$row->threadid]))
+{
+$countposts[$row->threadid] = 0;
+}
 $countposts[$row->threadid] += 1;
 
-if ($lasttime[$row->threadid] == "")
+if (!isset($lasttime[$row->threadid]))
 {
 $lasttime[$row->threadid] = time();
 }
@@ -108,8 +111,11 @@ $_SESSION['forumid'] = $forumid;
 
 $posts = array();
 
+
+if (isset($get['page']))
+{
 $page = $get['page'];
-if (!isset($page))
+} else
 {
 $page = 1;
 }
@@ -132,7 +138,7 @@ krsort($threads);
 
 
 // Annkündigungen auf jeder Seite oben -->
-if (is_array($threads[2]))
+if (isset($threads[2]) and is_array($threads[2]))
 {
 $anzahla = count($threads[2]);
 
@@ -456,7 +462,7 @@ echo "Der gewünschte Thread exsistiert nicht oder Sie haben keine Bereichtigung 
 } else
 {
 
-if (!is_array($_SESSION['forum_canread']))
+if (!isset($_SESSION['forum_canread']) or !is_array($_SESSION['forum_canread']))
 {
 $_SESSION['forum_canread'] = array();
 }
@@ -479,8 +485,11 @@ if (($row->passwort != "") and (!in_array($row->ID, $_SESSION['forum_canread']))
 {
 
 
+
+if (isset($get['page']))
+{
 $page = $get['page'];
-if (!isset($page))
+} else
 {
 $page = 1;
 }
@@ -1414,11 +1423,14 @@ $sql = "SELECT * FROM `$dbpräfix"."threads`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
+if (!isset($countthreads[$row->forumid]))
+{
+$countthreads[$row->forumid] = 0;
+}
+
+
 $countthreads[$row->forumid] += 1;
 $forums[$row->forumid][] = $row->ID;
-
-
-
 
 }
 
@@ -1437,6 +1449,11 @@ foreach ($forums as $forumid=>$threads) {
  	$erg = $hp->mysqlquery($sql);
  	while ($row = mysql_fetch_object($erg))
  	{
+ 	if (!isset($countposts[$forumid]))
+  {
+    $countposts[$forumid] = 0;
+  }
+ 	
    $countposts[$forumid] += 1;
    
 
@@ -1504,10 +1521,10 @@ echo $forum->createLink();
       </tr>
     </table></td>
     <td align="center" valign="middle"><?php echo $countthreads[$row->ID]?></td>
-    <td align="center" valign="middle"><?php if ($countposts[$row->ID] != "") { echo $countposts[$row->ID]; } else { echo "0"; }?></td>
+    <td align="center" valign="middle"><?php if (isset($countposts[$row->ID])) { echo $countposts[$row->ID]; } else { echo "0"; }?></td>
     <td><table width="100%" border="0">
       <tr>
-        <td><?php if ($lastpost[$row->ID] != "")
+        <td><?php if (isset($lastpost[$row->ID]))
         {
         $sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` ='".$lastthread[$row->ID]."'";
         $erg2 = $hp->mysqlquery($sql);
@@ -1526,7 +1543,7 @@ echo $forum->createLink();
           ?></td>
       </tr>
       <tr>
-        <td><?php if ($lastpost[$row->ID] != "")
+        <td><?php if (isset($lastpost[$row->ID]))
         {  echo date("d.m.Y H:i", $lasttime[$row->ID]);
         } ?></td>
       </tr>

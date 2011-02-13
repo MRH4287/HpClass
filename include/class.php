@@ -281,6 +281,12 @@ foreach ($post as $key=>$value)
   }
 }
 
+if (!isset($_SESSION['username']))
+{
+$_SESSION['level'] = 0;
+}
+
+
 
 if (isset($get))
 {
@@ -648,9 +654,9 @@ while($row = mysql_fetch_object($ergebnisss))
    $rright = "$row->right";
    
    $right[$rlevel][$rright] = $value;
-   // Wegen neuer PHP Version
-   $right[0][$rright] = false;
    }
+
+sort($right);
 
 return $right;
 }

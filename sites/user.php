@@ -228,15 +228,16 @@ while($row = @mysql_fetch_object($ergebnis))
 <?php
 
 $sql = "SELECT * FROM `".$dbpräfix."right`";
-$erg = $hp->mysqlquery($sql);
+$erg2 = $hp->mysqlquery($sql);
 $levels = array();
-while ($row = mysql_fetch_object($erg))
+while ($row2 = mysql_fetch_object($erg2))
 {
-if (!in_array($row->level, $levels))
+if (!in_array($row2->level, $levels))
 {
-$levels[] = $row->level;
+$levels[] = $row2->level;
 }
 }
+sort($levels);
 
 ?>
 
@@ -249,7 +250,7 @@ foreach ($levels as $egal=>$aktlevel) {
 
 ?>
 
-        <option <?php if ("$row->level" == aktlevel) { echo "selected"; } ?>><?php echo $aktlevel?></option>
+        <option <?php if ($row->level == $aktlevel) { echo "selected"; } ?>><?php echo $aktlevel?></option>
         <?php
         } ?>
 
