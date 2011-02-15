@@ -1241,7 +1241,13 @@ echo "Sie dürfen diese Seite nicht betreten!";
 $titel = $post['titel'];
 $le = $post['level'];
 $passwort = $post['passwort'];
+if (isset($post['visible']))
+{
 $visible = $post['visible'];
+} else
+{
+$vsisble = "off";
+}
 $text = $post['text'];
 
 
@@ -1286,7 +1292,7 @@ INSERT INTO `$dbpräfix"."forums` (
 `description`
 )
 VALUES (
-NULL , '$titel', '".$_SESSION['ID']."', '".time()."', '$le', '".$passwort."', '$visible', '$type', '$text'
+NULL , '$titel', '".$_SESSION['ID']."', '".time()."', '$le', '".$passwort."', '$visible', '', '$text'
 );
 
 ";
@@ -1520,7 +1526,7 @@ echo $forum->createLink();
         <td><?php echo $row->description?></td>
       </tr>
     </table></td>
-    <td align="center" valign="middle"><?php echo $countthreads[$row->ID]?></td>
+    <td align="center" valign="middle"><?phpif (isset($countthreads[$row->ID])) { echo $countthreads[$row->ID]; } else { echo "0"; } ?></td>
     <td align="center" valign="middle"><?php if (isset($countposts[$row->ID])) { echo $countposts[$row->ID]; } else { echo "0"; }?></td>
     <td><table width="100%" border="0">
       <tr>
