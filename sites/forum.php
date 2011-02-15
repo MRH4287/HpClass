@@ -210,14 +210,14 @@ $posts[$p][] = $row->ID;
  
  <?php
 
- if ((count($posts[$page]) == 0) and ($page != "1"))
+ if (((!isset($posts[$page])) or (count($posts[$page]) == 0)) and ($page != "1"))
 {
 $this->fp->log($posts);
 $page = 1;
 $error->error("Diese Seite exsistiert nicht!");
 }
  
- if (count($posts[$page]) != 0)
+ if (isset($posts[$page]) and (count($posts[$page]) != 0))
 { 
  foreach ($posts[$page] as $key=>$ID) {
  	
@@ -1526,7 +1526,7 @@ echo $forum->createLink();
         <td><?php echo $row->description?></td>
       </tr>
     </table></td>
-    <td align="center" valign="middle"><?phpif (isset($countthreads[$row->ID])) { echo $countthreads[$row->ID]; } else { echo "0"; } ?></td>
+    <td align="center" valign="middle"><?php if (isset($countthreads[$row->ID])) { echo $countthreads[$row->ID]; } else { echo "0"; } ?></td>
     <td align="center" valign="middle"><?php if (isset($countposts[$row->ID])) { echo $countposts[$row->ID]; } else { echo "0"; }?></td>
     <td><table width="100%" border="0">
       <tr>
