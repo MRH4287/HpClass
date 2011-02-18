@@ -279,10 +279,10 @@ $error->error("Diese Seite exsistiert nicht!");
           ?> am <?php  echo date("d.m.Y H:i", $row->timestamp);  ?>  </td>
       </tr>
     </table></td>
-    <td align="center" valign="middle"><?php if ($countposts[$row->ID] != "") { echo $countposts[$row->ID]; } else { echo "0"; } ?></td>
+    <td align="center" valign="middle"><?php if (isset($countposts[$row->ID]) and( $countposts[$row->ID] != "")) { echo $countposts[$row->ID]; } else { echo "0"; } ?></td>
     <td><table width="100%" border="0">
       <tr>
-        <td><?php  if ($lastpost[$row->ID] != "")
+        <td><?php  if (isset($lastpost[$row->ID]) and ($lastpost[$row->ID] != ""))
         {
         echo "von ";
         $sql = "SELECT * FROM `$dbpräfix"."user` WHERE `ID` = '".$lastpost[$row->ID]."'";
@@ -295,7 +295,7 @@ $error->error("Diese Seite exsistiert nicht!");
           ?></td>
       </tr>
       <tr>
-        <td><?php if ($lastpost[$row->ID] != "")
+        <td><?php if (isset($lastpost[$row->ID]) and ($lastpost[$row->ID] != ""))
         { echo "am "; 
          echo date("d.m.Y H:i", $lasttime[$row->ID]); } ?></td>
       </tr>
