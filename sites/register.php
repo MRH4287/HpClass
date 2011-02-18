@@ -44,11 +44,11 @@ if (!isset($post['register'])) {
       <td width="365"></td>
     </tr>
     <tr>
-      <td width="150">Username: *+</td>
+      <td width="150">Username: *+#</td>
       <td width="365"><input type="text" name="username" size="20" maxlength="20"></td>
     </tr>
     <tr>
-      <td width="150">Passwort: *+</td>
+      <td width="150">Passwort: *+#</td>
       <td width="365"><input type="password" name="passwort12" size="20" maxlength="20"></td>
     </tr>
     <tr>
@@ -117,7 +117,7 @@ echo '<input type="hidden" name="id" value="' . $c->getId() . '" />';
     <tr>
       <td width="506" colspan="2">
         <p align="center"><input type="submit" value="Jetzt registrieren!" name="register"><br><br>
-        <font size="2">* Pflichtfeld<br>+  Maximal 20 Zeichen</font></td>
+        <font size="2">* Pflichtfeld<br>+  Maximal 20 Zeichen<br>#  Mindestens 4 Zeichen</font></td>
     </tr>
   </table>
 </form>
@@ -125,19 +125,28 @@ echo '<input type="hidden" name="id" value="' . $c->getId() . '" />';
 {
 if ($post['passwort12'] == $post['passwort212'])
 {
+
+
+$ok=true;
+if (!isset($post['passwort12']) or !isset($post['username']) or !isset($post['name']) or !isset($post['nachname'])  or !isset($post['wohnort']) or !isset($post['geschlecht'])
+        or !isset($post['tel'])) { 
+echo "Geben die alle Werte an!<br><a href=index.php?site=register>zurück</a><br>";
+$ok=false;
+} 
+
 $passwort12=$post['passwort12'];
 $user=$post['username'];
 $name=$post['name'];
 $nachname=$post['nachname'];
-$text=$post['btext'];
 $email = $post['email'];
+
+
 $passwort12 = str_replace('<',"&lt;" ,$passwort12);
 $user = str_replace('<',"&lt;" ,$user);
 $user = str_replace(' ',"_" ,$user);
 $name = str_replace('<',"&lt;" ,$name);
 $name = str_replace(' ',"_" ,$name);
 $nachname = str_replace('<',"&lt;" ,$nachname);
-$text = str_replace('<',"&lt;" ,$text);
 $email = str_replace('<',"&lt;" ,$email);
 $datum = date('j').".".date('n').".".date('y');
 // [ADD] 21.04.08 ändern der Registrieren page! 
@@ -149,15 +158,20 @@ $wohnort = str_replace('<',"&lt;" ,$wohnort);
 $geschlecht = str_replace('<',"&lt;" ,$geschlecht);
 
 
-$ok=true;
-if (!isset($post['passwort12']) or !isset($post['username']) or !isset($post['name']) or !isset($post['nachname'])  or !isset($datum) or !isset($wohnort) or !isset($geschlecht)) { // Entfernt: or !isset($post['btext'])
-echo "Geben die alle Werte an!<br><a href=index.php?site=register>zurück</a><br>";
-$ok=false;
+
+if (strlen($user) <= 3)
+{
+echo "Der Benutzername muss mindestens 4 Zeichen haben!<br>";
+$ok = false;
+} elseif (strlen($passwort12) <= 3)
+{
+echo "Das Passwort muss mindestens 4 Zeichen haben!<br>";
+$ok = false;
 }
 
 
 
-if ($captcha) {
+/*if ($captcha) {
 
 	$c	= new Captcha( $post[ 'id' ] );
 	$c->setPrivateKey( 'spambotresistant' );
@@ -168,7 +182,8 @@ if ($captcha) {
 		$ok = false;
 
 	} 
-}
+} */
+
 $abfrage = "SELECT * FROM ".$dbpräfix."user";
 $ergebnis = $hp->mysqlquery($abfrage);
     
@@ -231,20 +246,20 @@ echo "Antrag erfolgreich gestellt!<br>Eine Bestätigungs E-Mail ist zu ihnen Unte
 //" um die Registrierung abzuschließen: \n<a href=\"".$pageadress."index.php?site=mailagree&user=$user>".
 //"Aktivieren</a>");
 
+//Registrierung:
+
 if (!$local)
 {
 
-foreach ($mail as $key=>$value) {
-	$$key = $value;
-}
 
 
 
- mail($email, $mailbetreff, $htmlmailtext.$mailtext.$pageadress."?site=mailagree&user=$user&code=$code ".$mailfooter ,"from:$mailcomefrom");
+
+ mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['mailtext'].$mail['pageadress']."?site=mailagree&user=$user&code=$code ".$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
 } else
 {
 echo "<br>Diese Funktion ist auf Localhost deaktiviert!<br>gehen Sie bitte auf folgende Seite:<br>";
-echo '<a href='.$pageadress."?site=mailagree&user=$user&code=$code>$pageadress?site=mailagree&user=$user&code=$code</a>";
+echo '<a href='.$mail['pageadress']."?site=mailagree&user=$user&code=$code>".$mail['pageadress']."?site=mailagree&user=$user&code=$code</a>";
 
 }
 

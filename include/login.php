@@ -139,10 +139,12 @@ $superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
  	if ((count($data) > 1) and ($data[1] != ""))
  	{
  	  
- 	  if (($data[1] == "superadmin") and $superadmin)
+ 	  if ($data[1] == "superadmin")
  	  {
-        $this->addstr($l->lvl().'<a href='.$data[0].'>'.$l->lf().$l->ls().$value.$l->lb().'</a>'.$l->lnl());
-     
+ 	      if ($superadmin)
+ 	      {
+          $this->addstr($l->lvl().'<a href='.$data[0].'>'.$l->lf().$l->ls().$value.$l->lb().'</a>'.$l->lnl());
+        }
      } else
       {
  	
