@@ -31,7 +31,7 @@ $newstext = str_replace('[/bild]',"\">" ,$newstext);
 $newslevel=$post['newslevel'];
 //$newstext = mysql_real_escape_string($newstext);
 $newstitel = mysql_real_escape_string($newstitel);
-$newsersteller = mysql_real_escape_string($newsersteller);
+//$newsersteller = mysql_real_escape_string($newsersteller);
 
 $eingabe = "UPDATE `".$dbpräfix."news` SET `datum` = '$newsdatum', `titel` = '$newstitel', `typ` = '$newstyp', `text` = '$newstext', `level`= '$newslevel' WHERE `ID` = '".$newsidchange."';";
 
