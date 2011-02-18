@@ -128,8 +128,9 @@ if ($post['passwort12'] == $post['passwort212'])
 
 
 $ok=true;
-if (!isset($post['passwort12']) or !isset($post['username']) or !isset($post['name']) or !isset($post['nachname'])  or !isset($post['wohnort']) or !isset($post['geschlecht'])
-        or !isset($post['tel'])) { 
+if (!isset($post['passwort12']) or !isset($post['username']) or !isset($post['name']) or (strlen($post['name']) < 1) or
+ !isset($post['nachname']) or (strlen($post['nachname']) < 1) or !isset($post['wohnort'])or (strlen($post['wohnort']) < 1)
+   or !isset($post['geschlecht']) or !isset($post['tel'])) { 
 echo "Geben die alle Werte an!<br><a href=index.php?site=register>zurück</a><br>";
 $ok=false;
 } 
