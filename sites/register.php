@@ -190,7 +190,7 @@ $ergebnis = $hp->mysqlquery($abfrage);
     
 while($row = mysql_fetch_object($ergebnis))
    {
-   if (strtolower($user) == strtolower("$row->user"))
+   if ((strtolower($user) == strtolower("$row->user")) or (strtolower($email) == strtolower("$row->email")))
    {
    echo "Benutzername bereits vorhanden!<br>";
    $ok=false;
@@ -202,7 +202,7 @@ $ergebnis = $hp->mysqlquery($abfrage);
     
 while($row = mysql_fetch_object($ergebnis))
    {
-   if (strtolower($user) == strtolower("$row->user"))
+   if (strtolower($user) == strtolower("$row->user")  or (strtolower($email) == strtolower("$row->email")))
    {
    echo "Benutzername bereits vorhanden!<br>";
    $ok=false;
