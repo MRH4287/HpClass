@@ -1,0 +1,1 @@
+In diesem Ordner werden Daten über die aktuelle Version der Webseite gespeichert.
