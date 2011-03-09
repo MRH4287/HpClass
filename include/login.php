@@ -205,6 +205,7 @@ $dbpräfix = $hp->getpräfix();
    "index.php?site=usedpics!usedpics" => "Benutzte Bilder",
    "index.php?site=rights!superadmin" => "Rechte",
    "index.php?site=config!superadmin" => "Konfiguration",
+   "index.php?site=plugins!superadmin" => "Plugin System",
    "index.php?site=dragdrop!superadmin" => "Widget System"
    );
    

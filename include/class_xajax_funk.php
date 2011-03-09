@@ -920,6 +920,53 @@ function ax_reloadScripts($del = true)
 // ---------------------------------- </ DRAG & DROP >------------------------------------------------
 
 
+//----------------------------------- Plugin System --------------------------------------------------
+
+
+function ax_pluginEnable($name)
+{
+ $response = new xajaxResponse();
+
+ $hp = $this->hp;
+ $dbpräfix = $hp->getpräfix();
+ $info = $hp->info;
+ $error = $hp->error;
+ $fp = $hp->fp;
+ $pluginloader = $hp->pluginloader;
+ 
+ 
+ if ($pluginloader->enablePlugin($name))
+ {
+  $response->assign("pluginData-$name", "innerHTML", '<img src="./images/on.gif" alt="ON" onclick="xajax_pluginDisable(\''.$name.'\')">');
+ 
+ }
+ 
+ return $response;
+}
+
+function ax_pluginDisable($name)
+{
+ $response = new xajaxResponse();
+
+ $hp = $this->hp;
+ $dbpräfix = $hp->getpräfix();
+ $info = $hp->info;
+ $error = $hp->error;
+ $fp = $hp->fp;
+ $pluginloader = $hp->pluginloader;
+ 
+ 
+ if ($pluginloader->disablePlugin($name))
+ {
+  $response->assign("pluginData-$name", "innerHTML", '<img src="./images/off.gif" alt="OFF" onclick="xajax_pluginEnable(\''.$name.'\')">');
+ 
+ }
+ 
+ return $response;
+}
+
+
+
 
 // ---------------------------------------- Erweiterungen ----------------------------------------------
 

@@ -1,0 +1,3 @@
+CREATE TABLE `#!-PREFIX-!#plugins` (`ID` INT( 100 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`name` VARCHAR( 100 ) NOT NULL) ENGINE = InnoDB;
+DROP TABLE `#!-PREFIX-!#modul`;
+DELETE FROM `#!-PREFIX-!#right` WHERE `right` = 'moduladmin';

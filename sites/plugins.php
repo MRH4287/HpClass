@@ -43,29 +43,44 @@ foreach ($plugins as $name=>$data)
 
  ?>
 
-	<tr class="pluginLine">
+	<tr class="pluginLine" id="plugin-<?php echo $name; ?>">
 		<td>
       <div class="pluginName"><?php echo $data["o"]->name; ?></div>
-      <div class="pluginInfo">
- 
-      </div>
+      
+      <?php
+      
+          if ($pluginloader->containsInfo($name))
+          {
+          $autor = $data["o"]->autor;
+          $homepage = $data["o"]->homepage;
+          $notes = $data["o"]->notes;
+          
+            ?>
+             <div class="pluginInfo" onclick="Tip('<b>Autor:</b> <?php echo $autor ?><br /><b>Homepage:</b> <a href=<?php echo $homepage ?>><?php echo $homepage ?></a><br /><b>Notiz:</b> <?php echo $notes ?>', STICKY, true, CLICKCLOSE, true)">
+             </div>
+      
+            <?php
+      
+          }
+      
+      ?>
     </td>
 		<td>
       <div class="pluginVersion"><?php echo $data["o"]->version; ?></div>
     </td>
 				<td>
-      <div class="pluginData">
+      <div class="pluginData" id="pluginData-<?php echo $name; ?>">
       <?php 
           if ($data["o"]->lock)
           {
        ?><img src="./images/lock.gif" alt="Gesperrt"></div><?php   
           } elseif ($data["enabled"]) {
       
-       ?><img src="./images/on.gif" alt="ON"></div><?php
+       ?><img src="./images/on.gif" alt="ON" onclick="xajax_pluginDisable('<?php echo $name; ?>')"></div><?php
                                 
            } else { 
            
-       ?><img src="./images/off.gif" alt="OFF"></div><?php
+       ?><img src="./images/off.gif" alt="OFF" onclick="xajax_pluginEnable('<?php echo $name; ?>')"></div><?php
            } 
            
            ?>

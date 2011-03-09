@@ -77,8 +77,10 @@ function updatePluginList()
     {
 
       $n = explode(".", $file);
+      if (count($n) >= 2)
+      {
       $a = $n[0];
-      $b = $n[1];
+      $b = $n[count($n)-1];
 
         if ($b == "php")
         {
@@ -88,16 +90,18 @@ function updatePluginList()
            include "./plugins/$file"; 
            $myClass = new $a($this->hp, $this);
            
+                      
            $this->plugins[$a] = array("o" => $myClass, "enabled" => $myClass->isEnabled);
                 
           }
           catch (Exception $e) 
           {
-        
+             $this->hp->error->error($e->getMessage());
           }   
 
 
         }
+       }
       }
     } else
     {
@@ -197,6 +201,12 @@ function isEnabled($name)
 */
 function enablePlugin($name)
 {
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+
   if (isset($this->plugins[$name]) and is_array($this->plugins[$name]))
   {
     $plugin = $this->plugins[$name];
@@ -208,6 +218,7 @@ function enablePlugin($name)
       $sql = "REPLACE INTO `$dbpräfix"."plugins` (`name`) VALUES ('$name');";
       $erg = $hp->mysqlquery($sql);
     
+      return true;
     
     } else
     {
@@ -229,6 +240,13 @@ function enablePlugin($name)
 */
 function disablePlugin($name)
 {
+$hp = $this->hp;
+$dbpräfix = $hp->getpräfix();
+$info = $hp->info;
+$error = $hp->error;
+$fp = $hp->fp;
+
+
   if (isset($this->plugins[$name]) and is_array($this->plugins[$name]))
   {
     $plugin = $this->plugins[$name];
@@ -239,6 +257,8 @@ function disablePlugin($name)
       
       $sql = "DELETE FROM `$dbpräfix"."plugins` WHERE `name` = '$name';";
       $erg = $hp->mysqlquery($sql);
+      
+      return true;
     
     } else
     {
@@ -253,6 +273,25 @@ function disablePlugin($name)
 }
 
 
+/*
+
+  Überprüft ob ein Plugin Zusätzliche Informationen (Autor, Homepage, Notizen) enthält
+
+*/
+function containsInfo($name)
+{
+  $plugin = $this->getPlugin($name);
+  if ($plugin == null)
+  {
+    return null;
+  } else
+  {
+      
+    return (($plugin->autor != "") || ($plugin->homepage != "") || ($plugin->notes != "")); 
+    
+  }
+  
+}
 
 }
 ?>

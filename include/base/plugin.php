@@ -9,11 +9,13 @@ abstract class Plugin
 // Der Name des Plugins
 public $name;
 // Die Versiond des Plugins
-public $version;
+public $version = "";
 // Der Autor des Plugins
-public $autor;
+public $autor = "";
 // Die Homepage des Autors
-public $homepage;
+public $homepage = "";
+// Notizen des Autors (z.B. Changelog)
+public $notes = "";
 // Ist dieses Plugin von Anfang an Aktiviert?
 public $isEnabled = false;
 // Lokale Refferent auf HpClass

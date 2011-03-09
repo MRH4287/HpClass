@@ -71,14 +71,5 @@ while($row = mysql_fetch_object($ergebnis))
     
     <?php
     }
- if ($right[$level]['moduladmin'])
-{ ?>
     
-    <p align="left"><a href=index.php?site=modulmanager><?php echo $lang->word('modulman')?></a></p>
-    
-    <?php
-    }   
-    
-    
- } // OK     
      ?>
