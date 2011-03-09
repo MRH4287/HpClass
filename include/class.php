@@ -17,6 +17,7 @@ public    $xajaxF;
 public    $forum;
 public    $widgets;
 public    $subpages;
+public    $pluginloader;
 
 //Wegen Makro Fehlern:
 public    $game = null;
@@ -53,7 +54,7 @@ $this->superadmin = array("admin", "mrh");
 
 // Siteckeckup
 $this->restrict       = array("login");
-$this->superadminonly = array("rights", "config", "dragdrop", "test");
+$this->superadminonly = array("rights", "config", "dragdrop", "plugins", "test");
 
 
 //Mysql
@@ -124,6 +125,11 @@ $this->widgets = $widgets;
 function setsubpages($subpage)
 {
 $this->subpages = $subpage;
+}
+
+function setpluginloader($pluginloader)
+{
+$this->pluginloader = $pluginloader;
 }
 
 //  Ende set-Area
@@ -576,7 +582,7 @@ $ok = false;
 }
 }
 
-if (isset($_SESSION['username']) and !in_array($_SESSION['username'], $this->superadmin)) {
+if (!isset($_SESSION['username']) or !in_array($_SESSION['username'], $this->superadmin)) {
 if(in_array($site, $this->superadminonly)) { $ok = false; }
 }
 

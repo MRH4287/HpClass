@@ -60,6 +60,7 @@ $template['js']='
 <link rel="stylesheet" href="css/widget.css" type="text/css"/>
 <link rel="stylesheet" href="include/usedpics/css/usedpics.css" type="text/css" />
 <link rel="stylesheet" href="css/news.css" type="text/css"/>
+<link rel="stylesheet" href="css/plugins.css" type="text/css"/>
 ';
 
 ?>

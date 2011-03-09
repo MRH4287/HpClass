@@ -1,0 +1,60 @@
+
+.pluginContainer
+{
+	width:90%;
+	height:80%;
+	margin:auto;	
+	border:thin black solid;
+	background-color:white;
+}
+
+.pluginContainer a
+{
+	text-decoration:none;	
+}
+
+.pluginHeadline
+{
+	background-color:#FFCC66;
+	border:thin black solid;	
+}
+
+.pluginInfo
+{
+	width:20%;
+	height:24px;
+	float:left;
+	background-image:url("../images/info.gif");
+	background-repeat:no-repeat;	
+}
+
+.pluginLine:hover
+{
+  background-color: rgb(255,255,204);
+}
+
+
+
+.pluginVersion
+{
+  width: 100%;
+  height: 100%;
+
+}
+
+.pluginData
+{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+
+}
+
+.pluginName
+{
+ 	width:80%;
+ 	float:left;
+
+}
+
+

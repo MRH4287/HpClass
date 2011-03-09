@@ -17,19 +17,21 @@ require_once 'include/class_xajax_funk.php';
 require_once 'include/class_forum.php';
 require_once 'include/class_widgets.php';
 require_once 'include/class_subpages.php';
+require_once 'include/class_pluginloader.php';
 //----------------------------------------------------------------------------
 
 //--------------------------------------Class Area----------------------------
-$hp         = new HP;
-$lang       = new lang;
-$temp       = new template;
-$error      = new errorclass;
-$info       = new infoclass;
-$lbsites    = new lbsites;
-$xajaxF     = new Xajax_Funktions;
-$forum      = new forum;
-$widgets    = new widgets;
-$subpages   = new subpages;
+$hp             = new HP;
+$lang           = new lang;
+$temp           = new template;
+$error          = new errorclass;
+$info           = new infoclass;
+$lbsites        = new lbsites;
+$xajaxF         = new Xajax_Funktions;
+$forum          = new forum;
+$widgets        = new widgets;
+$subpages       = new subpages;
+$pluginloader   = new PluginLoader;
 // ----------------------------------------------------------------------------
 
 //--------------------------------------SET Area-------------------------------
@@ -55,12 +57,17 @@ $widgets->sethp($hp);
 $hp->setwidgets($widgets);
 $subpages->sethp($hp);
 $hp->setsubpages($subpages);
+$pluginloader->sethp($hp);
+$hp->setpluginloader($pluginloader);
 // ----------------------------------------------------------------------------
 
 //-----------------------------------MYSQL Area (DB Verbindung)----------------
 $hp->setdata($dbserver, $dbuser, $dbpass, $dbpräfix, $dbdatenbank);
 $hp->connect();
 //-----------------------------------------------------------------------------
+
+//------------------------------Plugin System----------------------------------
+$pluginloader->Init();
 
 
 //-----------------------------lang Config-------------------------------------
@@ -84,6 +91,9 @@ $config = $hp->getconfig();
 //-------------------------------Module----------------------------------------
 include 'include/modulscheck.php';
 //-----------------------------------------------------------------------------
+
+//------------------------------Plugin System----------------------------------
+$pluginloader->Load();
 
 //----------------------------Sonstiges----------------------------------------
 $level = $_SESSION['level'];
