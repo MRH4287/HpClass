@@ -1,5 +1,5 @@
 <?php
-class XAJAXTemplateSystem extends Plugin
+class TemplatePlugin extends Plugin
 {
 
 
@@ -13,7 +13,7 @@ function __construct($hp, $loader)
   // -----------------------------------------------
   
   // Der Name des Plugins:
-  $this->name = "XAJAX - Template Steuerung (DEPRECATED)";
+  $this->name = "Template - Default";
   
   // Die Version des Plugins:
   $this->version = "1.0.0";
@@ -25,10 +25,8 @@ function __construct($hp, $loader)
   $this->homepage = "http://mrh.hes-technic.de";
   
   // Notizen zu dem Plugin:
-  $this->notes = "Ermöglicht Template bedingtes Laden von dynamischen Inhalten.<br><b>Deprecated:</b> Benutzung von Template Plugins sind besser!";
+  $this->notes = "Regelt alle für das Standard Design relevanten Funktionen";
   
-
-
       
   //------------------------------------------------
    
@@ -44,16 +42,14 @@ z.B. Datenbank Aufrufe, Datei Aufrufe, etc.
 */
 function onEnable()
 {
-  $hp = $this->hp;
-  $dbpräfix = $hp->getpräfix();
-  $info = $hp->info;
-  $config = $hp->getconfig();
-  $error = $hp->error;
-  $fp = $hp->fp;
+$hp = $this->hp;
+
+
+// Binde XAJAX Daten ein:
 
   if (is_object($hp->xajaxF))
   {
-    $hp->xajaxF->extend($config['design']);
+    $hp->xajaxF->registerFunctions($this);
   }
 
 }
@@ -68,11 +64,23 @@ Wie zum Beispiel das hinzufügen von Weiterleitungen.
 function onLoad()
 {
 
-
 }
 
+// ---------------- XAJAX -------------------
+
+function ax_test2()
+{
+$response = new xajaxResponse();
+
+$response->assign("test", "innerHTML", "bla");
+$response->script("testFunktion();");
+
+return $response;
 }
 
 
 
+
+
+}
 ?>

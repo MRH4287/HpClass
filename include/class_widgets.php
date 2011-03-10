@@ -66,12 +66,15 @@ $sql = "SELECT * FROM `$dbpräfix"."widget`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
-
- //$temp->addtemp($row->ID, $this->widgets[$row->source]);
- $value = $this->widgets[$row->source];
- $this->template[$row->ID] = "<div id='widget_".$row->ID."'>$value</div>";
- $this->placed[] = $row->source;
- $this->placed[] = $row->ID;
+  
+ if (isset($this->widgets[$row->source]))
+ {
+  //$temp->addtemp($row->ID, $this->widgets[$row->source]);
+  $value = $this->widgets[$row->source];
+  $this->template[$row->ID] = "<div id='widget_".$row->ID."'>$value</div>";
+  $this->placed[] = $row->source;
+  $this->placed[] = $row->ID;
+ }
 
 }
 
@@ -251,6 +254,8 @@ $design = $config['design'];
   $handle = @opendir("./template/".$design."/widgets/"); 
     while ($file = @readdir($handle)) {
 
+      
+      
 	     $n= @explode(".",$file);
        $art = @strtolower($n[1]);
 
@@ -261,7 +266,6 @@ $design = $config['design'];
         $placeholder = array();
         if (file_exists("./template/".$design."/widgets/$file"))
         include ("./template/".$design."/widgets/$file");
-
         
         foreach ($widget as $key=>$value) {
         	

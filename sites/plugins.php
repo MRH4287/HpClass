@@ -45,7 +45,7 @@ foreach ($plugins as $name=>$data)
 
 	<tr class="pluginLine" id="plugin-<?php echo $name; ?>">
 		<td>
-      <div class="pluginName"><?php echo $data["o"]->name; ?></div>
+      <div class="pluginName"><?php echo $data["o"]->name; if ($data["extern"]) { echo " (E)"; } ?></div>
       
       <?php
       
@@ -98,7 +98,7 @@ foreach ($plugins as $name=>$data)
 <br />
 <hr />
 <font size="2px"><b>Info:</b> Plugins, die mit einem <img src="./images/lock.gif" alt="lock" width="12" height="12"> makiert sind,
-können nicht geändert werden.</font>
+können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template eingebunden wurde.</font>
 
 
 

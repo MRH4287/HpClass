@@ -50,29 +50,17 @@ function Load()
 
 /*
 
-Aktualisiert die Plugin Liste, in dem er die Daten aus dem plugins Unterordner liest
-und diese in ein Array speichert.
-Anschließend wird die Datenbank durchsucht und alle dort gelisteten Plugins auf enabled 
-gesetzt, was dazu führt, dass bei diesen Objekten, die OnEnable Funktion aufgerufen wird.
+ Liest alle Plugins aus einem bestimmtem Ordner aus
 
 */
-function updatePluginList()
+function addFolder($dir, $extern = false)
 {
-  $hp = $this->hp;
-  $dbpräfix = $hp->getpräfix();
-  $info = $hp->info;
-  $error = $hp->error;
-  $fp = $hp->fp;
-
-
-  
-  // Alle vorhandenen Plugins laden.
  try
  { 
   
-  if (is_dir("./plugins/"))
+  if (is_dir($dir))
   {
-    $handle = @opendir("./plugins/"); 
+    $handle = @opendir($dir); 
     while (false !== ($file = readdir($handle))) 
     {
 
@@ -87,11 +75,11 @@ function updatePluginList()
 
          try 
          {
-           include "./plugins/$file"; 
+           include "$dir/$file"; 
            $myClass = new $a($this->hp, $this);
            
                       
-           $this->plugins[$a] = array("o" => $myClass, "enabled" => $myClass->isEnabled);
+           $this->plugins[$a] = array("o" => $myClass, "enabled" => $myClass->isEnabled, "extern" => $extern);
                 
           }
           catch (Exception $e) 
@@ -108,7 +96,35 @@ function updatePluginList()
     }
   } catch (Exception $e) 
   {
-  }   
+  }
+}
+
+
+/*
+
+Aktualisiert die Plugin Liste, in dem er die Daten aus dem plugins Unterordner liest
+und diese in ein Array speichert.
+Anschließend wird die Datenbank durchsucht und alle dort gelisteten Plugins auf enabled 
+gesetzt, was dazu führt, dass bei diesen Objekten, die OnEnable Funktion aufgerufen wird.
+
+*/
+function updatePluginList()
+{
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $info = $hp->info;
+  $error = $hp->error;
+  $fp = $hp->fp;
+  $config = $hp->getconfig();
+    
+  // Alle vorhandenen Plugins laden.
+  $this->addFolder("./plugins");
+  
+  //Binde alle durch Templates gegebene Plugins ein:
+  $this->addFolder("./template/".$config["design"]."/plugins", true);
+  
+  
+  
   // Lade die Datenbank um alle Plugins zu suchen, die Aktiviert sind
   
   $sql = "SELECT * FROM `$dbpräfix"."plugins`";
@@ -292,6 +308,9 @@ function containsInfo($name)
   }
   
 }
+
+
+
 
 }
 ?>

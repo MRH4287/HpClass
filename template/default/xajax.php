@@ -9,7 +9,7 @@ $this->hp = $hp;
 }
 
 
-function ax_test2()
+function ax_test3()
 {
 $response = new xajaxResponse();
 
