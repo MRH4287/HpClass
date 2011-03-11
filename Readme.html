@@ -11,6 +11,9 @@
 }
 .Stil3 {font-size: 16px}
 .Stil4 {font-size: 24px; }
+.auto-style1 {
+	font-weight: normal;
+}
 -->
 </style>
 </head>
@@ -54,17 +57,9 @@
       <th scope="row">&lt;!--titel--&gt;</th>
       <td>Webseiten Titel der in der config.php definiert wurde</td>
     </tr>
-    <tr>
-      <th scope="row">&lt;!--headline--&gt;</th>
-      <td>Headline - Definiert in der config.php</td>
-    </tr>
-    <tr>
-      <th scope="row">&lt;!--mainheadline--&gt;</th>
-      <td>Hauptueberschrifft - Definiert in der config.php</td>
-    </tr>
-  </table>
+    </table>
   <p align="left">Weitere Template spezifischer Inhalt wird unter templates/&lt;Name der Templates&gt;/template.php bestimmt.</p>
-  <p align="left">Das Template wird in der config.php durch das aendern des Eintrages $design geaendert!</p>
+  <p align="left">Das Template wird durch das Konfigurations System geändert.</p>
   <p align="left">&nbsp;</p>
   <p align="left" class="Stil4">Sprach einstellungen:</p>
   <p align="left">Das Websitensystem ist Multilingual! Was aber nicht heisst, dass bereits jede Unterseite dafuer ausgelegt ist.</p>
@@ -79,87 +74,10 @@
   <p align="left">Zudem werden alle Woerter die davon betroffen sind durch &lt;--!--&gt; Makiert.</p>
   <p align="left">Wenn Sie die Sprache dev Waehlen, Sehen sie alle verwendeten Namen und koennen so ihr Sprachsystem erstellen!</p>
   <p align="left">&nbsp;</p>
-  <p align="center" class="Stil4">Modulsystem:</p>
-  <p align="left">Seit einem der neusten Updates, gibt es ein Modulsystem!</p>
-  <p align="left">Wenn ein Ordner in den moduls Ordner exsistiert, in dem sich eine install.php befindet, wird das System versuchen das entsprechende Modul zu installieren.</p>
-  <p align="left">Wenn Sie sich als admin angemeldet haben (Level: 3) und ein Modul zum installieren ist, wird ihnen in der Infozeile eine Meldung angezeigt, dass ein oder mehrer Module zum installieren sind.</p>
-  <p align="left">Sie kuennen lernen wie ein Modul geschrieben wird, indem Sie sich die Dateien in moduls/Muster anschauen.</p>
-  <p align="left">Die wichtigsten Funktionen eines Moduls:</p>
-  <table width="952" border="1">
-    <tr>
-      <th width="505" scope="row">Funktion</th>
-      <td width="437">Beschreibung</td>
-    </tr>
-    <tr>
-      <th scope="row"><div align="left">$hp-&gt;addredirect(&quot;!--Name der Seite-!&quot;, &quot;!-Neuer Pfad zur Seite!-&quot;);</div></th>
-      <td><p>Laesst das System an einen anderen Pfad zu suchen, wenn eine Unterseite aufgerufen wird.</p>
-      <p>Bsp: $hp-&gt;addredirect(&quot;download&quot;, &quot;moduls/download/sites&quot;);</p></td>
-    </tr>
-    <tr>
-      <th scope="row">$info-&gt;info(&quot;...&quot;);</th>
-      <td>Gibt eine Infomeldung aus.</td>
-    </tr>
-    <tr>
-      <th scope="row">$info-&gt;okm(&quot;...&quot;);</th>
-      <td>Gibt eine &quot;Erfolgreich erledigt Meldung&quot; aus.</td>
-    </tr>
-    <tr>
-      <th scope="row">$error-&gt;error(&quot;...&quot;,&quot;Level&quot;);</th>
-      <td><p>Gibt eine Fehlermeldung aus:</p>
-      <p>Level:<br />
-      1: entspicht echo<br />
-      2: Benutzt diese schicke Fehler Zeile<br />
-      3: gibt den Fehler aus und fuehrt exit aus. (Stoppt die Webseite)</p>
-      </td>
-    </tr>
-  </table>
-  <p align="left"> Hier eine Liste aller im Script vorhandenen Variablen:<br />
-  </p>
-  <table width="617" border="1">
-    <tr>
-      <th width="102" scope="row"><div align="left">Variable</div></th>
-      <td width="505">Beschreibung</td>
-    </tr>
-    <tr>
-      <th scope="row"><div align="left">$path</div></th>
-      <td>Pfad zum Modulverzeichnis (moduls/$path/ fuer eine korrekte verlinkung!)</td>
-    </tr>
-    <tr>
-      <th scope="row"><div align="left">$name</div></th>
-      <td>Name des Scripts!</td>
-    </tr>
-    <tr>
-      <th scope="row"><div align="left">$run</div></th>
-      <td>Name des PHP Scripts, was ausgefuehrt wird!</td>
-    </tr>
-    <tr>
-      <th scope="row"><div align="left">$template<br />
-      </div></th>
-      <td>Templatearray (siehe Beispiel Funktion)</td>
-    </tr>
-    <tr>
-      <th scope="row"><div align="left">$hp</div></th>
-      <td>HPClass</td>
-    </tr>
-    <tr>
-      <th scope="row"><div align="left">$error</div></th>
-      <td>Errorclass</td>
-    </tr>
-    <tr>
-      <th scope="row"><div align="left">$info</div></th>
-      <td> Infoclass</td>
-    </tr>
-    <tr>
-      <th scope="row"><div align="left">$lang</div></th>
-      <td>Langclass</td>
-    </tr>
-    <tr>
-      <th scope="row"><div align="left">$temp</div></th>
-      <td>Templatescript (Bitte $template verwenden)</td>
-    </tr>
-  </table>
-  <p align="left">&nbsp;</p>
-  <p align="left">&nbsp;</p>
+	<p align="left">Plugin System:</p>
+	<p align="left" class="auto-style1">Bitte beachten Sie die beispiel Plugins.</p>
+	<p align="left">&nbsp;</p>
+	<p align="left">&nbsp;</p>
   <p align="left">Dieses Skript ist allein fuer den Privaten Gebrauch gedacht!</p>
   <p align="left">&nbsp;</p>
   <p align="left">Alle Umlaute wegen Darstellungsfehlern entfernt.</p>
