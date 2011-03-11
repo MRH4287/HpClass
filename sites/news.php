@@ -17,9 +17,10 @@ $lbsites = $hp->lbsites;
 
 if ($right[$level]['newsedit'])
 {
-$newsidchange=$post['newsid'];
+
 
 if (isset($post['newsedit'])) {
+$newsidchange=$post['newsid'];
 $newsdatum=$post['newsdate'];
 $newstitel=$post['newstitel'];
 $newstitel = str_replace('<',"&lt;" ,$newstitel);
@@ -93,7 +94,6 @@ if (isset($post['newswrite']))
 {
 
 // Newswrite
-$newskat=$post['newskat'];
 $newstitel=$post['newstitel'];
 $newstitel = str_replace('<',"&lt;" ,$newstitel);
 
