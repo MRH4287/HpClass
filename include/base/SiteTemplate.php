@@ -249,6 +249,15 @@ function set($key, $value)
   $this->data[$key] = $value;
 }
 
+function setArray($data)
+{
+  foreach ($data as $key=>$value)
+  {
+  $this->set($key, $value);
+  }
+
+}
+
 
 function getNode($name, $data = null)
 {
