@@ -178,7 +178,6 @@ function replaceCondit($data)
   $level = $_SESSION['level'];
   $conditData = $this->getPlaceholder($data, "?");
 
-
   foreach ($conditData as $k => $word)
   {
     $con = explode(" : ", $word);
@@ -189,10 +188,15 @@ function replaceCondit($data)
     if (preg_match("/\"(.*)\"/", $con[1]))
     {
       $iftrue =  str_replace("\"", "", $con[1]);
-    } elseif (isset($this->data[$con[1]]))
+    } 
+    elseif (preg_match("/%(.*)/", $con[1]))
+    {
+        $iftrue = $hp->getlangclass()->word(str_replace("%", "", $con[1]));
+    } 
+    elseif (isset($this->data[$con[1]]))
     {
       $iftrue = $this->data[$con[1]];
-    }  else
+    } else
     {
       $iftrue = "[T]";
     }
@@ -205,10 +209,15 @@ function replaceCondit($data)
       if (preg_match("/\"(.*)\"/", $con[2]))
       {
        $iffalse =  str_replace("\"", "", $con[2]);
-      } elseif (isset($this->data[$con[2]]))
+      } 
+      elseif (preg_match("/%(.*)/", $con[2]))
+      {
+        $iffalse = $hp->getlangclass()->word(str_replace("%", "", $con[2]));
+      }      
+      elseif (isset($this->data[$con[2]]))
       {
        $iffalse = $this->data[$con[2]];
-      }  else
+      } else
       {
         $iffalse = "[F]";
       }
@@ -218,6 +227,9 @@ function replaceCondit($data)
     if (isset($right[$level][$rightN]))
     {
       $output = ($right[$level][$rightN] ? $iftrue : $iffalse); 
+    } elseif (($rightN == "superadmin"))
+    {
+       $output = (isset($_SESSION['username']) && in_array($_SESSION['username'], $hp->getsuperadmin())) ? $iftrue : $iffalse; 
     } else
     {
       $output = "[right?]";

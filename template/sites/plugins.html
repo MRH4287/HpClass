@@ -1,0 +1,61 @@
+#!!NAME=PluginSystem
+#!!AUTOR=MRH
+
+[!=Main!]
+
+    <div class="pluginContainer">
+
+    <table border="0" width="100%">
+
+	<tr class="pluginHeadline">
+		<td>Name</td>
+		<td>Version</td>
+		<td width="10%" align="center">Enabled</td>
+	</tr>
+	
+	#!Plugins#
+
+  </table>
+<br />
+<hr />
+<font size="2px"><b>Info:</b> Plugins, die mit einem <img src="./images/lock.gif" alt="lock" width="12" height="12"> makiert sind,
+können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template eingebunden wurde.</font>
+
+
+
+</div>
+
+
+[!/Main!]
+
+[!=Plugins!]
+
+	<tr class="pluginLine" id="plugin-#!name#">
+		<td>
+      <div class="pluginName">#!name# #!extern#</div>
+      
+      #!PluginInfo#
+      
+    </td>
+		<td>
+      <div class="pluginVersion">#!version#</div>
+    </td>
+				<td>
+      <div class="pluginData" id="pluginData-#!name#">
+
+        #!PluginData#
+        
+    </td>
+	</tr>
+
+
+[!/Plugins!]
+
+[!=PluginInfo!]
+
+             <div class="pluginInfo" onclick="Tip('<b>Autor:</b> #!autor# <br /><b>Homepage:</b> <a href=#!homepage#>#!homepage#</a><br /><b>Notiz:</b> #!notes#', STICKY, true, CLICKCLOSE, true)">
+             </div>
+
+[!/PluginInfo!]
+
+
