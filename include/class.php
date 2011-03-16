@@ -287,7 +287,7 @@ foreach ($post as $key=>$value)
   }
 }
 
-if (!isset($_SESSION['username']))
+if (!isset($_SESSION['username']) || !isset($_SESSION['level']))
 {
 $_SESSION['level'] = 0;
 }

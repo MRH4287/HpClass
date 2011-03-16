@@ -11,6 +11,8 @@ var $path;
 
 
 
+
+
 function seterror($error)
 {
 $this->error=$error;

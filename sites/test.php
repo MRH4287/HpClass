@@ -13,23 +13,23 @@ $lbs = $hp->lbsites;
 $fp = $hp->fp;
 
 
+$site = new siteTemplate($hp);
+$site->load("news");
+
+$site->set("WriteNews", "NW");
+
+$data = array("Titel" => "Das System funktioniert!", 
+"Level" => "(Level 1)", "ersteller" => "mrh", "datum" => "heute", "Content" => "Es geht!");
+$news = $site->getNode("News", $data);
+$site->set("News", $news);
+
+
+
+
+$site->display();
 
 
 
 ?>
 
-<script>
-
-function testFunktion()
-{
-ocument.getElementById('test').innerHTML = 'bla';
-
-}
-
-
-
-</script>
-
-<div id="test"></div>
-<a href="#" onclick="xajax_test2('a')">a</a>
 

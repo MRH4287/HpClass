@@ -1,0 +1,30 @@
+#!!NAME=news
+#!!AUTOR=MRH
+
+[!=Main!]
+
+  #!News#
+  
+  <p align="center"><font size="3"><a href="index.php?site=news&limit=20"><b>#%morenews#</b></a></font>
+
+  #?newswrite : WriteNews# #?newsedit : StartEditNews#
+                                          
+[!/Main!]
+
+[!=News!]
+
+<div class="newsbox">
+<div class="newsbox_info"><b>#!titel# #!level# #%by# <a href=index.php?site=user&show=#!ersteller#>#!ersteller#</a></b></div>
+<div class="newsbox_info_date"><b>  geschrieben am <i>#!datum#</i></b></div>
+<div class="newsbox_inhalt">
+#!Content#
+
+<br>
+ 
+#!EditNews# #!DeletNews# 
+ 
+</div> 
+</div>
+
+
+[!/News!]
