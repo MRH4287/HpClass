@@ -118,7 +118,7 @@ function getPlaceholder($content, $key = "!")
   $result = array();
 
     // Herausfiltern der Platzhalter:
-  	if (preg_match_all("/\#\\".$key."[^\|#^!]*#/", $content, $m2))
+  	if (preg_match_all("/\#\\".$key."[^\#|^!]*#/", $content, $m2))
   	{
       foreach ($m2 as $k=>$data)
       {
