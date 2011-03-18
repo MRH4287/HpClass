@@ -72,4 +72,5 @@ while($row = mysql_fetch_object($ergebnis))
     <?php
     }
     
+    }
      ?>
