@@ -34,7 +34,8 @@ foreach ($plugins as $name=>$data)
     "name" => $data["o"]->name,
     "extern" => ($data["extern"]) ? " (E)" : "",
     "PluginInfo" => "",
-    "version" => $data["o"]->version
+    "version" => $data["o"]->version,
+    "ID" => $name
   
   );
   

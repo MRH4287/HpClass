@@ -1,0 +1,163 @@
+#!!NAME=user_show
+#!!AUTOR=MRH
+
+
+[!=Main!]
+
+<table>
+  <tr>
+    <th style="text-align: center; padding-right: 2px;" width="300">Profil</th>
+  </tr>
+<td>
+</td>
+
+  <tr>
+    <td style="padding-right: 4px;" valign="top">
+    <div id="page1">
+      <table class="liste" width="100%">
+        <?php  ?>
+          <tr>
+            <th style="padding-bottom: 6px;" width="100">#%avatar#</th>
+            <td style="padding: 2px;"><img src="include/userpics.php?id=#!ID#" ></td>
+          </tr>       
+        <?php  ?>
+          <tr>
+            <th style="padding-bottom: 6px;" width="100">#%nick#</th>
+            <td style="padding: 2px;">#!user#</td>
+          </tr>
+             <tr>
+            <th style="padding-bottom: 6px;">#%name#</th>
+            <td style="padding: 2px;">#!name# #!nachname#</td>
+          </tr>
+          
+          <tr>
+            <th style="padding-bottom: 6px;">#%rank#</th>
+            <td style="padding: 2px;">#!level#</td>
+          </tr>
+          
+          #?see_email : EMail#
+
+          <tr>
+            <th style="padding-bottom: 6px;"><b>#%alter#</b></th>
+            <td style="padding: 2px;">#!alter#</td>
+          </tr>
+          <tr>
+            <th style="padding-bottom: 6px;">#%wohnort#</th>
+            <td style="padding: 2px;">#!wohnort#</td>
+          </tr>
+          <tr>
+            <th style="padding-bottom: 6px;">#%birthday#</th>
+            <td style="padding: 2px;">#!geburtstag#</td>
+          </tr>
+
+          </table>
+          
+          </div>
+          <div id="page2" style="display:none">
+          
+          <table class="liste" width="100%">
+             <tr>
+            <th style="padding-bottom: 6px;">#%clan#</th>
+            <td style="padding: 2px;">#!clan#</td>
+          </tr>
+          <tr>
+            <th style="padding-bottom: 6px;">#%clantag#</th>
+            <td style="padding: 2px;">#!clantag#</td>
+          </tr>
+          <tr>
+            <th style="padding-bottom: 6px;">#%clanhp#</th>
+            <td style="padding: 2px;">#!clanhomepage#</td>
+          </tr>       
+               <tr>
+            <th style="padding-bottom: 6px;">#%clanhist#</th>
+            <td style="padding: 2px;">#!clanhistory#</td>
+          </tr> 
+          </table>
+          
+         </div> 
+         <?php  ?>
+         <div id="page3" style="display:none">
+         
+         <table class="liste" width="100%">
+                   <tr>
+            <th style="padding-bottom: 6px;">#%lastlogin#:</th>
+            <td style="padding: 2px;">#!lastlogin#</td>
+          </tr>
+          <tr>
+            <th style="padding-bottom: 6px;"></th>
+            <td style="padding: 2px;"><b><a href=index.php?site=pm&new&to=#!user#>#%pm#</a></b></td>
+          </tr>   
+
+           <tr>
+            <th style="padding-bottom: 6px;"></th>
+            <td style="padding: 2px;"></td>
+          </tr>        
+            <tr>
+         
+            <th style="padding-bottom: 6px;">Level:</th>
+            <td style="padding: 2px;">
+            #?userchangelevel : changelevel : level#
+            
+           </td>
+          </tr>
+
+        #?userdelet : deluser#    
+
+
+         </table>
+         </div> 
+
+
+
+          
+
+           
+
+          </td>      
+            
+          </tr> 
+          
+          
+          
+        
+      
+    </td>
+  </tr>
+</table>
+ 
+          <script type="text/javascript">
+var page1 = document.getElementById('page1');
+var page2 = document.getElementById('page2');
+var page3 = document.getElementById('page3');
+
+</script> 
+            
+<a href="#" onclick="page1.style.display = ''; page2.style.display = 'none'; page3.style.display = 'none';">User</a> 
+<a href="#" onclick="page2.style.display = ''; page1.style.display = 'none'; page3.style.display = 'none';">Claninfo</a> 
+<a href="#" onclick="page3.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none';">System</a> 
+ 
+
+
+
+
+[!/Main!]
+
+[!=EMail!]
+          <tr>
+            <th style="padding-bottom: 6px;">#%mail#</th>
+            <td style="padding: 2px;"><a href=mailto://#!email#>#!email#</a></td>
+          </tr>
+[!/EMail!]
+
+[!=Deluser!]
+
+          <tr>
+            <th style="padding-bottom: 6px;">Löschen</th>
+            <td style="padding: 2px;"><a href=index.php?site=user&delet=#!ID#>#%delet#</a></td>
+            
+          </tr> 
+
+[!/Deluser!]
+
+
+

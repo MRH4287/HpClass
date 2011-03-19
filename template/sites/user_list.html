@@ -1,0 +1,45 @@
+#!!NAME=user_list
+#!!AUTOR=MRH
+
+[!=Main!]
+
+<p align="center"><font size="5">User:</font></p>
+<p align="center">&nbsp;</p>
+<table border="0" width="600">
+
+  <tr>
+  
+
+    <td width="10">
+      <p align="center">#%username#:</p>
+    </td>
+    <td width="10">
+      <p align="center">#%since#:</p>
+    </td>
+    <td width="10">
+      <p align="center">#%name#:</p>
+    </td>
+    <td width="10">
+      <p align="center">#%nachname#:</p>
+    </td>
+
+  </tr>
+
+  #!Users#
+
+
+</table> 
+[!/Main!]
+
+
+[!=Users!]
+    <tr>
+    <td width="10"><p align="center"><a href=index.php?site=user&show=#!user#>#!user#</a></p></td>
+    <td width="10"><p align="center">#!datum#</p></td>
+    <td width="10"><p align="center">#!name#</p></td>
+    <td width="10"><p align="center">#!nachname#</p></td>
+    </tr>
+
+[!/Users!]
+
+

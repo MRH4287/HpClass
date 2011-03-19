@@ -11,85 +11,59 @@ $error = $hp->geterror();
 
 if (isset($post['changelevel'])) 
 {
-$leveltemp=$post['level'];
-$eingabe = "UPDATE `".$dbpräfix."user` SET `level` = '$leveltemp' WHERE `user` = '".$get['change']."';";
-$ergebnis = $hp->mysqlquery($eingabe);
-echo mysql_error();
+  $leveltemp=$post['level'];
+  $eingabe = "UPDATE `".$dbpräfix."user` SET `level` = '$leveltemp' WHERE `user` = '".$get['change']."';";
+  $ergebnis = $hp->mysqlquery($eingabe);
+  echo mysql_error();
 }
 
 if (isset ($get['delet']))
 {
-$hp->info->info("Den User ".$get['delet']." Wirklich endgültig löschen? <a href=index.php?site=user&delet2=".$get['delet'].">Ja</a>");
+  $hp->info->info("Den User ".$get['delet']." Wirklich endgültig löschen? <a href=index.php?site=user&delet2=".$get['delet'].">Ja</a>");
 }
 
 if (isset ($get['delet2']))
 {
-if (!$right[$level]['userdelet']) { echo $lang->word('noright'); exit; }
-$eingabe = "DELETE FROM `".$dbpräfix."user` WHERE `user` = '".$get['delet2']."';";
-$ergebnis = $hp->mysqlquery($eingabe);
-echo mysql_error();
-if ($ergebnis==true) {
-echo $lang->word('delok');
-} 
+  if (!$right[$level]['userdelet']) 
+  {
+   echo $lang->word('noright');
+  } else
+  {
+    $eingabe = "DELETE FROM `".$dbpräfix."user` WHERE `user` = '".$get['delet2']."';";
+    $ergebnis = $hp->mysqlquery($eingabe);
+    echo mysql_error();
+    if ($ergebnis==true) {
+      echo $lang->word('delok');
+    } 
+  }
 }
 
 if (!isset($get['show'])) {
 
-$abfrage = "SELECT * FROM ".$dbpräfix."user ORDER BY `level` DESC ";
-$ergebnis = $hp->mysqlquery($abfrage)
-    OR die("Error: $abfrage <br>".mysql_error());
+  $abfrage = "SELECT * FROM ".$dbpräfix."user ORDER BY `level` DESC ";
+  $ergebnis = $hp->mysqlquery($abfrage);
 
-?>
+  $site = new siteTemplate($hp);
+  $site->load("user_list");
 
-
-<p align="center"><font size="5">User:</font></p>
-<p align="center">&nbsp;</p>
-<p align="center"><table border="0" width="600">
-
-  <tr>
-  
-
-    <td width="10" bgcolor="<?php echo $defaultcolor?>">
-      <p align="center"><?php echo $lang->word('username')?>:</p>
-    </td>
-    <td width="10" bgcolor="<?php echo $defaultcolor?>">
-      <p align="center"><?php echo $lang->word('since')?>:</p>
-    </td>
-    <td width="10" bgcolor="<?php echo $defaultcolor?>">
-      <p align="center"><?php echo $lang->word('name')?>:</p>
-    </td>
-    <td width="10" bgcolor="<?php echo $defaultcolor?>">
-      <p align="center"><?php echo $lang->word('nachname')?>:</p>
-    </td>
-
-  </tr>
- 
-
-<?php   
-while($row = mysql_fetch_object($ergebnis))
-   {
- 
-?>
-
-  <tr>
-
-  
-    <td width="10"><p align="center"><a href=index.php?site=user&show=<?php echo "$row->user"?>><?php echo "$row->user"?></a></p></td>
-    <td width="10"><p align="center"><?php echo "$row->datum"?></p></td>
-    <td width="10"><p align="center"><?php echo "$row->name"?></p></td>
-    <td width="10"><p align="center"><?php echo "$row->nachname"?></p></td>
+   
+  $content = "";
+  while($row = mysql_fetch_object($ergebnis))
+  {
+    $data = array(
+      "user" => $row->user,
+      "datum" => $row->datum,
+      "name" => $row->name,
+      "nachname" => $row->nachname    
+    );
     
+    $content .= $site->getNode("Users", $data);
 
-  </tr>
+  }
 
-<?php
-}
-?>
-</table> </p>
-
-<?php
-
-
+  $site->set("Users", $content);
+  
+  $site->display();
 
 } else
 {
