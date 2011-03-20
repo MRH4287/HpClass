@@ -934,11 +934,14 @@ function ax_pluginEnable($name)
  $fp = $hp->fp;
  $pluginloader = $hp->pluginloader;
  
- 
- if ($pluginloader->enablePlugin($name))
+ if (in_array($_SESSION['username'], $hp->getsuperadmin()))
  {
-  $response->assign("pluginData-$name", "innerHTML", '<img src="./images/on.gif" alt="ON" onclick="xajax_pluginDisable(\''.$name.'\')">');
  
+  if ($pluginloader->enablePlugin($name))
+  {
+    $response->assign("pluginData-$name", "innerHTML", '<img src="./images/on.gif" alt="ON" onclick="xajax_pluginDisable(\''.$name.'\')">');
+ 
+  }
  }
  
  return $response;
@@ -955,11 +958,14 @@ function ax_pluginDisable($name)
  $fp = $hp->fp;
  $pluginloader = $hp->pluginloader;
  
- 
- if ($pluginloader->disablePlugin($name))
+  if (in_array($_SESSION['username'], $hp->getsuperadmin()))
  {
-  $response->assign("pluginData-$name", "innerHTML", '<img src="./images/off.gif" alt="OFF" onclick="xajax_pluginEnable(\''.$name.'\')">');
  
+  if ($pluginloader->disablePlugin($name))
+  {
+   $response->assign("pluginData-$name", "innerHTML", '<img src="./images/off.gif" alt="OFF" onclick="xajax_pluginEnable(\''.$name.'\')">');
+ 
+  }
  }
  
  return $response;
