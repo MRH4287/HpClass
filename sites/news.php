@@ -83,6 +83,7 @@ $site->load("news");
 //News schreiben!
  if (isset($post['newswrite']))
  {
+
   // Newswrite
   $newstitel=$post['newstitel'];
   $newstitel = str_replace('<',"&lt;" ,$newstitel);
@@ -106,11 +107,10 @@ $site->load("news");
     {
 
      $eintrag = "INSERT INTO `".$dbpräfix."news`
-     ersteller, datum, titel, typ, text, level)
+     (ersteller, datum, titel, typ, text, level)
      VALUES
      ('$newsersteller', '$newsdatum', '$newstitel', '$newstyp', '$newstext', '$newslevel')";
      $eintragen = $hp->mysqlquery($eintrag);
-
 
       if ($eintragen == true)
       {

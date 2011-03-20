@@ -229,7 +229,7 @@ if ($myerror <> "")
 {
 
 $this->error->error("$myerror", "2");
-
+echo "<b>Mysql Error: $myerror</b> ";
 }
 
 return $query;
