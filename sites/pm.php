@@ -15,107 +15,42 @@ $datum = date('j').".".date('n').".".date('y');
 if (isset($_SESSION['username']))
 {
 
- ?>
- <center><table width="21%" border="0">
-  <tr>
-    <th bgcolor="<?php echo $defaultcolor?>" scope="col"><div align="center"><span class="Stil2"><a href="index.php?site=pm">PM-Menu</a></span></div></th>
-  </tr>
-</table></center>
+  if (!isset($get['read']) and !isset($post['del']) and !isset($post['mark']) and !isset($get['new']) and !isset($get['del']) and !isset($get['ausgang']) and !isset($get['report']) and !isset($get['getres']))
+  {
 
-<?php
-if (!isset($get['read']) and !isset($post['del']) and !isset($post['mark']) and !isset($get['new']) and !isset($get['del']) and !isset($get['ausgang']) and !isset($get['report']) and !isset($get['getres']))
-{
-
-$abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `zu` = '".$_SESSION['username']."' ORDER BY `ID` DESC;";
-$ergebnis = $hp->mysqlquery($abfrage);
-if ($ergebnis == false)
-{
-$error->error(mysql_error(), "2");
-}
-    
-
- 
-
-?>
- <script type="text/javascript">
-<!-- Begin
-function checkAll(field)
-{
-for (i = 0; i < field.length; i++)
-	field[i].checked = true ;
-	return false;
-}
-
-function uncheckAll(field)
-{
-for (i = 0; i < field.length; i++)
-	field[i].checked = false ;
-	return false;
-}
-//  End -->
-</script>
-
-
-<form action="index.php?site=pm" method="POST" name="selform">
-<table width="100%" border="0">
-  <tr bgcolor="<?php echo $defaultcolor?>">
-    <th height="25" scope="col"><!--ID:--></th>
-    <th scope="col"><?php echo $lang->word('absender')?>:</th>
-    <th scope="col"><?php echo $lang->word('betreff')?>:</th>
-    <th scope="col"><?php echo $lang->word('datum')?>:</th>
-    <th scope="col">&nbsp;</th>
-  </tr>
+  $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `zu` = '".$_SESSION['username']."' ORDER BY `ID` DESC;";
+  $ergebnis = $hp->mysqlquery($abfrage);
+  if ($ergebnis == false)
+  {
+    $error->error(mysql_error(), "2");
+  }
   
-  <?php
-  $numbers = 0;
+  $site = new siteTemplate($hp);
+  $site->load("pm_list");  
+  
+
+  $content = "";
   while($row = mysql_fetch_object($ergebnis))
   {
-  $numbers = $numbers +1;
-   ?>
-   <tr bgcolor="#4E6F8">
-    <td scope="col"><div align="center"><!--<?php echo "$row->ID"?>--><input type="checkbox" name="sel[]" value="<?php echo "$row->ID"?>">
-                                                              </div></td>
-    <td scope="col"><div align="center"><?php echo "$row->von"?></div></td>
-    <td scope="col"><div align="center"><a href="index.php?site=pm&read=<?php echo "$row->ID"?>"><?php if ("$row->gelesen" == "0") { echo "<b>"; } ?><?php echo "$row->Betreff"?><?php if ("$row->gelesen" == "0") { echo "</b>"; } ?></a></div></td>
-    <td scope="col"><div align="center"><?php echo "$row->Datum"?></div></td>
-    <td scope="col"><div align="center"><!--<a href=index.php?site=pm&del=<?php echo "$row->ID"?>>Löschen</a>--></div></td>
- </tr>
- 
- 
-  <?php 
+    $data = array(
+      "ID" => $row->ID,
+      "von" => $row->von,
+      "Betreff" => ($row->gelesen == 0) ? "<b>$row->Betreff</b>" : $row->Betreff,
+      "Datum" => $row->Datum    
+     );
+     
+    $content .= $site->getNode("Line", $data);
+
+  }
   
-  }?>  
+  $site->set("Line", $content);
+  
+  $site->display();
+  
 
-</table>
-<!--
-  <input type=button  value="Check All"	onClick="checkAll(document.selform)">
- <input type=button value="Uncheck All"	onClick="uncheckAll(document.selform)">
--->
-<a href="#" onClick="checkAll(document.selform)">Check all</a>
-<a href="#" onClick="uncheckAll(document.selform)">Uncheck all</a>
-
-  <table width="100%" border="0">
-  <?php if ($numbers != 0){ ?>
-  <tr>
-  <th bgcolor="#4E6F8" width="25%"><input type="submit" name="del" value="<?php echo $lang->word('delet')?>"><input type="submit" name="mark" value="Als gelesen makieren"></form></th>
-    <th bgcolor="<?php echo $defaultcolor?>" width="50%"><a href="index.php?site=pm&new"><?php echo $lang->word('newpm')?></a>
-                                      </th>
-    <td width="25%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href="index.php?site=pm&ausgang"><?php echo $lang->word('postausgang')?></a></div></td>
-  </tr>
-  <?php } else { ?>
-   <tr>
-    <th bgcolor="<?php echo $defaultcolor?>" width="50%"><a href="index.php?site=pm&new"><?php echo $lang->word('newpm')?></a>
-                                      </th>
-    <td width="50%" bgcolor="<?php echo $defaultcolor?>"><div align="center"><a href="index.php?site=pm&ausgang"><?php echo $lang->word('postausgang')?></a></div></td>
-  </tr> 
-  <?php } ?>
-</table>
-
-
-<?php
 } elseif (isset($get['read']))
 {
-ob_start(showcontent);
+
 $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `ID` = '".$get['read']."' ORDER BY `ID`;";
 $ergebnis = $hp->mysqlquery($abfrage);
       while($row = mysql_fetch_object($ergebnis))
@@ -172,7 +107,7 @@ $ergebnis2 = $hp->mysqlquery($eingabe2);
 
 
 <?php
-ob_end_flush();
+
 }
 } else
 {
