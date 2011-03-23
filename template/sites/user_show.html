@@ -75,7 +75,6 @@
           </table>
           
          </div> 
-         <?php  ?>
          <div id="page3" style="display:none">
          
          <table class="liste" width="100%">
@@ -159,5 +158,17 @@ var page3 = document.getElementById('page3');
 
 [!/Deluser!]
 
+[!=LevelChange!]
+  <form method="POST" action="index.php?site=user&change=#!ID#&show=#!ID#">
+    <select size="#!count#" name="level">
+     #!Options#
+    </select>
+    <input type="submit" value="#%send#" name="changelevel">
+  </form>
 
+[!/LevelChange!]
 
+[!=Options!]
+  <option #!selected# value="#!ID#">#!name#</option>
+
+[!/Options!]

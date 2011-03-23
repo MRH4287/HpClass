@@ -14,19 +14,11 @@ $fp = $hp->fp;
 
 
 $site = new siteTemplate($hp);
-$site->load("news");
+$site->load("user_show");
+echo "<pre>";
+print_r($site->getPlaceholder($site->getNode("LevelChange", array())));
+echo "</pre>";
 
-$site->set("WriteNews", "NW");
-
-$data = array("Titel" => "Das System funktioniert!", 
-"Level" => "(Level 1)", "ersteller" => "mrh", "datum" => "heute", "Content" => "Es geht!");
-$news = $site->getNode("News", $data);
-$site->set("News", $news);
-
-
-
-
-$site->display();
 
 
 
