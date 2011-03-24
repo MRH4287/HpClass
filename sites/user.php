@@ -8,13 +8,13 @@ $post = $hp->post();
 $dbpräfix = $hp->getpräfix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
+$info = $hp->getinfo();
 
 if (isset($post['changelevel'])) 
 {
   $leveltemp=$post['level'];
   $eingabe = "UPDATE `".$dbpräfix."user` SET `level` = '$leveltemp' WHERE `user` = '".$get['change']."';";
   $ergebnis = $hp->mysqlquery($eingabe);
-  echo mysql_error();
 }
 
 if (isset ($get['delet']))
@@ -26,14 +26,13 @@ if (isset ($get['delet2']))
 {
   if (!$right[$level]['userdelet']) 
   {
-   echo $lang->word('noright');
+   $error->error($lang->word('noright'),"1");
   } else
   {
     $eingabe = "DELETE FROM `".$dbpräfix."user` WHERE `user` = '".$get['delet2']."';";
     $ergebnis = $hp->mysqlquery($eingabe);
-    echo mysql_error();
     if ($ergebnis==true) {
-      echo $lang->word('delok');
+      $info->okn($lang->word('delok'));
     } 
   }
 }

@@ -51,7 +51,7 @@ $site->load("news");
  {
   if (!$right[$level]['newsdel'])
   {
-    echo $lang->word('nodelnews')."<br>".$lang->word('questions-webmaster');
+    $error->error($lang->word('nodelnews'));
 
   } else
   {
@@ -194,5 +194,5 @@ $site->load("news");
  $site->set("WriteNews", "  -  ".$lbsites->link("newnews","<b>Neue Newsmeldung verfassen</b>")); 
  $site->set("StartEditNews", "  -  <a href=\"index.php?site=news&delet=true\"><b>Newsmeldungen Bearbeiten</b></a>"); 
 
-$site->display(); 
+ $site->display(); 
 ?>

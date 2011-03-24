@@ -11,74 +11,68 @@ $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
 
+  $site = new siteTemplate($hp);
+  $site->load("info");
+  $site->set("info", "Diese Seite wird aufgerufen, wenn sich ein neuer Benutzer anmeldet.<br>Normalerweiße enthält diese Seite keine Informationen.");
 
-if (isset($get['user']))
-{
-$codeg = $get['code'];
+  if (isset($get['user']) and isset($get['code']))
+  {
+    $codeg = $get['code'];
 
-$abfrage = "SELECT * FROM ".$dbpräfix."anwaerter WHERE `user`= '".$get['user']."'";
-$ergebnis = $hp->mysqlquery($abfrage);
+    $abfrage = "SELECT * FROM ".$dbpräfix."anwaerter WHERE `user`= '".$get['user']."'";
+    $ergebnis = $hp->mysqlquery($abfrage);
     
-$row = mysql_fetch_object($ergebnis);
+    $row = mysql_fetch_object($ergebnis);
 
-   $user="$row->user";
-   $passwort123="$row->pass";
-   $name="$row->name";
-   $nachname="$row->nachname";
-   $email="$row->email";
-
-   $datum="$row->datum";
+    $user="$row->user";
+    $passwort123="$row->pass";
+    $name="$row->name";
+    $nachname="$row->nachname";
+    $email="$row->email";
+    $datum="$row->datum"; 
+    $wohnort = "$row->wohnort";
+    $geschlecht = "$row->geschlecht";
+    $tel = "$row->tel";
    
-   // [ADD] 21.04.08 
-   $wohnort = "$row->wohnort";
-   $geschlecht = "$row->geschlecht";
-   $tel = "$row->tel";
-   
-   $code = $row->code;
+    $code = $row->code;
 
-if ($codeg != $code)
-{
-echo "<br>Der angegebene Sicherheitscode stimmt nicht überein!<br>Falls dies ein Systemfehler ist, wenden Sie sich bitte an einen der Administratoren!";
-} else
-{
-   
+    if ($codeg != $code)
+    {
+      $site->set("info", "<br>Der angegebene Sicherheitscode stimmt nicht überein!<br>Falls dies ein Systemfehler ist, wenden Sie sich bitte an einen der Administratoren!");
+    } else
+    {
+      if (isset($user) and ($user != ""))
+      {
+        $eintrag = "DELETE FROM `".$dbpräfix."anwaerter` WHERE `user` = '".$get['user']."'";
+        $eintragen1 = $hp->mysqlquery($eintrag);
 
-if (isset($user) and ($user != ""))
-{
+        $eintrag = "INSERT INTO `".$dbpräfix."user`
+        (user, pass, name, nachname, datum, level, email, wohnort, tel, geschlecht)
+        VALUES
+        ('$user', '$passwort123', '$name', '$nachname', '$datum', '1', '$email', '$wohnort',  '$tel', '$geschlecht')";
+        $eintragen2 = $hp->mysqlquery($eintrag);
 
-   
-$eintrag = "DELETE FROM `".$dbpräfix."anwaerter` WHERE `user` = '".$get['user']."'";
-$eintragen1 = $hp->mysqlquery($eintrag);
-echo mysql_error()."<br>";
-$eintrag = "INSERT INTO `".$dbpräfix."user`
-(user, pass, name, nachname, datum, level, email, wohnort, tel, geschlecht)
-VALUES
-('$user', '$passwort123', '$name', '$nachname', '$datum', '1', '$email', '$wohnort',  '$tel', '$geschlecht')";
-$eintragen2 = $hp->mysqlquery($eintrag);
+        if (($eintragen1 == true) and ($eintragen2 == true))
+        {
+           $site->set("info", "<br>Vielen Dank,<br>Ihre Registration wurde erfolgreich abgeschlossen!");
 
+          foreach ($hp->superadmin as $key=>$superadmin) 
+          {
+	           $hp->PM($superadmin, "System", "Neuer User", "Ein neuer User:<br>$user", $datum, $dbpräfix);
+          }
 
+        } else 
+        { 
+        $site->set("info", "Fehler: <br>Melden Sie sich bitte umgehen bei dem zuständigem Administrator! <br>".mysql_error());
+        }
 
-if (($eintragen1 == true) and ($eintragen2 == true))
-{
-echo"<br>Vielen Dank,<br>Ihre Registration wurde erfolgreich abgeschlossen!";
-//echo"<br>Sie sind auserdem, nun im Forum angemeldet. (Die selben Benutzerdaten)";
+      } else
+      {
+       $site->set("info", "Ihre E-Mailadresse wurde bereits verifiziert!");
+      }
 
-foreach ($hp->superadmin as $key=>$superadmin) {
-	$hp->PM($superadmin, "System", "Neuer User", "Ein neuer User:<br>$user", $datum, $dbpräfix);
-
-}
-
-
-
-} else { echo "Fehler: <br>Melden Sie sich bitte umgehen bei dem zuständigem Administrator! <br>".mysql_error(); }
-
-} else
-{
-echo "Ihre E-Mailadresse wurde bereits verifiziert!";
-}
-
-}
-}
-
-
+    }
+    
+  }
+  $site->display();
 ?>
