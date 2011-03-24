@@ -1,0 +1,48 @@
+#!!NAME=pm_edit
+#!!AUTOR=MRH
+
+[!=Main!]
+<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "simple"
+
+	});
+	</script>
+<form action="index.php?site=pm&#!site#&post" method="post">
+<table width="100%" border="0">
+  <tr>
+    <th colspan="2"  scope="col">#%newpm#: </th>
+  </tr>
+  <tr>
+    <th width="31%"  scope="col">#%empfänger#:</th>
+    <th width="69%" scope="col"><div align="center">
+      <label>
+      <input name="zu" size="80"  type="text" value="#!zu#" />
+      </label>
+    </div></th>
+  </tr>
+  <tr>
+    <th scope="row">#%betreff#:</th>
+    <td><div align="center"><input type="text" name="Betreff" size="80" value="#!Betreff#" /></div></td>
+  </tr>
+  <tr>
+    <th scope="row">#%text#:</th>
+    <td><div align="center">
+      <label>
+      <textarea name="Text" cols="80" rows="20">#!Text#</textarea>
+      </label>
+    </div></td>
+  </tr>
+</table>
+  <table width="100%" border="0">
+  <tr>
+    <th width="50%"><input type="submit" name="post" value="#%post#"></th>
+    <td width="50%"><div align="center"><a href=index.php?site=pm>#%back#</a></div></td>
+  </tr>
+</table>
+<input name="timestamp" size="200"  type="hidden" value="#!time#" />
+</form>
+
+[!/Main!]

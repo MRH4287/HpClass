@@ -1,0 +1,39 @@
+#!!NAME=pm_show
+#!!AUTOR=MRH
+
+[!=Main!]
+
+<table width="100%" border="0">
+    <tr>
+    <th width="22%" scope="col">#%von#:</th>
+    <th width="78%"><div align="center"><a href=index.php?site=user&show=#!von#>#!von#</div></th>
+  </tr>
+    <tr>
+    <th width="22%" scope="col">#%für#:</th>
+    <th width="78%"><div align="center"><a href=index.php?site=user&show=#!zu#>#!zu#</div></th>
+  </tr>
+    <tr>
+    <th scope="row">#%datum#:</th>
+    <td><div align="center">#!Datum#</div></td>
+  </tr>
+  <tr>
+    <th  scope="row">#%betreff#</th>
+    <td><div align="center">#!Betreff#</div></td>
+  </tr>
+  
+</table>
+  <hr />
+  <div align="left" style="margin-top:30px;margin-bottom:30px;">#!Text#</div>
+   <hr />
+<table width="100%" border="0">
+  <tr>
+   <th width="50%"><div align="center"><a href="index.php?site=pm&new&to=#!von#&bet=#!Betreff#">#%antworten#</a></div></th>
+    #!Delet#
+   </tr>
+</table>
+
+[!/Main!]
+
+[!=Delet!]
+    <td width="50%"><div align="center"><a href=index.php?site=pm&del=#!ID#>#%delet#</a></div></td>
+[!/Delet!]
