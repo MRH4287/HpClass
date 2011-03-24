@@ -137,18 +137,17 @@ function getPlaceholder($content, $key = "!")
 
 function replace($data)
 {
-//Ersetze Inline Platzhalter:
+  //Ersetze Inline Platzhalter:
   foreach($this->data as $key=>$value)
   {
     $data = str_replace("#!$key#", $value, $data);
   }
                                                   
-//Ersetze die Sprachblocks
-$data = $this->replaceLangBlocks($data);
-
-$data = $this->replaceCondit($data);
-
-return $data;
+  //Ersetze die Sprachblocks
+  $data = $this->replaceLangBlocks($data);
+  // Ersetze Bedingte Ausgaben
+  $data = $this->replaceCondit($data);
+  return $data;
 }
 
 
@@ -187,7 +186,8 @@ function replaceCondit($data)
     
     if (preg_match("/\"(.*)\"/", $con[1]))
     {
-      $iftrue =  str_replace("\"", "", $con[1]);
+       $tmp = $this->replaceLangBlocks($con[1]);  
+       $iftrue =  str_replace("\"", "", $tmp);
     } 
     elseif (preg_match("/%(.*)/", $con[1]))
     {
@@ -208,7 +208,8 @@ function replaceCondit($data)
     {
       if (preg_match("/\"(.*)\"/", $con[2]))
       {
-       $iffalse =  str_replace("\"", "", $con[2]);
+       $tmp = $this->replaceLangBlocks($con[2]);  
+       $iffalse =  str_replace("\"", "", $tmp);
       } 
       elseif (preg_match("/%(.*)/", $con[2]))
       {
