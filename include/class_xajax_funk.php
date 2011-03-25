@@ -972,6 +972,123 @@ function ax_pluginDisable($name)
 }
 
 
+// ------------------------------------- Subpage - Editor ----------------------------------------------
+
+
+function ax_subpageTemplateChange($tempname)
+{
+  $response = new xajaxResponse();
+
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $info = $hp->info;
+  $error = $hp->error;
+  $fp = $hp->fp;
+  $subpages = $hp->subpages;
+ 
+  // Seitenüberprüfung:
+  $tpC = $subpages->getTemplateConfig($tempname);
+  
+  if (($hp->site == "subpage") && ($tpC != false))
+  {
+   
+    $site = new siteTemplate($hp);
+    $site->load("subpage");
+        
+    $content = "";
+    foreach($tpC["template"] as $ID=>$type)
+    {
+     switch($type)
+     {
+       case "textbox":
+        
+        $data = array(
+          "name" => $ID,
+           "value" => "",
+           "ID" => "tp_".$ID       
+        );
+        
+        $content .= $site->getNode("TextBox", $data);
+        
+         
+       break;
+      
+      
+       case "textarea":
+       
+        $data = array(
+          "name" => $ID,
+          "value" => "",
+          "ID" => "tp_".$ID       
+        );
+       
+        $content .= $site->getNode("TextArea", $data);
+       
+        
+        break;
+      
+      
+        case "checkbox":
+       
+         $data = array(
+          "name" => $ID,
+          "checked" => "",
+          "ID" => "tp_".$ID       
+        );
+       
+         $content .= $site->getNode("CheckBox", $data);
+       
+        
+       break; 
+      
+       case "combobox":
+       
+
+       
+        $options = "";
+        if (isset($tpC["data"][$ID]) and is_array($tpC["data"][$ID]))
+        {
+           foreach ($tpC["data"][$ID] as $k=>$value)
+           {
+             $data = array(
+             
+             "ID" => $value,
+             "value" => $value,
+             "slected" => ""            
+             );
+            
+             $options .= $site->getNode("ComboBoxOption", $data);
+            
+            }
+         }
+        $data = array(
+          "name" => $ID,
+          "ID" => "tp_".$ID,
+          "Options" => $options       
+        );
+       
+        $content .= $site->getNode("ComboBox", $data);
+       
+        
+       break;  
+    
+      }
+  
+  
+    }   
+    
+    $response->assign("SubpageData", "innerHTML", $content);
+    $response->script("	tinyMCE.init({		mode : \"textareas\",		theme : \"simple\"	});");
+  
+  } else
+  {
+    $response->assign("SubpageData", "innerHTML", "");
+  }
+ 
+  return $response;
+}
+
+
 
 
 // ---------------------------------------- Erweiterungen ----------------------------------------------

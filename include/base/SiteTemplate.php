@@ -225,9 +225,21 @@ function replaceCondit($data)
   
     }
   
-    if (isset($right[$level][$rightN]))
+    if (preg_match("/\#(.*)/", $rightN))
     {
-      $output = ($right[$level][$rightN] ? $iftrue : $iffalse); 
+      $name = str_replace("#", "", $rightN);
+      if (isset($this->data[$name]))
+      {
+        $output = (($this->data[$name] == "true") ? $iftrue : $iffalse);
+      } else
+      {
+        $output = "[name?]";
+      }
+
+    } elseif (isset($right[$level][$rightN]))
+    {
+      $output = ($right[$level][$rightN] ? $iftrue : $iffalse);
+       
     } elseif (($rightN == "superadmin"))
     {
        $output = (isset($_SESSION['username']) && in_array($_SESSION['username'], $hp->getsuperadmin())) ? $iftrue : $iffalse; 

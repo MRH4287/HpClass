@@ -7,7 +7,7 @@
 <style type="text/css">
 .subpage_container
 {
-width:400px;
+width:600px;
 height:auto;
 margin:auto;	
 
@@ -18,15 +18,29 @@ border:thin black inset;
 
 </style>
 
+<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "simple"
 
+	});
+	</script>
 
 <div class="subpage_container">
 <h3 style="text-align:center">Unterseiten Editor</h3>
 
+<form action="?site=subpage" method="POST">
+
+<p>Unterseiten Name:</p>
+<p> <input name="subpage_name" type="text" /></p>
+
 <p>Template Name:</p>
-<p> <select name="template">
-#!Templates# 
-</select></p>
+<p>
+
+#!TemplateSelector#
+
+</p>
 
 <hr />
 
@@ -37,19 +51,29 @@ border:thin black inset;
 </div>
 
 <hr />
-<p><input type="button" value="OK" /></p>
+<p><input type="submit" name="new" value="#%send#" onClick=" if ($('templateSelector').value == '') { alert('Bitte ein Template wählen'); return false; }" /></p>
 
-
+</form>
 
 </div>
 
 [!/Main!]
 
-[!=ComboBox!]
+[!=TemplateSelector!]
+
+<select name="template_name" id="templateSelector" onChange="xajax_subpageTemplateChange($('templateSelector').value);">
+#!Templates# 
+</select>
+
+[!/TemplateSelector!]
+
+
+
+[!=CheckBox!]
 <p>#!name#:</p>
 <p> <input type="checkbox" #!checked# name="#!ID#" /> </p>
 <p></p>
-[!/ComboBox!]
+[!/CheckBox!]
 
 [!=TextBox!]
 <p>#!name#:</p>
@@ -60,7 +84,7 @@ border:thin black inset;
 
 [!=TextArea!]
 <p>#!name#:</p>
-<p><textarea name="#!ID#">#!value#</textarea></p>
+<p><textarea name="#!ID#" cols="45" rows="8">#!value#</textarea></p>
 <p></p>
 
 [!/TextArea!]

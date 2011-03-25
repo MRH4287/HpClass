@@ -10,21 +10,111 @@ $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
 $subpages = $hp->subpages;
+$xajaxF = $hp->xajaxF;
 $fp = $hp->fp;
 
 
 
-$site = new siteTemplate($hp);
-$site->load("subpage");
-
-
-//Rufe eine Liste aller Templates auf:
-
-$templates = $subpages->getAllTemplates();
-print_r($templates);
 
 
 
+if (isset($get["new"]))
+{
+  $site = new siteTemplate($hp);
+  $site->load("subpage");
+
+
+  //Rufe eine Liste aller Templates auf:
+
+  $templates = $subpages->getAllTemplates();
+  
+  $template = "";
+  $f = true;
+  $ft = "";
+  foreach ($templates as $ID=>$name)
+  {
+    $data = array(
+      "selected" => ($f)? "selected" : "",
+      "value" => $name,
+      "ID" => $ID
+    
+    );
+    
+    $template .= $site->getNode("ComboBoxOption", $data);
+    
+    // Ermitteln des ersten Templates:
+    if ($f)
+    {
+      $ft = $ID;
+    }
+    
+    $f = false;
+  }
+  
+  $data = array(
+    "Templates" =>$template 
+  );
+  
+  $site->set("TemplateSelector", $site->getNode("TemplateSelector", $data));
+
+  // Lade die Daten für das erste Template:
+  $xajaxF->open("xajax_subpageTemplateChange('$ft');");
+  
+  $site->set("Content", "<img src=images/loading.gif alt=\"Loading\" />");  
+  $site->display();
+
+} elseif (isset($post["new"]))
+{
+
+  $site = new siteTemplate($hp);
+  $site->load("info");
+  
+  $subpageName = $post["subpage_name"];
+  if ($subpages->getSite($subpageName) == false)
+  {
+    $templateName = $post["template_name"];
+    $tpC = $subpages->getTemplateConfig($templateName);
+  
+    if (($tpC != false) && (isset($tpC["template"])))
+    {
+     // Abfragen der Daten:
+      
+      $data = "";
+     foreach ($tpC["template"] as $name=>$type)
+     {
+       if (isset($post["tp_$name"]))
+       {
+         $value = $post["tp_$name"];
+         
+         if ($data != "")
+         {
+           $data .= "<!--!>";
+         }
+         
+         $data .= "$name<!=!>$value";
+       }
+     }
+     
+     //Speichern der Unterseite:
+     $sql = "INSERT INTO `$dbpräfix"."subpages` (`name`, `content`, `template`, `created`) VALUES ('$subpageName', '$data', '$templateName', '".time()."');";
+     $erg = $hp->mysqlquery($sql);
+     
+     $site->set("info", "Unterseite erfolgreich erstellt!<br><a href=?site=subpage>zurück</a>");
+     
+     
+  
+    } else
+    {
+      $site->set("info", "Das gewählte Template ist nicht verfügbar!<br><a href=?site=subpage>zurück</a>");
+    }
+    
+  } else
+  {
+    $site->set("info", "Es exsistiert bereits eine Seite mit diesen Namen!<br><a href=?site=subpage>zurück</a>");
+  }
+  
+  $site->display();
+}
 
 
 

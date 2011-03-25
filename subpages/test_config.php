@@ -16,17 +16,17 @@
     $subpageconfig["name"]        = "Test-Template";
     // Die Liste aller statischen Inhalte:
     // Mögliche Daten:
-    //  textbox, textarea, combobox
+    //  textbox, textarea, combobox, checkbox
     $subpageconfig["template"]    = array(
     "vorname" => "textbox",
     "nachname" => "textbox",
     "titel" => "textbox",
     "weiteres" => "textarea",
-    "data" => "combobox" // Muss zu einem Array Verlinken
+    "cbb" => "combobox" // Muss zu einem Array Verlinken
     );
     
-    $subpageconfig["Data"] = array(
-      "data" => array(  // Einträge für die ComboBox "data"
+    $subpageconfig["data"] = array(
+      "cbb" => array(  // Einträge für die ComboBox "cbb"
          "A", "B", "C"
       )
     
@@ -35,9 +35,9 @@
     // Die Liste alles dynamischen Inhalte:
     $subpageconfig["dyncontent"]  = array(  
                               // Name des Platzhalters     Typ
-                                            "subjects" => "subjectList",
-                                            "email" => "test"
-                                            );
+                                    "subjects" => "subjectList",
+                                    "email" => "test"
+                                    );
     
 
 
