@@ -14,11 +14,11 @@ $xajaxF = $hp->xajaxF;
 $fp = $hp->fp;
 
 
+if (!$right[$level]["manage_subpage"])
+{
+  $error->error("Sie haben nicht die benötigte Berechtigung!", "1");
 
-
-
-
-if (isset($get["new"]))
+} elseif (isset($get["new"]))
 {
   $site = new siteTemplate($hp);
   $site->load("subpage");
@@ -282,6 +282,33 @@ if (isset($get["new"]))
 
 } elseif (isset($get["list"]))
 {
+  //List_Element
+  $site = new siteTemplate($hp);
+  $site->load("subpage");
+  
+  $sql = "SELECT * FROM `$dbpräfix"."subpages`;";
+  $erg = $hp->mysqlquery($sql);
+  
+  $templates = $subpages->getAllTemplates();
+  
+  $elements = "";
+  while ($row = mysql_fetch_object($erg))
+  {
+    $data = array(
+      "name" => $row->name,
+      "template" => $templates[$row->template]    
+    );  
+  
+   $elements .= $site->getNode("List_Element", $data);
+   
+  }
+  
+  $site->set("Elements", $elements);
+  
+  
+  $site->display("List"); 
+
+
 
 
 } else

@@ -203,6 +203,7 @@ $dbpräfix = $hp->getpräfix();
    "index.php?site=vote!manage_vote" => "Umfragen",
    "!addlinks",
    "index.php?site=usedpics!usedpics" => "Benutzte Bilder",
+   "index.php?site=subpage!manage_subpage" => "Unterseiten Verwalten",
    "index.php?site=rights!superadmin" => "Rechte",
    "index.php?site=config!superadmin" => "Konfiguration",
    "index.php?site=plugins!superadmin" => "Plugin System",
