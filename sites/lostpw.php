@@ -24,7 +24,7 @@ $row = mysql_fetch_object($erg);
 
 
 
-if ($row->verfall >= time())
+if (isset($row->verfall) and ($row->verfall >= time()))
 {
 ?>
 <p align="center"><strong>Bitte geben Sie ihr Passwort ein:</strong></p>

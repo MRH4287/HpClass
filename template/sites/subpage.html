@@ -1,0 +1,76 @@
+#!!NAME=subpage
+#!!AUTOR=MRH
+
+
+[!=Main!]
+
+<style type="text/css">
+.subpage_container
+{
+width:400px;
+height:auto;
+margin:auto;	
+
+border:thin black inset;		
+}
+
+
+
+</style>
+
+
+
+<div class="subpage_container">
+<h3 style="text-align:center">Unterseiten Editor</h3>
+
+<p>Template Name:</p>
+<p> <select name="template">
+#!Templates# 
+</select></p>
+
+<hr />
+
+<div id="SubpageData">
+
+#!Content#
+
+</div>
+
+<hr />
+<p><input type="button" value="OK" /></p>
+
+
+
+</div>
+
+[!/Main!]
+
+[!=ComboBox!]
+<p>#!name#:</p>
+<p> <input type="checkbox" #!checked# name="#!ID#" /> </p>
+<p></p>
+[!/ComboBox!]
+
+[!=TextBox!]
+<p>#!name#:</p>
+<p> <input type="text" value="#!value#" name="#!ID#" /> </p>
+<p></p>
+
+[!/TextBox!]
+
+[!=TextArea!]
+<p>#!name#:</p>
+<p><textarea name="#!ID#">#!value#</textarea></p>
+<p></p>
+
+[!/TextArea!]
+
+[!=ComboBox!]
+<p>#!name#:</p>
+<p><select name="#!ID#">#!Options#</select></p>
+<p></p>
+[!/ComboBox!]
+
+[!=ComboBoxOption!]
+<option value="#!ID#" #!selected#>#!value#</option>
+[!/ComboBoxOption!]

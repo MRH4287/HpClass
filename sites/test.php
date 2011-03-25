@@ -14,9 +14,9 @@ $fp = $hp->fp;
 
 
 $site = new siteTemplate($hp);
-$site->load("user_show");
+$site->load("profil");
 echo "<pre>";
-print_r($site->getPlaceholder($site->getNode("LevelChange", array())));
+print_r($site->getPlaceholder($site->getNode("Main", array())));
 echo "</pre>";
 
 

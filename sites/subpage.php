@@ -12,6 +12,29 @@ $info = $hp->getinfo();
 $subpages = $hp->subpages;
 $fp = $hp->fp;
 
+
+
+$site = new siteTemplate($hp);
+$site->load("subpage");
+
+
+//Rufe eine Liste aller Templates auf:
+
+$templates = $subpages->getAllTemplates();
+print_r($templates);
+
+
+
+
+
+
+
+
+
+
+// Navigation - Tmp:
+/*
+
 ?>
 
 <script>
@@ -152,7 +175,6 @@ foreach ($elements as $key=>$value) {
  }
 
 
+
+ */
 ?>
-
-
-

@@ -13,9 +13,25 @@
     
   // Ab hier können Änderungen vorgenommen werden
     // Der Name dieses Templates:
-    $subpageconfig["name"]        = "test";
+    $subpageconfig["name"]        = "Test-Template";
     // Die Liste aller statischen Inhalte:
-    $subpageconfig["template"]    = array("vorname", "nachname", "titel", "weiteres");
+    // Mögliche Daten:
+    //  textbox, textarea, combobox
+    $subpageconfig["template"]    = array(
+    "vorname" => "textbox",
+    "nachname" => "textbox",
+    "titel" => "textbox",
+    "weiteres" => "textarea",
+    "data" => "combobox" // Muss zu einem Array Verlinken
+    );
+    
+    $subpageconfig["Data"] = array(
+      "data" => array(  // Einträge für die ComboBox "data"
+         "A", "B", "C"
+      )
+    
+    );
+    
     // Die Liste alles dynamischen Inhalte:
     $subpageconfig["dyncontent"]  = array(  
                               // Name des Platzhalters     Typ
