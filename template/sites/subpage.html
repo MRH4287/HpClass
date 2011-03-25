@@ -33,7 +33,7 @@ border:thin black inset;
 <form action="?site=subpage" method="POST">
 
 <p>Unterseiten Name:</p>
-<p> <input name="subpage_name" type="text" /></p>
+<p> <input name="subpage_name" type="text" value="#!subpage_name#"  #?:edit : "DISABLED"# /></p>
 
 <p>Template Name:</p>
 <p>
@@ -51,8 +51,9 @@ border:thin black inset;
 </div>
 
 <hr />
-<p><input type="submit" name="new" value="#%send#" onClick=" if ($('templateSelector').value == '') { alert('Bitte ein Template wählen'); return false; }" /></p>
+<p><input type="submit" name="#!site#" value="#%send#" onClick=" if ($('templateSelector').value == '') { alert('Bitte ein Template wählen'); return false; }" /></p>
 
+<input type="hidden" name="ID" value="#!ID#">
 </form>
 
 </div>
@@ -67,6 +68,22 @@ border:thin black inset;
 
 [!/TemplateSelector!]
 
+
+
+<!--       Unterseiten          -->
+[!=Menu!]
+
+<a href="?site=subpage&new">Eine neue Unterseite erstellen</a><br>
+<a href="?site=subpage&list">Liste der Vorhandenen Unterseiten</a>
+
+[!/Menu!]
+
+
+
+
+
+
+<!-- Templates der Boxen-->
 
 
 [!=CheckBox!]

@@ -60,6 +60,10 @@ if (isset($get["new"]))
   // Lade die Daten für das erste Template:
   $xajaxF->open("xajax_subpageTemplateChange('$ft');");
   
+  $site->set("site", "new");
+  $site->set("subpage_name", "");
+  $site->set("edit", "false");
+  $site->set("ID", "");
   $site->set("Content", "<img src=images/loading.gif alt=\"Loading\" />");  
   $site->display();
 
@@ -114,6 +118,178 @@ if (isset($get["new"]))
   }
   
   $site->display();
+  
+} elseif (isset($get["edit"]))
+{
+  $siteData = $subpages->getSite($get["edit"]);
+  $tempData = $subpages->getTemplateData($get["edit"]);
+  if ($siteData != false)
+  {
+      $site = new siteTemplate($hp);
+      $site->load("subpage");
+      
+      $site->set("TemplateSelector", $siteData["template"]);
+      $site->set("site", "edit");
+      $site->set("edit", "true");
+      $site->set("subpage_name", $siteData['name']);
+      $site->set("ID", $siteData["ID"]);
+      
+      
+      // Seitenüberprüfung:
+      $tpC = $subpages->getTemplateConfig($siteData["template"]);
+        
+      $content = "";
+      foreach($tpC["template"] as $ID=>$type)
+      {
+       switch($type)
+       {
+        case "textbox":
+        
+          $data = array(
+           "name" => $ID,
+            "value" => $tempData[$ID],
+            "ID" => "tp_".$ID       
+          );
+        
+          $content .= $site->getNode("TextBox", $data);
+        
+         
+        break;
+      
+      
+        case "textarea":
+       
+          $data = array(
+           "name" => $ID,
+           "value" => $tempData[$ID],
+           "ID" => "tp_".$ID       
+          );
+       
+          $content .= $site->getNode("TextArea", $data);
+       
+        
+        break;
+      
+      
+        case "checkbox":
+       
+         $data = array(
+            "name" => $ID,
+            "checked" => $tempData[$ID],
+            "ID" => "tp_".$ID       
+          );
+       
+         $content .= $site->getNode("CheckBox", $data);
+       
+        
+        break; 
+      
+        case "combobox":
+       
+          $options = "";
+          if (isset($tpC["data"][$ID]) and is_array($tpC["data"][$ID]))
+          {
+           foreach ($tpC["data"][$ID] as $k=>$value)
+           {
+             $data = array(
+             
+             "ID" => $value,
+             "value" => $value,
+             "selected" => ($value == $tempData[$ID])? "selected" : ""            
+             );
+            
+             $options .= $site->getNode("ComboBoxOption", $data);
+            
+            }
+          }
+          $data = array(
+           "name" => $ID,
+           "ID" => "tp_".$ID,
+           "Options" => $options       
+          );
+       
+          $content .= $site->getNode("ComboBox", $data);
+       
+        
+        break;  
+    
+       }
+     }   
+     $site->set("Content", $content); 
+        
+     $site->display();
+  
+  } else
+  {
+      $site = new siteTemplate($hp);
+      $site->load("info");
+      $site->set("info", "Die gewünschte Unterseite ist nicht verfügbar!<br><a href=?site=subpage>zurück</a>");
+      $site->display();
+  }
+  
+} elseif (isset($post["edit"]))
+{
+  $site = new siteTemplate($hp);
+  $site->load("info");
+  
+  $ID = $post["ID"];
+  $templateData = $subpages->getSite($ID);
+  if ($templateData != false)
+  {
+    $templateName = $templateData["template"];
+    $tpC = $subpages->getTemplateConfig($templateName);
+  
+    if (($tpC != false) && (isset($tpC["template"])))
+    {
+     // Abfragen der Daten:
+      
+      $data = "";
+     foreach ($tpC["template"] as $name=>$type)
+     {
+       if (isset($post["tp_$name"]))
+       {
+         $value = $post["tp_$name"];
+         
+         if ($data != "")
+         {
+           $data .= "<!--!>";
+         }
+         
+         $data .= "$name<!=!>$value";
+       }
+     }
+     
+     //Speichern der Unterseite:
+     $sql = "UPDATE `$dbpräfix"."subpages` SET `content` = '$data';";
+     $erg = $hp->mysqlquery($sql);
+     
+     $site->set("info", "Unterseite erfolgreich modifiziert!<br><a href=?site=subpage>zurück</a>");
+     
+     
+  
+    } else
+    {
+      $site->set("info", "Das gewählte Template ist nicht verfügbar!<br><a href=?site=subpage>zurück</a>");
+    }
+    
+  } else
+  {
+    $site->set("info", "Diese Seite exsistiert nicht!<br><a href=?site=subpage>zurück</a>");
+  }
+  
+  $site->display();
+  
+
+} elseif (isset($get["list"]))
+{
+
+
+} else
+{
+  $site = new siteTemplate($hp);
+  $site->load("subpage");
+  $site->display("Menu");      
+
 }
 
 

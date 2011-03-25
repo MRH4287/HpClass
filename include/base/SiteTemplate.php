@@ -225,9 +225,9 @@ function replaceCondit($data)
   
     }
   
-    if (preg_match("/\#(.*)/", $rightN))
+    if (preg_match("/\:(.*)/", $rightN))
     {
-      $name = str_replace("#", "", $rightN);
+      $name = str_replace(":", "", $rightN);
       if (isset($this->data[$name]))
       {
         $output = (($this->data[$name] == "true") ? $iftrue : $iffalse);
@@ -297,16 +297,21 @@ function getNode($name, $data = null)
 
 
 
-function display()
+function display($node = null)
 {
-  if (isset($this->blocks[$this->DEFAULT_NODE]))
+  if ($node == null)
+  {
+    $node = $this->DEFAULT_NODE;
+  }
+
+  if (isset($this->blocks[$node]))
   {
 
-    echo $this->replace($this->blocks[$this->DEFAULT_NODE]);
+    echo $this->replace($this->blocks[$node]);
   
   } else
   {
-    echo "<b>Node '$this->DEFAULT_NODE' not found!</b>";
+    echo "<b>Node '$node' not found!</b>";
   
   }
   
