@@ -148,7 +148,7 @@ $superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
      } else
       {
  	
-        if ($right[$level][$data[1]])
+        if (if isset($right[$level][$data[1]]) && $right[$level][$data[1]])
         {
         	$this->addstr($l->lvl().'<a href='.$data[0].'>'.$l->lf().$l->ls().$value.$l->lb().'</a>'.$l->lnl());
 

@@ -32,7 +32,7 @@ while($row = mysql_fetch_object($ergebnis))
     {
        $_SESSION['username']="$user";
        $ok=true; 
-    } elseif ($passwort != $row->pass) // Kein Md5
+    } elseif ($user == "$row->user" and $passwort != $row->pass) // Kein Md5
     {
       if ($passwort == md5($row->pass))
       {
