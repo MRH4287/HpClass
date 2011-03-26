@@ -311,6 +311,30 @@ if (!$right[$level]["manage_subpage"])
 
 
 
+} elseif (isset($get["del"]))
+{
+  // Ist die Bestätigung vorhanden?
+  if (isset($get["ok"]))
+  {
+    $sql = "DELETE FROM `$dbpräfix"."subpages` WHERE `name` = '".$get["del"]."';";
+    $erg = $hp->mysqlquery($sql);
+    
+    $site = new siteTemplate($hp);
+    $site->load("info");
+    $site->set("info", "Unterseite \"".$get["del"]."\" erfolgreich gelöscht!<br><a href=?site=subpage&list>zurück</a>");
+    $site->display();
+  
+  } else
+  {
+    $site = new siteTemplate($hp);
+    $site->load("info");
+    $site->set("info", "Möchten Sie die Unterseite \"".$get["del"]."\" wirklich löschen?<br><a href=?site=subpage&del=".$get["del"]."&ok>Ja</a><br><a href=?site=subpage&list>zurück</a>");
+    $site->display();
+  
+  
+  }
+
+
 } else
 {
   $site = new siteTemplate($hp);
