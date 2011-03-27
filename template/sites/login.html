@@ -1,0 +1,32 @@
+#!!NAME=Login
+#!!AUTOR=MRH
+
+
+[!=Login!]
+  <form method="POST" action="sites/login.php">
+  #%username# <br />
+  <input type="text" name="user" size="15" /><br />
+  #%password# <br />
+  <input type="password" name="passwort" size="15"><input type="submit" value="#%loginbutt#" name="login"> <br />
+  <a href=index.php?site=register>&raquo;&nbsp;#%register#</a> 
+  <a href=index.php?site=lostpw>&raquo;&nbsp;Passwort vergessen?</a>   
+  </form>
+  
+[!/Login!]
+
+
+
+[!=List!]
+
+  #%loggedas#<br /> <br />
+  <b>#!username# (#!level#)</b><br />
+  #!Links#
+
+[!/List!]
+
+
+
+[!=Link!]
+  <a href="#!site#">&raquo;&nbsp;#!name#</a> 
+[!/Link!]
+

@@ -1,75 +1,14 @@
 <?php
 class login
 {
-var $login;
 var $config;
 var $hp;
 
-function __construct()
+function __construct($hp)
 {
 // Standard Config:
-$this->config = array(
-
-"title_front" => "<font color=\"black\">",
-"title_back" => "</font>",
-"list_front" => "<font color=\"black\">",
-"list_back" => "</font>",
-"list_symbol" => "&raquo;&nbsp;",
-"list_behind_link" => "",
-"list_before_link" => ""
-
-);
-
-
-}
-
-function set_hp($hp)
-{
+$this->config = array();
 $this->hp = $hp;
-}
-
-function tf()
-{
-return $this->config["title_front"];
-}
-
-function tb()
-{
-return $this->config["title_back"];
-}
-
-function lf()
-{
-return $this->config["list_front"];
-}
-function lb()
-{
-return $this->config["list_back"];
-}
-function ls()
-{
-return $this->config["list_symbol"];
-}
-
-function lvl()
-{
-return $this->config["list_before_link"];
-}
-
-function lnl()
-{
-return $this->config["list_behind_link"];
-}
-
-
-function addstr($str)
-{
-$this->login = $this->login.$str;
-}
-
-function getlogin()
-{
-return $this->login;
 }
 
 function getconfig($template, $design)
@@ -102,36 +41,40 @@ function getlinks()
 function output($array)
 {
 
-    foreach ($array as $key=>$value) {
+  $content = "";
+  foreach ($array as $key=>$value) 
+  {
     	
-    	if ($key == "!addlinks")
-    	{
+    if ($key == "!addlinks")
+    {
       $links = $this->getlinks();
-      } else
-      {
+    } else
+    {
       $links = array($key => $value);
       
-      }
-    $this->addlinks($links);	
-    	
     }
+    $content .= $this->addlinks($links);	
+    	
+  }
 
-    
+  return $content;  
 
 }
 
 
 function addlinks($links)
 {
- 
- $l = $this;
  $hp = $this->hp;
+ $l = $this;
  $right = $hp->getright();
  $level = $_SESSION['level'];
 
-$superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
+ $superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
  
+ $site = new siteTemplate($hp);
+ $site->load("login");
 
+ $content = "";
  foreach ($links as $key=>$value) {
  	
  	$data = explode("!", $key);
@@ -143,31 +86,42 @@ $superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
  	  {
  	      if ($superadmin)
  	      {
-          $this->addstr($l->lvl().'<a href='.$data[0].'>'.$l->lf().$l->ls().$value.$l->lb().'</a>'.$l->lnl());
+ 	        $dataA = array(
+             "site" => $data[0],
+             "name" => $value
+           );
+          $content .= $site->getNode("Link", $dataA);
         }
      } else
       {
  	
         if (isset($right[$level][$data[1]]) && $right[$level][$data[1]])
         {
-        	$this->addstr($l->lvl().'<a href='.$data[0].'>'.$l->lf().$l->ls().$value.$l->lb().'</a>'.$l->lnl());
+        	 	 $dataA = array(
+             "site" => $data[0],
+             "name" => $value
+           );
+          $content .= $site->getNode("Link", $dataA);
 
         }
       }  
    } else
    { 	
- 	  $this->addstr($l->lvl().'<a href='.$key.'>'.$l->lf().$l->ls().$value.$l->lb().'</a>'.$l->lnl());
+     $dataA = array(
+       "site" => $key,
+       "name" => $value
+      );
+     $content .= $site->getNode("Link", $dataA); 	
  	 }
  	
  }
 
-
+ return $content;
 }
 
 }
 
-$login = new login;
-$login->set_hp($hp);
+$login = new login($hp);
 $login->getconfig($temp, $design);
 // Short Cut
 $l = $login;
@@ -177,24 +131,18 @@ $dbpräfix = $hp->getpräfix();
 // Hier kommt der Logintext
 //$login->addstr('<p align="left">');
 
- if (!isset($_SESSION['username'])) { 
- 
-      $login->addstr('<form method="POST" action="sites/login.php">
-      '.$l->tf().$lang->word('username').':'.$l->tb().'<br>
-      <input type="text" name="user" size="15"><br>
-      '.$l->tf().$lang->word('password').':'.$l->tb().'<br>
-      <input type="password" name="passwort" size="15"><input type="submit" value="'.$lang->word('loginbutt').'" name="login">
-      '.$l->lvl().'<a href=index.php?site=register>'.$l->lf().$l->ls().$lang->word('register').$l->lb().'</a>'.$l->lnl().'
-      '.$l->lvl().'<a href=index.php?site=lostpw>'.$l->lf().$l->ls().'Passwort vergessen?'.$l->lb().'</a>'.$l->lnl().'
-    </form>');
-     } else { 
-
- 
+ if (!isset($_SESSION['username'])) 
+ { 
+    $site = new siteTemplate($hp);
+    $site->load("login");
+    $template['login'] = $site->get("Login");
     
-   $login->addstr($l->tf().$lang->word('loggedas').$l->tb().'<br><br>
-   
-   <b>'.$l->tf().$_SESSION['username']." (".$_SESSION['level'].')'.$l->lb().'</b><br>');
-   
+ } else { 
+
+    $site = new siteTemplate($hp);
+    $site->load("login");
+    
+    
    $links = array(
    "sites/login.php?logout" => "Logout",
    "index.php?site=admin!adminsite" => "Administration",
@@ -210,12 +158,19 @@ $dbpräfix = $hp->getpräfix();
    "index.php?site=dragdrop!superadmin" => "Widget System"
    );
    
-   $login->output($links);
+  $data = array(
+      "username" => $_SESSION['username'],
+      "level" => $_SESSION['level'],
+      "Links" => $login->output($links) 
+  );
+   
+    
+   $template['login'] = $site->getNode("List", $data);
 
 
 }
 //$login->addstr('</p>');
 
 // Übergabe des Wertes
-$template['login'] = $login->getlogin();
+
 ?>

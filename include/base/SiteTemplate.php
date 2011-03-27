@@ -299,6 +299,11 @@ function getNode($name, $data = null)
 
 function display($node = null)
 {
+  echo $this->get($node);
+}
+
+function get($node = null)
+{
   if ($node == null)
   {
     $node = $this->DEFAULT_NODE;
@@ -307,16 +312,13 @@ function display($node = null)
   if (isset($this->blocks[$node]))
   {
 
-    echo $this->replace($this->blocks[$node]);
+    return $this->replace($this->blocks[$node]);
   
   } else
   {
-    echo "<b>Node '$node' not found!</b>";
+    return "<b>Node '$node' not found!</b>";
   
   }
-  
-
-
 }
 
 

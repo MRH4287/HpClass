@@ -22,18 +22,6 @@ $placeholder = array();
 $widget = array (
 
 // SVN Widget:
-"SVN" => '
-<table bgcolor="#89A9B8"  width="170" border="0" cellpadding="0" cellspacing="0" class="news"  align="center" style="border:solid 1px black" >
-<tr>
-<td class="rubrik">&nbsp;SVN</td>
-</tr>
-<tr>
-<td >
-<center><img src="template/SVN/bild.php" height="100" width="100"></center>
-</td>
-</tr>
-</table>
-',
 
 // Mitglieder
 "Member"=> '
