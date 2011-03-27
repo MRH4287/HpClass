@@ -26,39 +26,21 @@ $row = mysql_fetch_object($erg);
 
 if (isset($row->verfall) and ($row->verfall >= time()))
 {
-?>
-<p align="center"><strong>Bitte geben Sie ihr Passwort ein:</strong></p>
-<p align="center">&nbsp;</p>
-<form action="index.php?site=lostpw" method="POST">
-<table width="479" height="139" border="0" align="center">
-  <tr>
-    <td width="129">Benutzername:</td>
-    <td width="340"><?php echo $row->user; ?></td>
-  </tr>
-  <tr>
-    <td>Passwort:</td>
-    <td><input type="password" name="pw"></td>
-  </tr>
-  <tr>
-    <td>Passwort bestätigung:</td>
-    <td><input type="password" name="pw2"></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><input type="hidden" name="token" value="<?php echo $code; ?>"></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td><button type="submit" name="change"> <img src="images/ok.gif"> </button></td>
-  </tr>
-</table>
-</form>
 
-<?php
+ $data = array(
+  "user" => $row->user,
+  "code" => $code
+ );
+ 
+ $site = new siteTemplate($hp);
+ $site->load("lostpw");
+ $site->setArray($data);
+ $site->display("Change");
+
 
 } else
 {
-echo "Der angegebene Code schon benutzt worden oder ist bereits abgelaufen!";
+ $error->error("Der angegebene Code schon benutzt worden oder ist bereits abgelaufen!", "1");
 }
 
 } else if (isset($post['change']))
@@ -75,7 +57,7 @@ $pw2 = $post['pw2'];
 
 if ($pw != $pw2)
 {
- echo "Die angegebenen Passwörter stimmen nicht überein!";
+ $error->error("Die angegebenen Passwörter stimmen nicht überein!", "1");
 
 } else
  {
@@ -86,7 +68,10 @@ if ($pw != $pw2)
  $sql = "DELETE FROM `$dbpräfix"."token` WHERE `user` = '$row->user'";
  $erg = $hp->mysqlquery($sql);
  
- echo "Passwort erfolgreich geändert!";
+ $site = new siteTemplate($hp);
+ $site->load("info");
+ $site->set("info", "Passwort erfolgreich geändert!");
+ $site->display();
  
  }
 
@@ -94,54 +79,42 @@ if ($pw != $pw2)
 
 } else if (isset($post['lostpw']))
 {
-$user = $post['username'];
-$mail = $post['email'];
+  $user = $post['username'];
+  $mail = $post['email'];
 
-$sql = "SELECT * FROM `$dbpräfix"."user` WHERE `user` = '$user'";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
+  $sql = "SELECT * FROM `$dbpräfix"."user` WHERE `user` = '$user'";
+  $erg = $hp->mysqlquery($sql);
+  $row = mysql_fetch_object($erg);
 
-if ($row->user == "")
-{
-echo "Fehler: Benutzername nicht vorhanden!";
-$error->error("Benutzername nicht vorhanden!");
+  if ($row->user == "")
+  {
+    $site = new siteTemplate($hp);
+    $site->load("info");
 
-echo "<br><a href=?site=lostpw>zurück</a>";
-} elseif ($mail != $row->email)
-{
-echo "Fehler: Die Kontaktemail Adresse ist falsch!";
-$error->error("Die Kontaktemail Adresse ist falsch!");
+    $site->set("info", "Fehler: Benutzername nicht vorhanden!<br><a href=?site=lostpw>zurück</a>");
+    $error->error("Benutzername nicht vorhanden!");
+    $site->display();
+    
+  } elseif ($mail != $row->email)
+  {
+    $site = new siteTemplate($hp);
+    $site->load("info");
+    
+    $site->set("info", "Fehler: Die Kontaktemail Adresse ist falsch!<br><a href=?site=lostpw>zurück</a>");
+    $error->error("Die Kontaktemail Adresse ist falsch!");
+    $site->display();
 
-echo "<br><a href=?site=lostpw>zurück</a>";
+  } else
+  {
+  // alles OK
+  $hp->lostpassword($user);
+  }
 
 } else
 {
-// alles OK
-$hp->lostpassword($user);
-}
+    $site = new siteTemplate($hp);
+    $site->load("lostpw");
+    $site->display();
 
-} else
-{
-?>
-<p align="center"><strong>Passwort vergessen:</strong></p>
-<p align="center">Bitte Geben Sie zur überprüfung folgende Daten ein:</p>
-<p align="center">&nbsp;</p>
-<form action="index.php?site=lostpw" method="POST">
-<table width="479" height="139" border="0" align="center">
-  <tr>
-    <td width="129">Benutzername:</td>
-    <td width="340"><input type="text" name="username" id="username"></td>
-  </tr>
-  <tr>
-    <td>E-Mail Adresse:</td>
-    <td><input type="text" name="email" id="email"></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td><button type="submit" name="lostpw"> <img src="images/ok.gif"> </button></td>
-  </tr>
-</table>
-</form>
-<?php
 }
 ?>

@@ -1,0 +1,59 @@
+#!!NAME=LostPW
+#!!AUTOR=MRH
+
+
+[!=Main!]
+
+<p align="center"><strong>Passwort vergessen:</strong></p>
+<p align="center">Bitte Geben Sie zur überprüfung folgende Daten ein:</p>
+<p align="center">&nbsp;</p>
+<form action="index.php?site=lostpw" method="POST">
+<table width="479" height="139" border="0" align="center">
+  <tr>
+    <td width="129">Benutzername:</td>
+    <td width="340"><input type="text" name="username" id="username"></td>
+  </tr>
+  <tr>
+    <td>E-Mail Adresse:</td>
+    <td><input type="text" name="email" id="email"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><button type="submit" name="lostpw"> <img src="images/ok.gif"> </button></td>
+  </tr>
+</table>
+</form>
+
+[!/Main!]
+
+
+[!=Change!]
+
+<p align="center"><strong>Bitte geben Sie ihr Passwort ein:</strong></p>
+<p align="center">&nbsp;</p>
+<form action="index.php?site=lostpw" method="POST">
+<table width="479" height="139" border="0" align="center">
+  <tr>
+    <td width="129">#%username#:</td>
+    <td width="340">#!user#</td>
+  </tr>
+  <tr>
+    <td>#%password#:</td>
+    <td><input type="password" name="pw"></td>
+  </tr>
+  <tr>
+    <td>Passwort bestätigung:</td>
+    <td><input type="password" name="pw2"></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input type="hidden" name="token" value="#!code#"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><button type="submit" name="change"> <img src="images/ok.gif"> </button></td>
+  </tr>
+</table>
+</form>
+
+[!/Change!]
