@@ -1,0 +1,83 @@
+#!!NAME=Register
+#!!AUTOR=MRH
+
+
+[!=Main!]
+
+<form method="POST" action="index.php?site=register">
+  <table border="0" width="522">
+    <tr>
+      <td colspan="2" width="512">
+        <p align="center"><font size="5">Anmeldung:</font></td>
+    </tr>
+    <tr>
+      <td width="150"></td>
+      <td width="365"></td>
+    </tr>
+    <tr>
+      <td width="150">Username: *+#</td>
+      <td width="365"><input type="text" name="username" size="20" maxlength="20" required></td>
+    </tr>
+    <tr>
+      <td width="150">Passwort: *+#</td>
+      <td width="365"><input type="password" name="passwort12" size="20" maxlength="20" required></td>
+    </tr>
+    <tr>
+      <td width="150">Passwort wiederholen:</td>
+      <td width="365"><input type="password" name="passwort212" size="20" maxlength="20" required></td>
+    </tr>
+    <tr>
+      <td width="150">Vorname: *+</td>
+      <td width="365"><input type="text" name="name" size="20" maxlength="20" required></td>
+    </tr>
+    <tr>
+      <td width="150">Nachname: *+</td>
+      <td width="365"><input type="text" name="nachname" size="20" maxlength="20" required></td>
+    </tr>
+    <tr>
+      <td width="150">E-Mail: *</td>
+      <td width="365"><input type="text" name="email" size="20" type="email" required pattern="^[a-z0-9_\-]+(\.[_a-z0-9\-]+)*@([_a-z0-9\-]+\.)+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel)$"  title="E-Mail Adresse eingeben."></td>
+    </tr>
+    
+      <tr>
+      <td width="150">Wohnort: *+</td>
+      <td width="365"><input type="text" name="wohnort" size="20"  maxlength="20" required></td>
+    </tr>
+       <tr>
+      <td width="150">Tel. oder Handy: +</td>
+      <td width="365"><input type="text" name="tel" size="20"  maxlength="20"></td>
+    </tr>  
+      <tr>
+      <td width="150">Geschlecht: *</td>
+      <td width="365"><input type="radio" value="M" checked name="geschlecht">Mänlich / <input type="radio" name="geschlecht" value="W"> Weiblich</td>
+    </tr> 
+    
+    <!--
+    
+    <tr>
+      <td width="150">Bewerbungstext: *</td>
+      <td width="365" rowspan="2"><textarea rows="2" name="btext" cols="44" required></textarea></td>
+    </tr>
+    
+    -->      
+
+    
+    <tr>
+    </tr>
+
+    <tr>
+      <td width="136"></td>
+    </tr>
+    <tr>
+      <td width="506" colspan="2"></td>
+    </tr>
+    <tr>
+      <td width="506" colspan="2">
+        <p align="center"><input type="submit" value="Jetzt registrieren!" name="register"><br><br>
+        <font size="2">* Pflichtfeld<br>+  Maximal 20 Zeichen<br>#  Mindestens 4 Zeichen</font></td>
+    </tr>
+  </table>
+</form>
+
+[!/Main!]
+
