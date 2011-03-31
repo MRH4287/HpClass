@@ -33,7 +33,7 @@ border:thin black inset;
 <form action="?site=subpage" method="POST">
 
 <p>Unterseiten Name:</p>
-<p> <input name="subpage_name" type="text" value="#!subpage_name#"  #?:edit : "DISABLED" : "required"# /></p>
+<p> <input name="subpage_name" type="text" value="#!subpage_name#"  #?:edit : "DISABLED"# /></p>
 
 <p>Template Name:</p>
 <p>
@@ -115,27 +115,27 @@ border:thin black inset;
 
 [!=CheckBox!]
 <p>#!name#:</p>
-<p> <input type="checkbox" #!checked# name="#!ID#" required/> </p>
+<p> <input type="checkbox" #!checked# name="#!ID#"/> </p>
 <p></p>
 [!/CheckBox!]
 
 [!=TextBox!]
 <p>#!name#:</p>
-<p> <input type="text" value="#!value#" name="#!ID#" required/> </p>
+<p> <input type="text" value="#!value#" name="#!ID#"/> </p>
 <p></p>
 
 [!/TextBox!]
 
 [!=TextArea!]
 <p>#!name#:</p>
-<p><textarea name="#!ID#" cols="45" rows="8" required>#!value#</textarea></p>
+<p><textarea name="#!ID#" cols="45" rows="8">#!value#</textarea></p>
 <p></p>
 
 [!/TextArea!]
 
 [!=ComboBox!]
 <p>#!name#:</p>
-<p><select name="#!ID#" required>#!Options#</select></p>
+<p><select name="#!ID#">#!Options#</select></p>
 <p></p>
 [!/ComboBox!]
 
