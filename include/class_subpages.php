@@ -230,7 +230,7 @@ private function printNavigation_r($element, $maxdepth, $depth)
   return "";
  }
  //depth, titel, name, dynamic
- $out = $depth."<!>".$element->name."<!>".$element->site."<!>".$element->dynamic."</el>";
+ $out = $element->ID."<!>".$depth."<!>".$element->name."<!>".$element->site."<!>".$element->dynamic."</el>";
  
  $childs = $this->getChilds($element->ID, true);
 
