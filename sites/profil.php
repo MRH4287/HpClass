@@ -62,14 +62,14 @@ $error = $hp->geterror();
       $passwortalt=$post['passwortalt'];
       $passwortneu=$post['passwort'];
       $passwortneu2=$post['passwort2'];
-      $passwortalt = md5($passwortalt);
+      $passwortalt = md5("pw_".$passwortalt);
 
       $site = new siteTemplate($hp);
       $site->load("info");
 
       if ($passwortalt == $_SESSION['pass'] and $passwortneu == $passwortneu2)
       {
-        $passwortneu = md5($passwortneu);
+        $passwortneu = md5("pw_".$passwortneu);
         $eingabe = "UPDATE `".$dbpräfix."user` SET `pass` = '$passwortneu' WHERE `user` = '".$_SESSION['username']."';";
         $ergebnis = $hp->mysqlquery($eingabe);
         $_SESSION['pass']=$passwortneu;

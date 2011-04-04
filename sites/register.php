@@ -130,7 +130,7 @@ if (!isset($post['register']))
     {  
       $text = "Feature Disabled";
   
-      $passwort12 = md5($passwort12);
+      $passwort12 = md5("pw_".$passwort12);
       
       $password_length = 5;
       $generated_password = "";
@@ -172,7 +172,7 @@ if (!isset($post['register']))
        mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['mailtext'].$mail['pageadress']."?site=mailagree&user=$user&code=$code ".$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
       } else
       {
-        $mdg .= "<br>Diese Funktion ist auf Localhost deaktiviert!<br>gehen Sie bitte auf folgende Seite:<br>";
+        $msg .= "<br>Diese Funktion ist auf Localhost deaktiviert!<br>gehen Sie bitte auf folgende Seite:<br>";
         $msg .= '<a href='.$mail['pageadress']."?site=mailagree&user=$user&code=$code>".$mail['pageadress']."?site=mailagree&user=$user&code=$code</a>";
        
       }

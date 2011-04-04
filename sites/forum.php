@@ -811,7 +811,7 @@ $row = mysql_fetch_object($erg);
 
 $pw = $row->passwort;
 
-if ($pw == md5($password))
+if ($pw == md5("pw_".$password))
 {
 // OK
 $_SESSION['forum_canread'][] = $threadid;
@@ -848,7 +848,7 @@ $row = mysql_fetch_object($erg);
 
 $pw = $row->passwort;
 
-if ($pw == md5($password))
+if ($pw == md5("pw_".$password))
 {
 // OK
 $_SESSION['forum_canread_F'][] = $threadid;
@@ -1055,7 +1055,7 @@ $type = $post['type'];
 
 if ($passwort != "")
 {
-$passwort = md5($passwort);
+$passwort = md5("pw_".$passwort);
 } else
 {
 $passwort = "";
@@ -1253,7 +1253,7 @@ $text = $post['text'];
 
 if ($passwort != "")
 {
-$passwort = md5($passwort);
+$passwort = md5("pw_".$passwort);
 } else
 {
 $passwort = "";

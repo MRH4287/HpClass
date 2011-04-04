@@ -384,7 +384,7 @@ $time = time();
 $pw = "";
 if (($passwort != "*") and ($passwort != ""))
 {
-$pw = "`passwort` = '".md5($passwort)."' ,";
+$pw = "`passwort` = '".md5("pw_".$passwort)."' ,";
 } elseif ($passwort == "")
 {
 $pw = "`passwort` = '' ,";
@@ -424,7 +424,7 @@ $text = $post['text'];
 $pw = "";
 if (($passwort != "*") and ($passwort != ""))
 {
-$pw = "`passwort` = '".md5($passwort)."' ,";
+$pw = "`passwort` = '".md5("pw_".$passwort)."' ,";
 } elseif ($passwort == "")
 {
 $pw = "`passwort` = '' ,";
@@ -696,7 +696,14 @@ VALUES
 function stripScript($text)
 {
 $reg = "(<[^>]*script[^>]*>)";
-return preg_replace($reg, "$2", $text, -1);
+$reg2 = "/onload=\"[^\"]*\"/";
+
+$new = preg_replace($reg, "$2", $text, -1);
+$new = preg_replace($reg2, "", $new, -1);
+
+return $new;
+
+
 }
 
 
