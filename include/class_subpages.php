@@ -250,6 +250,56 @@ private function printNavigation_r($element, $maxdepth, $depth)
 }
 
 
+function getAllAvailableSites()
+{
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $info = $hp->info;
+  $error = $hp->error;
+  $fp = $hp->fp;
+
+
+  $pages = array();
+
+  $sql = "SELECT name FROM `$dbpräfix"."navigation` WHERE `dynamic` = '0';";
+  $erg = $hp->mysqlquery($sql);
+
+  $used = array();
+
+  while ($row = mysql_fetch_object($erg))
+  {
+    $used[] = $row->site;
+  }
+ 
+  $handle = @opendir("./sites"); 
+  while (false !== ($file = readdir($handle))) 
+  {
+    $n = explode(".", $file);
+    $a = $n[0];
+    $b = $n[1];
+
+    if ($b == "php")
+    {
+        $name = $a;
+        
+        if (!$hp->isSiteRestricted($name) && !in_array($name, $used))
+        {
+        
+        $pages[] = $name;
+        
+        }      
+    }
+  }
+
+
+
+
+
+  return $pages;
+
+}
+
+
 
 function loadSite($site)
 {
