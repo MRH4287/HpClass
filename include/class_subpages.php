@@ -250,7 +250,7 @@ private function printNavigation_r($element, $maxdepth, $depth)
 }
 
 
-function getAllAvailableSites()
+function getAllAvailableSites($dynamic = false)
 {
   $hp = $this->hp;
   $dbpräfix = $hp->getpräfix();
@@ -261,37 +261,66 @@ function getAllAvailableSites()
 
   $pages = array();
 
-  $sql = "SELECT site FROM `$dbpräfix"."navigation` WHERE `dynamic` = '0';";
-  $erg = $hp->mysqlquery($sql);
-
-  $used = array();
-
-  while ($row = mysql_fetch_object($erg))
+  if ($dynamic)
   {
-    $used[] = $row->site;
-  }
- 
-  $handle = @opendir("./sites"); 
-  while (false !== ($file = readdir($handle))) 
-  {
-    $n = explode(".", $file);
-    $a = $n[0];
-    $b = $n[1];
-
-    if ($b == "php")
+  
+    $sql = "SELECT site FROM `$dbpräfix"."navigation` WHERE `dynamic` = '1';";
+    $erg = $hp->mysqlquery($sql);
+  
+    $used = array();
+    
+    while ($row = mysql_fetch_object($erg))
     {
-        $name = $a;
-        
-        if (!$hp->isSiteRestricted($name) && !in_array($name, $used))
-        {
-        
-        $pages[] = $name;
-        
-        }      
+      $used[] = $row->site;
     }
+    
+    $sql = "SELECT name FROM `$dbpräfix"."subpages`;";
+    $erg = $hp->mysqlquery($sql);
+    
+    while ($row = mysql_fetch_object($erg))
+    {
+      if (!in_array($row-name, $user))
+      {
+      $pages[] = $row->name;
+      }
+    }
+    
+  
+  
+  } else
+  {
+
+    $sql = "SELECT site FROM `$dbpräfix"."navigation` WHERE `dynamic` = '0';";
+    $erg = $hp->mysqlquery($sql);
+  
+    $used = array();
+  
+    while ($row = mysql_fetch_object($erg))
+    {
+      $used[] = $row->site;
+    }
+   
+    $handle = @opendir("./sites"); 
+    while (false !== ($file = readdir($handle))) 
+    {
+      $n = explode(".", $file);
+      $a = $n[0];
+      $b = $n[1];
+  
+      if ($b == "php")
+      {
+          $name = $a;
+          
+          if (!$hp->isSiteRestricted($name) && !in_array($name, $used))
+          {
+          
+          $pages[] = $name;
+          
+          }      
+      }
+    }
+
   }
-
-
 
 
 
