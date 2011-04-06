@@ -261,7 +261,7 @@ function getAllAvailableSites()
 
   $pages = array();
 
-  $sql = "SELECT name FROM `$dbpräfix"."navigation` WHERE `dynamic` = '0';";
+  $sql = "SELECT site FROM `$dbpräfix"."navigation` WHERE `dynamic` = '0';";
   $erg = $hp->mysqlquery($sql);
 
   $used = array();

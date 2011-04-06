@@ -58,7 +58,7 @@ $this->restrict       = array("login");
 $this->superadminonly = array("rights", "config", "dragdrop", "plugins", "test");
 
 // Seiten, die von der Navigation ausgenommen sind
-$this->navigationIgnore = array("upload", "upload2", "lostpw", "mailagree",
+$this->navigationIgnore = array("upload", "download2", "lostpw", "mailagree",
                                  "userdpics", "profil", "pm", "subpage",
                                  "userpicchange", "vote");
 
