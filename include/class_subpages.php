@@ -198,10 +198,8 @@ function removeFromNavigation($SiteID, $visited = null)
   
   }
  
-  $sql = "DELETE FROM `$dbpräfix"."navigation` WHERE `ID` = '$siteID';";
+  $sql = "DELETE FROM `$dbpräfix"."navigation` WHERE `ID` = '$SiteID';";
   $erg = $hp->mysqlquery($sql);
-  $row = mysql_fetch_object($erg);
-  
 
 
 }
