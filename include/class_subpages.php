@@ -276,7 +276,6 @@ private function printNavigation_r($element, $maxdepth, $depth)
  }
  //depth, titel, name, dynamic
  $out = $element->ID."<!>".$depth."<!>".$element->name."<!>".$element->site."<!>".$element->dynamic."</el>";
- $fp->log($out);
  $childs = $this->getChilds($element->ID, true);
 
  foreach ($childs as $key=>$value) 
