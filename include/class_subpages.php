@@ -323,7 +323,7 @@ function getAllAvailableSites($dynamic = false)
     
     while ($row = mysql_fetch_object($erg))
     {
-      if (!in_array($row-name, $used))
+      if (!in_array($row->name, $used))
       {
       $pages[] = $row->name;
       }
