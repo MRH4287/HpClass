@@ -168,6 +168,13 @@ function getChilds($parent, $navigationID = true)
 
 function removeFromNavigation($SiteID, $visited = null)
 {
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $game = $hp->game;
+  $info = $hp->info;
+  $error = $hp->error;
+  $fp = $hp->fp;
+
 
   if ($visited == null) 
   {
