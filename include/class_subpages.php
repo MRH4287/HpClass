@@ -166,6 +166,41 @@ function getChilds($parent, $navigationID = true)
 }
 
 
+function removeFromNavigation($SiteID, $visited = null)
+{
+
+  if ($visited == null) 
+  {
+    $visited = array();
+  
+  }
+
+  if (in_array($SiteID, $visited))
+  {
+    return;
+  }
+
+  $visited[] = $SiteID;
+
+
+  $childs = $this->getChilds($SiteID);
+  
+  foreach ($childs as $k=>$name)
+  {
+    $this->removeFromNavigation($SiteID, $visited);
+  
+  }
+ 
+  $sql = "DELETE FROM `$dbpräfix"."navigation` WHERE `ID` = '$siteID';";
+  $erg = $hp->mysqlquery($sql);
+  $row = mysql_fetch_object($erg);
+  
+
+
+}
+
+
+
 function haveChilds($parent)
 {
  return (count($this->getChilds($parent) > 0));
@@ -231,7 +266,7 @@ private function printNavigation_r($element, $maxdepth, $depth)
  }
  //depth, titel, name, dynamic
  $out = $element->ID."<!>".$depth."<!>".$element->name."<!>".$element->site."<!>".$element->dynamic."</el>";
- 
+ $fp->log($out);
  $childs = $this->getChilds($element->ID, true);
 
  foreach ($childs as $key=>$value) 
