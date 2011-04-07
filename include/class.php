@@ -19,6 +19,7 @@ public    $widgets;
 public    $subpages;
 public    $pluginloader;
 
+
 //Wegen Makro Fehlern:
 public    $game = null;
 
@@ -40,7 +41,7 @@ protected $superadminonly;
 protected $pathtomysqlversion;
 protected $superadmin;
 protected $standardsite;
-
+protected $navigationIgnore;
 
 // Config Area;
 // ----------------------------------------------------------------
@@ -55,6 +56,11 @@ $this->superadmin = array("admin", "mrh");
 // Siteckeckup
 $this->restrict       = array("login");
 $this->superadminonly = array("rights", "config", "dragdrop", "plugins", "test");
+
+// Seiten, die von der Navigation ausgenommen sind
+$this->navigationIgnore = array("upload", "download2", "lostpw", "mailagree",
+                                 "usedpics", "profil", "pm", "subpage",
+                                 "userpicchange", "vote", "admin", "anwaerter");
 
 
 //Mysql
@@ -704,6 +710,15 @@ $new = preg_replace($reg2, "", $new, -1);
 return $new;
 
 
+}
+
+
+public function isSiteRestricted($site)
+{
+  return (in_array($site, $this->restrict) 
+          or in_array($site, $this->superadminonly)
+          or in_array($site, $this->navigationIgnore));
+ 
 }
 
 

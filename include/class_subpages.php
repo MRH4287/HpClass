@@ -285,6 +285,85 @@ private function printNavigation_r($element, $maxdepth, $depth)
 }
 
 
+function getAllAvailableSites($dynamic = false)
+{
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $info = $hp->info;
+  $error = $hp->error;
+  $fp = $hp->fp;
+
+
+  $pages = array();
+
+  if ($dynamic)
+  {
+  
+    $sql = "SELECT site FROM `$dbpräfix"."navigation` WHERE `dynamic` = '1';";
+    $erg = $hp->mysqlquery($sql);
+  
+    $used = array();
+    
+    while ($row = mysql_fetch_object($erg))
+    {
+      $used[] = $row->site;
+    }
+    
+    $sql = "SELECT name FROM `$dbpräfix"."subpages`;";
+    $erg = $hp->mysqlquery($sql);
+    
+    while ($row = mysql_fetch_object($erg))
+    {
+      if (!in_array($row-name, $used))
+      {
+      $pages[] = $row->name;
+      }
+    }
+    
+  
+  
+  } else
+  {
+
+    $sql = "SELECT site FROM `$dbpräfix"."navigation` WHERE `dynamic` = '0';";
+    $erg = $hp->mysqlquery($sql);
+  
+    $used = array();
+  
+    while ($row = mysql_fetch_object($erg))
+    {
+      $used[] = $row->site;
+    }
+   
+    $handle = @opendir("./sites"); 
+    while (false !== ($file = readdir($handle))) 
+    {
+      $n = explode(".", $file);
+      $a = $n[0];
+      $b = $n[1];
+  
+      if ($b == "php")
+      {
+          $name = $a;
+          
+          if (!$hp->isSiteRestricted($name) && !in_array($name, $used))
+          {
+          
+          $pages[] = $name;
+          
+          }      
+      }
+    }
+
+  }
+
+
+
+  return $pages;
+
+}
+
+
 
 function loadSite($site)
 {
