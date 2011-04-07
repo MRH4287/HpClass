@@ -191,10 +191,15 @@ function removeFromNavigation($SiteID, $visited = null)
 
 
   $childs = $this->getChilds($SiteID);
+
   
   foreach ($childs as $k=>$name)
   {
-    $this->removeFromNavigation($SiteID, $visited);
+    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `name` = '$name';";
+    $erg = $hp->mysqlquery($sql);
+    $row = mysql_fetch_object($erg);
+  
+    $this->removeFromNavigation($row->ID, $visited);
   
   }
  
