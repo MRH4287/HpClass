@@ -14,9 +14,9 @@ $fp = $hp->fp;
 
 
 $site = new siteTemplate($hp);
-$site->load("profil");
+$site->load("news");
 echo "<pre>";
-print_r($site->getPlaceholder($site->getNode("Main", array())));
+print_r($site->getPlaceholder($site->getNode("LbSite-Edit", array())));
 echo "</pre>";
 
 

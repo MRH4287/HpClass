@@ -52,401 +52,287 @@ return '<a href="index.php?lbsite='.$site.'&vars='.$vars.'" class="'.$class.'">'
 
 function load($site, $vars)
 {
+  $hp = $this->hp;
+  ob_start("ob");
+  
+  $funktions = get_class_methods($this);
+  $site = "site_".$site;
+  
+  
+  $siteT = new siteTemplate($hp);
+  $siteT->load("lbsite_main");
 
-ob_start("ob");
+  $content = "";
+  if (in_array($site, $this->funkadd))
+  {
+   $ext = $this->liste[$site];
+    
+   $content = $ext->$site($vars);
+  } else
+  if (in_array($site, $funktions))
+  {
+  
+   $content = $this->$site($vars);
+  } else
+  {
+    $this->fp->error("ungültige LB-Site ($site)");
+    $content = "Seite nicht gefunden!";
+  }
+  
+  $siteT->set("Content", $content);
+  $siteT->display();
 
-$funktions = get_class_methods($this);
-$site = "site_".$site;
-?>
-
-<table width="100%" height="100%">
-<tr valign="top">
-<td height=100%>
-<center><a href="#" onclick="resolution();">Ausrichten</a><br>
-
-<?php
-if (in_array($site, $this->funkadd))
-{
-$ext = $this->liste[$site];
-
-$ext->$site($vars);
-} else
-if (in_array($site, $funktions))
-{
-
-$this->$site($vars);
-} else
-{
-$this->fp->error("ungültige LB-Site ($site)");
-echo "Seite nicht gefunden!";
-}
-?>
-</td>
-</tr>
-<tr>
-<td>
-<?php
-
-echo "<br><br><a href=\"#\" class=\"lbAction\" rel=\"deactivate\"><p align=\"right\"><img src=images/close.gif></p> </center>";
-?>
-</td>
-</tr>
-</table>
-<script>resolution();</script>
-<center><a href="#" onclick="resolution();">Ausrichten</a><br>
-
-<?php
 }
 
 function site_Test($vars)
 {
-$hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
-$info = $hp->info;
-$error = $hp->error;
-$lang=$hp->langclass;
-$fp = $hp->fp;
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $info = $hp->info;
+  $error = $hp->error;
+  $lang=$hp->langclass;
+  $fp = $hp->fp;
 
-$sql = "SELECT * FROM `$dbpräfix"."user`";
-$erg = $hp->mysqlquery($sql);
-while ($row = mysql_fetch_object($erg))
-{
-echo $row->user."<br>";
-}
-echo " ö Ö ä Ä ü Ü ß ^ ` ' # + * , ; |";
-
+  
+  $content = "";
+  $sql = "SELECT * FROM `$dbpräfix"."user`";
+  $erg = $hp->mysqlquery($sql);
+  while ($row = mysql_fetch_object($erg))
+  {
+  $content .= $row->user."<br>";
+  }
+  $content .= " ö Ö ä Ä ü Ü ß ^ ` ' # + * , ; |";
+  return $content;
 }
 
 function site_delvote($vars)
 {
-$hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
-$info = $hp->info;
-$error = $hp->error;
-$lang=$hp->langclass;
-$fp = $hp->fp;
-$right = $hp->getright();
-$level = $_SESSION['level'];
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $info = $hp->info;
+  $error = $hp->error;
+  $lang=$hp->langclass;
+  $fp = $hp->fp;
+  $right = $hp->getright();
+  $level = $_SESSION['level'];
+  
+  $site = new siteTemplate($hp);
+  
+  
+  if($right[$level]['manage_vote'])
+  {
+    $site->load("vote");
+    $sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = '$vars';";
+    $erg = $hp->mysqlquery($sql);
+    $row = mysql_fetch_object($erg);
+  
+    $data = array(
+      "ID" => $vars,
+      "name" => $row->name,
+      "vars" => $vars
+    );
+    
+    $site->setArray($data);
 
-if($right[$level]['manage_vote'])
-{
-
-$sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = '$vars';";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
-
-?>
-<p id="highlight">Möchten Sie die Umfrage wirklich entfernen?</p>
-<table width="100%">
-<tr valign="bottom">
-<td>
-<form method="POST" action="index.php?site=vote">
-  <p align="center"><input type="hidden" name="voteiddel" size="3" value="<?php echo $vars?>"><input type="submit" value="Löschen" name="votedel"></form>
-</td>
-<td>
-</td>
-</tr>
-</table>
-<b>ID:</b> <?php echo $row->ID?><br>
-<b>Titel:</b> <?php echo $row->name?><br>
-<b>
-
-<?php
-} else
-{
-echo $lang->word('noright');
-}
+    return $site->get("LbSite-Del");
+  } else
+  {
+     $site->load("info");
+     $site->set("info",$lang->word('noright'));
+     
+     return $site->get();
+  }
+  
+  
 }
 
 function site_newschange($site)
 {
-$hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
-$game = $hp->game;
-$info = $hp->info;
-$error = $hp->error;
-$fp = $hp->fp;
-$right = $hp->getright();
-$level = $_SESSION['level'];
-
-if (!isset ($_SESSION['username']))
-{
-echo "Keine Zugriffsberechtigung!";
-
-} else if (!$right[$level]['newsedit'])
-{
-echo "Sie haben keine Berechtigung, Newsmeldungen zu bearbeiten!";
-
-} else
-{
-
-
-    $sql = "SELECT * FROM ".$dbpräfix."news WHERE `ID` ='".$site."';";
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $game = $hp->game;
+  $info = $hp->info;
+  $error = $hp->error;
+  $fp = $hp->fp;
+  $right = $hp->getright();
+  $level = $_SESSION['level'];
   
-   $ergebnis = $hp->mysqlquery($sql); 
-
-while($row = mysql_fetch_object($ergebnis))
-   { 
-   $newstext="$row->text";
-   $newstext = str_replace('<br>',"\n" ,$newstext);
-   $newstext = str_replace('&lt;',"<" ,$newstext);
-?>
-
-
-<script type="text/javascript">
-	tinyMCE.init({
-		mode : "textareas",
-		theme : "advanced",
-		plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
-
-		// Theme options
-		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
-		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		theme_advanced_statusbar_location : "bottom",
-		theme_advanced_resizing : true,
-	});
-</script>
-<!-- /TinyMCE -->
-
-<form method="POST" action="index.php?site=news">
-
-  <p align="left">Überschrift:<br>
-  <input type="text" name="newstitel" size="80" value="<?php echo "$row->titel"?>"></p>
-  <input type="hidden" name="newsid" size="80" value="<?php echo $site?>">
-  <p align="left">Datum:<br>
-  <input type="text" name="newsdate" size="20" value="<?php echo "$row->datum"?>"></p>
-    <p align="left">Typ: <select size="1" name="newstyp">
-    <option selected>Info</option>
-    <option>Event</option>
-    <option>Gameserver</option>
-    <option>Member</option>
-  </select> Level <input type="text" name="newslevel" size="1" value="<?php echo "$row->level"?>"><br>Die Berechtigungen können in der Seite "Rechte" geändert werden. Level 0 bedeutet öffentlich.</p>
-  <p align="left">
-  <textarea rows="15" name="newstext" cols="74" id="t1"><?php echo $newstext?></textarea>
-  <button type="submit" name="newsedit"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
-</form>
-
- <?php
-$data = "";
-
-$sql = "SELECT * FROM `$dbpräfix"."usedpics`";
-$erg = $hp->mysqlquery($sql);
-while ($row = mysql_fetch_object($erg))
-{
-
-         $breite=$row->width; 
-         $hoehe=$row->height; 
-
-         $neueHoehe=100;
-         $neueBreite=intval($breite*$neueHoehe/$hoehe); 
-         
-        // $neueBreite=100; 
-        // $neueHoehe=intval($hoehe*$neueHoehe/$breite); 
-
-        $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
-       
-        
-        if ($data == "")
-        {
-        $data = "'".$img."'";
-        } else
-        {
-          $data .= ", '".$img."'";
-        }
-      
-
-
-}
-?> 
+  if (!isset ($_SESSION['username']))
+  {
+     $error->error("Keine Zugriffsberechtigung!", "1");
+  
+  } else if (!$right[$level]['newsedit'])
+  {
+  
+    $error->error("Sie haben keine Berechtigung, Newsmeldungen zu bearbeiten!", "1");
+  
+  } else
+  {
+    $sql = "SELECT * FROM ".$dbpräfix."news WHERE `ID` ='".$site."';";
+    $ergebnis = $hp->mysqlquery($sql); 
+    $row = mysql_fetch_object($ergebnis);
+    $newstext="$row->text";
+    $newstext = str_replace('<br>',"\n" ,$newstext);
+    $newstext = str_replace('&lt;',"<" ,$newstext);
     
-<div class="picturelist">
-<div class="picturelist_left" OnMouseOver="picturelist_on = true; picturelist_goleft();" OnMouseOut="picturelist_on = false;" onclick="picturelist_left()"></div><div class="picturelist_holder" id="picturelist_holder"></div><div class="picturelist_right"  OnMouseOver="picturelist_on = true; picturelist_goright();" OnMouseOut="picturelist_on = false;" onclick="picturelist_right()"></div>
-</div>
+    $siteT = new siteTemplate($hp);
+    $siteT->load("news");
+    
+    $data = array(
+      
+      "titel" => $row->titel,
+      "site" => $site,
+      "datum" => $row->datum,
+      "datDisabled" => "false",
+      "level" => $row->level,
+      "newstext" => $newstext,
+      "sitename" => "newsedit"    
+    );
+    
+    $siteT->setArray($data);
+  
+    $data = "";
+    
+    $sql = "SELECT * FROM `$dbpräfix"."usedpics`";
+    $erg = $hp->mysqlquery($sql);
+    while ($row = mysql_fetch_object($erg))
+    {
+    
+       $breite=$row->width; 
+       $hoehe=$row->height; 
+      
+       $neueHoehe=100;
+       $neueBreite=intval($breite*$neueHoehe/$hoehe); 
+      
+       $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
+                   
+       if ($data == "")
+       {
+          $data = "'".$img."'";
+          
+       } else
+       {
+          $data .= ", '".$img."'";
+       }
+  
+    }
+    
+    $siteT->set("picturelist", $data);
+    
+    return $siteT->get("LbSite-Edit");
 
-
-<script>
-picturelist_setdata(new Array (<?php echo $data; ?>));
-
-picturelist_print();
-
-</script>
-
-
-<?php } 
-
-
-
-
-}
+  }
 }
 
 function site_newnews()
 {
-$hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
-$game = $hp->game;
-$info = $hp->info;
-$error = $hp->error;
-$fp = $hp->fp;
-$lang = $hp->getlangclass();
-$right = $hp->getright();
-$level = $_SESSION['level'];
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $game = $hp->game;
+  $info = $hp->info;
+  $error = $hp->error;
+  $fp = $hp->fp;
+  $lang = $hp->getlangclass();
+  $right = $hp->getright();
+  $level = $_SESSION['level'];
+
+    
+  
+
 
 if (!$right[$level]['newswrite'])
 {
-?>
+  $error->error($lang->word('nonewswrite'), "1");
 
-<div align="center">
-  <table border="1" width="554" height="360">
-    <tr>
-      <td width="554" height="360" align="center">
-        <p align="center"><?php echo $lang->word('nonewswrite')?></p>
-        <p align="center"><?php echo $lang->word('questions-webmaster')?></td>
-    </tr>
-  </table>
-</div>
-
-<?php
 } else
 {
+    $siteT = new siteTemplate($hp);
+    $siteT->load("news");
+    
+    $data = array(
+      
+      "titel" => "",
+      "site" => "0",
+      "datDisabled" => "true",
+      "datum" => date("y.n.y"),
+      "level" => "0",
+      "newstext" => "",
+      "sitename" => "newswrite"    
+    );
+    
+    $siteT->setArray($data);
 
-?>
 
 
-<script type="text/javascript">
-	tinyMCE.init({
-		mode : "textareas",
-		theme : "advanced",
-		plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+    $data = "";
 
-		// Theme options
-		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
-		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		theme_advanced_statusbar_location : "bottom",
-		theme_advanced_resizing : true,
-	});
-</script>
-<!-- /TinyMCE -->
-
-<p align="left"><font size="3"><u><?php echo $lang->word('newnews')?></u></font></p>
-<form method="POST" action="index.php?site=news">
-
-  <p align="left"><?php echo $lang->word('headline')?><br>
-  <input type="text" name="newstitel" size="80"></p>
-    <p align="left">Typ: <select size="1" name="newstyp"> 
-    <option selected>Info</option>
-    <option>Event</option>
-    <option>Gameserver</option>
-    <option>Member</option>
-  </select> Level <input type="text" name="newslevel" size="1" value ="0">
-  <br>Die Berechtigungen können in der Seite "Rechte" geändert werden. Level 0 bedeutet öffentlich.
-
-  <p align="left">
-
-  <textarea rows="15" name="newstext" cols="74" id="t1"></textarea><!--<input type="submit" value="<?php echo $lang->word('post')?>" name="newswrite">--></p>
- <p align="left"> <button type="submit" name="newswrite"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button></p>
-</form>
-
-<link rel="stylesheet" href="include/usedpics/css/usedpics.css" type="text/css" />
- 
-
-<?php
-$data = "";
-
-$sql = "SELECT * FROM `$dbpräfix"."usedpics`";
-$erg = $hp->mysqlquery($sql);
-while ($row = mysql_fetch_object($erg))
-{
-
-         $breite=$row->width; 
-         $hoehe=$row->height; 
-
-         $neueHoehe=100;
-         $neueBreite=intval($breite*$neueHoehe/$hoehe); 
-         
-        // $neueBreite=100; 
-        // $neueHoehe=intval($hoehe*$neueHoehe/$breite); 
-
-        $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
-       
-        
-        if ($data == "")
-        {
-        $data = "'".$img."'";
-        } else
-        {
+    $sql = "SELECT * FROM `$dbpräfix"."usedpics`";
+    $erg = $hp->mysqlquery($sql);
+    while ($row = mysql_fetch_object($erg))
+    {
+    
+       $breite=$row->width; 
+       $hoehe=$row->height; 
+      
+       $neueHoehe=100;
+       $neueBreite=intval($breite*$neueHoehe/$hoehe); 
+      
+       $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
+                   
+       if ($data == "")
+       {
+          $data = "'".$img."'";
+          
+       } else
+       {
           $data .= ", '".$img."'";
-        }
+       }
+  
+    }
+    
+    $siteT->set("picturelist", $data);
+    
+    return $siteT->get("LbSite-Edit");
 
 }
-?> 
-    
-<div class="picturelist">
-<div class="picturelist_left" OnMouseOver="picturelist_on = true; picturelist_goleft();" OnMouseOut="picturelist_on = false;" onclick="picturelist_left()"></div><div class="picturelist_holder" id="picturelist_holder"></div><div class="picturelist_right"  OnMouseOver="picturelist_on = true; picturelist_goright();" OnMouseOut="picturelist_on = false;" onclick="picturelist_right()"></div>
-</div>
-
-
-<script>
-picturelist_setdata(new Array (<?php echo $data; ?>));
-
-picturelist_print();
-
-</script>
-<?php
-} // Wegen Rechte
-
-
-
 }
 
 function site_delnews($vars)
 {
-$hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
-$info = $hp->info;
-$error = $hp->error;
-$lang=$hp->langclass;
-$fp = $hp->fp;
-$right = $hp->getright();
-$level = $_SESSION['level'];
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $info = $hp->info;
+  $error = $hp->error;
+  $lang=$hp->langclass;
+  $fp = $hp->fp;
+  $right = $hp->getright();
+  $level = $_SESSION['level'];
+  
+  if($right[$level]['newsdel'])
+  {
+    
+    $sql = "SELECT * FROM `$dbpräfix"."news` WHERE `ID` = '$vars';";
+    $erg = $hp->mysqlquery($sql);
+    $row = mysql_fetch_object($erg);
+    
+    $site = new siteTemplate($hp);
+    $site->load("news");
+    
+    $data = array(
+      "ID" => $row->ID,
+      "titel" => $row->titel,
+      "ersteller" => $row->ersteller
+    );
+    
+    $site->setArray($data);
 
-if($right[$level]['newsdel'])
-{
-
-$sql = "SELECT * FROM `$dbpräfix"."news` WHERE `ID` = '$vars';";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
-
-?>
-<p id="highlight">Möchten Sie die Newsmeldung wirklich löschen?</p>
-<table width="100%">
-<tr valign="bottom">
-<td>
-<form method="POST" action="index.php?site=news">
-  <p align="center"><input type="hidden" name="newsiddel" size="3" value="<?php echo $vars?>"><input type="submit" value="Löschen" name="newsdel"></form>
-</td>
-<td>
-</td>
-</tr>
-</table>
-<b>ID:</b> <?php echo $row->ID?><br>
-<b>Newstitel:</b> <?php echo $row->titel?><br>
-<b>Ersteller:</b> <?php echo $row->ersteller?><br>
-<b>
-
-<?php
-} else
-{
-echo $lang->word('noright');
-}
+    return $site->get("LbSite-Del");
+    
+    
+  } else
+  {
+    $error->error($lang->word('noright'), "1");
+  }
 }
 
 
