@@ -231,12 +231,18 @@ function mysqlquery($query)
 $query = mysql_query($query);
 
 $myerror = mysql_error();
-if ($myerror <> "")
-{
-
-$this->error->error("$myerror", "2");
-echo "<b>Mysql Error: $myerror</b> ";
-}
+  if ($myerror <> "")
+  {
+    if (isset($debug) && ($debug == true))
+    { 
+      $this->error->error("$myerror", "2");
+      echo "<b>Mysql Error: $myerror</b> ";
+    } else
+    {
+      echo "<b>Fehlerhafte Abfrage</b>";
+      $this->error->error("$myerror", "2");
+    }
+  }
 
 return $query;
 }
