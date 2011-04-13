@@ -1,0 +1,98 @@
+#!!NAME=RechteSystem
+#!!AUTOR=MRH
+
+[!=Main!]
+
+<style>
+
+.ConfigContainer
+{
+	width:100%;
+	margin:auto;
+	border:thin orange outset;
+	
+	
+	
+}
+
+.ConfigHeader
+{
+	width:100%;
+	text-align:center;
+}
+
+.ConfigLevelBox
+{
+	width:95%;
+	margin:15px auto autp auto;	
+}
+
+.auto-style1 {
+	border-width: 1px;
+}
+
+</style>
+
+<form method="POST" action="index.php?site=rights">
+
+<div class="ConfigContainer">
+<div class="ConfigHeader"><h1>Rechte-Verwaltung</h1></div>
+
+#!Levels#
+
+</div>
+
+  <input type="hidden" name="levelcount" value="#!levelcount#">
+  <input type="submit" value="Abschicken" name="sub">
+</form>
+[!/Main!]
+
+
+[!=LevelBox!]
+
+
+<div class="ConfigLevelBox">
+<h2>Level #!level#:</h2>
+<hr>
+ 
+ #!Categories#
+	
+</div>
+<br />
+
+
+[!/LevelBox!]
+
+
+[!=Categorie!]
+
+<b>Kategorie: #!name#</b>  <br /><br />
+<table border="0" width="80%">
+	<tr>
+		<th class="auto-style1" width=200>Name</th>
+		<th class="auto-style1">Beschreibung</th>
+		<th class="auto-style1" width=50>Berechtigung</th>	
+	</tr>
+
+
+	
+	
+	#!Rights#
+
+ </table>
+	<br />
+
+[!/Categorie!]
+
+[!=Right!]
+
+	<tr>
+	
+		<td>#!name#</td>
+		<td>#!description#</td>
+		<td><input type="checkbox" name="right#!name#[]" value="#!name#" #?:checked : "checked=checked" : ""# /></td>
+	
+	</tr>
+
+
+[!/Right!]

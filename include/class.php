@@ -233,6 +233,7 @@ $query = mysql_query($query);
 $myerror = mysql_error();
   if ($myerror <> "")
   {
+    include 'include/config.php';
     if (isset($debug) && ($debug == true))
     { 
       $this->error->error("$myerror", "2");

@@ -17,270 +17,258 @@ $error = $hp->geterror();
 //Abfrage des POST ergebnisses
 if (isset($post['sub']))
 {
-foreach ($right as $key=>$value) {
-foreach ($value as $key2=>$value2)
-{
-$right[$key][$key2] = "false";
-}	
-}
+  foreach ($right as $key=>$value) 
+  {
+    foreach ($value as $key2=>$value2)
+    {
+      $right[$key][$key2] = "false";
+    }	
+  }
+  
+  $abfrage = "SELECT * FROM `".$dbpräfix."right`";
+  //$ergebnis = SQLexec($abfrage, "index");
+  $ergebnisss = $hp->mysqlquery($abfrage);
+  echo mysql_error();
+  while($row = mysql_fetch_object($ergebnisss))
+     {
+     $descriptions["$row->right"] = "$row->description";
+     }
+     
+  $levels = $post['levelcount'];
+  $levels = explode("&-&", $levels);
+  $fp = $hp->fp;
+  foreach ($levels as $keyh=>$valueh) 
+  {
+  	
+  
+  
+    if (isset($post['right'.$valueh]))
+    {
+      $temp = $post['right'.$valueh];
+    } else
+    {
+      $temp = array();
+    }
+    
+    $temp['lol']= "1337";
+    
+    foreach ($temp as $key=>$value) 
+    {
+      if ($value != "1337")
+      {
+        //echo "set r1 $value to true!!<br>";
+        $right[$valueh][$value]="true";
+      }	
+    }	
+  	
+  }
 
-$abfrage = "SELECT * FROM `".$dbpräfix."right`";
-//$ergebnis = SQLexec($abfrage, "index");
-$ergebnisss = $hp->mysqlquery($abfrage);
-echo mysql_error();
-while($row = mysql_fetch_object($ergebnisss))
-   {
-   $descriptions["$row->right"] = "$row->description";
-   }
-   
-$levels = $post['levelcount'];
-$levels = explode("&-&", $levels);
-$fp = $hp->fp;
-foreach ($levels as $keyh=>$valueh) {
-	
-
-
-if (isset($post['right'.$valueh]))
-{
-$temp = $post['right'.$valueh];
-} else
-{
-$temp = array();
-}
-
-$temp['lol']= "1337";
-
-foreach ($temp as $key=>$value) {
-if ($value != "1337")
-{
-//echo "set r1 $value to true!!<br>";
-$right[$valueh][$value]="true";
-}	
-}	
-	
-}
-/*
-$right1['lol']= "1337";
-$right2['lol']= "1337";
-$right3['lol']= "1337";
-$right1 = $post['right1'];
-$right2 = $post['right2'];
-$right3 = $post['right3'];
-$right1['lol']= "1337";
-$right2['lol']= "1337";
-$right3['lol']= "1337";
-*/
-
-
-
-
-//Saverights
-
-$sql = "TRUNCATE `".$dbpräfix."right`;";
-$hp->mysqlquery($sql);
-echo mysql_error();
-
-
-foreach ($right as $aklevel=>$temp) {
-	
-
-
-
-foreach ($temp as $key=>$value) {
-
-if ($value == "true")
-{
-$value = "true";
-} else
-{
-$value = "false";
-}
-//echo "r1 $key -> $value => $descriptions[$key]<br>";
-	$sql = "INSERT INTO `".$dbpräfix."right` (
-`ID` ,
-`level` ,
-`right`,
-`ok`,
-`description`
-)
-VALUES (
-NULL , '$aklevel', '$key', '$value', '$descriptions[$key]'
-);";
-$hp->mysqlquery($sql);
-echo mysql_error();
-}
-
-}
-
-
-//Endsaverights
-
-
-//echo $right1;
+  //Saverights
+  
+  $sql = "TRUNCATE `".$dbpräfix."right`;";
+  $hp->mysqlquery($sql);
+  echo mysql_error();
+  
+  
+  foreach ($right as $aklevel=>$temp) 
+  {  	
+    foreach ($temp as $key=>$value) 
+    {
+    
+      if ($value == "true")
+      {
+        $value = "true";
+      } else
+      {
+       $value = "false";
+      }
+      //echo "r1 $key -> $value => $descriptions[$key]<br>";
+      	$sql = "INSERT INTO `".$dbpräfix."right` (
+      `ID` ,
+      `level` ,
+      `right`,
+      `ok`,
+      `description`
+      )
+      VALUES (
+      NULL , '$aklevel', '$key', '$value', '$descriptions[$key]'
+      );";
+      $hp->mysqlquery($sql);
+    }
+  
+  }
+  
+  
+  //Endsaverights
+  
+  
+  //echo $right1;
 } elseif (isset($post['sub2'])) 
 {
-$rightname=$post['right'];
-$descript=$post['descript'];
-
-$levels = array();
-$sql = "SELECT * FROM `$dbpräfix"."right`";
-$erg = $hp->mysqlquery($sql);
-while ($row = mysql_fetch_object($erg))
-{
-if (!in_array($row->level, $levels))
-{
-$levels[] = $row->level;
-}
-}
-
-foreach ($levels as $key=>$value) {
-
-$sql = "INSERT INTO `".$dbpräfix."right` (
-
-`level` ,
-`right` ,
-`ok` ,
-`description`
-)
-VALUES (
-'$value', '$rightname', 'false', '$descript'
-);";
-$hp->mysqlquery($sql);
-echo mysql_error();
-
-
-echo "$sql<br>";
-	
-}
-echo "<hr>";
+  $rightname=$post['right'];
+  $descript=$post['descript'];
+  
+  $levels = array();
+  $sql = "SELECT * FROM `$dbpräfix"."right`";
+  $erg = $hp->mysqlquery($sql);
+  while ($row = mysql_fetch_object($erg))
+  {
+    if (!in_array($row->level, $levels))
+    {
+      $levels[] = $row->level;
+    }
+  }
+  
+  foreach ($levels as $key=>$value) 
+  {
+  
+    $sql = "INSERT INTO `".$dbpräfix."right` (
+    
+    `level` ,
+    `right` ,
+    `ok` ,
+    `description`
+    )
+    VALUES (
+    '$value', '$rightname', 'false', '$descript'
+    );";
+    $hp->mysqlquery($sql);
+    echo mysql_error();
+    
+    
+    echo "$sql<br>";
+  	
+  }
+  echo "<hr>";
 
 } elseif (isset($post['sub3']))
 {
-$newl=$post['newl'];
-$oldl=$post['oldl'];
-
-$sql = "SELECT * FROM `$dbpräfix"."right` WHERE `level` = '$oldl'";
-$erg = $hp->mysqlquery($sql);
-while ($row = mysql_fetch_object($erg))
-{
-
-
-
-/*
-  `ID` int(10) NOT NULL AUTO_INCREMENT,
-  `level` int(2) NOT NULL,
-  `right` varchar(120) COLLATE latin1_general_ci NOT NULL,
-  `ok` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `description` varchar(200) COLLATE latin1_general_ci NOT NULL,
-*/
-
-$sql = "INSERT INTO `".$dbpräfix."right` (
-
-`level` ,
-`right` ,
-`ok` ,
-`description`
-)
-VALUES (
-'$newl', '$row->right', '$row->ok', '$row->description'
-);";
-$hp->mysqlquery($sql);
-
-
-}
+  $newl=$post['newl'];
+  $oldl=$post['oldl'];
+  
+  $sql = "SELECT * FROM `$dbpräfix"."right` WHERE `level` = '$oldl'";
+  $erg = $hp->mysqlquery($sql);
+  while ($row = mysql_fetch_object($erg))
+  {
+  /*
+    `ID` int(10) NOT NULL AUTO_INCREMENT,
+    `level` int(2) NOT NULL,
+    `right` varchar(120) COLLATE latin1_general_ci NOT NULL,
+    `ok` varchar(100) COLLATE latin1_general_ci NOT NULL,
+    `description` varchar(200) COLLATE latin1_general_ci NOT NULL,
+  */
+  
+  $sql = "INSERT INTO `".$dbpräfix."right` (
+  
+  `level` ,
+  `right` ,
+  `ok` ,
+  `description`
+  )
+  VALUES (
+  '$newl', '$row->right', '$row->ok', '$row->description'
+  );";
+  $hp->mysqlquery($sql);
+  
+  
+  }
 
 }
 // Ende auswertung Post
 // Abfrage des aktuellen zustandes...
 
 
-?>
+$site = new siteTemplate($hp);
+$site->load("rights");
 
-
-  <center>
-  <form method="POST" action="index.php?site=rights">
-
-  <table border="1" width="100%" height="7" bordercolor="#4E6F81">
-    <tr>
-      <td width="40" height="22" bgcolor="#5A8196">Level</td>
-      <td width="757" height="25" bgcolor="#5A8196">Name</td>
-      <td width="58" height="21" bgcolor="#5A8196">
-        <p align="center">Ok?</p>
-      </td>
-    </tr>
-<?php
 
 
 $sql = "SELECT * FROM `".$dbpräfix."right`";
 $erg = $hp->mysqlquery($sql);
 $levels = array();
+
 while ($row = mysql_fetch_object($erg))
 {
-if (!in_array($row->level, $levels))
-{
-$levels[] = $row->level;
-}
+  if (!in_array($row->level, $levels))
+  {
+    $levels[] = $row->level;
+  }
 }
 $fp = $hp->fp;
 
-foreach ($levels as $egal=>$aktlevel) {
-	
 
+$content = "";
+foreach ($levels as $egal=>$aktlevel) 
+{
+  if ($aktlevel == "0")
+  {
+    continue;
+  }
+ 
+  $data = array();
 
-$abfrage = "SELECT * FROM `".$dbpräfix."right` WHERE `level` = '$aktlevel'";
-//$ergebnis = SQLexec($abfrage, "index");
-$ergebnisss = $hp->mysqlquery($abfrage);
-echo mysql_error();
-while($row = mysql_fetch_object($ergebnisss))
-   {
-if ("$row->right" != "userdelet")
-      {
-          
-   echo '<tr>
-      <td width="40" height="31" align="center" bgcolor="#5A8196">'."$row->level".'</td>
-      <td width="757" height="28">'."$row->description".'</td>
-      ';
-   echo '
-      <td width="58" height="32" align="center"><input type="checkbox" name="right'."$row->level".'[]" value="'."$row->right".'" ';
-      
-      if ("$row->ok" == "true")
-      {
-      echo "checked=\"true\"";
-      }
-      
-      echo"></td>
-    </tr>
-   ";
-   }
+  $abfrage = "SELECT * FROM `".$dbpräfix."right` WHERE `level` = '$aktlevel' ORDER BY `cat` DESC;";
+  //$ergebnis = SQLexec($abfrage, "index");
+  $ergebnisss = $hp->mysqlquery($abfrage);
+  while($row = mysql_fetch_object($ergebnisss))
+  {
+    // right, level, description, ok, cat
+    $data[$row->cat][] = $row;     
   } 
-  // Abtrennung
-  echo '        <tr>
-      <td width="40" height="1" align="center" bgcolor="#5A8196">&nbsp;</td>
-      <td width="757" height="1" bgcolor="#5A8196"></td>
-      <td width="58" height="1" align="center" bgcolor="#5A8196"></td>
-    </tr>
-    '; 
-}   
-
+      
+  $content_c = "";
+  foreach ($data as $cat=>$array)
+  {
+  
+    $content_r = "";
+    foreach ($array as $k=>$row)
+    {
+      $tdata = array (
+        "name" => $row->right,
+        "description" => $row->description,
+        "checked" => $row->ok      
+      );
+    
+      $content_r .= $site->getNode("Right", $tdata);
+    }
 
     
+     $tdata = array(
+      "name" => $cat,
+      "Rights" => $content_r    
+    );    
+    
+    $content_c .= $site->getNode("Categorie", $tdata);
+  
+  }
+  
+  $tdata = array(
+   "level" => $row->level,
+   "Categories" => $content_c
+  );
+  
 
-  ?>  
-  <input type="hidden" name="levelcount" value="<?php
-  echo implode("&-&", $levels);
-   ?>">
-        <tr>
-      <td width="855" height="31" align="center" bgcolor="#5A8196" colspan="3">
-                  <input type="submit" value="Abschicken" name="sub">
-        
-      </td>
-    </tr>   
+  
+  $content .= $site->getNode("LevelBox", $tdata);
 
 
-  </table>
-  </center>
-  <?php if ($_SESSION['username'] == "mrh") { ?>
-</form>
+}   
+
+$data = array(
+  "Levels" => $content,
+  "levelcount" => implode("&-&", $levels)
+);
+
+
+$site->setArray($data);
+
+
+$site->display();
+    
+
+
+if ($_SESSION['username'] == "mrh") { ?>
+
   <form method="POST" action="index.php?site=rights">
 <table border="1" width="160">
   <tr>
@@ -296,7 +284,7 @@ if ("$row->right" != "userdelet")
 <input type="submit" value="Abschicken" name="sub2">
 
 </form>
-</form>
+
   <form method="POST" action="index.php?site=rights">
 <table border="1" width="160">
   <tr>
