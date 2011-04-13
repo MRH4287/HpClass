@@ -699,6 +699,8 @@ $erg = $hp->mysqlquery($sql);
 
 //$response->script('setTimeout("location.reload(true);",200);');
 
+$response->script("xajax_reloadWidgets()");
+
 }
 //$fp->groupend();
 }

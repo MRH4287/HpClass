@@ -58,7 +58,7 @@ function widgetDropEvent(dropper, drag, infon, info_droppable)
 {
 killElement(drag);
 xajax_dragevent(dropper, drag, infon, info_droppable);
-xajax_reloadWidgets();
+//xajax_reloadWidgets();
 
 }
 

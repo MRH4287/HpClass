@@ -1,0 +1,52 @@
+#!!NAME=dragdrop
+#!!AUTOR=MRH
+
+
+[!=Main!]
+
+<style>
+
+.widgetContainer
+{
+	width:40%;
+	margin:auto;
+  min-height: 100px;
+	border:thin orange outset;
+	background-color:#FFFFCC;
+	
+	
+}
+
+</style>
+
+<div class="widgetContainer" id="widgetContainer"></div>
+
+
+
+
+ <table width="150" height="50">
+
+<tr>
+<td>
+<div id="widget_DelWidgets" class="droppDel" valign="middle">Löschen</div>
+
+</td>
+</tr>
+</table>
+
+<script>
+
+Droppables.add('widget_DelWidgets',{onDrop: function(drag, base) {
+
+widgetDeletDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));
+
+ }, hoverclass: 'hclass'});
+ 
+
+</script>
+
+
+<div id="info">
+</div>
+
+[!/Main!]
