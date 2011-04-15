@@ -33,6 +33,9 @@ if (isset($post['sub']))
      {
      $descriptions["$row->right"] = "$row->description";
      }
+  
+  
+
      
   $levels = $post['levelcount'];
   $levels = explode("&-&", $levels);
@@ -64,7 +67,7 @@ if (isset($post['sub']))
   }
 
   //Saverights
-  
+ 
   $sql = "TRUNCATE `".$dbpräfix."right`;";
   $hp->mysqlquery($sql);
   echo mysql_error();
@@ -225,6 +228,7 @@ foreach ($levels as $egal=>$aktlevel)
     {
       $tdata = array (
         "name" => $row->right,
+        "level" => $aktlevel,
         "description" => $row->description,
         "checked" => $row->ok      
       );
