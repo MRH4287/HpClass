@@ -15,6 +15,7 @@ require_once 'include/xajax_core/xajax.inc.php';
 require_once 'include/FirePHP.class.php';
 require_once 'include/class_xajax_funk.php';
 require_once 'include/class_forum.php';
+require_once 'include/class_right.php';
 require_once 'include/class_widgets.php';
 require_once 'include/class_subpages.php';
 require_once 'include/class_pluginloader.php';
@@ -30,12 +31,21 @@ $info           = new infoclass;
 $lbsites        = new lbsites;
 $xajaxF         = new Xajax_Funktions;
 $forum          = new forum;
+$right          = new right;
 $widgets        = new widgets;
 $subpages       = new subpages;
 $pluginloader   = new PluginLoader;
 // ----------------------------------------------------------------------------
 
+//-----------------------------------MYSQL Area (DB Verbindung)----------------
+$hp->setdata($dbserver, $dbuser, $dbpass, $dbpräfix, $dbdatenbank);
+$hp->connect();
+//-----------------------------------------------------------------------------
+
+
 //--------------------------------------SET Area-------------------------------
+$right->sethp($hp);
+$hp->setright($right);
 $hp->setlang($lang);
 $hp->seterror($error);
 $hp->setinfo($info);
@@ -61,11 +71,6 @@ $hp->setsubpages($subpages);
 $pluginloader->sethp($hp);
 $hp->setpluginloader($pluginloader);
 // ----------------------------------------------------------------------------
-
-//-----------------------------------MYSQL Area (DB Verbindung)----------------
-$hp->setdata($dbserver, $dbuser, $dbpass, $dbpräfix, $dbdatenbank);
-$hp->connect();
-//-----------------------------------------------------------------------------
 
 //------------------------------Plugin System----------------------------------
 $pluginloader->Init();

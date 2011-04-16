@@ -18,6 +18,7 @@ public    $forum;
 public    $widgets;
 public    $subpages;
 public    $pluginloader;
+public    $right;
 
 
 //Wegen Makro Fehlern:
@@ -43,6 +44,7 @@ protected $superadmin;
 protected $standardsite;
 protected $navigationIgnore;
 
+
 // Config Area;
 // ----------------------------------------------------------------
 function HP()
@@ -61,6 +63,10 @@ $this->superadminonly = array("rights", "config", "dragdrop", "plugins", "test")
 $this->navigationIgnore = array("upload", "download2", "lostpw", "mailagree",
                                  "usedpics", "profil", "pm", "subpage",
                                  "userpicchange", "vote", "admin", "anwaerter");
+
+
+// Rechte, die im Rechtesystem registriert sind:
+$this->registedrights = array("adminsite");
 
 
 //Mysql
@@ -137,6 +143,27 @@ function setpluginloader($pluginloader)
 {
 $this->pluginloader = $pluginloader;
 }
+
+function setright($right)
+{
+
+  $this->right = $right;
+  
+  if (file_exists("include/rights.php"))
+  {
+    include "include/rights.php";
+    $right->registerArray($registed);
+    $right->registerLevel($levels);
+  
+  }
+  
+  
+  
+
+
+}
+
+
 
 //  Ende set-Area
 
@@ -655,29 +682,8 @@ if (file_exists("$sitesp/$site.php") and (is_file("$sitesp/$site.php")))
 function getright()
 {
 
-// Rechte
-$abfrage = "SELECT * FROM `".$this->präfix."right`";
-//$ergebnis = SQLexec($abfrage, "index");
-$ergebnisss = $this->mysqlquery($abfrage);
-echo mysql_error();
-while($row = mysql_fetch_object($ergebnisss))
-   {
-   $rlevel="$row->level";
-   if ("$row->ok" == "true")
-   {
-   $value = true;
-   } else
-   {
-   $value = false;
-   }
-   $rright = "$row->right";
-   
-   $right[$rlevel][$rright] = $value;
-   }
+return $this->right->getright();
 
-sort($right);
-
-return $right;
 }
 
 // Von Functions.php Übernommen

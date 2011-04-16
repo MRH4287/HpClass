@@ -8,6 +8,7 @@ $post = $hp->post();
 $dbpräfix = $hp->getpräfix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
+$o_right = $hp->right;
 
 
 //Variablen
@@ -21,25 +22,17 @@ if (isset($post['sub']))
   {
     foreach ($value as $key2=>$value2)
     {
-      $right[$key][$key2] = "false";
+      $right[$key][$key2] = false;
     }	
   }
-  
-  $abfrage = "SELECT * FROM `".$dbpräfix."right`";
-  //$ergebnis = SQLexec($abfrage, "index");
-  $ergebnisss = $hp->mysqlquery($abfrage);
-  echo mysql_error();
-  while($row = mysql_fetch_object($ergebnisss))
-     {
-     $descriptions["$row->right"] = "$row->description";
-     }
-  
+  $fp = $hp->fp;
   
 
-     
+    
   $levels = $post['levelcount'];
   $levels = explode("&-&", $levels);
-  $fp = $hp->fp;
+
+  
   foreach ($levels as $keyh=>$valueh) 
   {
   	
@@ -52,130 +45,23 @@ if (isset($post['sub']))
     {
       $temp = array();
     }
-    
-    $temp['lol']= "1337";
+        
     
     foreach ($temp as $key=>$value) 
     {
-      if ($value != "1337")
-      {
+
         //echo "set r1 $value to true!!<br>";
-        $right[$valueh][$value]="true";
-      }	
+        $right[$valueh][$value]=true;
+      	
     }	
   	
   }
 
-  //Saverights
- 
-  $sql = "TRUNCATE `".$dbpräfix."right`;";
-  $hp->mysqlquery($sql);
-  echo mysql_error();
-  
-  
-  foreach ($right as $aklevel=>$temp) 
-  {  	
-    foreach ($temp as $key=>$value) 
-    {
-    
-      if ($value == "true")
-      {
-        $value = "true";
-      } else
-      {
-       $value = "false";
-      }
-      //echo "r1 $key -> $value => $descriptions[$key]<br>";
-      	$sql = "INSERT INTO `".$dbpräfix."right` (
-      `ID` ,
-      `level` ,
-      `right`,
-      `ok`,
-      `description`
-      )
-      VALUES (
-      NULL , '$aklevel', '$key', '$value', '$descriptions[$key]'
-      );";
-      $hp->mysqlquery($sql);
-    }
-  
-  }
-  
-  
+  $o_right->save($right); 
+  $o_right->load();
   //Endsaverights
   
   
-  //echo $right1;
-} elseif (isset($post['sub2'])) 
-{
-  $rightname=$post['right'];
-  $descript=$post['descript'];
-  
-  $levels = array();
-  $sql = "SELECT * FROM `$dbpräfix"."right`";
-  $erg = $hp->mysqlquery($sql);
-  while ($row = mysql_fetch_object($erg))
-  {
-    if (!in_array($row->level, $levels))
-    {
-      $levels[] = $row->level;
-    }
-  }
-  
-  foreach ($levels as $key=>$value) 
-  {
-  
-    $sql = "INSERT INTO `".$dbpräfix."right` (
-    
-    `level` ,
-    `right` ,
-    `ok` ,
-    `description`
-    )
-    VALUES (
-    '$value', '$rightname', 'false', '$descript'
-    );";
-    $hp->mysqlquery($sql);
-    echo mysql_error();
-    
-    
-    echo "$sql<br>";
-  	
-  }
-  echo "<hr>";
-
-} elseif (isset($post['sub3']))
-{
-  $newl=$post['newl'];
-  $oldl=$post['oldl'];
-  
-  $sql = "SELECT * FROM `$dbpräfix"."right` WHERE `level` = '$oldl'";
-  $erg = $hp->mysqlquery($sql);
-  while ($row = mysql_fetch_object($erg))
-  {
-  /*
-    `ID` int(10) NOT NULL AUTO_INCREMENT,
-    `level` int(2) NOT NULL,
-    `right` varchar(120) COLLATE latin1_general_ci NOT NULL,
-    `ok` varchar(100) COLLATE latin1_general_ci NOT NULL,
-    `description` varchar(200) COLLATE latin1_general_ci NOT NULL,
-  */
-  
-  $sql = "INSERT INTO `".$dbpräfix."right` (
-  
-  `level` ,
-  `right` ,
-  `ok` ,
-  `description`
-  )
-  VALUES (
-  '$newl', '$row->right', '$row->ok', '$row->description'
-  );";
-  $hp->mysqlquery($sql);
-  
-  
-  }
-
 }
 // Ende auswertung Post
 // Abfrage des aktuellen zustandes...
@@ -186,19 +72,23 @@ $site->load("rights");
 
 
 
-$sql = "SELECT * FROM `".$dbpräfix."right`";
-$erg = $hp->mysqlquery($sql);
-$levels = array();
 
-while ($row = mysql_fetch_object($erg))
-{
-  if (!in_array($row->level, $levels))
-  {
-    $levels[] = $row->level;
-  }
-}
+$levels = $o_right->getlevels();
+
+
 $fp = $hp->fp;
 
+
+$data = array();
+
+
+$registedRights = $o_right->getregisted();
+foreach ($registedRights as $k => $name)
+{
+  // right, level, description, ok, cat
+  $data[$o_right->cat($name)][] = $name;     
+} 
+  
 
 $content = "";
 foreach ($levels as $egal=>$aktlevel) 
@@ -208,29 +98,19 @@ foreach ($levels as $egal=>$aktlevel)
     continue;
   }
  
-  $data = array();
-
-  $abfrage = "SELECT * FROM `".$dbpräfix."right` WHERE `level` = '$aktlevel' ORDER BY `cat` DESC;";
-  //$ergebnis = SQLexec($abfrage, "index");
-  $ergebnisss = $hp->mysqlquery($abfrage);
-  while($row = mysql_fetch_object($ergebnisss))
-  {
-    // right, level, description, ok, cat
-    $data[$row->cat][] = $row;     
-  } 
-      
+    
   $content_c = "";
   foreach ($data as $cat=>$array)
   {
   
     $content_r = "";
-    foreach ($array as $k=>$row)
+    foreach ($array as $k=>$name)
     {
       $tdata = array (
-        "name" => $row->right,
+        "name" => $name,
         "level" => $aktlevel,
-        "description" => $row->description,
-        "checked" => $row->ok      
+        "description" => $o_right->desc($name),
+        "checked" => $o_right->is($name, $aktlevel) ? "true" : false      
       );
     
       $content_r .= $site->getNode("Right", $tdata);
@@ -247,7 +127,7 @@ foreach ($levels as $egal=>$aktlevel)
   }
   
   $tdata = array(
-   "level" => $row->level,
+   "level" => $aktlevel,
    "Categories" => $content_c
   );
   
@@ -269,45 +149,4 @@ $site->setArray($data);
 
 $site->display();
     
-
-
-if ($_SESSION['username'] == "mrh") { ?>
-
-  <form method="POST" action="index.php?site=rights">
-<table border="1" width="160">
-  <tr>
-    <td>right:</td>
-    <td><input type="text" name="right" size="31"></td>
-  </tr>
-  <tr>
-    <td>description:</td>
-    <td><input type="text" name="descript" size="31"></td>
-  </tr>
-</table>
-
-<input type="submit" value="Abschicken" name="sub2">
-
-</form>
-
-  <form method="POST" action="index.php?site=rights">
-<table border="1" width="160">
-  <tr>
-    <td>New Level:</td>
-    <td><input type="text" name="newl" size="31"></td>
-  </tr>
-  <tr>
-    <td>Copy from:</td>
-    <td><input type="text" name="oldl" size="31"></td>
-  </tr>
-</table>
-
-<input type="submit" value="Abschicken" name="sub3">
-
-</form>
-
-<?php 
-}
-
-
-
 ?>
