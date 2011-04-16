@@ -86,11 +86,11 @@
 
 [!=Right!]
 
-	<tr class="pluginLine">
+	<tr class="pluginLine" onclick="$('#!level#-#!name#').checked = ! $('#!level#-#!name#').checked;">
 	
 		<td>#!name#</td>
 		<td>#!description#</td>
-		<td><input type="checkbox" name="right#!level#[]" value="#!name#" #?:checked : "checked=checked" : ""# /></td>
+		<td><input type="checkbox" id="#!level#-#!name#" name="right#!level#[]" value="#!name#" #?:checked : "checked=checked" : ""# /></td>
 	
 	</tr>
 
