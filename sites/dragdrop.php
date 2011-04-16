@@ -14,6 +14,7 @@ $info = $hp->getinfo();
 
 $site = new siteTemplate($hp);
 $site->load("dragdrop");
+$site->right("superadmin");
 
 $site->display();
 

@@ -18,6 +18,8 @@ private $data = array();
 
 private $DEFAULT_NODE = "Main";
 
+private $neededRight = null;
+
 
 function __construct($hp)
 {
@@ -296,6 +298,11 @@ function getNode($name, $data = null)
 }
 
 
+function right($right = "login")
+{
+  $this->neededRight = $right;
+}
+
 
 function display($node = null)
 {
@@ -304,20 +311,54 @@ function display($node = null)
 
 function get($node = null)
 {
-  if ($node == null)
-  {
-    $node = $this->DEFAULT_NODE;
-  }
-
-  if (isset($this->blocks[$node]))
-  {
-
-    return $this->replace($this->blocks[$node]);
+  $level = $_SESSION['level'];
   
+  $ok = false;
+  $nr = $this->neededRight;
+  
+  if ($nr == null)
+  {
+    $ok = true;
   } else
   {
-    return "<b>Node '$node' not found!</b>";
+    if ($nr == "login")
+    {
+      $ok = isset($_SESSION["username"]);
+    } elseif ($nr == "superadmin")
+    {
+      $ok = (isset($_SESSION['username']) && in_array($_SESSION['username'], $this->hp->getsuperadmin()));
+    } else
+    {
+       $ok = $this->hp->right->is($nr);
+    }
+    
+  }
+   
   
+  if ($ok)
+  {
+    if ($node == null)
+    {
+      $node = $this->DEFAULT_NODE;
+    }
+  
+    if (isset($this->blocks[$node]))
+    {
+  
+      return $this->replace($this->blocks[$node]);
+    
+    } else
+    {
+      return "<b>Node '$node' not found!</b>";
+    
+    }
+    
+  } else
+  {
+    $hp = $this->hp;
+    $lang = $hp->getlangclass();
+  
+    return $lang->word('noright2');
   }
 }
 

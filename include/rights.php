@@ -64,6 +64,24 @@ $registed = array(
   ),
   array (
   
+  "name" => "upload",
+  "desc" => "Das Recht Daten hochzuladen",
+  "cat"  => "Download"
+  ),
+  array (
+  
+  "name" => "upload_del",
+  "desc" => "Das Recht Daten zu löschen",
+  "cat"  => "Download"
+  ),
+  array (
+  
+  "name" => "useragree",
+  "desc" => "Das Recht einen Benutzer anzunehmen",
+  "cat"  => "Kritisch"
+  ),
+  array (
+  
   "name" => "userdisagree",
   "desc" => "Erlaubnis um ein Anwärter abzulehnen",
   "cat"  => "Kritisch"
@@ -80,7 +98,7 @@ $registed = array(
   "desc" => "Erlaubnis um einen User zu löschen",
   "cat"  => "Kritisch"
   )
-
+    
 
 );
 

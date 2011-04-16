@@ -10,21 +10,11 @@ $lang = $hp->getlangclass();
 $error = $hp->geterror();
 
 
-// Prüfen der Zugriffsberechtigung
-  if (!isset($_SESSION['username']))
-  {
-    $error->error($lang->word('noright'), "2");
-    $error->error($lang->word('noright'), "1");
-  } elseif (!$right[$level]['adminsite'])
-  {
-    $error->error($lang->word('noright2'));
-  } 
-  else
-  {
     $site = new siteTemplate($hp);
+    $site->right("adminsite");
     $site->load("admin");
     $site->display(); 
     
-  }
+
   
 ?>
