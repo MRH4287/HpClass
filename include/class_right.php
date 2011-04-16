@@ -27,7 +27,7 @@ class right
     $dbpräfix = $hp->getpräfix();
   
       // Rechte
-    $abfrage = "SELECT * FROM `".$dbpräfix."right`";
+    $abfrage = "SELECT * FROM `".$dbpräfix."right` Order By `level` ASC";
     //$ergebnis = SQLexec($abfrage, "index");
     $ergebnisss = $hp->mysqlquery($abfrage);
     $right = array();
@@ -49,8 +49,6 @@ class right
        $right[$rlevel][$rright] = $value;
     }
     
-    sort($right);
-
     $this->recht = $right;
 
   
@@ -185,8 +183,7 @@ class right
         $hp->mysqlquery($sql);
         
         foreach ($rights as $aktlevel => $right)
-        {
-        
+        {  
           foreach ($right as $name => $on)
           {
           
@@ -205,15 +202,10 @@ class right
             );";
             $hp->mysqlquery($sql);
           
-          
           }
         
-        
         }
-      
-      
-    
-    
+
     } else
     {
       throw new Exception();
