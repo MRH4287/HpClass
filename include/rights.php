@@ -62,6 +62,13 @@ $registed = array(
   "desc" => "Das Recht die E-Mail Adresse in der user Seite einzusehen",
   "cat"  => "System"
   ),
+  array(
+  
+  "name" => "manage_subpage",
+  "desc" => "Das Recht Unterseiten zu bearbeiten",
+  "cat"  => "System"
+  
+  ),
   array (
   
   "name" => "upload",
