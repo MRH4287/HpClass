@@ -204,7 +204,7 @@ function site_newschange($site)
        $neueHoehe=100;
        $neueBreite=intval($breite*$neueHoehe/$hoehe); 
       
-       $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
+       $img = "<img src=\"include/image.php?id=$row->ID&source=usedpic\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
                    
        if ($data == "")
        {
@@ -277,7 +277,7 @@ if (!$right[$level]['newswrite'])
        $neueHoehe=100;
        $neueBreite=intval($breite*$neueHoehe/$hoehe); 
       
-       $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
+       $img = "<img src=\"include/image.php?id=$row->ID&source=usedpic\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
                    
        if ($data == "")
        {

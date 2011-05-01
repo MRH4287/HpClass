@@ -68,7 +68,14 @@
       <option>Member</option>
     </select>
     -->
-     Level <input type="text" name="newslevel" size="1" value="#!level#"><br>Die Berechtigungen können in der Seite "Rechte" geändert werden. Level 0 bedeutet öffentlich.</p>
+     Level 
+     <select name="newslevel">
+	     <option #="0" == level : "selected=selected" : ""#>0</option>
+       <option #="1" == level : "selected=selected" : ""#>1</option>
+	     <option #="2" == level : "selected=selected" : ""#>2</option>
+	     <option #="3" == level : "selected=selected" : ""#>3</option>
+	   </select>
+     <br>Die Berechtigungen können in der Seite "Rechte" geändert werden. Level 0 bedeutet öffentlich.</p>
     <p align="left">
     <textarea rows="15" name="newstext" cols="74" id="t1">#!newstext#</textarea>
     <button type="submit" name="#!sitename#"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>

@@ -140,18 +140,27 @@ function getPlaceholder($content, $key = "!")
 function replace($data)
 {
   //Ersetze Inline Platzhalter:
-  foreach($this->data as $key=>$value)
-  {
-    $data = str_replace("#!$key#", $value, $data);
-  }
+  $data = $this->replaceDefault($data);
                                                   
   //Ersetze die Sprachblocks
   $data = $this->replaceLangBlocks($data);
   // Ersetze Bedingte Ausgaben
   $data = $this->replaceCondit($data);
+  // Ersetzte die Gleichheitsprüfung
+  $data = $this->replaceEquals($data);
+  
   return $data;
 }
 
+
+function replaceDefault($data)
+{
+  foreach($this->data as $key=>$value)
+  {
+    $data = str_replace("#!$key#", $value, $data);
+  }
+  return $data;
+}
 
 
 function replaceLangBlocks($data)
@@ -165,6 +174,106 @@ function replaceLangBlocks($data)
   foreach ($langData as $k=> $word)
   {
     $data = str_replace("#%$word#", $lang->word($word), $data);
+  }
+
+  return $data;
+}
+
+function replaceEquals($data)
+{
+  $hp = $this->hp;
+  $right = $hp->getright();
+  
+  $level = $_SESSION['level'];
+  $Data = $this->getPlaceholder($data, "=");
+  
+  foreach ($Data as $k => $word)
+  {
+    // name == "test" : "a #%test#" : b
+    // name == bla : abc : %lol
+    
+    $values = explode(" : ", $word);
+    $con = explode(" == ", $values[0]);
+    
+    $compareA = "A";    
+    $compareB = "B";
+    
+    if ((count($values) != 3) || (count($con) != 2))
+    {
+      continue;
+    }
+    
+    // A
+    if (preg_match("/\"(.*)\"/", $con[0]))
+    {
+       $tmp = $this->replaceLangBlocks($this->replaceDefault($con[0]));  
+       $compareA =  str_replace("\"", "", $tmp);
+    } 
+    elseif (preg_match("/%(.*)/", $con[0]))
+    {
+        $comapreA = $hp->getlangclass()->word(str_replace("%", "", $con[0]));
+    } 
+    elseif (isset($this->data[$con[0]]))
+    {
+      $compareA = $this->data[$con[0]];
+    } 
+    
+    
+    // B
+    if (preg_match("/\"(.*)\"/", $con[1]))
+    {
+       $tmp = $this->replaceLangBlocks($this->replaceDefault($con[1]));  
+       $compareB =  str_replace("\"", "", $tmp);
+    } 
+    elseif (preg_match("/%(.*)/", $con[1]))
+    {
+        $comapreB = $hp->getlangclass()->word(str_replace("%", "", $con[1]));
+    } 
+    elseif (isset($this->data[$con[1]]))
+    {
+      $compareB = $this->data[$con[1]];
+    } 
+    
+    
+    // Values:
+    
+    if (preg_match("/\"(.*)\"/", $values[1]))
+    {
+       $tmp = $this->replaceLangBlocks($this->replaceDefault($values[1]));  
+       $iftrue =  str_replace("\"", "", $tmp);
+    } 
+    elseif (preg_match("/%(.*)/", $values[1]))
+    {
+       $iftrue = $hp->getlangclass()->word(str_replace("%", "", $values[1]));
+    } 
+    elseif (isset($this->data[$values[1]]))
+    {
+       $iftrue = $this->data[$values[1]];
+    } else
+    {
+      $iftrue = "[T]";
+    }
+    
+    
+    if (preg_match("/\"(.*)\"/", $values[2]))
+    {
+       $tmp = $this->replaceLangBlocks($this->replaceDefault($values[2]));  
+       $iffalse =  str_replace("\"", "", $tmp);
+    } 
+    elseif (preg_match("/%(.*)/", $values[2]))
+    {
+       $iffalse = $hp->getlangclass()->word(str_replace("%", "", $values[2]));
+    } 
+    elseif (isset($this->data[$values[2]]))
+    {
+       $iffalse = $this->data[$values[2]];
+    } else
+    {
+      $iffalse = "[F]";
+    }
+    
+    $data = str_replace("#=$word#", ($compareA == $compareB)? $iftrue : $iffalse, $data);
+  
   }
 
   return $data;
@@ -188,7 +297,7 @@ function replaceCondit($data)
     
     if (preg_match("/\"(.*)\"/", $con[1]))
     {
-       $tmp = $this->replaceLangBlocks($con[1]);  
+       $tmp = $this->replaceLangBlocks($this->replaceDefault($con[1]));  
        $iftrue =  str_replace("\"", "", $tmp);
     } 
     elseif (preg_match("/%(.*)/", $con[1]))
@@ -210,7 +319,7 @@ function replaceCondit($data)
     {
       if (preg_match("/\"(.*)\"/", $con[2]))
       {
-       $tmp = $this->replaceLangBlocks($con[2]);  
+       $tmp = $this->replaceLangBlocks($this->replaceDefault($con[2]));  
        $iffalse =  str_replace("\"", "", $tmp);
       } 
       elseif (preg_match("/%(.*)/", $con[2]))
