@@ -120,7 +120,7 @@ function getPlaceholder($content, $key = "!")
   $result = array();
 
     // Herausfiltern der Platzhalter:
-  	if (preg_match_all("/\#\\".$key."[^\#|^!]*#/", $content, $m2))
+  	if (preg_match_all("/\#\\".$key."[^\#]*#/", $content, $m2))
   	{
       foreach ($m2 as $k=>$data)
       {
@@ -213,6 +213,10 @@ function replaceEquals($data)
     {
         $comapreA = $hp->getlangclass()->word(str_replace("%", "", $con[0]));
     } 
+    elseif (preg_match("/!(.*)/", $con[0]))
+    {
+        $comapreA = $this->replace($this->blocks[str_replace("!", "", $con[0])]);
+    } 
     elseif (isset($this->data[$con[0]]))
     {
       $compareA = $this->data[$con[0]];
@@ -228,6 +232,10 @@ function replaceEquals($data)
     elseif (preg_match("/%(.*)/", $con[1]))
     {
         $comapreB = $hp->getlangclass()->word(str_replace("%", "", $con[1]));
+    } 
+    elseif (preg_match("/!(.*)/", $con[1]))
+    {
+        $comapreB = $this->replace($this->blocks[str_replace("!", "", $con[1])]);
     } 
     elseif (isset($this->data[$con[1]]))
     {
@@ -246,6 +254,10 @@ function replaceEquals($data)
     {
        $iftrue = $hp->getlangclass()->word(str_replace("%", "", $values[1]));
     } 
+    elseif (preg_match("/!(.*)/", $values[1]))
+    {
+        $iftrue = $this->replace($this->blocks[str_replace("!", "", $values[1])]);
+    } 
     elseif (isset($this->data[$values[1]]))
     {
        $iftrue = $this->data[$values[1]];
@@ -263,6 +275,10 @@ function replaceEquals($data)
     elseif (preg_match("/%(.*)/", $values[2]))
     {
        $iffalse = $hp->getlangclass()->word(str_replace("%", "", $values[2]));
+    } 
+    elseif (preg_match("/!(.*)/", $values[2]))
+    {
+        $iffalse = $this->replace($this->blocks[str_replace("!", "", $values[2])]);
     } 
     elseif (isset($this->data[$values[2]]))
     {
@@ -304,6 +320,10 @@ function replaceCondit($data)
     {
         $iftrue = $hp->getlangclass()->word(str_replace("%", "", $con[1]));
     } 
+    elseif (preg_match("/!(.*)/", $con[1]))
+    {
+        $iftrue = $this->replace($this->blocks[str_replace("!", "", $con[1])]);
+    } 
     elseif (isset($this->data[$con[1]]))
     {
       $iftrue = $this->data[$con[1]];
@@ -325,7 +345,11 @@ function replaceCondit($data)
       elseif (preg_match("/%(.*)/", $con[2]))
       {
         $iffalse = $hp->getlangclass()->word(str_replace("%", "", $con[2]));
-      }      
+      }   
+      elseif (preg_match("/!(.*)/", $con[2]))
+      {
+        $iffalse = $this->replace($this->blocks[str_replace("!", "", $con[2])]);
+      }    
       elseif (isset($this->data[$con[2]]))
       {
        $iffalse = $this->data[$con[2]];
