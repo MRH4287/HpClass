@@ -868,7 +868,7 @@ $this->config=$this->getconfig();
 $admins2 = explode(", ", $this->config['superadmin']);
 if ($admins2[0] != "")
 {
-$this->superadmin = array_merge($this->superadmin, $admins2);
+$this->superadmin = @array_merge($this->superadmin, $admins2);
 }
 
 
