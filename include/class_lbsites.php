@@ -30,7 +30,7 @@ $funktions = get_class_methods($ext);
 foreach ($funktions as $key=>$value) {
 
   $split = explode("_", $value);
-  if ((count($split) > 1) && ($split[1] == "site"))
+  if ((count($split) > 1) && ($split[0] == "site") && ($split[1] != ""))
   {
 	$this->liste[$value] = $ext;
 	$this->funkadd[] = $value;
