@@ -30,7 +30,7 @@ $funktions = get_class_methods($ext);
 foreach ($funktions as $key=>$value) {
 
   $split = explode("_", $value);
-  if ((count($split) > 1) && ($split[1] != ""))
+  if ((count($split) > 1) && ($split[1] == "site"))
   {
 	$this->liste[$value] = $ext;
 	$this->funkadd[] = $value;
@@ -832,49 +832,49 @@ $fp = $hp->fp;
 
 
  function inctempfiles()
-{
-$hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
-$info = $hp->info;
-$error = $hp->error;
-$fp = $hp->firephp;
-$config = $hp->getconfig();
-
-$design = $config['design'];
-
-  if (is_dir("template/".$design."/lbsites/"))
   {
-
-
-  $handle = @opendir("./template/".$design."/lbsites/"); 
-    while ($file = @readdir($handle)) {
-
-	     $n= @explode(".",$file);
-       $art = @strtolower($n[1]);
-
-
-    if ($art == "php")
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $info = $hp->info;
+  $error = $hp->error;
+  $fp = $hp->firephp;
+  $config = $hp->getconfig();
+  
+  $design = $config['design'];
+  
+    if (is_dir("template/".$design."/lbsites/"))
     {
-        $widget = array();
-        $placeholder = array();
-        if (file_exists("./template/".$design."/lbsites/$file"))
-        include ("./template/".$design."/lbsites/$file");
-
-        $ext = @new lbsitesTemplate();
-        
-        if (is_object($ext))
-        {
-        $this->addFunctions($ext);
-        $ext->sethp($hp);
-        }
-               
-
-    }
-  } 
-
-
- } 
-}
+  
+  
+    $handle = @opendir("./template/".$design."/lbsites/"); 
+      while ($file = @readdir($handle)) {
+  
+  	     $n= @explode(".",$file);
+         $art = @strtolower($n[1]);
+  
+  
+      if ($art == "php")
+      {
+          $widget = array();
+          $placeholder = array();
+          if (file_exists("./template/".$design."/lbsites/$file"))
+          include ("./template/".$design."/lbsites/$file");
+  
+          $ext = @new lbsitesTemplate();
+          
+          if (is_object($ext))
+          {
+          $this->addFunctions($ext);
+          $ext->sethp($hp);
+          }
+                 
+  
+      }
+    } 
+  
+  
+   } 
+  }
 
 
 
