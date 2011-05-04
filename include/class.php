@@ -267,8 +267,7 @@ $myerror = mysql_error();
       echo "<b>Mysql Error: $myerror</b> ";
     } else
     {
-      echo "<b>Fehlerhafte Abfrage</b>";
-      $this->error->error("$myerror", "2");
+      $this->error->error("Fehlerhafte Abfrage", "2");
     }
   }
 
