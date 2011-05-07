@@ -45,6 +45,7 @@ $template['svnrev']="Kein SVN!";
 $template['jsu']='<script src="js/scriptaculous/prototype.js"></script>
 <script src="js/scriptaculous/scriptaculous.js"></script>
 <script src="js/scriptaculous/effects.js"></script>
+<script src="js/functions.js"></script> 
 <script src="js/scriptaculous/dragdrop.js"></script>
 <script src="js/drag&drop.js"></script> 
 <script src="js/widgetconfig.js"></script> 
