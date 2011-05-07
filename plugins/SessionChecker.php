@@ -25,7 +25,7 @@ function __construct($hp, $loader)
   $this->homepage = "http://mrh.hes-technic.de";
   
   //Notizen zu dem Plugin:
-  $this->notes = "Dieses System überprüft die Dauer einer Session abgelaufen ist.";
+  $this->notes = "Dieses System überprüft, ob die Dauer einer Session abgelaufen ist.";
   
     
   //------------------------------------------------
