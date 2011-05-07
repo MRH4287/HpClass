@@ -165,6 +165,17 @@ if (!isset($site) && isset($_GET['id']) && isset($_GET['source']))
   {
     $source["wantedWidth"] = $info["width"];
     $source["wantedHeight"] = $info["height"];
+  } else
+  {
+    if (isset($get["ww"]))
+    {
+       $source["wantedWidth"] = $get["ww"];
+    } 
+    if (isset($get["wh"]))
+    {
+       $source["wantedHeight"] = $get["wh"];
+    } 
+  
   }
  
     

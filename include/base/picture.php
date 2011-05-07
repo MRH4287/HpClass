@@ -49,7 +49,7 @@ class Picture
         
       } elseif (($wantedWidth == null) && ($wantedHeight != null))
       {        
-         $newWidth = ($this->with * $wantedHeight) / $this->height;
+         $newWidth = ($this->width * $wantedHeight) / $this->height;
          $newHeight = $wantedHeight;
          
       } elseif (($wantedWidth != null) && ($wantedHeight != null))
