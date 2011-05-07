@@ -296,7 +296,8 @@ if (!$right[$level]["manage_subpage"])
   {
     $data = array(
       "name" => $row->name,
-      "template" => $templates[$row->template]    
+      "template" => $templates[$row->template],
+      "ID" => $row->ID    
     );  
   
    $elements .= $site->getNode("List_Element", $data);
@@ -316,7 +317,7 @@ if (!$right[$level]["manage_subpage"])
   // Ist die Bestätigung vorhanden?
   if (isset($get["ok"]))
   {
-    $sql = "DELETE FROM `$dbpräfix"."subpages` WHERE `name` = '".$get["del"]."';";
+    $sql = "DELETE FROM `$dbpräfix"."subpages` WHERE `ID` = '".$get["del"]."';";
     $erg = $hp->mysqlquery($sql);
     
     $site = new siteTemplate($hp);
