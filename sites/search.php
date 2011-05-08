@@ -34,7 +34,7 @@ if (isset($post["s"]) or isset($get["s"]))
    $resultSub[] = $row;  
   }
   
-  $resltNews = array();
+  $resultNews = array();
   
   //Frage alle Newsmeldungen / Projekte ab
   $sql = "SELECT * FROM `$dbpräfix"."news` WHERE `text` LIKE '%$s%' OR `titel` LIKE '%$s%';";
