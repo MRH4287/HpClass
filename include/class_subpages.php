@@ -587,6 +587,7 @@ function getAllTemplatesWithDynContent($dynContent)
   
   foreach ($this->templatePath as $k => $path)
   {
+   
     $path = str_replace("#!Design#", $design, $path);
     $handle = opendir($path); 
     while (false !== ($file = readdir($handle))) 
@@ -597,18 +598,18 @@ function getAllTemplatesWithDynContent($dynContent)
   
       if ($b == "php")
       {
-  
+        
           $array = explode("_", $a);
           if ((count($array) > 1) and ($array[1] == "config"))
           {
   
-            $path = $this->templatePath.$file;
-            if (is_file($path) && file_exists($path))
+            $Fpath = $path.$file;
+            if (is_file($Fpath) && file_exists($Fpath))
             {
-              include $this->templatePath.$file;
-        
+              include $Fpath;
               if (in_array($dynContent, $subpageconfig["dyncontent"]))
               {
+               
                 $pages[]  = $array[0];
               }
         
