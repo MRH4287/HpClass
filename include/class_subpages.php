@@ -588,7 +588,7 @@ function getAllTemplatesWithDynContent($dynContent)
   foreach ($this->templatePath as $k => $path)
   {
     $path = str_replace("#!Design#", $design, $path);
-    $handle = @opendir($this->templatePath); 
+    $handle = opendir($path); 
     while (false !== ($file = readdir($handle))) 
     {
       $n = explode(".", $file);
