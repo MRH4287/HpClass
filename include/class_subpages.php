@@ -393,6 +393,7 @@ function loadSite($site)
   $ok = false;
   foreach ($this->templatePath as $k => $path)
   {
+    $path = str_replace("#!Design#", $design, $path);
     $tempPath = $path.$template.".html";
     
     if (is_file($tempPath) && file_exists($tempPath))
