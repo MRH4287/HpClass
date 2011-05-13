@@ -13,7 +13,7 @@ function __construct()
   // Konfiguration:
 
   // Der Pfad zu dem Templates der Unterseiten:
-  $this->templatePath = "./subpages/";
+  $this->templatePath = array("subpages/", "template/#!Design#/subpages/");
 
 
   $this->registerFunctions($this);
@@ -390,10 +390,17 @@ function loadSite($site)
 
   $template = $page['template'];
 
-  $tempPath = $this->templatePath.$template.".html";
-  $fp->log("Lade Template vom Pfad: $tempPath");
-
-  if (!is_file($tempPath) || !file_exists($tempPath))
+  $ok = false;
+  foreach ($this->templatePath as $k => $path)
+  {
+    $tempPath = $path.$template.".html";
+    
+    if (is_file($tempPath) && file_exists($tempPath))
+    {
+      $ok = true;
+    }
+  }
+  if (!$ok)
   {
     return false;
   }
@@ -494,10 +501,12 @@ function appendDynamicContent($site, $content)
 
 function getTemplateConfig($template)
 {
-  $tempPath = $this->templatePath.$template."_config.php";
+  foreach ($this->templatePath as $k => $path)
+  {
+    $tempPath = $path.$template."_config.php";
     if (!is_file($tempPath) || !file_exists($tempPath))
     {
-      return false;
+      continue;
     }
     
   // Importieren der gefundenen Datei:
@@ -510,6 +519,9 @@ function getTemplateConfig($template)
      {
      return false;
      }
+     
+  }
+  return false;
 
 }
 
@@ -517,40 +529,48 @@ function getTemplateConfig($template)
 function getAllTemplates()
 {
   $templates = array();
- 
-  $handle = @opendir($this->templatePath); 
-  while (false !== ($file = readdir($handle))) 
+  $hp = $this->hp;
+  $config = $hp->getconfig();
+  
+  $design = $config["design"];
+  
+  foreach ($this->templatePath as $k => $path)
   {
-    $n = explode(".", $file);
-    $a = $n[0];
-    $b = $n[1];
-
-    if ($b == "php")
+    $path = str_replace("#!Design#", $design, $path);
+    $handle = @opendir($path); 
+    while (false !== ($file = readdir($handle))) 
     {
-        $array = explode("_", $a);
-        if ((count($array) > 1) and ($array[1] == "config"))
-        {
-
-          if (file_exists($this->templatePath.$array[0].".html") && is_file($this->templatePath.$array[0].".html"))
+      $n = explode(".", $file);
+      $a = $n[0];
+      $b = $n[1];
+  
+      if ($b == "php")
+      {
+          $array = explode("_", $a);
+          if ((count($array) > 1) and ($array[1] == "config"))
           {
-             // Einbinden der Config Datei, um Namen zu erhalten:
-             
-             include $this->templatePath.$file;
-             
-             if (isset($subpageconfig["name"]))
-             {
-                $name = $subpageconfig["name"];
-                          
-                if (!in_array($array[0], $templates))
-                {
-                  $templates[$array[0]] =  $name;
-                }
-             }
-
+  
+            if (file_exists($this->templatePath.$array[0].".html") && is_file($this->templatePath.$array[0].".html"))
+            {
+               // Einbinden der Config Datei, um Namen zu erhalten:
+               
+               include $this->templatePath.$file;
+               
+               if (isset($subpageconfig["name"]))
+               {
+                  $name = $subpageconfig["name"];
+                            
+                  if (!in_array($array[0], $templates))
+                  {
+                    $templates[$array[0]] =  $name;
+                  }
+               }
+  
+            }
+           
+           
           }
-         
-         
-        }
+      }
     }
   }
   return $templates;
