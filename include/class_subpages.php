@@ -501,14 +501,20 @@ function appendDynamicContent($site, $content)
 
 function getTemplateConfig($template)
 {
+  $hp = $this->hp;
+  $config = $hp->getconfig();
+  
+  $design = $config["design"];
+
   foreach ($this->templatePath as $k => $path)
   {
+    $path = str_replace("#!Design#", $design, $path);
     $tempPath = $path.$template."_config.php";
     if (!is_file($tempPath) || !file_exists($tempPath))
     {
       continue;
     }
-    
+     
   // Importieren der gefundenen Datei:
      include $tempPath;
 
