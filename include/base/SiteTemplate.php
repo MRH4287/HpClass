@@ -19,11 +19,17 @@ private $data = array();
 private $DEFAULT_NODE = "Main";
 
 private $neededRight = null;
+protected $searchpath = "";
+protected $searchpathT = "";
+
 
 
 function __construct($hp)
 {
   $this->hp = $hp;
+  $this->searchpath = "template/sites/";
+  $this->searchpathT = "template/#!Design#/sites/";
+  
 }
 
 
@@ -45,13 +51,16 @@ function load($name)
   
   $design = $config["design"];
   
+  $searchpath = $this->searchpath;
+  $searchpathT = str_replace("#!Design#", $design, $this->searchpathT);
+  
   $path = "";
-  if (is_dir("template/$design/sites") && is_file("template/$design/sites/$name.html"))
+  if (is_dir($searchpathT) && is_file("$searchpathT/$name.html"))
   {
-  $path = "template/$design/sites/$name.html";
+  $path = "$searchpathT/$name.html";
   } else
   {
-  $path = "template/sites/$name.html";
+  $path = "$searchpath/$name.html";
   }
   
   

@@ -20,6 +20,7 @@ require_once 'include/class_widgets.php';
 require_once 'include/class_subpages.php';
 require_once 'include/class_pluginloader.php';
 require_once "include/base/SiteTemplate.php";
+require_once "include/base/subpageTemplate.php";
 //----------------------------------------------------------------------------
 
 //--------------------------------------Class Area----------------------------

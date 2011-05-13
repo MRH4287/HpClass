@@ -51,7 +51,6 @@ function sethp($hp)
 
 function loadTemplateFile($template)
 {
-
   $path = "template/$template/dynamicContent.php";
 
   if ((file_exists($path)) && (is_file($path)))
@@ -409,24 +408,21 @@ function loadSite($site)
 
   }
 
-  // Lade die Datei in das System
-  $content = file_get_contents($tempPath);
+  // Einbinden des subpage Template Systems:
+  $content = new subpageTemplate($hp);
+  $content->load($template);
 
   // Binde Dynamische Inhalte ein
-  $content = $this->appendDynamicContent($site, $content);
+  $this->appendDynamicContent($site, $content);
 
 
   // Lade die Template Daten für diese Unterseite und ersetzte die statischen Inhalte
   $templateArray = $this->getTemplateData($site);
-
-  foreach ($templateArray as $key=>$value) 
-  {
-    $content = str_replace("<!--$key-->", $value, $content);	
-  }
-
+  
+  $content->setArray($templateArray);
 
   //Liefere die so erstellte Seite zurück:
-  return $content;
+  return $content->get();
 
 }
 
@@ -482,16 +478,17 @@ function appendDynamicContent($site, $content)
           $o = $data["object"];
             
           $result = $o->$f($site, $config);
-          $content = str_replace("<!--$pl-->", $result, $content);
+         // $content = str_replace("<!--$pl-->", $result, $content);
+         $content->set($pl,$result);
         
       } else
       {
-        $content = str_replace("<!--$pl-->", "<img src=\"images/alert2.gif\"> Fehler: Dyanmisches Template exsistiert nicht <img src=\"images/alert2.gif\">", $content);
+       $content->set($pl,"<img src=\"images/alert2.gif\"> Fehler: Dyanmisches Template exsistiert nicht <img src=\"images/alert2.gif\">");
       }
          	
   }
   
-  return $content;
+  
 }
 
 
