@@ -580,34 +580,42 @@ function getAllTemplates()
 function getAllTemplatesWithDynContent($dynContent)
 {
   $pages = array();
- 
-  $handle = @opendir($this->templatePath); 
-  while (false !== ($file = readdir($handle))) 
+  $hp = $this->hp;
+  $config = $hp->getconfig();
+  
+  $design = $config["design"];
+  
+  foreach ($this->templatePath as $k => $path)
   {
-    $n = explode(".", $file);
-    $a = $n[0];
-    $b = $n[1];
-
-    if ($b == "php")
+    $path = str_replace("#!Design#", $design, $path);
+    $handle = @opendir($this->templatePath); 
+    while (false !== ($file = readdir($handle))) 
     {
-
-        $array = explode("_", $a);
-        if ((count($array) > 1) and ($array[1] == "config"))
-        {
-
-          $path = $this->templatePath.$file;
-          if (is_file($path) && file_exists($path))
+      $n = explode(".", $file);
+      $a = $n[0];
+      $b = $n[1];
+  
+      if ($b == "php")
+      {
+  
+          $array = explode("_", $a);
+          if ((count($array) > 1) and ($array[1] == "config"))
           {
-            include $this->templatePath.$file;
-      
-            if (in_array($dynContent, $subpageconfig["dyncontent"]))
+  
+            $path = $this->templatePath.$file;
+            if (is_file($path) && file_exists($path))
             {
-              $pages[]  = $array[0];
+              include $this->templatePath.$file;
+        
+              if (in_array($dynContent, $subpageconfig["dyncontent"]))
+              {
+                $pages[]  = $array[0];
+              }
+        
+        
             }
-      
-      
           }
-        }
+      }
     }
   }
 
