@@ -380,7 +380,9 @@ function loadSite($site)
   $info = $hp->info;
   $error = $hp->error;
   $fp = $hp->fp;
-
+  $config = $hp->getconfig();
+  
+  $design = $config["design"];
   $page = $this->getSite($site);
 
   if ($site == false)
