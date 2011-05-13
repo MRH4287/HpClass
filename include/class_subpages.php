@@ -550,11 +550,11 @@ function getAllTemplates()
           if ((count($array) > 1) and ($array[1] == "config"))
           {
   
-            if (file_exists($this->templatePath.$array[0].".html") && is_file($this->templatePath.$array[0].".html"))
+            if (file_exists($path.$array[0].".html") && is_file($path.$array[0].".html"))
             {
                // Einbinden der Config Datei, um Namen zu erhalten:
                
-               include $this->templatePath.$file;
+               include $path.$file;
                
                if (isset($subpageconfig["name"]))
                {
