@@ -77,7 +77,7 @@ class right
   {
     $myright = array();
         
-    foreach ($this->levels as $k => $level)
+    foreach ($this->levels as $level => $d)
     {
     
       foreach ($this->registed as $k => $right)
@@ -136,18 +136,18 @@ class right
   
   }
 
-  function registerLevel($level)
+  function registerLevel($level, $parent=null)
   {
   
     if (is_array($level))
     {
-      foreach ($level as $k => $name)
+      foreach ($level as $k => $data)
       {
-        $this->registerLevel($name);
+        $this->registerLevel($data[0], $data[1]);
       }
     } else
     {
-       $this->levels[] = $level;      
+       $this->levels[$level] = $parent;      
     }
   
   }
@@ -155,7 +155,13 @@ class right
 
   function getlevels()
   {
-    return $this->levels;
+    $levels = array();
+    foreach ($this->levels as $key => $data)
+    {
+       $levels[] = $key;
+    }
+
+    return $levels;
   }
 
   function cat($right)
@@ -169,6 +175,46 @@ class right
   {
     return $this->desc[$right];
   }
+
+
+  function isAllowed($needed, $level = null)
+  {
+    if ($level == null)
+    {
+      $level = $_SESSION["level"];  
+    }
+    
+    return $this->rec_isAllowed($level, $needed);
+    
+  
+  }
+
+
+  private function rec_isAllowed($level, $needed, $visited = null)
+  {
+
+    if ($visited == null)
+    {
+      $visited = array();
+    }
+    $parent = $this->levels[$level];
+      
+    if ($level == $needed)
+    {
+      return true;
+      
+    } elseif (($parent != null) && (!in_array($parent,$visited)))
+    {
+    
+      return $this->rec_isAllowed($parent, $needed, $visited);
+
+    } else
+    {
+      return false;
+    }
+      
+  }
+
 
 
 

@@ -1,7 +1,13 @@
 <?php
 
 // In dieser Datei sind alle Rechte, die vom System benutzt werden gespeichert:
-$levels = array("0", "1", "2", "3", "4");
+$levels = array(
+          array("0", null), 
+          array("1", "0"), 
+          array("2", "1"), 
+          array("3", "2"), 
+          array("4", "3")
+        );
 
 
 $registed = array(
