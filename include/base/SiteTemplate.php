@@ -39,7 +39,7 @@ function __construct($hp)
   @param path Pfad zu der lesenden Datei
 
 */
-function load($name)
+function load($name, $direct = false)
 {
 
   $hp = $this->hp;
@@ -49,20 +49,25 @@ function load($name)
   $fp = $hp->fp;
   $config = $hp->getconfig();
   
-  $design = $config["design"];
-  
-  $searchpath = $this->searchpath;
-  $searchpathT = str_replace("#!Design#", $design, $this->searchpathT);
-  
-  $path = "";
-  if (is_dir($searchpathT) && is_file("$searchpathT/$name.html"))
+  if (!$direct)
   {
-  $path = "$searchpathT/$name.html";
+    $design = $config["design"];
+    
+    $searchpath = $this->searchpath;
+    $searchpathT = str_replace("#!Design#", $design, $this->searchpathT);
+    
+    $path = "";
+    if (is_dir($searchpathT) && is_file("$searchpathT/$name.html"))
+    {
+    $path = "$searchpathT/$name.html";
+    } else
+    {
+    $path = "$searchpath/$name.html";
+    }
   } else
   {
-  $path = "$searchpath/$name.html";
+    $path = $name;
   }
-  
   
 
   // Laden der Datei
