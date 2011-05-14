@@ -380,15 +380,16 @@ class subpages
         }
       }
   
-    }
-  
-    foreach($this->display as $k=>$site)
-    {
-      if (!in_array($site, $pages) && !$hp->isSiteRestricted($site) && !in_array($site, $used))
+      foreach($this->display as $k=>$site)
       {
-        $pages[] = $site;
+        if (!in_array($site, $pages) && !$hp->isSiteRestricted($site) && !in_array($site, $used))
+        {
+          $pages[] = $site;
+        }
       }
     }
+  
+
   
   
     return $pages;
