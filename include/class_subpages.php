@@ -382,7 +382,13 @@ class subpages
   
     }
   
-    $pages = array_merge($this->display, $pages);
+    foreach($this->display as $k=>$site)
+    {
+      if (!in_array($site, $pages))
+      {
+        $pages[] = $site;
+      }
+    }
   
   
     return $pages;
