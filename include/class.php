@@ -14,7 +14,6 @@ public    $fp;
 public    $lbsites;
 public    $template;
 public    $xajaxF;
-public    $forum;
 public    $widgets;
 public    $subpages;
 public    $pluginloader;
@@ -124,10 +123,6 @@ function setxajaxF($xajax)
 $this->xajaxF = $xajax;
 }
 
-function setforum($forum)
-{
-$this->forum = $forum;
-}
 
 function setwidgets($widgets)
 {
@@ -381,128 +376,7 @@ if(isset($get['lchange']) and ($_SESSION['username'] == "mrh"))
 $_SESSION['level'] = $get['lchange']; 
 }
 
-$hp = $this;
-$dbpräfix = $hp->getpräfix();
-$right = $hp->getright();
-$level = $_SESSION['level'];
-$info = $hp->getinfo();
 
-if (isset($post['forum_editpost']))
-{
-
-$sql = "SELECT * FROM `$dbpräfix"."posts` WHERE `ID` = ".$post['postid'];
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
-$time = time();
-
-if (($row->userid == $_SESSION['ID']) or $right[$level]['forum_edit_post'])
-{
-$sql = "UPDATE `$dbpräfix"."posts` SET `text` = '".$post['text']."', `lastedit` = '$time' WHERE `ID` = ".$post['postid'];
-$erg = $hp->mysqlquery($sql);
-$info->okn("Post geändert");
-}
-
-
-}
-
-if (isset($post['forum_editthread']))
-{
-
-$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = ".$post['postid'];
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
-
-$titel = $post['titel'];
-$level = $post['level'];
-$type = $post['type'];
-$passwort = $post['passwort'];
-$visible = $post['visible'];
-$text = $post['text'];
-$time = time();
-
-$pw = "";
-if (($passwort != "*") and ($passwort != ""))
-{
-$pw = "`passwort` = '".md5("pw_".$passwort)."' ,";
-} elseif ($passwort == "")
-{
-$pw = "`passwort` = '' ,";
-}
-$visible2 = "0";
-if ($visible == "on")
-{
-$visible2 = "1";
-}
-
-
-if (($row->userid == $_SESSION['ID']) or ($right[$level]['forum_edit_post']))
-{
-$sql = "UPDATE `$dbpräfix"."threads` SET `text` = '".$post['text']."', `level` = '$level', `type` = '$type', $pw `visible` = '$visible2', `titel` = '".$post['titel']."', `lastedit` = '$time' WHERE `ID` = ".$post['postid'];
-$erg = $hp->mysqlquery($sql);
-$info->okn("Thread geändert");
-}
-
-
-}
-
-if (isset($post['forum_editforum']))
-{
-
-$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = ".$post['postid'];
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
-
-$titel = $post['titel'];
-$level = $post['level'];
-$type = $post['type'];
-$passwort = $post['passwort'];
-$visible = $post['visible'];
-$text = $post['text'];
-
-
-$pw = "";
-if (($passwort != "*") and ($passwort != ""))
-{
-$pw = "`passwort` = '".md5("pw_".$passwort)."' ,";
-} elseif ($passwort == "")
-{
-$pw = "`passwort` = '' ,";
-}
-$visible2 = "0";
-if ($visible == "on")
-{
-$visible2 = "1";
-}
-
-
-if (($row->userid == $_SESSION['ID']) or ($right[$level]['forum_edit_forum']))
-{
-$sql = "UPDATE `$dbpräfix"."forums` SET `description` = '".$post['text']."', `level` = '$level', `type` = '$type', $pw `visible` = '$visible2', `titel` = '".$post['titel']."' WHERE `ID` = ".$post['postid'];
-$erg = $hp->mysqlquery($sql);
-$info->okn("Forum geändert");
-}
-
-
-}
-
-if (isset($post['forum_movethread']))
-{
-
-$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = ".$post['postid'];
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
-
-
-
-if (($row->userid == $_SESSION['ID']) or $right[$level]['forum_edit_post'])
-{
-$sql = "UPDATE `$dbpräfix"."threads` SET `forumid` = '".$post['moveto']."' WHERE `ID` = ".$post['postid'];
-$erg = $hp->mysqlquery($sql);
-$info->okn("Thread verschoben");
-}
-
-
-}
 
 }
 
