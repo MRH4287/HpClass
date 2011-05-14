@@ -198,8 +198,18 @@ class right
       $visited = array();
     }
     $parent = $this->levels[$level];
+    $siblings = array();
+    foreach ($this->levels as $l => $p)
+    {
+      if ($p == $parent)
+      {
+        $siblings[] = $l;
+      }
+    
+    }
+    
       
-    if ($level == $needed)
+    if (($level == $needed) || (in_array($needed, $siblings)))
     {
       return true;
       
