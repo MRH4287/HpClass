@@ -384,7 +384,7 @@ class subpages
   
     foreach($this->display as $k=>$site)
     {
-      if (!in_array($site, $pages) && !$hp->isSiteRestricted($name) && !in_array($site, $used))
+      if (!in_array($site, $pages) && !$hp->isSiteRestricted($site) && !in_array($site, $used))
       {
         $pages[] = $site;
       }
