@@ -111,7 +111,7 @@ function load($name, $direct = false)
          if (preg_match("/\[\!\/([^!]*)\!]/", $line, $m))
          { 
           $blockname = $m[1];
-         } else
+         } elseif ($line != "")
          {
           $content .= $line."\n\r";
          }
