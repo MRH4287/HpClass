@@ -185,7 +185,7 @@ class template extends siteTemplate
     if ($row->upto > time())
     {
         
-       if (!in_array($_SESSION['ID'], $whov))
+       if (isset($_SESSION['ID']) && !in_array($_SESSION['ID'], $whov))
        { 
     
           $answers = explode("<!--!>", $row->antworten);
@@ -206,11 +206,8 @@ class template extends siteTemplate
           
           $data2 = array_merge(array(), $data);
           $data2["votes"] = $votes;
-         
-          $fp->log($data2);
-         
+          
           $content = $site->getNode("Vote-List", $data2);
-          $fp->log($content);
 
         } else
         {
