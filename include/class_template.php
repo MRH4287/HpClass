@@ -5,7 +5,6 @@ class template extends siteTemplate
 {
 
   var $template = array();
-  var $temp;
   var $path;
   
   
@@ -138,7 +137,7 @@ class template extends siteTemplate
   function getHeader()
   {
   
-    return $this->temp['header'];
+    return $this->data['header'];
     
   }
    

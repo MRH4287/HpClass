@@ -14,7 +14,7 @@ public $autor;
 
 
 private $blocks = array();
-private $data = array();
+protected $data = array();
 
 private $DEFAULT_NODE = "Main";
 
