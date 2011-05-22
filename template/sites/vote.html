@@ -7,6 +7,109 @@
 
 
 
+[!=Vote!]
+
+<table width="160" border="0">
+     <tr>
+      <td><strong>#!name#</strong></td>
+    </tr>
+    <tr>
+      <td>
+      <div id="ergebnisse#!ID#">
+        #!content#
+      
+      
+      <p>Bereits <strong> #!votes# </strong>Stimmen abgegeben.<br />
+       <input type="button" onclick="xajax_vote_result(#!ID#)" value="Ergebnisse"></p>
+      </div>  
+      </td>
+    </tr>
+</table> 
+#?manage_vote : !Vote-Edit# 
+
+[!/Vote!]
+
+[!=Vote-List!]
+
+<div id="voteok#!ID#">
+        <table width="160">
+        #!votes#
+        </table>      
+        <p>
+          #?login : !Vote-DoVote : "<b>Zum Abstimmen müssen Sie sich einloggen!</b>"#
+        </p>
+</div>
+
+
+
+      
+
+[!/Vote-List!]
+
+[!=Vote-Edit!]
+
+     <table width="160">
+      <tr>
+       <td>
+       <a href="index.php?site=vote&editvote=#!ID#">Bearbeiten</a> \ 
+        <a href="index.php?lbsite=delvote&vars=#!ID#" class="lbOn">Löchen</a>
+       </td> 
+      </tr>
+      </table> 
+[!/Vote-Edit!]
+
+[!=Vote-Element!]
+
+ <tr>
+   <td><label  onclick="setvote(#!key#, '#!ID#');">
+   <input type="radio" name="answer" value="#!ID#"/>#!value#</label></td>
+ </tr>
+            
+[!/Vote-Element!]
+
+
+[!=Vote-DoVote!]
+          <input type="submit" name="button" id="button" value="Senden" onclick="postvote('#!ID#');" />
+          <input type="hidden" name="vote" id="vote#!ID#" />
+
+[!/Vote-DoVote!]
+
+[!=Vote-Out!]
+ <br><center><img src=images/alert.gif><br>Abstimmung abgelaufen</center><br>
+[!/Vote-Out!]
+
+[!=Vote-Voted!]
+ <br><center><img src=images/alert.gif><br>Bereits abgestimmt</center><br>
+[!/Vote-Voted!]
+
+
+
+[!=Vote-Erg-View!]
+  <table width="160" border="0">
+        <tr>
+          <td width="10">&nbsp;</td>
+          <td width="10">&nbsp;</td>
+          <td width="65">&nbsp;</td>
+        </tr>
+        #!votes#
+        </table>
+        <br />
+        <center>
+  Basierend auf #!count# Stimmen</center>
+        
+[!/Vote-Erg-View!]
+
+[!=Vote-Erg-El!]
+
+ <tr>
+ <td>#!name#</td>
+  <td>#!perc#</td>
+   <td><div ><img src="images/balken.png" width="#!width#" height="6"></div></td>
+   </tr>
+
+[!/Vote-Erg-El!]
+
+
 
 
 [!=LbSite-Del!]

@@ -375,72 +375,78 @@ return $response;
 
 function ax_vote_result($ID)
 {
-$response = new xajaxResponse();
-$hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
-$game = $hp->game;
-$info = $hp->info;
-$error = $hp->error;
-$fp = $hp->fp;
-$sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = $ID";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
+  $response = new xajaxResponse();
+  $hp = $this->hp;
+  $dbpräfix = $hp->getpräfix();
+  $game = $hp->game;
+  $info = $hp->info;
+  $error = $hp->error;
+  $fp = $hp->fp;
+  $sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = $ID";
+  $erg = $hp->mysqlquery($sql);
+  $row = mysql_fetch_object($erg);
+  
+  $antworten = explode("<!--!>", $row->antworten);
+  $ergebnisse = explode("<!--!>", $row->ergebnisse);
+  
+  $erg = array();
+  $count = 0;
+  
+  foreach ($ergebnisse as $key=>$value) 
+  {
+  	if (!isset($erg[$value])) 
+    { 
+      $erg[$value] = 0; 
+    }
+  	$erg[$value] = $erg[$value] + 1; 
+  	$count++;
+  }
+  
+  $site = new siteTemplate($hp);
+  $site->load("vote");
+  
 
-$antworten = explode("<!--!>", $row->antworten);
-$ergebnisse = explode("<!--!>", $row->ergebnisse);
+  $content = "";
+  foreach ($antworten as $key=>$value) 
+  {
+    if (!isset($erg[$key])) 
+    {
+      $erg[$key] = 0; 
+    }
+    $perc = ($erg[$key] / $count) * 100;
+    $perc = number_format($perc, 2);
+    $p = $perc / 100;
+    $perc = $perc. "%";
+    	
+    $maxlength = 65;
+    $w = $maxlength * $p;
+    
+    $data = array(
+      "name" => $value,
+      "width" => $w,
+      "perc" => $perc    
+    );
+    
+    $content .= $site->getNode("Vote-Erg-El", $data);
 
-$erg = array();
-$count = 0;
-
-foreach ($ergebnisse as $key=>$value) {
-	if (!isset($erg[$value])) { $erg[$value] = 0; }
-	$erg[$value] = $erg[$value] + 1; 
-	$count++;
-}
-
-
-$string = '
-<table width="100%" border="0">
-      <tr>
-        <td width="54%">&nbsp;</td>
-        <td width="18%">&nbsp;</td>
-        <td width="65">&nbsp;</td>
-      </tr>
-      ';
-
-foreach ($antworten as $key=>$value) {
-if (!isset($erg[$key])) { $erg[$key] = 0; }
-$perc = ($erg[$key] / $count) * 100;
-$perc = number_format($perc, 2);
-$p = $perc / 100;
-$perc = $perc. "%";
-	
-	$maxlength = 65;
-	$w = $maxlength * $p;
-	
-$string .= "
-      <tr>
-        <td>".$value."</td>
-        <td>$perc</td>
-        <td width=\"65\"><div ><img src=\"images/balken.png\" width=\"$w\" height=\"6\"></div></td>
-      </tr>";
-      }
-
-$string .= '</table><br><center>';
-$string .= "Basierend auf $count Stimmen</center>";
-
-$text = $string;
-$text = str_replace("ü", "&uuml;", $text);
-$text = str_replace("Ü", "&Uuml;", $text);
-$text = str_replace("ö", "&ouml;", $text);
-$text = str_replace("Ö", "&Ouml;", $text);
-$text = str_replace("ä", "&auml;", $text);
-$text = str_replace("Ä", "&Auml;", $text);
-$text = str_replace("ß", "szlig;", $text);
-
-$response->assign("ergebnisse$ID", "innerHTML", $text);
-
-return $response;
+  }
+  
+  $site->set("votes", $content);
+  $site->set("count", $count);
+  
+  $text = $site->get("Vote-Erg-View");
+  
+  $text = str_replace("ü", "&uuml;", $text);
+  $text = str_replace("Ü", "&Uuml;", $text);
+  $text = str_replace("ö", "&ouml;", $text);
+  $text = str_replace("Ö", "&Ouml;", $text);
+  $text = str_replace("ä", "&auml;", $text);
+  $text = str_replace("Ä", "&Auml;", $text);
+  $text = str_replace("ß", "szlig;", $text);
+  
+  $response->assign("ergebnisse$ID", "innerHTML", $text);
+  
+  return $response;
 }
 
 

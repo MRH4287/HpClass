@@ -7,7 +7,7 @@
 */
 class siteTemplate
 {
-private $hp;
+protected $hp;
 
 public $name;
 public $autor;
@@ -151,7 +151,7 @@ function getPlaceholder($content, $key = "!")
 }
 
 
-function replace($data)
+public function replace($data)
 {
   //Ersetze Inline Platzhalter:
   $data = $this->replaceDefault($data);
@@ -392,6 +392,11 @@ function replaceCondit($data)
     } elseif (($rightN == "superadmin"))
     {
        $output = (isset($_SESSION['username']) && in_array($_SESSION['username'], $hp->getsuperadmin())) ? $iftrue : $iffalse; 
+       
+    } elseif (($rightN == "login"))
+    {
+       $output = (isset($_SESSION['username'])) ? $iftrue : $iffalse;
+       
     } else
     {
       $output = "[right?]";

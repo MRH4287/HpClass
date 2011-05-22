@@ -25,7 +25,7 @@ require_once "include/base/subpageTemplate.php";
 //--------------------------------------Class Area----------------------------
 $hp             = new HP;
 $lang           = new lang;
-$temp           = new template;
+$temp           = new template($hp);
 $error          = new errorclass;
 $info           = new infoclass;
 $lbsites        = new lbsites;
@@ -52,9 +52,6 @@ $hp->setfirephp($firephp);
 $hp->settemplate($temp);
 $lang->seterror($error);
 $lang->sethp($hp);
-$temp->seterror($error);
-$temp->sethp($hp);
-$temp->setlang($lang);
 $error->sethp($hp);
 $info->init($lang, $error, $hp);
 $xajaxF->sethp($hp);

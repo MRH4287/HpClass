@@ -22,7 +22,7 @@ $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
 
-$widget["vote-".$row->ID] = str_replace("<!--CONTENT-->", "<!--vote#".$row->ID."-->", $text);
+$widget["vote-".$row->ID] = str_replace("<!--CONTENT-->", "#!vote-".$row->ID."#", $text);
 
 }
   

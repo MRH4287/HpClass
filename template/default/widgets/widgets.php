@@ -29,7 +29,7 @@ $widget = array (
 <tr>
 <td class="rubrik" width="165">&nbsp;Mitglieder</td>
 </tr>
-<!--member-->
+#!member#
 
 </table>'
 
