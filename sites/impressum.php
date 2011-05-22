@@ -1,63 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Unbenanntes Dokument</title>
-</head>
+<?php
+$hp = $this;
 
-<body>
-<table cellspacing="0" cellpadding="0">
-  <tr>
-    <td rowspan="4" width="50"></td>
-    <td width="752"><strong><u>Impressum</u></strong></td>
-  </tr>
-  <tr>
-    <td width="752"><pre><strong>  Adresse:</strong> 
-  Manuel Holzhauser  
-  Ecknacher Weg 11
-  86551 Aichach <br/><br />
+$site = new siteTemplate($hp);
+$site->load("impressum");
 
-  Dies ist eine private Internetpräsenz.
+$site->display();
 
-    <strong>
 
-Verantwortlicher:</strong>  Manuel Holzhauser<br /> <br>   <strong></strong> 
-
-<strong>Kontakt:</strong>  
-Email:       <a href="mailto:mrh_12@web.de">mrh_12@web.de</a>                  
-WWW:     http://localhost/     
-          <strong>  
-</pre>
-      <p>Verantwortlich für Inhalt         und Gestaltung der Internetpräsentation ist Manuel Holzhauser.<br />
-        <br />
-      Manuel Holzhauser erteilt die Erlaubnis alle auf diesen Internetseiten         erscheinenden Inhalte zur Informationsgewinnung des Anwenders zu nutzen         und zu kopieren bzw. einen Ausdruck zu erstellen. Für eine gewerbliche Nutzung         gilt dies nur nach einer vorher schriftlich erteilten Zustimmung. <br />
-      <br />
-      Layout und Gestaltung dieser Präsentation sowie die enthaltenen Informationen         sind gemäß dem Urheberrechtsgesetz geschützt.<br />
-      Das ist auch zu beachten, wenn auf diesen Internetseiten erscheinende Materialien         Dritter zur Informationsgewinnung verwendet oder kopiert werden. <br />
-      <br />
-      Eingetragene und nicht eingetragene Warenzeichen dieser Internetpräsentation         oder Dritter dürfen ohne vorherige schriftliche Zustimmung nicht in Werbematerialien         oder anderen Veröffentlichungen, im Zusammenhang mit der Verbreitung von         Informationen verwendet werden. <br />
-      <br />
-      Alle Angaben erfolgen ohne Gewähr. Eine Haftung für Schäden, die sich aus         der Verwendung der veröffentlichten Inhalte ergeben, ist ausgeschlossen. <br />
-      <br />
-      Diese Webseite wird veröffentlicht und gepflegt durch Manuel Holzhauser.</p>
-      <p>&nbsp;</p>
-      <h3> <a name="1" id="1">Haftungsausschluss</a> </h3>
-      <p><strong>1. Inhalt des Onlineangebotes</strong> <br />
-        Der Autor übernimmt keinerlei Gewähr für die Aktualität, Korrektheit,  Vollständigkeit oder Qualität der bereitgestellten Informationen.  Haftungsansprüche  gegen den Autor, welche sich auf Schäden materieller oder ideeller Art  beziehen, die durch die Nutzung oder Nichtnutzung der dargebotenen  Informationen bzw. durch die Nutzung fehlerhafter und unvollständiger  Informationen verursacht wurden, sind grundsätzlich ausgeschlossen,  sofern seitens  des Autors kein nachweislich vorsätzliches oder grob fahrlässiges  Verschulden vorliegt. <br />
-        Alle Angebote sind freibleibend und unverbindlich. Der Autor  behält es sich ausdrücklich vor,  Teile der Seiten oder das gesamte Angebot ohne gesonderte Ankündigung  zu verändern, zu ergänzen, zu löschen oder die Veröffentlichung  zeitweise oder endgültig einzustellen. </p>
-      <p><strong>2. Verweise und Links</strong> <br />
-        Bei direkten oder indirekten Verweisen auf fremde Webseiten  (&quot;Hyperlinks&quot;), die außerhalb des Verantwortungsbereiches  des Autors liegen, würde eine Haftungsverpflichtung ausschließlich in  dem Fall  in Kraft treten, in dem der Autor von den Inhalten Kenntnis hat und es  ihm technisch möglich und zumutbar wäre, die Nutzung im Falle  rechtswidriger Inhalte zu verhindern. <br />
-        Der Autor erklärt hiermit ausdrücklich, dass zum Zeitpunkt der  Linksetzung keine illegalen Inhalte auf den zu verlinkenden Seiten  erkennbar waren. Auf die aktuelle und zukünftige  Gestaltung, die Inhalte oder die Urheberschaft der  verlinkten/verknüpften Seiten hat der Autor keinerlei Einfluss. Deshalb  distanziert er sich hiermit ausdrücklich von allen Inhalten aller  verlinkten  /verknüpften Seiten, die nach der Linksetzung verändert wurden. Diese  Feststellung gilt für alle innerhalb des eigenen Internetangebotes  gesetzten Links und Verweise sowie für Fremdeinträge in vom Autor  eingerichteten Gästebüchern, Diskussionsforen, Linkverzeichnissen,  Mailinglisten und in allen anderen Formen von Datenbanken, auf deren  Inhalt externe Schreibzugriffe möglich sind. Für illegale, fehlerhafte  oder unvollständige Inhalte und insbesondere für Schäden, die aus der  Nutzung oder Nichtnutzung solcherart dargebotener Informationen  entstehen, haftet allein der Anbieter der Seite, auf welche verwiesen  wurde, nicht derjenige, der über Links auf die jeweilige  Veröffentlichung lediglich verweist. </p>
-      <p><strong>3. Urheber- und Kennzeichenrecht</strong> <br />
-        Der Autor ist bestrebt, in allen Publikationen die Urheberrechte  der verwendeten Bilder, Grafiken, Tondokumente, Videosequenzen und  Texte  zu beachten, von ihm selbst erstellte Bilder, Grafiken, Tondokumente,  Videosequenzen und Texte zu nutzen oder auf lizenzfreie Grafiken,  Tondokumente, Videosequenzen und Texte zurückzugreifen. <br />
-        Alle innerhalb des Internetangebotes genannten und ggf. durch Dritte  geschützten Marken- und Warenzeichen unterliegen uneingeschränkt den  Bestimmungen des jeweils gültigen Kennzeichenrechts und den  Besitzrechten der jeweiligen eingetragenen Eigentümer. Allein aufgrund  der bloßen Nennung ist nicht der Schluss zu ziehen, dass Markenzeichen  nicht durch Rechte Dritter geschützt sind! <br />
-        Das Copyright für veröffentlichte, vom Autor selbst erstellte  Objekte bleibt allein beim Autor der Seiten. Eine Vervielfältigung oder  Verwendung solcher Grafiken, Tondokumente, Videosequenzen und Texte in  anderen elektronischen oder gedruckten Publikationen ist ohne  ausdrückliche Zustimmung des Autors nicht gestattet. </p>
-      <p><strong>4. Datenschutz</strong> <br />
-        Sofern innerhalb des Internetangebotes die Möglichkeit zur Eingabe  persönlicher oder geschäftlicher Daten (Emailadressen, Namen,  Anschriften) besteht, so erfolgt die Preisgabe dieser Daten seitens des  Nutzers auf ausdrücklich freiwilliger Basis. Die Inanspruchnahme und  Bezahlung aller angebotenen Dienste ist - soweit technisch möglich und  zumutbar - auch ohne Angabe solcher Daten bzw. unter Angabe  anonymisierter Daten oder eines Pseudonyms gestattet.  Die Nutzung der im Rahmen des Impressums oder vergleichbarer Angaben  veröffentlichten Kontaktdaten wie Postanschriften, Telefon- und  Faxnummern sowie Emailadressen durch Dritte zur Übersendung von nicht  ausdrücklich angeforderten Informationen ist nicht gestattet.  Rechtliche Schritte gegen die Versender von sogenannten Spam-Mails bei  Verstössen gegen dieses Verbot sind ausdrücklich vorbehalten. </p>
-      <p><strong>5. Rechtswirksamkeit dieses Haftungsausschlusses</strong> <br />
-        Dieser Haftungsausschluss ist als Teil des Internetangebotes zu  betrachten, von dem aus auf diese Seite verwiesen wurde. Sofern Teile  oder einzelne Formulierungen dieses Textes der geltenden Rechtslage  nicht, nicht mehr oder nicht vollständig entsprechen sollten, bleiben  die übrigen Teile des Dokumentes in ihrem Inhalt und ihrer Gültigkeit  davon unberührt. </p>      <p>&nbsp;</p>
-      </td>
-  </tr>
-</table>
-</body>
-</html>
+?>
