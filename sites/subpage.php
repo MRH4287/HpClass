@@ -260,7 +260,7 @@ if (!$right[$level]["manage_subpage"])
      }
      
      //Speichern der Unterseite:
-     $sql = "UPDATE `$dbpräfix"."subpages` SET `content` = '$data';";
+     $sql = "UPDATE `$dbpräfix"."subpages` SET `content` = '$data' WHERE `ID` = '$ID';";
      $erg = $hp->mysqlquery($sql);
      
      $site->set("info", "Unterseite erfolgreich modifiziert!<br><a href=?site=subpage>zurück</a>");
