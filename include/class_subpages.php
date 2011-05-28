@@ -571,39 +571,42 @@ class subpages
     foreach ($this->templatePath as $k => $path)
     {
       $path = str_replace("#!Design#", $design, $path);
-      $handle = @opendir($path); 
-      while (false !== ($file = readdir($handle))) 
+      if (is_dir($path))
       {
-        $n = explode(".", $file);
-        $a = $n[0];
-        $b = $n[1];
-    
-        if ($b == "php")
+        $handle = @opendir($path); 
+        while (false !== ($file = readdir($handle))) 
         {
-            $array = explode("_", $a);
-            if ((count($array) > 1) and ($array[1] == "config"))
-            {
-    
-              if (file_exists($path.$array[0].".html") && is_file($path.$array[0].".html"))
+          $n = explode(".", $file);
+          $a = $n[0];
+          $b = $n[1];
+      
+          if ($b == "php")
+          {
+              $array = explode("_", $a);
+              if ((count($array) > 1) and ($array[1] == "config"))
               {
-                 // Einbinden der Config Datei, um Namen zu erhalten:
-                 
-                 include $path.$file;
-                 
-                 if (isset($subpageconfig["name"]))
-                 {
-                    $name = $subpageconfig["name"];
-                              
-                    if (!in_array($array[0], $templates))
-                    {
-                      $templates[$array[0]] =  $name;
-                    }
-                 }
-    
+      
+                if (file_exists($path.$array[0].".html") && is_file($path.$array[0].".html"))
+                {
+                   // Einbinden der Config Datei, um Namen zu erhalten:
+                   
+                   include $path.$file;
+                   
+                   if (isset($subpageconfig["name"]))
+                   {
+                      $name = $subpageconfig["name"];
+                                
+                      if (!in_array($array[0], $templates))
+                      {
+                        $templates[$array[0]] =  $name;
+                      }
+                   }
+      
+                }
+               
+               
               }
-             
-             
-            }
+          }
         }
       }
     }
@@ -624,32 +627,35 @@ class subpages
      
       $path = str_replace("#!Design#", $design, $path);
       $handle = opendir($path); 
-      while (false !== ($file = readdir($handle))) 
+      if (is_dir($path))
       {
-        $n = explode(".", $file);
-        $a = $n[0];
-        $b = $n[1];
-    
-        if ($b == "php")
+        while (false !== ($file = readdir($handle))) 
         {
-          
-            $array = explode("_", $a);
-            if ((count($array) > 1) and ($array[1] == "config"))
-            {
-    
-              $Fpath = $path.$file;
-              if (is_file($Fpath) && file_exists($Fpath))
+          $n = explode(".", $file);
+          $a = $n[0];
+          $b = $n[1];
+      
+          if ($b == "php")
+          {
+            
+              $array = explode("_", $a);
+              if ((count($array) > 1) and ($array[1] == "config"))
               {
-                include $Fpath;
-                if (in_array($dynContent, $subpageconfig["dyncontent"]))
+      
+                $Fpath = $path.$file;
+                if (is_file($Fpath) && file_exists($Fpath))
                 {
-                 
-                  $pages[]  = $array[0];
+                  include $Fpath;
+                  if (in_array($dynContent, $subpageconfig["dyncontent"]))
+                  {
+                   
+                    $pages[]  = $array[0];
+                  }
+            
+            
                 }
-          
-          
               }
-            }
+          }
         }
       }
     }
