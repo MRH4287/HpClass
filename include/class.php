@@ -64,10 +64,6 @@ $this->navigationIgnore = array("upload", "download2", "lostpw", "mailagree",
                                  "userpicchange", "vote", "admin", "anwaerter");
 
 
-// Rechte, die im Rechtesystem registriert sind:
-$this->registedrights = array("adminsite");
-
-
 //Mysql
 $this->pathtomysqlversion = "version/mysql.php";
 

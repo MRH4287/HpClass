@@ -845,7 +845,7 @@ if ($hp->site == "dragdrop")
     // Schreibe den Script zur erstellund der DropDown Funktion
     $script = "Droppables.add('$name',{onDrop: function(drag, base) {     
       widgetDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));      
-      }, hoverclass: 'hclass'});";
+      }, hoverclass: 'hclass', accept:'drag'});";
     //$script = str_replace("'", "\'", $script);
  	  $script = str_replace("\n", "", $script);
  	  $script = str_replace("\r", "", $script);
