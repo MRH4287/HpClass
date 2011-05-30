@@ -153,10 +153,12 @@ function getPlaceholder($content, $key = "!")
 
 public function replace($data)
 {
-  //Ersetze Inline Platzhalter:
+  // Ersetze Inline Platzhalter:
   $data = $this->replaceDefault($data);
-                                                  
-  //Ersetze die Sprachblocks
+  
+  // Die Kommentare in den Templates werden ersetzt
+  $data = $this->replaceComment($data);                                                
+  // Ersetze die Sprachblocks
   $data = $this->replaceLangBlocks($data);
   // Ersetze Bedingte Ausgaben
   $data = $this->replaceCondit($data);
@@ -176,6 +178,18 @@ function replaceDefault($data)
   return $data;
 }
 
+
+function replaceComment($data)
+{
+  $langData = $this->getPlaceholder($data, "-");
+  foreach ($langData as $k=> $word)
+  {
+    $data = str_replace("#-$word#", "", $data);
+  }
+
+  return $data;  
+
+}
 
 function replaceLangBlocks($data)
 {

@@ -2,10 +2,141 @@
 #!!AUTOR=MRH
 
 
+[!=Main!]
+
+<h1>Umfragen</h1>
+<br />
+<a href=index.php?site=vote&addvote>Neue Umfrage</a><br />
+<hr />
+#!Votes#
 
 
+[!/Main!]
 
 
+[!=Main-Vote-Container!]
+#- Dieser Container wird um die Votes "gestülpt", wenn Sie in der Hauptseite ausgegeben werden #
+  <div style="float:left; margin-right:10px; margin-bottom:10px; border: thin black solid;">
+  #!Content#
+  </div>
+
+[!/Main-Vote-Container!]
+
+[!=Edit-Vote!]
+
+<script type="text/javascript" src="js/votes.js"></script>
+<form action="index.php?site=vote" method="post">
+<table width="100%" border="0">
+  <tr>
+    <td width="5%">&nbsp;</td>
+    <td width="14%"><strong>#?:update : "Umfrage bearbeiten:" : "Neue Umfrage starten:"#</strong></td>
+    <td width="15%"></td>
+  </tr>
+  <tr>
+    <td>Titel</td>
+    <td><input type="text" name="titel" id="titel"  size="50" value="#!titel#"  onchange="checkvote(#?:update : "true" : "false"#)"/></td>
+    <td><div id="titelwarn">Bitte Geben Sie einen Titel ein.</div></td>
+  </tr>
+  <tr>
+    <td>Antworten:</td>
+    <td>
+    <table width="100%" border="0" id="answers">
+      #!Answers#
+      
+      #?:update : "" : !Edit-InitialAnswers#
+      
+    </table>
+    
+    #?:update : "" : !Edit-MehrAntworten#
+    
+    <img src="images/add.gif"  onClick="addanswer()"><hr /></td>
+    <td><div id="answerwarn">Bitte Geben Sie mindestens 2 Antworten an.</div></td>
+  </tr>
+  <tr>
+    <td>Gültig bis:</td>
+    <td>
+  
+    <input type="hidden" name="day" id="day" size="2" maxlength="2" value="#!tag#" onchange="checkvote(#?:update : "true" : "false"#)"  />
+       <input type="hidden" name="month" id="month" size="2" maxlength="2" value="#!monat#" onchange="checkvote(#?:update : "true" : "false"#)" /> 
+      <input type="hidden" name="year" id="year" size="4" maxlength="4" value="#!year#"  onchange="checkvote(#?:update : "true" : "false"#)"/> 
+       <input type="hidden" name="hour" id="hour" size="2" maxlength="2" value="00"  onchange="checkvote(#?:update : "true" : "false"#)"/>
+        <input type="hidden" name="min" id="min" size="2" maxlength="2" value="00"  onchange="checkvote(#?:update : "true" : "false"#)"/>
+        <div id="kalender_vote" align="center"></div></td>
+      <td><div id="datewarn">Überprüfen Sie die Eingaben</div>
+      <br>Aktuelle Auswahl: <div id="aktdate">#!tag#.#!monat#.#!year#</div></td>
+  
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><div id="post">Bitte beachten Sie die Meldungen</div>
+    <input type="hidden" value="#!ID#" name="ID">
+    <noscript><br>Überprüfung deaktiviert:<br><input type="submit" name="addvote" id="post" value="Senden" /></noscript></td> <!--<input type="submit" name="button" id="button" value="Senden" />-->
+    <td></td>
+  </tr>
+</table>
+</form>
+
+
+[!/Edit-Vote!]
+
+[!=Edit-InitialAnswers!]
+#- Diese Antwortmöglichkeiten sind da, wenn eine neue Umfrage erstellt wird #
+      <tr>
+        <td>
+            <input type="text" name="antwort[]" id="antwort1" size="50"  onchange="checkvote(#?:update : "true" : "false"#)" /> </td>
+      </tr>
+        <tr>
+        <td>
+            <input type="text" name="antwort[]" id="antwort2" size="50"  onchange="checkvote(#?:update : "true" : "false"#)" /> </td>
+      </tr>
+
+[!/Edit-InitialAnswers!]
+
+[!=Edit-Antwort!]
+#- Eine Antwort, wenn diese in der Umfrage-Bearbeiten Seite eingebunden wird. #
+      <tr>
+        <td>
+          <input type="text" name="antwort[]" id="antwort#!ID#" size="50"  onchange="checkvote(#?:update : "true" : "false"#)" value="#!value#" /> 
+        </td>
+      </tr>
+[!/Edit-Antwort!]
+
+[!=Edit-MehrAntworten!]
+#- Ausgabe von zwei weiteren Antwortmöglichkeiten, wenn der IE benutzt wird #
+
+    <!--Für die mit IE-->
+    <div id="mehrantworten">
+    <table width="100%" border="0">
+      <tr>
+        <td>
+            <input type="text" name="antwort[]"  size="50"  /> </td>
+      </tr>
+        <tr>
+        <td>
+            <input type="text" name="antwort[]"  size="50"   /> </td>
+      </tr>
+      
+    </table>
+    </div>
+    
+    
+         <SCRIPT language="JavaScript">
+          <!--
+          var BrowserName = navigator.appName;
+          var antworten = document.getElementById("mehrantworten");
+          
+          if (BrowserName!="Microsoft Internet Explorer")
+          {
+            antworten.style.visibility = 'hidden';
+            antworten.style.position = 'absolute';
+            antworten.style.top = '0px';
+            antworten.style.left = '0px';
+          
+          }
+          //-->
+        </script>
+
+[!/Edit-MehrAntworten!]
 
 [!=Vote!]
 
