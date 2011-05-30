@@ -15,7 +15,7 @@
 
 
 [!=Main-Vote-Container!]
-#- Dieser Container wird um die Votes "gestülpt", wenn Sie in der Hauptseite ausgegeben werden #
+#/ Dieser Container wird um die Votes "gestülpt", wenn Sie in der Hauptseite ausgegeben werden #
   <div style="float:left; margin-right:10px; margin-bottom:10px; border: thin black solid;">
   #!Content#
   </div>
@@ -80,7 +80,7 @@
 [!/Edit-Vote!]
 
 [!=Edit-InitialAnswers!]
-#- Diese Antwortmöglichkeiten sind da, wenn eine neue Umfrage erstellt wird #
+#/ Diese Antwortmöglichkeiten sind da, wenn eine neue Umfrage erstellt wird #
       <tr>
         <td>
             <input type="text" name="antwort[]" id="antwort1" size="50"  onchange="checkvote(#?:update : "true" : "false"#)" /> </td>
@@ -93,7 +93,7 @@
 [!/Edit-InitialAnswers!]
 
 [!=Edit-Antwort!]
-#- Eine Antwort, wenn diese in der Umfrage-Bearbeiten Seite eingebunden wird. #
+#/ Eine Antwort, wenn diese in der Umfrage-Bearbeiten Seite eingebunden wird. #
       <tr>
         <td>
           <input type="text" name="antwort[]" id="antwort#!ID#" size="50"  onchange="checkvote(#?:update : "true" : "false"#)" value="#!value#" /> 
@@ -102,7 +102,7 @@
 [!/Edit-Antwort!]
 
 [!=Edit-MehrAntworten!]
-#- Ausgabe von zwei weiteren Antwortmöglichkeiten, wenn der IE benutzt wird #
+#/ Ausgabe von zwei weiteren Antwortmöglichkeiten, wenn der IE benutzt wird #
 
     <!--Für die mit IE-->
     <div id="mehrantworten">

@@ -181,10 +181,10 @@ function replaceDefault($data)
 
 function replaceComment($data)
 {
-  $langData = $this->getPlaceholder($data, "-");
+  $langData = $this->getPlaceholder($data, "/");
   foreach ($langData as $k=> $word)
   {
-    $data = str_replace("#-$word#", "", $data);
+    $data = str_replace("#/$word#", "", $data);
   }
 
   return $data;  
