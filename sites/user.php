@@ -45,7 +45,7 @@ if (!isset($get['show']))
 
   $site = new siteTemplate($hp);
   $site->load("user_list");
-
+  $site->right("see_userPage");
    
   $content = "";
   while($row = mysql_fetch_object($ergebnis))
@@ -69,13 +69,14 @@ if (!isset($get['show']))
 {
   $site = new siteTemplate($hp);
   $site->load("user_show");
+  $site->right("see_userPage");
 
   $abfrage = "SELECT * FROM ".$dbpräfix."user WHERE `user` = '".$get['show']."'";
 
   $ergebnis = $hp->mysqlquery($abfrage);
   $row = mysql_fetch_object($ergebnis);
   
-  if ($row->user == $get['show'])
+  if ((mysql_num_rows($ergebnis) > 0) && ($row->user == $get['show']))
   {
   
     // Level Name:

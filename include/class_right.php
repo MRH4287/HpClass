@@ -33,7 +33,8 @@ class right
     $right = array();
     while($row = mysql_fetch_object($ergebnisss))
     {
-       $rlevel="$row->level";
+       $rlevel=$row->level;
+       
        if ("$row->ok" == "true")
        {
         $value = true;
@@ -41,7 +42,7 @@ class right
        {
         $value = false;
        }
-       $rright = "$row->right";
+       $rright = $row->right;
        
        
        $this->cats[$rright] = $row->cat;
@@ -56,9 +57,10 @@ class right
   
   function is($right, $level = null)
   {
-    if ($level == null)
+    if (($level != "0") && ($level == null))
     {
       $level = $_SESSION['level'];
+      
     }
     
   
