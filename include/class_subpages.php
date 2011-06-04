@@ -334,7 +334,7 @@ class subpages
         $used[] = $row->site;
       }
       
-      $sql = "SELECT name FROM `$dbpräfix"."subpages` WHERE `parent` == '0';";
+      $sql = "SELECT name FROM `$dbpräfix"."subpages` WHERE `parent` = '0';";
       $erg = $hp->mysqlquery($sql);
       
       while ($row = mysql_fetch_object($erg))
