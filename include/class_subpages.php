@@ -247,7 +247,11 @@ class subpages
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_object($erg);
       
-      return (("$row->parent" == $parent) || ("$row->parent" == $ID) || ($row->ID == $ID));
+      $ok1 = (("$row->parent" == $parent) || ("$row->parent" == $ID) || ($row->ID == $ID));
+      if ($ok1)
+      {
+        return true;
+      }
     
     }
     
