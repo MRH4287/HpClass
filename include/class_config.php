@@ -27,15 +27,19 @@ class config
 
     $ergebnisss = $hp->mysqlquery($abfrage);
     echo mysql_error();
+    $config = array();
     while($row = mysql_fetch_object($ergebnisss))
     {
-        
-      if ("$row->ok" == "true")
-      {
-        $value = true;
-      } elseif ("$row->ok" == "false")
-      {
-         $value = false;
+      
+      if ($this->type($row->name) == "bool")
+      { 
+        if ("$row->ok" == "true")
+        {
+          $value = true;
+        } elseif ("$row->ok" == "false")
+        {
+           $value = false;
+        }
       } else
       {
          $value = $row->ok;
