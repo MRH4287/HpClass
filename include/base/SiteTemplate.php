@@ -328,6 +328,7 @@ function replaceCondit($data)
 {
   $hp = $this->hp;
   $right = $hp->getright();
+  $config = $hp->getconfig();
   
   $level = $_SESSION['level'];
   $conditData = $this->getPlaceholder($data, "?");
@@ -397,6 +398,17 @@ function replaceCondit($data)
       } else
       {
         $output = "[name?]";
+      }
+
+    } elseif (preg_match("/\=(.*)/", $rightN))
+    {
+      $name = str_replace("=", "", $rightN);
+      if (isset($config[$name]))
+      {
+        $output = (($config[$name]) ? $iftrue : $iffalse);
+      } else
+      {
+        $output = "[config?]";
       }
 
     } elseif (isset($right[$level][$rightN]))
