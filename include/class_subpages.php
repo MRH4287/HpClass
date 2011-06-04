@@ -626,9 +626,10 @@ class subpages
     {
      
       $path = str_replace("#!Design#", $design, $path);
-      $handle = opendir($path); 
       if (is_dir($path))
       {
+        $handle = opendir($path); 
+     
         while (false !== ($file = readdir($handle))) 
         {
           $n = explode(".", $file);
