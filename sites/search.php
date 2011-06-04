@@ -22,7 +22,13 @@ if (isset($post["s"]) or isset($get["s"]))
     $s = $post["s"];  
   }
   
-  
+  $s = str_replace("ü", "&uuml;", $s);
+  $s = str_replace("Ü", "&Uuml;", $s);
+  $s = str_replace("ö", "&ouml;", $s);
+  $s = str_replace("Ö", "&Ouml;", $s);
+  $s = str_replace("ä", "&auml;", $s);
+  $s = str_replace("Ä", "&Auml;", $s);
+  $s = str_replace("ß", "&szlig;", $s);
   
   $resultSub = array();
 
