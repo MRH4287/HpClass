@@ -177,7 +177,7 @@ class subpages
   
     while ($row = mysql_fetch_object($erg))
     {
-      $childs[] = $row->name;
+      $childs[] = $row;
     }
   
     return $childs;
@@ -253,7 +253,22 @@ class subpages
         return true;
       }
     
+      $childs = $this->getChilds($naviID);
+    
+      foreach ($childs as $k => $row)
+      {
+        if ($row->ID == $ID)
+        {
+          return true;
+        }
+      
+    
+      }
+    
     }
+    
+
+    
     
     $depth = $this->getDepth($naviID);
     
@@ -292,9 +307,9 @@ class subpages
     $childs = $this->getChilds($SiteID);
   
     
-    foreach ($childs as $k=>$name)
+    foreach ($childs as $k=>$el)
     {
-      $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `name` = '$name';";
+      $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `name` = '$el->name';";
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_object($erg);
     
@@ -412,7 +427,7 @@ class subpages
    foreach ($childs as $key=>$value) 
    {
    
-    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `name` = '$value';";
+    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `name` = '$value->name';";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
     {
