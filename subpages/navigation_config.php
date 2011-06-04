@@ -16,10 +16,11 @@
     $subpageconfig["name"]        = "Navigation";
     // Die Liste aller statischen Inhalte:
     $subpageconfig["template"]    = array(
-      "headline" => "textbox"
+      "headline" => "textbox",
+      "main"     => "textarea"
     );
     // Die Liste alles dynamischen Inhalte:
-    $subpageconfig["dyncontent"]  = array("main" => "navigation");
+    $subpageconfig["dyncontent"]  = array("navigation" => "navigation");
     
 
 
