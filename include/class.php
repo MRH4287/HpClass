@@ -18,6 +18,7 @@ public    $widgets;
 public    $subpages;
 public    $pluginloader;
 public    $right;
+public    $config;
 
 
 //Wegen Makro Fehlern:
@@ -35,7 +36,6 @@ protected $db;
 protected $connection;
 protected $sitepath;
 protected $redirectlock;
-protected $config;
 protected $restrict;
 protected $superadminonly;
 protected $pathtomysqlversion;
@@ -147,11 +147,19 @@ function setright($right)
     $right->registerLevel($levels);
   
   }
-  
-  
-  
+}
 
-
+function setconfig($config)
+{
+  $this->config = $config;
+  
+  if (file_exists("include/config-default.php"))
+  {
+    include "include/config-default.php";
+    $config->registerArray($configData);
+  
+  }
+  
 }
 
 
@@ -611,116 +619,12 @@ public function isSiteRestricted($site)
 function getconfig()
 {
 
-// Config
-$abfrage = "SELECT * FROM `".$this->präfix."config`";
-
-$ergebnisss = $this->mysqlquery($abfrage);
-echo mysql_error();
-while($row = mysql_fetch_object($ergebnisss))
-   {
-  
-   if ("$row->ok" == "true")
-   {
-   $value = true;
-   } elseif ("$row->ok" == "false")
-   {
-   $value = false;
-   } else
-   {
-   $value = $row->ok;
-   }
-   $name = "$row->name";
-   
-   $config[$name] = $value;
-   }
-
-return $config;
+  return $this->config->getconfig();
 
 }
 
-//Setconfig_array
-// 4.2b
-//Zur Kampatibilität auf sites/Config.php
-function setconfig_array($array)
-{
-$this->config = $array;
-}
-
-//Setconfig
-// 4.2b
-function setconfig($name, $value)
-{
-$this->config[$name] = $value;
-$this->applyconfig();
-}
-
-// Applyconfig
-// 4.2b
-function applyconfig()
-{
-
-$dbpräfix = $this->getpräfix();
-$config = $this->config;
-$hp = $this;
 
 
-$abfrage = "SELECT * FROM `".$dbpräfix."config`";
-
-$ergebnisss = $hp->mysqlquery($abfrage);
-echo mysql_error();
-while($row = mysql_fetch_object($ergebnisss))
-   {
-   $descriptions["$row->name"] = "$row->description";
-   $kat["$row->name"] = $row->kat;
-   }
-
-
-$sql = "TRUNCATE `".$dbpräfix."config`;";
-$hp->mysqlquery($sql);
-echo mysql_error();
-
-
-
-foreach ($config as $key=>$value) {
-
-//echo "$key - $value <br>";
-
-$typ = "bool";
-if ($value == "true")
-{
-$value = "true";
-
-} elseif ($value == "false")
-{
-$value = "false";
-} else
-{
-$typ = "string";
-
-$value = str_replace('\'', "\"", $value);
-$value = str_replace("<", "&lt;", $value);
-
-}
-
-//echo "r1 $key -> $value => $descriptions[$key]<br>";
-	$sql = "INSERT INTO `".$dbpräfix."config` (
-
-`name`,
-`ok`,
-`description`,
-`typ`,
-`kat`
-)
-VALUES (
-'$key', '$value', '$descriptions[$key]', '$typ', '$kat[$key]'
-);";
-
-$hp->mysqlquery($sql);
-echo mysql_error();
-
-}
-
-}
 
 
 //Handel Config Funkion
@@ -728,13 +632,13 @@ echo mysql_error();
 //4.2
 function handelconfig()
 {
-$this->config=$this->getconfig();
+$config=$this->getconfig();
 
 // Superadmins
 // 4.2b
 
 
-$admins2 = explode(", ", $this->config['superadmin']);
+$admins2 = explode(", ", $config['superadmin']);
 if ($admins2[0] != "")
 {
 $this->superadmin = @array_merge($this->superadmin, $admins2);
@@ -743,15 +647,15 @@ $this->superadmin = @array_merge($this->superadmin, $admins2);
 
 // StandardSeite
 //4.2b
-if ($this->config['standardsite'] != "")
+if ($config['standardsite'] != "")
 {
-$this->standardsite=$this->config['standardsite'];
+$this->standardsite=$config['standardsite'];
 }
 
 
 // Redirectlock Config
 //4.2
-$redirectlock = explode(", ", $this->config['redirectlock']);
+$redirectlock = explode(", ", $config['redirectlock']);
 
 if (!is_array($this->redirectlock))
 {

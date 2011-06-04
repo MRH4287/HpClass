@@ -8,245 +8,144 @@ $post = $hp->post();
 $dbpräfix = $hp->getpräfix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
-$config = $hp->getconfig();
-
-
-//Variablen
+$config = $hp->config;
 
 
 
 //Abfrage des POST ergebnisses
 if (isset($post['sub']))
 {
-
-foreach ($config as $key=>$value)
-{
-
-$config[$key] = "false";
-
-}	
-
-
-$config2= $post['config'];
-$config3 = $post['text'];
-
-if (is_array($config2))
-{
-foreach ($config2 as $key=>$value) {
-//echo "set r1 $value to true!!<br>";
-$config[$value]="true";
-}
-}
-
-if (is_array($config3))
-{
-foreach ($config3 as $key=>$value) {
-//echo "set r1 $value to true!!<br>";
-$config[$key]=$value;
-}
-}
-
-
-// Class Regelung 
-// 4.2b
-$hp->setconfig_array($config);
-$hp->applyconfig();
-
-
-
-} elseif (isset($post['sub2'])) 
-{
-$name=$post['name'];
-$descript=$post['descript'];
-$kat = $post['kat'];
-
-
-if (isset ($post['text']))
-{
-$sql = "INSERT INTO `".$dbpräfix."config` (
-
-`name` ,
-`ok` ,
-`description`,
-`typ`,
-`kat`
-)
-VALUES (
-'$name', 'Change Me', '$descript', 'string', '$kat'
-);";
-} else
-{
-$sql = "INSERT INTO `".$dbpräfix."config` (
-
-`name` ,
-`ok` ,
-`description`,
-`typ`,
-`kat`
-)
-VALUES (
-'$name', 'false', '$descript', 'bool', '$kat'
-);";
-}
-$hp->mysqlquery($sql);
-echo mysql_error();
-
+    
+  $hp->config->apply($post['config']);
+  $config->load();
 
 }
 // Ende auswertung Post
 // Abfrage des aktuellen zustandes...
 
-$cfg = array();
-$abfrage = "SELECT * FROM `".$dbpräfix."config` ORDER BY `".$dbpräfix."config`.`name` ASC";
-//$ergebnis = SQLexec($abfrage, "index");
-$ergebnisss = $hp->mysqlquery($abfrage);
-echo mysql_error();
-while($row = mysql_fetch_array($ergebnisss))
-   {
-   $cfg[$row['kat']][] = $row;
-   }
+$site = new siteTemplate($hp);
+$site->load("config");
 
-?>
+$Tdata = array();
 
 
-  <center>
-  <form method="POST" action="index.php?site=config">
+$registed = $config->getregisted();
+foreach ($registed as $k => $name)
+{
+  // right, level, description, ok, cat
+  $Tdata[$config->cat($name)][] = $name;     
+} 
 
-  <table border="1" width="100%" height="7" bordercolor="#4E6F81">
-  <?php
-  foreach ($cfg as $key=>$row2) {
-  	
-  if ($key == "")
+
+$designs = array();
+if (is_dir("./template"))
+{
+  $handle = opendir("./template"); 
+  while (false != ($file = readdir($handle))) 
   {
-  $key = "Standard";
-  }
-  ?>
-    <tr>
-      
-      <td width="757" height="25" bgcolor="#5A8196"><?php echo $key?></td>
-      <td width="80" height="21" bgcolor="#5A8196">
-        <p align="center"></p>
-      </td>
-    </tr>
-<?php
-
-$config = $hp->getconfig();
-if ($config['show_design_dropdown'])
-{
-$filearray = array();
-$handle = opendir("./template"); 
-while (false != ($file = readdir($handle))) {
-$exp = explode(".",$file);
-if (count($exp) >= 2)
-if ($exp[1] == "html")
-{
-$filearray[]=$exp[0];
-}
-}
-}
-
-
-
-
-
-foreach ($row2 as $key12=>$row) {
-	
-
-   echo '<tr>
-      
-      <td width="757" height="28">'.$row['description'].'</td>
-      ';
-      if ($row['typ'] == "string")
- {
- $value = $row['ok'];
- $value = str_replace("\"", "'", $value);
-$value = str_replace("<", "&lt;", $value);
-// value="'."$value".'"
-if (($config['show_design_dropdown']) and ($row['name'] == "design"))
-{
- echo '<td width="80" height="32" align="center"><select name="text['.$row['name'].']"> '; 
- 
- foreach ($filearray as $key2=>$value2) {
- 	
- 	echo "<option value=\"$value2\"";
- 	
- 	if ($value == $value2)
- 	{
-   echo " selected=true ";
-   }
-   echo ">$value2</option>";
- 	
- }
- 
- 
- echo "</select";
-
-} else
-{
- echo '<td width="80" height="32" align="center"><input type="text" name="text['.$row['name'].']" value="'."$value".'" '; 
- }
- 
- 
- }
- else
-
-       {
-      echo '
-      <td width="80" height="32" align="center"><input type="checkbox" name="config[]" value="'.$row['name'].'" ';
-}
- 
-      if ($row['ok'] == "true")
-      {
-      echo "checked=\"true\"";
-      }
-      
-      echo "></td>
-    </tr>
-   ";
-   
-  } 
-
+    $exp = explode(".",$file);
+    if ((count($exp) >= 2) && ($exp[1] == "html"))
+    {
+      $designs[]=$exp[0];
     }
-
-  ?>  
-        <tr>
-      <td width="855" height="31" align="center" bgcolor="#5A8196" colspan="3">
-                  <input type="submit" value="Abschicken" name="sub">
-        
-      </td>
-    </tr>   
-
-
-  </table>
-  </center>
-  <?php if ($_SESSION['username'] == "mrh") { ?>
-</form>
-  <form method="POST" action="index.php?site=config">
-<table border="1" width="160">
-  <tr>
-    <td>Config:</td>
-    <td><input type="text" name="name" size="31"></td>
-  </tr>
-  <tr>
-    <td>description:</td>
-    <td><input type="text" name="descript" size="31"></td>
-  </tr>
-    <tr>
-    <td>Katigorie:</td>
-    <td><input type="text" name="kat" size="31"></td>
-  </tr>
-    <tr>
-    <td>String?:</td>
-    <td><input type="checkbox" name="text"></td>
-  </tr>
-</table>
-
-<input type="submit" value="Abschicken" name="sub2">
-
-</form>
-
-<?php 
+  }
 }
+
+$currentConfig = $config->getconfig();
+
+$content = "";
+
+foreach ($Tdata as $cat => $Cdata)
+{
+  $contentCat = "";
+  foreach ($Cdata as $k => $conf)
+  {
+    $type = $config->type($conf);
+    $input = "";
+    
+    switch ($type)
+    {
+      case "bool":
+       
+       $data = array(
+          "name" => $conf,
+          "checked" => ($currentConfig[$conf]) ? "true" : "false"       
+       ); 
+       
+       $input = $site->getNode("Input-Checkbox", $data);
+        
+      
+      break;
+      
+      
+      case "design":
+      
+        $cont = "";
+        
+        foreach ($designs as $k => $name)
+        {
+          $data = array(
+            "value" => $name,
+            "ID" => $name,
+            "selected" => ($currentConfig["design"] == $name) ? "true" : "false"
+          );
+          $cont .= $site->getNode("Input-Option", $data);
+        
+        }
+        
+        $data  = array(
+          "name" => $conf,
+          "Options" => $cont       
+        );
+        
+        $input = $site->getNode("Input-Combobox", $data);
+        
+      
+      
+      break;
+      
+      default:
+      
+        $data = array(
+          "name" => $conf,
+          "value" => $currentConfig[$conf]        
+        );
+        
+        $input = $site->getNode("Input-Textbox", $data);
+        
+      
+      break;
+    
+    }
+    
+    $data = array(
+      "name" => $conf,
+      "description" => $config->desc($conf),
+      "input" => $input
+    );
+    
+    $contentCat .= $site->getNode("Config", $data);
+    
+    
+  }
+
+  $data = array(
+    "name" => $cat,
+    "Config" => $contentCat
+  );
+  
+  $content .= $site->getNode("Categorie", $data);
+
+}
+
+$data = array(
+  "Config" => $content
+
+);
+
+$site->setArray($data);
+
+$site->display();
 
 
 

@@ -15,6 +15,7 @@ require_once 'include/xajax_core/xajax.inc.php';
 require_once 'include/FirePHP.class.php';
 require_once 'include/class_xajax_funk.php';
 require_once 'include/class_right.php';
+require_once 'include/class_config.php';
 require_once 'include/class_widgets.php';
 require_once 'include/class_subpages.php';
 require_once 'include/class_pluginloader.php';
@@ -31,6 +32,7 @@ $info           = new infoclass;
 $lbsites        = new lbsites;
 $xajaxF         = new Xajax_Funktions;
 $right          = new right;
+$config          = new config;
 $widgets        = new widgets;
 $subpages       = new subpages;
 $pluginloader   = new PluginLoader;
@@ -43,6 +45,8 @@ $hp->connect();
 
 
 //--------------------------------------SET Area-------------------------------
+$config->sethp($hp);
+$hp->setconfig($config);
 $right->sethp($hp);
 $hp->setright($right);
 $hp->setlang($lang);

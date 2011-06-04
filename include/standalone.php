@@ -11,6 +11,7 @@ class Standalone extends Hp
     require_once $path.'/class_info.php';
     require_once $path.'/class_lang.php';
     require_once $path.'/class_right.php';
+    require_once $path.'/class_config.php';
     require_once $path.'/FirePHP.class.php';
     
     
@@ -36,6 +37,14 @@ class Standalone extends Hp
 
 
     // Initialisieren der Resourcen:
+    $this->config     = new config;
+    if (file_exists($path."/config-default.php"))
+    {
+        include $path."/config-default.php";
+        $this->config->registerArray($configData);
+  
+    }
+      
     $this->right      = new right;
     
     if (file_exists($path."/rights.php"))

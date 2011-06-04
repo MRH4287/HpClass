@@ -1,0 +1,98 @@
+#!!NAME=ConfigSystem
+#!!AUTOR=MRH
+
+[!=Main!]
+
+<style>
+
+.ConfigContainer
+{
+	width:100%;
+	margin:auto;
+	border:thin orange outset;
+	
+	
+	
+}
+
+.ConfigHeader
+{
+	width:100%;
+	text-align:center;
+}
+
+.ConfigBox
+{
+	width:95%;
+	margin:15px auto autp auto;	
+}
+
+.auto-style1 {
+	border-width: 1px;
+}
+
+</style>
+
+<form method="POST" action="index.php?site=config">
+
+<div class="ConfigContainer">
+<div class="ConfigHeader"><h1>Config-Verwaltung</h1></div>
+
+#!Config#
+
+</div>
+
+  <input type="submit" value="Abschicken" name="sub">
+</form>
+[!/Main!]
+
+
+[!=Categorie!]
+
+<b>Kategorie: #!name#</b>  <br /><br />
+<table border="0" width="80%">
+	<tr>
+		<th class="auto-style1" width=200>Name</th>
+		<th class="auto-style1">Beschreibung</th>
+		<th class="auto-style1" width=200>Einstellung</th>	
+	</tr>
+	
+	
+	#!Config#
+
+ </table>
+	<br />
+
+[!/Categorie!]
+
+[!=Config!]
+
+	<tr class="pluginLine">
+	
+		<td>#!name#</td>
+		<td>#!description#</td>
+		<td>#!input#</td>
+	
+	</tr>
+
+
+[!/Config!]
+
+[!=Input-Textbox!]
+  <input type="text" id="#!name#" name="config[#!name#]" value="#!value#" />  
+[!/Input-Textbox!]
+
+[!=Input-Checkbox!]
+  <input type="checkbox" id="#!name#" name="config[]" value="#!name#" #?:checked : "checked=checked" : ""# />
+[!/Input-Checkbox!]
+
+[!=Input-Combobox!]
+  <select id="#!name#" name="config[#!name#]" />
+    #!Options#
+  </select>
+  
+[!/Input-Combobox!]
+
+[!=Input-Option!]
+  <option value="#!ID#" #?:selected : "selected=selected"#>#!value#</option>
+[!/Input-Option!]
