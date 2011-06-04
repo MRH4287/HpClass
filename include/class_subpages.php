@@ -27,26 +27,29 @@ class subpages
   {
     $this->hp = $hp;
   }
-   public function registerFunctions($object) 
-   {
-      		$methods = get_class_methods($object);
-      		
-      		foreach ($methods as $m) 
-          {
-  			     $p = $this->dynContentPrefix;
-      			 if (preg_match("/^{$p}[a-z]/", $m)) 
-             {
-      				$m2 = preg_replace("/^{$p}([a-z])/e", "strtolower('$1')", $m);
-      				//$this->xajax->registerFunction(array($m2, &$object, $m));
-      				$data = array();
-      				$data["name"] = $m2;
-      				$data["function"] = $m;
-      				$data["object"] = $object;
-      				
-      				$this->dynContent[$m2] = $data;	
-      			}
-      		}
+  
+  
+  public function registerFunctions($object) 
+  {
+  	$methods = get_class_methods($object);
+  	
+  	foreach ($methods as $m) 
+     {
+     $p = $this->dynContentPrefix;
+  		 if (preg_match("/^{$p}[a-z]/", $m)) 
+        {
+  			$m2 = preg_replace("/^{$p}([a-z])/e", "strtolower('$1')", $m);
+  			//$this->xajax->registerFunction(array($m2, &$object, $m));
+  			$data = array();
+  			$data["name"] = $m2;
+  			$data["function"] = $m;
+  			$data["object"] = $object;
+  			
+  			$this->dynContent[$m2] = $data;	
+  		}
+  	}
   }
+  
   
   function addDisplay($site)
   {
@@ -180,6 +183,82 @@ class subpages
     return $childs;
   
   }
+  
+  function getDepth($naviID, $visited = null)
+  {
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $game = $hp->game;
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->fp;
+    
+    if ($visited == null)
+    {
+      $visited = array();
+    }
+    
+    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `ID` = '$naviID';";
+    $erg = $hp->mysqlquery($sql);
+    $row = mysql_fetch_object($erg);
+    
+    if (in_array($row->ID, $visited))
+    {
+      return 0;
+    }
+    $visited[] = $row->ID;
+    
+    if ("$row->parent" == "0")
+    {
+      return 1;
+    } else
+    {
+      return 1 + $this->getDepth("$row->parent", $visited);
+    }
+    
+  
+  }
+  
+  
+  function isVisible ($naviID)
+  {
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $game = $hp->game;
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->fp;
+    
+    // Ermitteln, welche Seite gerade geladen ist
+    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `site` = '$hp->site';";
+    $erg = $hp->mysqlquery($sql);
+    
+    if (mysql_num_rows($erg) > 0)
+    {
+      // Die aktuelle Seite ist in der Navigation
+      $row = mysql_fetch_object($erg);
+      
+      $parent = "$row->parent";
+      $ID = $row->ID;
+      
+      // Ist die Aktuelle Seite Verwandt ..
+      
+      $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `ID` = '$naviID';";
+      $erg = $hp->mysqlquery($sql);
+      $row = mysql_fetch_object($erg);
+      
+      return (("$row->parent" == $parent) || ("$row->parent" == $ID) || ($row->ID == $ID));
+    
+    }
+    
+    $depth = $this->getDepth($naviID);
+    
+    return ($depth == 1);
+    
+    
+  
+  }
+  
   
   
   function removeFromNavigation($SiteID, $visited = null)
