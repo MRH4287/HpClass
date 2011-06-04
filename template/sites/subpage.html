@@ -58,6 +58,8 @@ tinyMCE.init({
 
 </p>
 
+#?:subpage : !SubpageSelector#
+
 <hr />
 
 <div id="SubpageData">
@@ -83,6 +85,16 @@ tinyMCE.init({
 </select>
 
 [!/TemplateSelector!]
+
+
+#/ Für die Zuweisung zu den Unterseiten (wegen Navigation) #
+[!=SubpageSelector!]
+
+<p>Zugewiesene Unterseite:</p>
+<p><select name="subpage">#!SubpageOptions#</select></p>
+
+[!/SubpageSelector!]
+
 
 
 

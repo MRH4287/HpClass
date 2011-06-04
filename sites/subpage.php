@@ -23,6 +23,7 @@ if (!$right[$level]["manage_subpage"])
   $site = new siteTemplate($hp);
   $site->load("subpage");
 
+  $subpage = isset($get["sub"]);
 
   //Rufe eine Liste aller Templates auf:
 
@@ -33,6 +34,11 @@ if (!$right[$level]["manage_subpage"])
   $ft = "";
   foreach ($templates as $ID=>$name)
   {
+    if ($subpage && ($ID == "navigation"))
+    {
+      continue;
+    }
+  
     $data = array(
       "selected" => ($f)? "selected" : "",
       "value" => $name,
@@ -64,7 +70,49 @@ if (!$right[$level]["manage_subpage"])
   $site->set("subpage_name", "");
   $site->set("edit", "false");
   $site->set("ID", "");
-  $site->set("Content", "<img src=images/loading.gif alt=\"Loading\" />");  
+  $site->set("subpage", ($subpage) ? "true" : "false");
+  $site->set("Content", "<img src=images/loading.gif alt=\"Loading\" />");
+  
+  if ($subpage)
+  {
+    // Ermittle alle Seiten, die das DynTemplate "Navigation" haben
+      $display= array();
+      $toDisplay = $subpages->getAllTemplatesWithDynContent("navigation");
+      
+      // Abfragen aller Seiten:
+      $sql = "SELECT * FROM `$dbpräfix"."subpages`;";
+      $erg = $hp->mysqlquery($sql);
+      while ($row = mysql_fetch_object($erg))
+      {
+        if (in_array($row->template, $toDisplay))
+        {
+          $display[$row->ID] = $row->name;
+        } 
+      
+      }
+    
+    
+    
+    $content = "";
+    foreach ($display as $key => $value)
+    {
+      $data = array(
+        "ID" => $key,
+        "value" => $value,
+        "selected" => ""  
+      
+      );
+      $content .= $site->getNode("ComboBoxOption", $data);
+      
+      
+    }
+
+    $site->set("SubpageOptions", $content);
+  
+  
+  }
+  
+    
   $site->display();
 
 } elseif (isset($post["new"]))
@@ -99,8 +147,14 @@ if (!$right[$level]["manage_subpage"])
        }
      }
      
+     $subpage = "0";
+     if (isset($post["subpage"]))
+     {
+      $subpage = $post["subpage"];
+     }
+     
      //Speichern der Unterseite:
-     $sql = "INSERT INTO `$dbpräfix"."subpages` (`name`, `content`, `template`, `created`) VALUES ('$subpageName', '$data', '$templateName', '".time()."');";
+     $sql = "INSERT INTO `$dbpräfix"."subpages` (`name`, `content`, `template`, `created`, `parent`) VALUES ('$subpageName', '$data', '$templateName', '".time()."', '$subpage');";
      $erg = $hp->mysqlquery($sql);
      
      $site->set("info", "Unterseite erfolgreich erstellt!<br><a href=?site=subpage>zurück</a>");
@@ -123,20 +177,25 @@ if (!$right[$level]["manage_subpage"])
 {
   $siteData = $subpages->getSite($get["edit"]);
   $tempData = $subpages->getTemplateData($get["edit"]);
+  
   if ($siteData != false)
   {
+      $subpage = ($siteData["parent"] != "0");
+      
       $site = new siteTemplate($hp);
       $site->load("subpage");
       
       $site->set("TemplateSelector", $siteData["template"]);
       $site->set("site", "edit");
       $site->set("edit", "true");
+      $site->set("subpage", ($subpage) ? "true" : "false");
       $site->set("subpage_name", $siteData['name']);
       $site->set("ID", $siteData["ID"]);
       
-      
       // Seitenüberprüfung:
       $tpC = $subpages->getTemplateConfig($siteData["template"]);
+      
+      $subpage = ($tpC["parent"] != 0);
         
       $content = "";
       foreach($tpC["template"] as $ID=>$type)
@@ -216,8 +275,48 @@ if (!$right[$level]["manage_subpage"])
        }
      }   
      $site->set("Content", $content); 
+      
+      if ($subpage)
+      {
+        // Ermittle alle Seiten, die das DynTemplate "Navigation" haben
+          $display= array();
+          $toDisplay = $subpages->getAllTemplatesWithDynContent("navigation");
+          
+          // Abfragen aller Seiten:
+          $sql = "SELECT * FROM `$dbpräfix"."subpages`;";
+          $erg = $hp->mysqlquery($sql);
+          while ($row = mysql_fetch_object($erg))
+          {
+            if (in_array($row->template, $toDisplay))
+            {
+              $display[$row->ID] = $row->name;
+            } 
+          
+          }
         
-     $site->display();
+        
+        
+        $content = "";
+        foreach ($display as $key => $value)
+        {
+          $data = array(
+            "ID" => $key,
+            "value" => $value,
+            "selected" => ($tpC["parent"] == $key) ? "selected=selected" : ""  
+          
+          );
+          $content .= $site->getNode("ComboBoxOption", $data);
+          
+          
+        }
+   
+      $site->set("SubpageOptions", $content);
+    
+    
+    } 
+   
+      
+    $site->display();
   
   } else
   {
