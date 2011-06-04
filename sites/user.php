@@ -29,7 +29,7 @@ if (isset ($get['delet2']))
    $error->error($lang->word('noright'),"1");
   } else
   {
-    $eingabe = "DELETE FROM `".$dbpräfix."user` WHERE `user` = '".$get['delet2']."';";
+    $eingabe = "DELETE FROM `".$dbpräfix."user` WHERE `ID` = '".$get['delet2']."';";
     $ergebnis = $hp->mysqlquery($eingabe);
     if ($ergebnis==true) {
       $info->okn($lang->word('delok'));

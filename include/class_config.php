@@ -31,7 +31,7 @@ class config
     while($row = mysql_fetch_object($ergebnisss))
     {
       
-      if ($this->type($row->name) == "bool")
+      if ($row->typ == "bool")
       { 
         if ("$row->ok" == "true")
         {
@@ -44,14 +44,14 @@ class config
       {
          $value = $row->ok;
       }
-         
+               
       $name = "$row->name";
              
       $this->cats[$name] = $row->kat;
       $this->desc[$name] = $row->description;
       $this->types[$name] = $row->typ;
          
-      $config[$name] = $value;
+      $config[$name] = $value;      
       
     }
     $this->config = $config;
@@ -166,12 +166,14 @@ class config
     
     foreach ($this->registed as $k=>$name)
     {
-      if (($this->type($name) == "bool") && isset($config[$name]))
+      if (($this->type($name) == "bool") && in_array($name, $config))
       {
         $data[$name] = true;
+        
       } elseif ($this->type($name) == "bool")
       {
         $data[$name] = false;
+        
       } elseif (isset($config[$name]) && ($config[$name] != ""))
       {
         $data[$name] = $config[$name];

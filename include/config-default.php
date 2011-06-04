@@ -40,7 +40,16 @@ $configData = array(
     "cat"       => "System",
     "type"      => "string",
     "default"   => "news" 
-  )
+  ),
+  
+  array(
+    "name"      => "user_mailagree",
+    "desc"      => "Sollen sich Benutzer selbst über E-Mail freischalten können",
+    "cat"       => "System",
+    "type"      => "bool",
+    "default"   => true 
+  ), 
+  
 
 );
 

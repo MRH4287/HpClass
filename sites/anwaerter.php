@@ -11,6 +11,11 @@ $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
 
+$local = false;
+if (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0.1"))
+{
+  $local = true;
+}
 
   if (!isset ($_SESSION['username'])) 
   {
@@ -39,6 +44,11 @@ $info = $hp->getinfo();
         $name=$row->name;
         $nachname=$row->nachname;
         $datum=$row->datum;
+        $email = $row->email;
+        $tel = $row->tel;
+        $wohnort = $row->wohnort;
+        $geschlecht = $row->geschlecht;
+        
    
   
         $eintrag = "DELETE FROM `".$dbpräfix."anwaerter` WHERE `user` = '".$get['register']."'";
@@ -46,10 +56,24 @@ $info = $hp->getinfo();
         
 
         $eintrag = "INSERT INTO `".$dbpräfix."user`
-        (user, pass, name, nachname, datum, level)
+        (user, pass, name, nachname, datum, level, `email`, `tel`, `wohnort`, `geschlecht`)
         VALUES
-        ('$user', '$passwort123', '$name', '$nachname', '$datum', '1')";
+        ('$user', '$passwort123', '$name', '$nachname', '$datum', '1', '$email', '$wohnort', '$geschlecht')";
         $eintragen2 = $hp->mysqlquery($eintrag);
+
+        if (!$local)
+        {
+          //Registrierung:
+          $mail['mailcomefrom']="admin@".$_SERVER['HTTP_HOST']; // Die Emailadresse, von der angezeigt wird, dass die E-Mail kommt
+          $mail['mailbetreff']="Die Registrierung auf ".$_SERVER['HTTP_HOST']; // Der angezeigt  Betreff in der Registrations E-mail
+          $mail['pageadress']= "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']; // Der Pfad zu ihrer Homepage
+          $mail['mailtext']= "Ihre Registrierung auf unserer Seite wurde abgeschlossen.\n \r";
+          // Der Text, der nach der Aktivierungsmai stehen soll.
+          $mail['mailfooter']="\n \r Vielen Dank für ihr interesse!";
+          
+          mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['mailtext'].$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
+     
+        }
 
         if ($eintragen1 == true and $eintragen2 == true)
         {

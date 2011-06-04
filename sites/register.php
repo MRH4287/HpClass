@@ -9,8 +9,9 @@ $dbpräfix = $hp->getpräfix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
+$config = $hp->getconfig();
 
-
+$useMail = $config["user_mailagree"];
 
 
 if (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0.1"))
@@ -45,7 +46,7 @@ if (!isset($post['register']))
 
     $ok=true;
     if (!isset($post['passwort12']) or !isset($post['username']) or !isset($post['name']) or (strlen($post['name']) < 1) or
-      !isset($post['nachname']) or (strlen($post['nachname']) < 1) or !isset($post['wohnort'])or (strlen($post['wohnort']) < 1)
+      !isset($post['nachname']) or (strlen($post['nachname']) < 1) or !isset($post['wohnort'])
        or !isset($post['geschlecht']) or !isset($post['tel'])) 
        { 
           $error->error("Geben die alle Werte an!<br><a href=index.php?site=register>zurück</a><br>", "1");
@@ -109,7 +110,7 @@ if (!isset($post['register']))
        {
         if ((strtolower($user) == strtolower("$row->user")) or (strtolower($email) == strtolower("$row->email")))
         {  
-          $error->error("Benutzername bereits vorhanden!<br>","1");
+          $error->error("Benutzername oder Email bereits vorhanden!<br>","1");
           $ok=false;
         }
        }
@@ -163,20 +164,28 @@ if (!isset($post['register']))
       $site = new siteTemplate($hp);
       $site->load("info");
       
-      $msg = "Antrag erfolgreich gestellt!<br>Eine Bestätigungs E-Mail ist zu ihnen Unterwegs!<br><a href=index.php>zurück</a>";
-      
-  
-  
-      if (!$local)
+      if ($useMail)
       {
-       mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['mailtext'].$mail['pageadress']."?site=mailagree&user=$user&code=$code ".$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
+        $msg = "Antrag erfolgreich gestellt!<br>Eine Bestätigungs E-Mail ist zu Ihnen Unterwegs!<br><a href=index.php>zurück</a>";
       } else
       {
-        $msg .= "<br>Diese Funktion ist auf Localhost deaktiviert!<br>gehen Sie bitte auf folgende Seite:<br>";
-        $msg .= '<a href='.$mail['pageadress']."?site=mailagree&user=$user&code=$code>".$mail['pageadress']."?site=mailagree&user=$user&code=$code</a>";
-       
+        $msg = "Antrag erfolgreich gestellt!<br>Bitte warten Sie, bis Sie freigeschaltet werden.<br><a href=index.php>zurück</a>"; 
       }
   
+      if ($useMail)
+      {
+        if (!$local)
+        {
+         mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['mailtext'].$mail['pageadress']."?site=mailagree&user=$user&code=$code ".$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
+        } else
+        {
+          $msg .= "<br>Diese Funktion ist auf Localhost deaktiviert!<br>gehen Sie bitte auf folgende Seite:<br>";
+          $msg .= '<a href='.$mail['pageadress']."?site=mailagree&user=$user&code=$code>".$mail['pageadress']."?site=mailagree&user=$user&code=$code</a>";
+         
+        }
+      }
+      
+      
       $site->set("info",$msg);
       $site->display();
 
