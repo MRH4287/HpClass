@@ -24,6 +24,12 @@ if (!$right[$level]["manage_subpage"])
   $site->load("subpage");
 
   $subpage = isset($get["sub"]);
+  $subID = 0;
+  if (isset($get["subID"]))
+  {
+    $subID = $get["subID"];
+  }
+
 
   //Rufe eine Liste aller Templates auf:
 
@@ -99,7 +105,7 @@ if (!$right[$level]["manage_subpage"])
       $data = array(
         "ID" => $key,
         "value" => $value,
-        "selected" => ""  
+        "selected" => ($subID == $key) ? "selected=selected" : ""  
       
       );
       $content .= $site->getNode("ComboBoxOption", $data);
@@ -108,7 +114,7 @@ if (!$right[$level]["manage_subpage"])
     }
 
     $site->set("SubpageOptions", $content);
-  
+    $site->set("SubpageKat", "");
   
   }
   
@@ -148,13 +154,16 @@ if (!$right[$level]["manage_subpage"])
      }
      
      $subpage = "0";
+     $subpageKat = "";
      if (isset($post["subpage"]))
      {
       $subpage = $post["subpage"];
+      $subpageKat = $post["subpageKat"];
      }
      
+     
      //Speichern der Unterseite:
-     $sql = "INSERT INTO `$dbpräfix"."subpages` (`name`, `content`, `template`, `created`, `parent`) VALUES ('$subpageName', '$data', '$templateName', '".time()."', '$subpage');";
+     $sql = "INSERT INTO `$dbpräfix"."subpages` (`name`, `content`, `template`, `created`, `parent`, `parent_kat`) VALUES ('$subpageName', '$data', '$templateName', '".time()."', '$subpage', '$subpageKat');";
      $erg = $hp->mysqlquery($sql);
      
      $site->set("info", "Unterseite erfolgreich erstellt!<br><a href=?site=subpage>zurück</a>");
@@ -195,8 +204,8 @@ if (!$right[$level]["manage_subpage"])
       // Seitenüberprüfung:
       $tpC = $subpages->getTemplateConfig($siteData["template"]);
       
-      $subpage = ($tpC["parent"] != 0);
-        
+      $subpage = ($siteData["parent"] != 0);
+              
       $content = "";
       foreach($tpC["template"] as $ID=>$type)
       {
@@ -302,7 +311,7 @@ if (!$right[$level]["manage_subpage"])
           $data = array(
             "ID" => $key,
             "value" => $value,
-            "selected" => ($tpC["parent"] == $key) ? "selected=selected" : ""  
+            "selected" => ($siteData["parent"] == $key) ? "selected=selected" : ""  
           
           );
           $content .= $site->getNode("ComboBoxOption", $data);
@@ -311,7 +320,7 @@ if (!$right[$level]["manage_subpage"])
         }
    
       $site->set("SubpageOptions", $content);
-    
+      $site->set("SubpageKat", $siteData["parent_kat"]);
     
     } 
    
@@ -358,8 +367,16 @@ if (!$right[$level]["manage_subpage"])
        }
      }
      
+     $subpage = "0";
+     $subpageKat = "";
+     if (isset($post["subpage"]))
+     {
+      $subpage = $post["subpage"];
+      $subpageKat = $post["subpageKat"];
+     }
+     
      //Speichern der Unterseite:
-     $sql = "UPDATE `$dbpräfix"."subpages` SET `content` = '$data' WHERE `ID` = '$ID';";
+     $sql = "UPDATE `$dbpräfix"."subpages` SET `content` = '$data', `parent` = '$subpage', `parent_kat` = '$subpageKat' WHERE `ID` = '$ID';";
      $erg = $hp->mysqlquery($sql);
      
      $site->set("info", "Unterseite erfolgreich modifiziert!<br><a href=?site=subpage>zurück</a>");
@@ -381,11 +398,23 @@ if (!$right[$level]["manage_subpage"])
 
 } elseif (isset($get["list"]))
 {
+
   //List_Element
   $site = new siteTemplate($hp);
   $site->load("subpage");
+  $subpage = false;
   
-  $sql = "SELECT * FROM `$dbpräfix"."subpages`;";
+  if (isset($get["sub"]))
+  {
+    $subpage = true;
+    $sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `parent` = '".$get["sub"]."';";
+  
+  } else
+  {
+    $sql = "SELECT * FROM `$dbpräfix"."subpages`;";
+    
+  }
+  
   $erg = $hp->mysqlquery($sql);
   
   $templates = $subpages->getAllTemplates();
@@ -396,7 +425,8 @@ if (!$right[$level]["manage_subpage"])
     $data = array(
       "name" => $row->name,
       "template" => $templates[$row->template],
-      "ID" => $row->ID    
+      "ID" => $row->ID,
+      "hasChilds" => ($row->template == "navigation") ? "true" : "false"   
     );  
   
    $elements .= $site->getNode("List_Element", $data);
@@ -404,6 +434,13 @@ if (!$right[$level]["manage_subpage"])
   }
   
   $site->set("Elements", $elements);
+  $site->set("headline", ($subpage) ? "Liste der zugeordneten Unterseiten" : "Liste der Vorhandenen Unterseiten");
+  $site->set("subpage", ($subpage) ? "true" : "false");
+  
+  if ($subpage)
+  {
+    $site->set("subID", $get["sub"]);
+  }
   
   
   $site->display("List"); 
@@ -444,154 +481,4 @@ if (!$right[$level]["manage_subpage"])
 }
 
 
-
-
-
-
-
-// Navigation - Tmp:
-/*
-
-?>
-
-<script>
-
-
-function createNaviDragBox(holderT, key, value)
-{
-  var holder = document.getElementById(holderT);
-
-  var newNode = document.createElement('div');
-  newNode.setAttribute('id', key);
-  newNode.setAttribute("class", "drag");
-  newNode.innerHTML = value;
-  
-  
-  holder.appendChild(newNode);
-  
-  new Draggable(key,{revert: true});
-
-}
-
-
-
-function createNaviDropBox(holderT, key)
-{
-
- var holder = document.getElementById(holderT);
-
-  var newNode = document.createElement('div');
-  newNode.setAttribute('id', key);
-  newNode.setAttribute('class', "dropp");
-  //newNode.innerHTML = value;
-  
-  holder.appendChild(newNode);
-  
-Droppables.add(key,{onDrop: function(drag, base) {
-
-NaviDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));
-
- }, hoverclass: 'hclass'});
- 
-}
-
-
-function NaviDropEvent(dropper, drag, infon, info_droppable)
-{
-//killElement(drag);
-//xajax_dragevent(dropper, drag, infon, info_droppable);
-//xajax_reloadWidgets();
-
-}
-
-
-
-</script>
-
-
-<?php
-
-
- if (isset($get['page']))
- {
- 
-  $subpage = $subpages->loadSite($get['page']);
-  
-  if ($subpage == false)
-  {
-  echo "Die gewünschte Seite existiert nicht!";
-  } else
-   {
-   
-   echo $subpage;
-   
-   }
-  
- } else
- 
- {
-
-
-
-
-
-
-
-$edit = isset($get['edit']);
-
-
-
-
-$text = $subpages->printNavigation();
-$elements = explode("</el>", $text);
-
-$scripts = array();
-
-foreach ($elements as $key=>$value) {
-	
-	 $infos = explode("<!>", $value);
-	 
-	 $depth = $infos[0];
-	 $name = $infos[1];
-	 $site = $infos[2];
-	 $dynamic = $infos[3];
-	 
-	 
-	 $output = ""; 
-	 for ($i = 0; $i < $depth; $i++) {
-	 
-    $output .= "-";  	
-  }
-  
-  if ($edit)
-  {
-  $output .= "<div id=\"holder_navi_$name\"></div>";
-  $scripts[] = "createNaviDragBox('holder_navi_$name', 'navi_$name', '$name');";
-  
-  
-  } else
-  {
-  
-    $output .= "<a href=\"?site=$site\">$name</a><br>";
-
-  
-  }
-	 
-	echo $output; 
-	 
-}
-
- echo "<br><br><br>";
- echo "<div id=\"holder_navi_drop_box\"></div>";
-
- echo "<script>";
- echo implode("\n", $scripts);
- echo "createNaviDropBox('holder_navi_drop_box', 'navi_drop')";
- echo "</script>";
-
- }
-
-
-
- */
 ?>

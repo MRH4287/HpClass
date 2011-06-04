@@ -92,7 +92,8 @@ tinyMCE.init({
 
 <p>Zugewiesene Unterseite:</p>
 <p><select name="subpage">#!SubpageOptions#</select></p>
-
+<p>Kategorie:</p>
+<p><input type="text" name="subpageKat" value="#!SubpageKat#"/></p>
 [!/SubpageSelector!]
 
 
@@ -108,7 +109,7 @@ tinyMCE.init({
 
 
 [!=List!]
-
+     <h2>#!headline#</h2>
     <div class="pluginContainer">
 
     <table border="0" width="100%">
@@ -116,29 +117,37 @@ tinyMCE.init({
 	<tr class="pluginHeadline">
 		<td>Name</td>
 		<td>Template</td>
-		<td width="10%" align="center"></td>
+		<td width="20%" align="center"></td>
 	</tr>
 	
 	#!Elements#
 
   </table>
 </div>
+#?:subpage : !List-Subpage-Edit#
 
 [!/List!]
+
+[!=List-Subpage-Edit!]
+<a href=?site=subpage&new&sub&subID=#!subID#>Neue Unterseite hinzufügen</a>
+[!/List-Subpage-Edit!]
 
 [!=List_Element!]
 	<tr class="pluginLine">
 		<td>#!name#</td>
 		<td>#!template#</td>
-		<td width="10%" align="center"><a href="?site=subpage&edit=#!name#"><img src="images/edit.gif" alt="Edit"></a><a href="?site=subpage&del=#!ID#"><img src="images/abort.gif" alt="Löschen"></a></td>
+		<td width="10%" align="center">#?:hasChilds : !List-Element-Subpage#<a href="?site=subpage&edit=#!name#"><img src="images/edit.gif" alt="Edit"></a><a href="?site=subpage&del=#!ID#"><img src="images/abort.gif" alt="Löschen"></a></td>
 	</tr>
 
 [!/List_Element!]
 
+[!=List-Element-Subpage!]
+ <a href="?site=subpage&list&sub=#!ID#" title="Unterseiten bearbeiten"><img src="images/info.gif" alt="Unterseiten bearbeiten"></a>
+
+[!/List-Element-Subpage!]
 
 
-
-<!-- Templates der Boxen-->
+#/ Templates der Boxen #
 
 
 [!=CheckBox!]

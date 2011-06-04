@@ -253,6 +253,23 @@ class subpages
     
   }
   
+  function siteHaveChilds($parent)
+  {
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $game = $hp->game;
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->fp;
+  
+  
+    $sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `parent` = '$parent';";
+    $erg = $hp->mysqlquery($sql);
+    
+    return (mysql_num_rows($erg)> 0);
+  
+  }
+  
   
   function printNavigation($maxdepth = 5)
   {
@@ -680,8 +697,56 @@ class subpages
   
   function dy_navigation($site, $templateConfig)
   {
-  
-    return "TODO";
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $game = $hp->game;
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->fp;
+    
+    $sql = "SELECT ID FROM `$dbpräfix"."subpages` WHERE `name` = '$site' OR `ID` = '$site';";
+    $erg = $hp->mysqlquery($sql);
+    $row = mysql_fetch_object($erg);
+    
+    $ID = $row->ID;
+    
+    
+    $childs = array();
+    $sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `parent` = '$ID' ORDER BY `parent_kat`;";
+    $erg = $hp->mysqlquery($sql);
+    while ($row = mysql_fetch_array($erg))
+    {
+      $childs[$row["parent_kat"]][] = $row;    
+    }
+    
+    $site = new siteTemplate($hp);
+    $site->load("subpage_navigation");
+    
+    $contentKAT = "";
+    
+    foreach ($childs as $kat => $els)
+    {
+      
+      $content = "";
+      foreach($els as $k => $el)
+      {
+       
+       $content .= $site->getNode("Element", $el);      
+      
+      }
+      
+      $data = array(
+        "titel" => $kat,
+        "Elements" => $content
+      );
+      
+      $contentKAT .= $site->getNode("Headline", $data);
+    
+    }
+    
+    $site->set("Content", $contentKAT);
+    
+    return $site->get();
     
     
   }
