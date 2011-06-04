@@ -34,7 +34,9 @@ class Standalone extends Hp
       echo "Config Datei nicht gefunden!";
       exit;
      }
-
+     
+    // MysqlVerbindung
+    $this->connect();
 
     // Initialisieren der Resourcen:
     $this->config     = new config;
@@ -64,9 +66,6 @@ class Standalone extends Hp
     $this->error->sethp($this);
     $this->lang->sethp($this);
     $this->info->init($this->lang, $this->error, $this);
-    
-    // MysqlVerbindung
-    $this->connect();
     
     //Config
     $this->handelinput($_GET, $_POST);
