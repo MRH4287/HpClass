@@ -14,6 +14,12 @@ $registed = array(
 
   array (
   
+  "name" => "see_userPage",
+  "desc" => "Erlaubnis die Benutzer Seite zu sehen",
+  "cat"  => "Sichtbarkeit"
+  ),
+  array (
+  
   "name" => "adminsite",
   "desc" => "Erlaubnis zum Betreten der Administrationsseite",
   "cat"  => "System"

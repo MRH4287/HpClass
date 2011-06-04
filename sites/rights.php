@@ -36,7 +36,7 @@ if (isset($post['sub']))
   foreach ($levels as $keyh=>$valueh) 
   {
   	
-  
+     
   
     if (isset($post['right'.$valueh]))
     {
@@ -45,7 +45,7 @@ if (isset($post['sub']))
     {
       $temp = array();
     }
-        
+           
     
     foreach ($temp as $key=>$value) 
     {
@@ -56,6 +56,7 @@ if (isset($post['sub']))
     }	
   	
   }
+
 
   $o_right->save($right); 
   $o_right->load();
@@ -93,12 +94,7 @@ foreach ($registedRights as $k => $name)
 $content = "";
 foreach ($levels as $egal=>$aktlevel) 
 {
-  if ($aktlevel == "0")
-  {
-    continue;
-  }
- 
-    
+   
   $content_c = "";
   foreach ($data as $cat=>$array)
   {
@@ -110,7 +106,7 @@ foreach ($levels as $egal=>$aktlevel)
         "name" => $name,
         "level" => $aktlevel,
         "description" => $o_right->desc($name),
-        "checked" => $o_right->is($name, $aktlevel) ? "true" : false      
+        "checked" => $o_right->is($name, $aktlevel) ? "true" : "false"      
       );
     
       $content_r .= $site->getNode("Right", $tdata);
