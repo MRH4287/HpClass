@@ -712,7 +712,7 @@ class subpages
     
     
     $childs = array();
-    $sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `parent` = '$ID' ORDER BY `parent_kat`;";
+    $sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `parent` = '$ID' ORDER BY `parent_kat` ASC, `created` DESC;";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_array($erg))
     {
