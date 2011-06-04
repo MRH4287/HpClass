@@ -133,7 +133,15 @@ class config
 
   function type($config)
   {
-    return $this->types[$config];
+    if (isset($this->types[$config]))
+    {
+      return $this->types[$config];
+    } else
+    {
+      return "NONE";
+    }
+  
+    
   }
 
   function get($config)
