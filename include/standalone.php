@@ -44,6 +44,7 @@ class Standalone extends Hp
         $this->config->registerArray($configData);
   
     }
+    $this->config->sethp($this);
       
     $this->right      = new right;
     
