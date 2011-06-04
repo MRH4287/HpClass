@@ -109,7 +109,7 @@ class subpages
     $dbpräfix = $hp->getpräfix();
     $info = $hp->info;
     $error = $hp->error;
-    $fp = $fp->fp;
+    $fp = $hp->fp;
   
   
     $sql = "SELECT site FROM `$dbpräfix"."navigation` WHERE `ID` = '$naviID' OR `name` = '$naviID';";
