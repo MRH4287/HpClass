@@ -427,14 +427,6 @@ return $data;
 
 function set($key, $value)
 {
-  if (!is_string($value) && ($value == true))
-  {
-    $value = "true";
-  } else
-  {
-    $value = "false";
-  }
-
   $this->data[$key] = $value;
 }
 
