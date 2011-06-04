@@ -1,0 +1,1 @@
+ALTER TABLE `#!-PREFIX-!#subpages` ADD `parent` INT( 100 ) NOT NULL DEFAULT '0';

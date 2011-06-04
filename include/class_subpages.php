@@ -334,7 +334,7 @@ class subpages
         $used[] = $row->site;
       }
       
-      $sql = "SELECT name FROM `$dbpräfix"."subpages`;";
+      $sql = "SELECT name FROM `$dbpräfix"."subpages` WHERE `parent` == '0';";
       $erg = $hp->mysqlquery($sql);
       
       while ($row = mysql_fetch_object($erg))
@@ -676,6 +676,14 @@ class subpages
   return " :)";
   }
   
+  
+  function dy_navigation($site, $templateConfig)
+  {
+  
+    return "TODO";
+    
+    
+  }
   
   
   
