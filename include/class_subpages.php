@@ -270,6 +270,21 @@ class subpages
   
   }
   
+  function siteCanHaveChilds($site)
+  {
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $game = $hp->game;
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->fp;
+    
+    $site = $this->getSite($site);
+    
+    return ($site["template"] == "navigation");
+  
+  }
+  
   
   function printNavigation($maxdepth = 5)
   {
