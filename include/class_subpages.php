@@ -170,7 +170,7 @@ class subpages
   
     }
   
-    $sql = "SELECT name FROM `$dbpräfix"."navigation` WHERE `parent` = '$parent' ORDER BY `order` ASC;";
+    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `parent` = '$parent' ORDER BY `order` ASC;";
     $erg = $hp->mysqlquery($sql);
   
     $childs = array();
@@ -255,6 +255,7 @@ class subpages
     
       $childs = $this->getChilds($naviID);
     
+      
       foreach ($childs as $k => $row)
       {
         if ($row->ID == $ID)
