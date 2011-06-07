@@ -16,7 +16,6 @@ $passwort=$_POST['passwort'];
 
 $user = mysql_real_escape_string($user); 
 
-$passwort = md5("pw_".$passwort);
 
 $ok = false;
 if (isset($_POST['login'])) 
@@ -28,16 +27,19 @@ $ergebnis = mysql_query($abfrage);
     
 while($row = mysql_fetch_object($ergebnis))
    {
-    if ($user == "$row->user" and $passwort == "$row->pass")
+   
+    $passwortCH = md5("pw_".$passwort.$row->ID);
+   
+    if ($user == "$row->user" and $passwortCH == "$row->pass")
     {
        $_SESSION['username']="$user";
        $ok=true; 
-    } elseif ($user == "$row->user" and $passwort != $row->pass) // Kein Md5
+    } elseif ($user == "$row->user" and $passwortCH != $row->pass) // Kein Md5
     {
-      if (($passwort == md5($row->pass)) or  (md5($_POST['passwort']) == $row->pass))
+      if (($passwort == md5("pw_".$row->pass)) or (md5("pw_".$passwort) == $row->pass))
       {
       // KEin MD5 ...
-      $sql = "UPDATE `".$dbpräfix."user` SET `pass` = '".md5("pw_".$_POST['passwort'])."' WHERE `user` = '".$user."'";
+      $sql = "UPDATE `".$dbpräfix."user` SET `pass` = '".md5("pw_".$_POST['passwort'].$row->ID)."' WHERE `user` = '".$user."'";
       mysql_query($sql);
       echo mysql_error();
       $_SESSION['username']="$user";
@@ -54,7 +56,6 @@ while($row = mysql_fetch_object($ergebnis))
  while($row = mysql_fetch_object($ergebnis))
    {
    $_SESSION['level']="$row->level";
-   $_SESSION['pass']="$row->pass";
    $_SESSION['ID'] = $row->ID;
    }
   $time =(int) time();
