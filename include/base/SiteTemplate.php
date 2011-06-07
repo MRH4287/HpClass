@@ -475,6 +475,28 @@ function getNode($name, $data = null)
   }
 }
 
+function foreachNode($nodeName, $data)
+{
+  if (!is_string($nodeName) || !is_array($data))
+  {
+    throw new Exception();  
+  } else
+  {
+    $content = "";
+    
+    foreach ($data as $k=>$value)
+    {
+      $content .= $this->getNode($nodeName, $value);
+    }
+    
+    return $content;
+  
+  
+  }
+  
+
+}
+
 
 function right($right = "login")
 {
