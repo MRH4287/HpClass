@@ -20,7 +20,7 @@ $configData = array(
    
   array(
     "name"      => "redirectlock",
-    "desc"      => "Seiten, die von der Weiterleitunge ausgenommen sind",
+    "desc"      => "Seiten, die von der Weiterleitung ausgenommen sind",
     "cat"       => "Security",
     "type"      => "string",
     "default"   => "admin, config, right" 
