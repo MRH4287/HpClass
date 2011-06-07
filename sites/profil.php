@@ -59,25 +59,39 @@ $error = $hp->geterror();
       
     } elseif (isset ($post['pwneu'])) 
     {
-      $passwortalt=$post['passwortalt'];
-      $passwortneu=$post['passwort'];
-      $passwortneu2=$post['passwort2'];
-      $passwortalt = md5("pw_".$passwortalt);
+
+      
 
       $site = new siteTemplate($hp);
       $site->load("info");
 
-      if ($passwortalt == $_SESSION['pass'] and $passwortneu == $passwortneu2)
+      $sql = "SELECT * FROM `".$dbpräfix."user` WHERE `user` = '".$_SESSION['username']."';";
+      $erg = $hp->mysqlquery($sql);
+      
+      if (mysql_num_rows($erg) > 0)
       {
-        $passwortneu = md5("pw_".$passwortneu);
-        $eingabe = "UPDATE `".$dbpräfix."user` SET `pass` = '$passwortneu' WHERE `user` = '".$_SESSION['username']."';";
-        $ergebnis = $hp->mysqlquery($eingabe);
-        $_SESSION['pass']=$passwortneu;
-        $site->set("info", $lang->word('ok_profil')."!<br><a href=index.php?site=profil>".$lang->word('back')."</a>");
-      } else 
-      { 
-        $site->set("info", $lang->word('pwwrong_profil')."!<br><a href=index.php?site=profil>".$lang->word('back')."</a>"); 
-      }
+        
+        $row = mysql_fetch_object($erg);
+        
+        $passwort=$post['passwortalt'];
+        $passwortneu=md5("pw_".$post['passwort']);
+        $passwortneu2=md5("pw_".$post['passwort2']);
+        $passwortalt = md5("pw_".$passwort);
+        $passwortalt2 = md5("pw_".$passwort.$row->ID);
+          
+        if ((($passwortalt == $row->pass) or ($passwortalt2 == $row->pass)) and ($passwortneu == $passwortneu2))
+        {
+          $eingabe = "UPDATE `".$dbpräfix."user` SET `pass` = '$passwortneu' WHERE `user` = '".$_SESSION['username']."';";
+          $ergebnis = $hp->mysqlquery($eingabe);
+          $site->set("info", $lang->word('ok_profil')."!<br><a href=index.php?site=profil>".$lang->word('back')."</a>");
+        } else 
+        { 
+          $site->set("info", $lang->word('pwwrong_profil')."!<br><a href=index.php?site=profil>".$lang->word('back')."</a>"); 
+        }
+     } else
+     {
+      $site->set("info", "Fehler");
+     }
       $site->display();
       
     } elseif (isset($post['go'])) 
