@@ -127,10 +127,10 @@ class template extends siteTemplate
     {
     
       include "template/$path/template.php";
-    
+      return $template;
     }
   
-  return $template;
+    return array();
   
   }
   
