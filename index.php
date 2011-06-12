@@ -124,15 +124,6 @@ $temp->settemplate($template);
 $xajaxF->processRequest();
 
 
-echo $temp->getHeader();  
-
-
-
-$info->outputdiv();
-
-
-
-
 // 4. Ausgeben des Headers
 echo $temp->gettemp('header');
 // 5. Einbinden der PHP Datei
