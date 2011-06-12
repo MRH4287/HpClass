@@ -212,7 +212,6 @@ class siteTemplate
     $hp = $this->hp;
     $right = $hp->getright();
     
-    $level = $_SESSION['level'];
     $Data = $this->getPlaceholder($data, "=");
     
     foreach ($Data as $k => $word)
@@ -330,7 +329,13 @@ class siteTemplate
     $right = $hp->getright();
     $config = $hp->getconfig();
     
-    $level = $_SESSION['level'];
+    if (isset($_SESSION['level']))
+    {
+      $level = $_SESSION['level'];
+    } else
+    {
+      $level = 0;
+    }
     $conditData = $this->getPlaceholder($data, "?");
   
     foreach ($conditData as $k => $word)
@@ -522,7 +527,6 @@ class siteTemplate
   
   function get($node = null)
   {
-    $level = $_SESSION['level'];
     
     $ok = false;
     $nr = $this->neededRight;
