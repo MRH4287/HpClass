@@ -104,7 +104,7 @@ class template extends siteTemplate
     return $data;
   }
  
- function getloginconfig($path)
+  function getloginconfig($path)
   {
   
     if (is_file("template/$path/login.php"))

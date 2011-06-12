@@ -26,7 +26,7 @@ class InfoStandalone
   
   function okm ($text, $v2 = "")
   {
-    $this->fp->info($text, $v2);
+    $this->fp->log($text, $v2);
   }
   
   function okn ($text, $v2 = "")

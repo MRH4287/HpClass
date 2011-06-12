@@ -16,6 +16,7 @@ class infoclass
     $this->error = $error;
     $this->hp = $hp;
     $this->firephp = $hp->getfirephp();
+    $this->outputdiv();
   }
   
   function info($info)
@@ -45,11 +46,11 @@ class infoclass
   
   function outputdiv()
   {
-  
-    echo '<div id="infodiv" style="color:black; background-color:yellow; display:none;"><p align="center"></p></div>'."\n";
+    $site = new siteTemplate($this->hp);
+    $site->load("messages");
     
-    echo '<div id="okdiv" style="color:white; background-color:green; display:none;"><p align="center"></p></div>'."\n";
-    
+    $this->hp->template->append("messages", $site->get("Info")); 
+    $this->hp->template->append("messages", $site->get("Ok")); 
   }
   
   function getmessages()
@@ -72,17 +73,10 @@ class infoclass
     if ($string <> "")
     {
       $string = str_replace("'", '\\"', $string);
-      ?>
-      
-      <script type="text/javascript">
-      
-      var errordiv = document.getElementById('infodiv');
-      errordiv.innerHTML = '<p align="center"><?php echo $string?></p>';
-      errordiv.style.display = '';
-      
-      </script>
-      
-      <?php
+      $site = new siteTemplate($this->hp);
+      $site->load("messages");
+      $site->set("message", $string);
+      $site->display("Info-Set");
     
     }
     
@@ -105,17 +99,10 @@ class infoclass
     if ($string <> "")
     {
       $string = str_replace("'", '\"', $string);
-      ?>
-      
-      <script type="text/javascript">
-      
-      var errordiv = document.getElementById('okdiv');
-      errordiv.innerHTML = '<p align="center"><?php echo $string?></p>';
-      errordiv.style.display = '';
-      
-      </script>
-      
-      <?php
+      $site = new siteTemplate($this->hp);
+      $site->load("messages");
+      $site->set("message", $string);
+      $site->display("Ok-Set");
     
     }
  

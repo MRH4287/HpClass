@@ -1,0 +1,51 @@
+!!NAME=Error und Info Meldungen
+!!AUTOR=MRH
+
+[!=Error!]
+      <div id="errordiv" style="color:white; background-color:red; display:none;"><p align="center"></p></div>
+[!/Error!]
+
+[!=Error-Set!]
+
+      <script type="text/javascript">
+      
+      var errordiv = document.getElementById('errordiv');
+      errordiv.innerHTML = '<p align="center">ERROR: #!message#</p>';
+      errordiv.style.display = '';
+      
+      </script>
+      
+[!/Error-Set!]
+
+[!=Info!]
+      <div id="infodiv" style="color:black; background-color:yellow; display:none;"><p align="center"></p></div>
+[!/Info!]
+
+[!=Info-Set!]
+
+      <script type="text/javascript">
+      
+      var errordiv = document.getElementById('infodiv');
+      errordiv.innerHTML = '<p align="center">#!message#</p>';
+      errordiv.style.display = '';
+      
+      </script>
+      
+[!/Info-Set!]
+
+[!=Ok!]
+      <div id="okdiv" style="color:white; background-color:green; display:none;"><p align="center"></p></div>
+[!/Ok!]
+
+[!=Ok-Set!]
+
+      <script type="text/javascript">
+      
+      var errordiv = document.getElementById('okdiv');
+      errordiv.innerHTML = '<p align="center">#!message#</p>';
+      errordiv.style.display = '';
+      
+      </script>
+      
+[!/Ok-Set!]
+

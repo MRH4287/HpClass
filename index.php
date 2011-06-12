@@ -128,7 +128,6 @@ echo $temp->getHeader();
 
 
 
-$error->outputdiv();
 $info->outputdiv();
 
 
