@@ -1,4 +1,41 @@
 <?php
+class ErrorStandalone
+{
+
+  function error($text, $level = "2", $function = "")
+  {
+    echo $text;
+    // Egal was für ein Fehler auftritt, Abbrechen!
+    exit;
+  }
+}
+
+class InfoStandalone
+{
+  private $fp;
+
+  function __construct($fp)
+  {
+    $this->fp = $fp;
+  }
+
+  function info($text, $v2 = "")
+  {
+    $this->fp->info($text, $v2);
+  }
+  
+  function okm ($text, $v2 = "")
+  {
+    $this->fp->info($text, $v2);
+  }
+  
+  function okn ($text, $v2 = "")
+  {
+    $this->okm($text, $v2);
+  }
+
+}
+
 
 class Standalone extends Hp
 {
@@ -7,8 +44,8 @@ class Standalone extends Hp
   {
     
     // Einbinden der Resourcen;
-    require_once $path.'/class_error.php';
-    require_once $path.'/class_info.php';
+    //require_once $path.'/class_error.php';
+    //require_once $path.'/class_info.php';
     require_once $path.'/class_lang.php';
     require_once $path.'/class_right.php';
     require_once $path.'/class_config.php';
@@ -58,14 +95,16 @@ class Standalone extends Hp
       
     }
     
-    
-    $this->error      = new errorclass;
-    $this->info       = new infoclass;
+    //$this->error      = new errorclass;
+    //$this->info       = new infoclass;
+    $this->error        = new ErrorStandalone;
+    $this->info         = new InfoStandalone($firephp);
+        
     $this->lang       = new lang;
     $this->setfirephp($firephp);
-    $this->error->sethp($this);
-    $this->lang->sethp($this);
-    $this->info->init($this->lang, $this->error, $this);
+    //$this->error->sethp($this);
+    //$this->lang->sethp($this);
+    //$this->info->init($this->lang, $this->error, $this);
     
     //Config
     $this->handelinput($_GET, $_POST);
@@ -77,16 +116,16 @@ class Standalone extends Hp
   function outputdivs()
   {
   
-    $this->error->outputdiv();
-    $this->info->outputdiv();
+    //$this->error->outputdiv();
+    //$this->info->outputdiv();
   
   }
   
   function getmessages()
   {
   
-    $this->info->getmessages();
-    $this->error->showerrors();
+    //$this->info->getmessages();
+    //$this->error->showerrors();
   
   }
 
