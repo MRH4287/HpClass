@@ -8,122 +8,149 @@ $post = $hp->post();
 $dbpräfix = $hp->getpräfix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
+$info = $hp->getinfo();
 
 
-if (isset ($get['del']) and $_SESSION['level'] = 3)
+if (isset ($get['del2']) and ($right[$level]['upload_del']))
 {
-
-$abfrage = "DELETE FROM ".$dbpräfix."download WHERE `ID`=".$get['del'];
-$ergebnis = $hp->mysqlquery($abfrage);
-    
-  if ($ergebinis == true) 
+  /*
+  $abfrage = "DELETE FROM ".$dbpräfix."download WHERE `ID`=".$get['del'];
+  $ergebnis = $hp->mysqlquery($abfrage);
+  */
+  
+  $abfrage = "SELECT * FROM ".$dbpräfix."download WHERE `ID` = '".$_GET['del2']."'";
+  $ergebnis = $hp->mysqlquery($abfrage);
+      
+      
+  $row = mysql_fetch_object($ergebni);
+  
+  unlink("downloads/$row->dateiname");
+ 
+  $abfrage = "DELETE FROM ".$dbpräfix."download WHERE `ID`=".$_GET['del2'];
+  $ergebnis = $hp->mysqlquery($abfrage);
+      
+  
+      
+  if ($ergebnis == true) 
   {
- echo $lang->word('delok');
+    echo $lang->word('delok');
+    
   } else
   {
-  $error->error("Fehler: ".mysql_error(),"2");
+    $error->error("Fehler: ".mysql_error(),"2");
   }
-  
+    
 
 }
 
-?>
-<p align="center"><font face="Comic Sans MS" size="6">Download - Area</font></p>
-<p align="center">&nbsp;</p><br>
-<?php
+
 if (!isset($_SESSION['username'])) 
 {
-$error->error($lang->word('noright2'),"2");
+  $error->error($lang->word('noright2'),"2");
 
-} else {
-
-if (!isset($get['id']))
-
+} elseif (isset ($get['del']) and $right[$level]['upload_del'])
 {
-?>
-<table border="1" width="723" align="center" height="29">
-  <tr>
-    <td width="219" align="center" height="1"><?php echo $lang->word('titel')?>:</td>
-    <td width="138" align="center" height="1"><?php echo $lang->word('uploadedby')?>:</td>
-    <td width="84" align="center" height="1"><?php echo $lang->word('datum')?>:</td>
-    <td width="248" align="center" height="1"><?php echo $lang->word('description')?>:</td>
-  </tr>
-<?php
-
-   $abfrage = "SELECT * FROM ".$dbpräfix."download";
-$ergebnis = $hp->mysqlquery($abfrage);
-    
-    
-while($row = mysql_fetch_object($ergebnis))
-   {
-   if ($_SESSION['level'] == "$row->level" or $_SESSION['level'] > "$row->level")
-   {
-?>
-  <tr>
-    <td width="219" align="center" height="5"><a href=index.php?site=download&id=<?php echo "$row->ID"?>><?php echo "$row->titel"?></a></td>
-    <td width="138" align="center" height="5"><?php echo "$row->autor"?></td>
-    <td width="84" align="center" height="5"><?php echo "$row->datum"?></td>
-    <td width="248" align="center" height="5"><?php echo "$row->beschreibung"?></td>
-  </tr>
-
-<?php } } ?> 
-</table> 
-<?php
-
-} else {
-
-   $abfrage = "SELECT * FROM ".$dbpräfix."download WHERE `ID` = '".$get['id']."'";
-$ergebnis = $hp->mysqlquery($abfrage);
-    
-    
-while($row = mysql_fetch_object($ergebnis))
-   {
-   if ($_SESSION['level'] == "$row->level" or $_SESSION['level'] > "$row->level") 
-   {
-    ?>
-<table border="1" width="130" align="center" bordercolor="#9999FF">
-  <tr>
-    <td>
-<table border="1" width="565" align="center" height="81" bordercolor="#9999FF">
-  <tr>
-    <td width="141" height="36">
-      <p align="center"><?php echo $lang->word('titel')?>:</p>
-    </td>
-    <td width="408" height="36"><?php echo "$row->titel"?></td>
-  </tr>
-  <tr>
-    <td width="141" height="36">
-      <p align="center"><?php echo $lang->word('descrition')?>:</p>
-    </td>
-    <td width="408" height="36"><?php echo "$row->beschreibung"?></td>
-  </tr>
-  <tr>
-    <td width="141" height="36">
-      <p align="center"><?php echo $lang->word('uploadedam')?>:</td>
-    <td width="408" height="36"><?php echo "$row->datum"?></td>
-  </tr>
-  <tr>
-    <td width="141" height="15">
-      <p align="center"><?php echo $lang->word('uploadedby')?>:</td>
-    <td width="408" height="15"><?php echo "$row->autor"?></td>
-  </tr>
-  <tr>
-    <td width="549" height="36" colspan="2">
-      <p align="center"><a href=sites/download2.php?id=<?php echo "$row->ID"?>><img border="0" src="images/download.gif" width="108" height="34"></a><br>
-      <?php if ($_SESSION['level'] == 3) { ?>
-      <p align="center"><a href=index.php?site=download&del=<?php echo "$row->ID"?>>Löschen</a></td>
-      <?php }?>
-  </tr>
-</table>
-
-    </td>
-  </tr>
-</table>
-<?php
-} else
+  $del = $get['del'];
+$info->info("Möchten Sie die Datei wirklick löschen? <a href=index.php?site=download&del2=$del>Ja</a> <a href=index.php>Nein</a>");
+} else 
 {
-$error->error($lang->word('norightlookfile'),"2");
+  if (!isset($get['id']))
+  {
+  
+    $site = new siteTemplate($hp);
+    $site->load("download");
+  
+    $abfrage = "SELECT * FROM ".$dbpräfix."download_kat";
+    $ergebnis = $hp->mysqlquery($abfrage);
+
+    $contentcat = "";   
+    while($row = mysql_fetch_object($ergebnis))
+    {
+       if ($hp->right->isAllowed($row->level))
+       {
+          $abfrage2 = "SELECT * FROM ".$dbpräfix."download WHERE `kat` = '$row->ID'";
+          $ergebnis2 = $hp->mysqlquery($abfrage2);
+              
+          $content = "";
+          while($row2 = mysql_fetch_object($ergebnis2))
+          {
+              if ($hp->right->isAllowed($row->level))
+              {
+                $data = array(
+                  "titel" => $row2->titel,
+                  "ID" => $row2->ID,
+                  "change" => (isset($get["change"]) &&  $right[$level]['upload']) ? "true" : "false"
+                );
+                
+                $content .= $site->getNode("DL-Element", $data);
+                
+                
+              }
+          }
+          
+          $data = array(
+            "ID" => $row->ID,
+            "name" => $row->name,
+            "katchange" => (isset($get["katchange"]) &&  $right[$level]['upload']) ? "true" : "false",
+            "Elements" => $content                
+          );
+          
+          $contentcat .= $site->getNode("DL-Cat", $data);
+                  
+      }
+    }
+    
+    $data = array(
+      "Data" => $contentcat    
+    );
+    
+    $site->setArray($data);
+    
+    $site->display();
+    
+  } else 
+  {
+  
+    $abfrage = "SELECT * FROM ".$dbpräfix."download WHERE `ID` = '".$get['id']."'";
+    $erg = $hp->mysqlquery($abfrage);
+    
+    $site = new siteTemplate($hp);
+    $site->load("download");
+    
+    if (mysql_num_rows($erg) == 1)
+    { 
+           
+      $row = mysql_fetch_object($erg);
+      
+      if ($hp->right->isAllowed($row->level)) 
+      {
+         $data = array(
+            "titel" => $row->titel,
+            "beschreibung" => $row->beschreibung,
+            "datum" => $row->datum,
+            "autor" => $row->autor,
+            "path" => $row->dateiname,
+            "ID" => $row->ID,
+            "direct" => (file_exists("downloads/$row->dateiname")) ? "true" : "false"
+         );
+         
+         $site->setArray($data);
+         $site->display("DL-Show");
+   
+      } else
+      {
+        $error->error($lang->word('norightlookfile'),"2");
+      }
+    } else
+    {
+      $site = new siteTemplate($hp);
+      $site->load("info");
+      $site->set("info", "Die gewünschte Datei exsistiert nicht!<br><a href=?site=download>Download</a>");
+      $site->display();
+    
+      $error->error("Die gewünschte Datei exsistiert nicht!");
+      
+    }
+  } 
 }
-}
- } 
- }?>
+?>

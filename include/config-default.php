@@ -50,6 +50,13 @@ $configData = array(
     "default"   => true 
   ), 
   
+  array(
+    "name"      => "download_useDB",
+    "desc"      => "Sollen die Download-Daten in die Datenbank gespeichert werden (keine Dateien)",
+    "cat"       => "System",
+    "type"      => "bool",
+    "default"   => false 
+  )
 
 );
 
