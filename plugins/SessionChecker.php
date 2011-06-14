@@ -64,7 +64,7 @@ function onEnable()
     if (($_SESSION["token"] != $token) || ($diff > 7200))
     {
       session_destroy();
-      $this->hp->error->error("Ihrer Session ist abgelaufen. Bitte loggen Sie sich neu ein");
+      $this->hp->error->error("Ihre Session ist abgelaufen. Bitte loggen Sie sich neu ein");
       
     }
   
