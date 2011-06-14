@@ -21,25 +21,31 @@ if (isset ($get['del2']) and ($right[$level]['upload_del']))
   $abfrage = "SELECT * FROM ".$dbpräfix."download WHERE `ID` = '".$_GET['del2']."'";
   $ergebnis = $hp->mysqlquery($abfrage);
       
-      
-  $row = mysql_fetch_object($ergebni);
-  
-  unlink("downloads/$row->dateiname");
- 
-  $abfrage = "DELETE FROM ".$dbpräfix."download WHERE `ID`=".$_GET['del2'];
-  $ergebnis = $hp->mysqlquery($abfrage);
-      
-  
-      
-  if ($ergebnis == true) 
+  if (mysql_num_rows($ergebnis) > 0)
   {
-    echo $lang->word('delok');
+      
+    $row = mysql_fetch_object($ergebnis);
     
+    @unlink("downloads/$row->dateiname");
+   
+    $abfrage = "DELETE FROM ".$dbpräfix."download WHERE `ID`=".$_GET['del2'];
+    $ergebnis = $hp->mysqlquery($abfrage);
+        
+    
+        
+    if ($ergebnis == true) 
+    {
+      $info->okn($lang->word('delok'));
+      
+    } else
+    {
+      $error->error("Fehler: ".mysql_error(),"2");
+    }
+     
   } else
   {
-    $error->error("Fehler: ".mysql_error(),"2");
+    $error->error("Datei exsisitiert nicht!");
   }
-    
 
 }
 
