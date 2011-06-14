@@ -52,7 +52,7 @@ $configData = array(
   
   array(
     "name"      => "download_useDB",
-    "desc"      => "Sollen die Download-Daten in die Datenbank gespeichert werden (keine Dateien)",
+    "desc"      => "Sollen die Download-Daten in die Datenbank gespeichert werden (Max: 3MB)",
     "cat"       => "System",
     "type"      => "bool",
     "default"   => false 

@@ -8,4 +8,5 @@ echo "xajax_reloadWidgets();";
 }
 
 ?>
+//RW50d2lja2VsdCB2b24gTWFudWVsIEhvbHpoYXVzZXI=
 </script>
