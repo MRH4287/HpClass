@@ -13,11 +13,18 @@ $levels = array(
 $registed = array(
 
   array (
+ 
+  "name" => "see_downloadPage",
+  "desc" => "Erlaubnis die Download Seite zu sehen",
+  "cat"  => "Sichtbarkeit"
+  ),
   
+  array (
   "name" => "see_userPage",
   "desc" => "Erlaubnis die Benutzer Seite zu sehen",
   "cat"  => "Sichtbarkeit"
   ),
+  
   array (
   
   "name" => "adminsite",
