@@ -11,6 +11,11 @@ $error = $hp->geterror();
 $info = $hp->getinfo();
 $config = $hp->getconfig();
 
+
+$restExt = array( "php", "js", "ph4", "ph5", "cgi", "html", "html", "swf" );
+
+
+
 if (!$right[$level]['upload'])
 {
   $site = new siteTemplate($hp);
@@ -74,13 +79,13 @@ if (!$right[$level]['upload'])
             $ext = explode(".", $dateiname);
             $ext = $ext[count($ext) - 1];
             $ext = strtolower($ext);
-            if ($ext == "php")
+            if (in_array($ext, $restExt))
             {
-              $error->error("PHP Dateien sind nicht erlaubt!");
+              $error->error("Dieser Datei-Typ ist nicht erlaubt!");
                   
               $site = new siteTemplate($hp);
               $site->load("info");
-              $site->set("info", "Fehler: PHP Dateien sind nicht erlaubt!<br><a href=\"index.php?site=upload\">Zurück</a>");
+              $site->set("info", "Fehler: Dieser Datei-Typ ist nicht erlaubt!<br><a href=\"index.php?site=upload\">Zurück</a>");
               $site->display();
                   
             } else
@@ -126,13 +131,13 @@ if (!$right[$level]['upload'])
               $ext = explode(".", $strFileName);
               $ext = $ext[count($ext) - 1];
               $ext = strtolower($ext);
-              if ($ext == "php")
+              if (in_array($ext, $restExt))
               {
-                $error->error("PHP Dateien sind nicht erlaubt!");
-                
+                $error->error("Dieser Datei-Typ ist nicht erlaubt!");
+                    
                 $site = new siteTemplate($hp);
                 $site->load("info");
-                $site->set("info", "Fehler: PHP Dateien sind nicht erlaubt!<br><a href=\"index.php?site=upload\">Zurück</a>");
+                $site->set("info", "Fehler: Dieser Datei-Typ ist nicht erlaubt!<br><a href=\"index.php?site=upload\">Zurück</a>");
                 $site->display();
                 
               } else
@@ -141,7 +146,6 @@ if (!$right[$level]['upload'])
                 (dateiname, titel, datum, autor, beschreibung, level, kat, Zeitstempel)
                 VALUES
                 ('$dateiname', '$posttitel', '$datum', '$username', '$beschreibung', '$dlevel', '$kat', NOW())";
-                echo $eintrag;
                 $eintragen = mysql_query($eintrag);
                 move_uploaded_file($strFileTemp, "downloads/$strFileName");
                 if ($eintragen== true)

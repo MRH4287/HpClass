@@ -38,12 +38,36 @@ if (!isset($site))
 	
   if ($hp->right->isAllowed($datei['level']))
   {
-  	    
-  	header("Content-type: {$datei['dateityp']}");
-  	header("Content-disposition: attachement; filename={$datei['dateiname']}");
+  	//Ermitteln ob die Datei lokal oder in der Datenbank vorhanden ist:
   	
-  	print $datei['datei'];	
-  
+  	$path = "../downloads/".$datei['dateiname'];
+  	if (file_exists($path))
+  	{
+      
+      //$mmtype = mime_content_type($path);
+      
+     	//$datei=fopen($path,'r');
+      //$daten=fread($datei,filesize($path));
+      //fclose($datei);
+      
+      
+      //echo $mmtype."<br/>";
+      
+     	header("Content-type: {$mmtype}");
+    	header("Content-disposition: attachement; filename={$datei['dateiname']}");
+    	
+    	//print $daten;	
+      readfile($path);
+    
+    
+    } else
+    {        
+    	header("Content-type: {$datei['dateityp']}");
+    	header("Content-disposition: attachement; filename={$datei['dateiname']}");
+    	
+    	print $datei['datei'];	
+    }
+    
   } else
   {
     echo "Sie haben nicht die nötige berechtigung, diese Datei herunter zu laden!";
