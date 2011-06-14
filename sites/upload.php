@@ -12,7 +12,9 @@ $info = $hp->getinfo();
 $config = $hp->getconfig();
 
 
-$restExt = array( "php", "js", "ph4", "ph5", "cgi", "html", "html", "swf" );
+$restExt = array( "php", "js", "ph4", "ph5", "cgi", "htm", "html", "swf", "vbs",
+                  "asp", "pl", "exe", "dll", "ocx", "php3", "php4", "php5", "css",
+                  "xht", "xhtm", "xhtml", "sht", "shtm", "shtml", "ssi" );
 
 
 
