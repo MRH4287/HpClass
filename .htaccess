@@ -1,3 +1,2 @@
-Options +FollowSymLinks
-RewriteEngine on
-RewriteRule ^site/(.*)$ /HPclass/index.php?site=$1 [R=301,L]
+#Deaktiviert Directory Listing
+Options -Indexes
