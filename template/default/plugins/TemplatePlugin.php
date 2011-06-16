@@ -68,12 +68,11 @@ function onLoad()
 
 // ---------------- XAJAX -------------------
 
-function ax_test2()
+function ax_test2($a)
 {
 $response = new xajaxResponse();
 
-$response->assign("test", "innerHTML", "bla");
-$response->script("testFunktion();");
+$response->alert($a);
 
 return $response;
 }
