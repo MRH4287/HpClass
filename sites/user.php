@@ -79,86 +79,84 @@ if (!isset($get['show']))
   if ((mysql_num_rows($ergebnis) > 0) && ($row->user == $get['show']))
   {
   
-    // Level Name:
-    $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$row->level'";
-    $erg2 = $hp->mysqlquery($sql);
-    $level = mysql_fetch_object($erg2);
-  
-  
-   $data = array(
-      "ID" => $row->ID,
-      "user" => $row->user,
-      "name" => $row->name,
-      "nachname" => $row->nachname,
-      "level" => $level->name,
-      "alter" => $row->alter,
-      "wohnort" => $row->wohnort,
-      "geburtstag" => $row->geburtstag,
-      "clan" => $row->clan,
-      "clantag" => $row->clantag,
-      "clanhomepage" => $row->clanhomepage,
-      "clanhistory" => $row->clanhistory,
-      "lastlogin" => ($row->lastlogin != 0)?  date("d.m.Y H:i s", $row->lastlogin) : $lang->word('never'),
-      "user" => $row->user
-    );
-
-  
-   $site->setArray($data);
-                
-    $EMData = array(
-    "email" => $row->email
-   );
-   $site->set("EMail", $site->getNode("EMail", $EMData));
-  
-   $DLData = array
-   (
-    "ID" => $row->ID
-   );
-   
-   $site->set("Deluser", $site->getNode("Deluser", $DLData));
-   
-   // Changelevel:
-   
-   // Ermittlung aller verfügbaren Levels
-   $sql = "SELECT * FROM `".$dbpräfix."ranks`";
-   $erg2 = $hp->mysqlquery($sql);
-   $levels = array();
-    while ($row2 = mysql_fetch_object($erg2))
-    {
-     if (!in_array($row2, $levels))
-     {
-       $levels[] = $row2;
-     } 
-   }
-   sort($levels);
-
-   // changelevel - Options
-
-   $content = "";
-   foreach ($levels as $key => $level)
-   {
+      // Level Name:
+      $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$row->level'";
+      $erg2 = $hp->mysqlquery($sql);
+      $level = mysql_fetch_object($erg2);
+    
+    
      $data = array(
-       "selected" => ($row->level == $level->level) ? "selected" : "",
-       "ID" => $level->level,
-       "name" => $level->name    
+        "ID" => $row->ID,
+        "user" => $row->user,
+        "name" => $row->name,
+        "nachname" => $row->nachname,
+        "level" => $level->name,
+        "alter" => $row->alter,
+        "wohnort" => $row->wohnort,
+        "geburtstag" => $row->geburtstag,
+        "clan" => $row->clan,
+        "clantag" => $row->clantag,
+        "clanhomepage" => $row->clanhomepage,
+        "clanhistory" => $row->clanhistory,
+        "lastlogin" => ($row->lastlogin != 0)?  date("d.m.Y H:i s", $row->lastlogin) : $lang->word('never'),
+        "user" => $row->user
+      );
+  
+    
+     $site->setArray($data);
+                  
+      $EMData = array(
+      "email" => $row->email
      );
-   
-     $content .= $site->getNode("Options", $data);  
-   
-   }
-   
-   $data = array(
+     $site->set("EMail", $site->getNode("EMail", $EMData));
+    
+     $DLData = array
+     (
+      "ID" => $row->ID
+     );
      
-     "user" => $row->user,
-     "count" => count($levels),
-     "Options" => $content 
-   
-   );
-   
-   $site->set("changelevel", $site->getNode("LevelChange", $data));
-  
-  
-   $site->display();
+     $site->set("Deluser", $site->getNode("Deluser", $DLData));
+     
+     // Changelevel:
+     
+    $levels = $hp->right->getlevels();
+    $content = "";
+    foreach ($levels as $k=>$level)
+    {
+      $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$level'";
+      $erg = $hp->mysqlquery($sql);
+      
+      if (mysql_num_rows($erg) > 0)
+      {
+        $row = mysql_fetch_object($erg);
+        $name = $row->name;
+      } else
+      {
+        $name = $level;
+      }
+      
+       $data = array(
+         "selected" => ($row->level == $level->level) ? "selected" : "",
+         "ID" => $level,
+         "name" => $name    
+       );
+     
+       $content .= $site->getNode("Options", $data);  
+     
+     }
+     
+     $data = array(
+       
+       "user" => $row->user,
+       "count" => count($levels),
+       "Options" => $content 
+     
+     );
+     
+     $site->set("changelevel", $site->getNode("LevelChange", $data));
+    
+    
+     $site->display();
   } else
   {
     $error->error("Der Benutzer exsistiert nicht!", "1");
