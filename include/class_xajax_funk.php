@@ -315,7 +315,7 @@ class Xajax_Funktions
     $error = $hp->error;
     $fp = $hp->fp;
     $ID = mysql_real_escape_string($ID);
-    
+    $vote = mysql_real_escape_string($vote);
     
     
     $sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = $ID";
