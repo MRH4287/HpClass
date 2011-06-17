@@ -32,7 +32,7 @@ $info           = new infoclass;
 $lbsites        = new lbsites;
 $xajaxF         = new Xajax_Funktions;
 $right          = new right;
-$config          = new config;
+$config         = new config;
 $widgets        = new widgets;
 $subpages       = new subpages;
 $pluginloader   = new PluginLoader;
@@ -78,8 +78,6 @@ $pluginloader->Init();
 $lang->init("de");
 //-----------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------
-$lbsites->inctempfiles();
 
 //-----------------------------Input / Config Handling-------------------------
 $hp->handelinput($_GET, $_POST);
