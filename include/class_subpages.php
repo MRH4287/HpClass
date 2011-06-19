@@ -606,7 +606,7 @@ class subpages
     $content = $page["content"];
     // Löscht alle überflüssigen Escape Zeichen:
     
-    $content = preg_replace("/\\[\\]*\\/", "\\", $content);
+    $content = preg_replace("/\\\\[\\\\]*\\\\/", "\\", $content);
   
     $template = array();
   
