@@ -603,8 +603,10 @@ class subpages
       return false;
     }
   
-  
     $content = $page["content"];
+    // Löscht alle überflüssigen Escape Zeichen:
+    
+    $content = preg_replace("/\\[\\]*\\/", "\\", $content);
   
     $template = array();
   
