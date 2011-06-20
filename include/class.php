@@ -598,11 +598,16 @@ class HP
   
   function stripScript($text)
   {
-    $reg = "(<[^>]*script[^>]*>)";
-    $reg2 = "/onload=\"[^\"]*\"/";
+    $reg = "(<[^>]*[sS][cC][rR][iI][pP][tT][^>]*>)";
+    $reg2 = "/[oO][nN][lL][oO][aA][dD]=\"[^\"]*\"/";
+    $reg3 = "/[oO][nN][cC][lL][iI][cC][kK]=\"[^\"]*\"/";
+    $reg4 = "/[oO][nN][mM][oO][uU][sS][eE][oO][vV][eE][rR]=\"[^\"]*\"/";
+    $reg4 = "/[oO][nN][mM][oO][uU][sS][eE][dD][oO][wW][nN]=\"[^\"]*\"/";
     
     $new = preg_replace($reg, "$2", $text, -1);
     $new = preg_replace($reg2, "", $new, -1);
+    $new = preg_replace($reg3, "", $new, -1);
+    $new = preg_replace($reg4, "", $new, -1);
     
     return $new;
     
