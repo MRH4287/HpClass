@@ -601,7 +601,7 @@ class HP
   
     
   
-    $reg = "(<[^>]*[sS][cC][rR][iI][pP][tT][^>]*>)";
+    $reg = "(<[\s]*[sS][cC][rR][iI][pP][tT][^>]*>)";
     $reg2 = "/[oO][nN][lL][oO][aA][dD]=\"[^\"]*\"/";
     $reg3 = "/[oO][nN][cC][lL][iI][cC][kK]=\"[^\"]*\"/";
     $reg4 = "/[oO][nN][mM][oO][uU][sS][eE][oO][vV][eE][rR]=\"[^\"]*\"/";
