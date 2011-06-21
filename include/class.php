@@ -600,7 +600,7 @@ class HP
   {
   
     
-  
+    echo $text."<hr>";
     $reg = "(<[\s]*[sS][cC][rR][iI][pP][tT][^>]*>)";
     $reg2 = "/[oO][nN][lL][oO][aA][dD]=\"[^\"]*\"/";
     $reg3 = "/[oO][nN][cC][lL][iI][cC][kK]=\"[^\"]*\"/";
@@ -627,8 +627,12 @@ class HP
     
     if ($count > 0)
     {
-      $new = $this->scriptScript($new);
+    //  $new = $this->scriptScript($new);
     }
+    
+    $new = str_replace("\\\"", "\"", $new);
+    
+    echo $new."<hr> ....<br>";
     
     
     return $new;
