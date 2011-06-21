@@ -599,7 +599,6 @@ class HP
   function stripScript($text)
   {
   
-    
     $reg = "(<[\s]*[sS][cC][rR][iI][pP][tT][^>]*>)";
     $reg2 = "/[oO][nN][lL][oO][aA][dD]=\"[^\"]*\"/";
     $reg3 = "/[oO][nN][cC][lL][iI][cC][kK]=\"[^\"]*\"/";
@@ -628,11 +627,9 @@ class HP
     {
     //  $new = $this->scriptScript($new);
     }
-    
+    $new = preg_replace("/\\\\[\\\\]*\\\\/", "\\", $new);
     $new = str_replace("\\\"", "\"", $new);
-    
-   
-    
+        
     
     return $new;
     
