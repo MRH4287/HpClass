@@ -111,7 +111,7 @@ class siteTemplate
            if (preg_match("/\[\!\/([^!]*)\!]/", $line, $m))
            { 
             $blockname = $m[1];
-           } elseif ($line != "")
+           } elseif (($line != "") && ($blockname == "None"))
            {
             $content .= $line."\n\r";
            }
