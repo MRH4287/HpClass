@@ -164,6 +164,9 @@ class siteTemplate
     $data = $this->replaceCondit($data);
     // Ersetzte die Gleichheitsprüfung
     $data = $this->replaceEquals($data);
+    // Ersetzte die LbSites
+    $data = $this->replaceLbSite($data);
+    
     
     return $data;
   }
@@ -206,6 +209,102 @@ class siteTemplate
   
     return $data;
   }
+  
+  function replaceLbSite($data)
+  {
+    $hp = $this->hp;
+    
+    
+    $Data = $this->getPlaceholder($data, "+");
+    
+    foreach ($Data as $k => $word)
+    {
+    
+      $values = explode(" = ", $word);
+      
+      
+      $content = "";
+      
+      
+      if (preg_match("/\"(.*)\"/", $values[1]))
+      {
+          $tmp = $this->replaceLangBlocks($this->replaceDefault($values[1]));  
+          $content =  str_replace("\"", "", $tmp);
+      } 
+      elseif (preg_match("/%(.*)/", $values[1]))
+      {
+          $content = $hp->getlangclass()->word(str_replace("%", "", $values[1]));
+      } 
+      elseif (preg_match("/!(.*)/", $values[1]))
+      {
+          $content = $this->replace($this->blocks[str_replace("!", "", $values[1])]);
+      } 
+      elseif (isset($this->data[$values[1]]))
+      {
+          $content = $this->data[$values[1]];
+      }  
+      
+      $vars = "";
+      if (count($values) > 2)
+      {
+        
+        if (preg_match("/\"(.*)\"/", $values[2]))
+        {
+            $tmp = $this->replaceLangBlocks($this->replaceDefault($values[2]));  
+            $vars =  str_replace("\"", "", $tmp);
+        } 
+        elseif (preg_match("/%(.*)/", $values[2]))
+        {
+            $vars = $hp->getlangclass()->word(str_replace("%", "", $values[2]));
+        } 
+        elseif (preg_match("/!(.*)/", $values[2]))
+        {
+            $vars = $this->replace($this->blocks[str_replace("!", "", $values[2])]);
+        } 
+        elseif (isset($this->data[$values[2]]))
+        {
+            $vars = $this->data[$values[2]];
+        }
+        
+          
+      }
+      
+      $type = "lbOn";
+      if (count($values) > 3)
+      {
+        
+        if (preg_match("/\"(.*)\"/", $values[3]))
+        {
+            $tmp = $this->replaceLangBlocks($this->replaceDefault($values[3]));  
+            $type =  str_replace("\"", "", $tmp);
+        } 
+        elseif (preg_match("/%(.*)/", $values[3]))
+        {
+            $type = $hp->getlangclass()->word(str_replace("%", "", $values[3]));
+        } 
+        elseif (preg_match("/!(.*)/", $values[3]))
+        {
+            $type = $this->replace($this->blocks[str_replace("!", "", $values[3])]);
+        } 
+        elseif (isset($this->data[$values[3]]))
+        {
+            $type = $this->data[$values[3]];
+        }        
+          
+      }
+           
+      $data = str_replace("#+$word#", $hp->lbsites->link($values[0], $content, $vars, $type), $data);
+      
+      
+    
+    }
+    
+    
+    return $data;
+  
+  
+  }
+  
   
   function replaceEquals($data)
   {

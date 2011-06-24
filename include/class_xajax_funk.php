@@ -49,6 +49,142 @@ class Xajax_Funktions
   }
   
   
+  function ax_event_list($month = "X", $jahr = "X")
+  { 
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $game = $hp->game;
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->firephp;
+    $lb = $hp->lbsites;
+    $config = $hp->getconfig();
+    $response = new xajaxResponse();
+    $lb = $hp->lbsites;
+    $subpages = $hp->subpages;
+       
+    $arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
+    $date = getdate();
+    
+    
+    $tag = $date['mday'];
+    $monat2 = $date['mon'];
+    
+    
+    if ($month != "X")
+    {
+      $monat = $month;
+      $tag = 0;
+    } else
+    {
+      $monat = $monat2;
+    }
+    if ($jahr == "X")
+    {
+      $jahr = $date['year'];
+    }
+    
+    
+    // Ermitteln des letzten / nächsten Monats 
+    if ($monat == 1) 
+    { 
+      $lnzjahr = $jahr - 1; 
+      $monlz = 12; 
+    } else 
+    { 
+      $lnzjahr = $jahr; 
+      $monlz = $monat-1; 
+    }
+    
+    if ($monat == 12) 
+    { 
+      $lnvjahr = $jahr + 1; 
+      $monlv = 1; 
+    } else 
+    { 
+      $lnvjahr = $jahr; 
+      $monlv = $monat+1; 
+    }
+    
+    if ($monat < 10)
+    {
+      $monat = "0$monat";
+    }
+    
+    $site = new siteTemplate($hp);
+    $site->load("calendar");
+    
+    $mainData = array(
+      "lastmonth" => $monlz,
+      "lastyear" => $lnzjahr,
+      "month" => htmlentities($arr_monate[$monat-1]),
+      "year" => $jahr,
+      "nextmonth" => $monlv,
+      "nextyear" => $lnvjahr    
+    );
+        
+    $site->setArray($mainData);    
+    
+
+    $iAnzahltage = date(t, mktime(0, 0, 0, $monat, 1, $jahr));
+    
+    $contentMain = "";
+    
+    for ($i=0; $i<$iAnzahltage; $i++) 
+    {
+    	
+      $d = $i+1;
+      if ($d < 10)
+      {
+        $d = "0$d";
+      }
+
+      $events = $subpages->getEvents("$d.$monat.$jahr");
+      
+
+      $content = "";
+      
+      foreach ($events as $k=>$row) 
+      {
+        	
+        $data = array(
+          "time" => $row->name,
+          "ID" => $row->ID
+        );
+        
+        $content .= $site->getNode("Event-Day-Event", $data);
+        	
+      }
+      
+
+      
+        
+      $data = array(
+      
+        "day" => $i+1,
+        "link" => "$d.$monat.$jahr",
+        "Content" => $content      
+      
+      );
+      
+      $contentMain .= $site->getNode("Event-Day", $data);
+      	
+    }        
+    
+    $site->set("Content", $contentMain);
+    
+    
+    $response->assign("calender_list", "innerHTML", $site->get("Event-List"));
+    $response->script("	lbox = document.getElementsByClassName('lbOn3');
+    	for(i = 0; i < lbox.length; i++) {
+    		valid = new lightboxX2(lbox[i]);
+    	}
+      ");
+    
+    return $response;
+
+  }
+  
   
   
   

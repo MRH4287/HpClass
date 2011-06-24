@@ -797,6 +797,59 @@ class subpages
     return $pages;
   
   }
+ 
+  function getEvents($date)
+  {
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->fp;
+    
+    
+    $dateData = explode(".",$date);
+    
+    if (count($dateData) != 3)
+    {
+      throw new Exception("Ungültiges Datum");
+    }
+    
+    $day = $dateData[0];
+    $month = $dateData[1];
+    $year = $dateData[2];
+    
+    $sql = "SELECT * FROM `$dbpräfix"."events`;";
+    $erg = $hp->mysqlquery($sql);
+    $events = array();
+    
+    while ($row = mysql_fetch_object($erg))
+    {
+      $startData = explode(".", $row->date);
+      $endData = explode(".", $row->enddate);
+      
+      $startDay = $startData[0];
+      $startMonth = $startData[1];
+      $startYear = $startData[2];
+      
+      $endDay = $endData[0];
+      $endMonth = $endData[1];
+      $endYear = $endData[2];
+
+      
+      if ((($startDay <= $day) && ($endDay >= $day))
+       && (($startMonth <= $month) && ($endMonth >= $month))
+       && (($startYear <= $year) && ($endYear >= $year)))
+       {
+         $events[] = $row;
+       }
+      
+    
+    }
+     
+    return $events;
+  
+  }
+  
   
   
   // ------------------------- Dynamische Inhalte ------------------------------

@@ -12,7 +12,7 @@ $info = $hp->getinfo();
 $lbs = $hp->lbsites;
 $fp = $hp->fp;
 $right = $hp->right;
-
+$subpages = $hp->subpages;
 
 //$site = new siteTemplate($hp);
 //$site->load("news");
@@ -20,11 +20,8 @@ $right = $hp->right;
 //print_r($site->getPlaceholder($site->getNode("LbSite-Edit", array())));
 //echo "</pre>";
 
-
-echo "Ist Level 1 Höher als 0: ".(($right->isAllowed("0","1")) ? "JA" : "Nein")."<br>";
-echo "Ist Level 2 Höher als 0: ".(($right->isAllowed("0","2")) ? "JA" : "Nein")."<br>";
-echo "Ist Level 1 Höher als 2: ".(($right->isAllowed("2","1")) ? "JA" : "Nein")."<br>";
-echo "Ist Level 4 Höher als 3: ".(($right->isAllowed("3","4")) ? "JA" : "Nein")."<br>";
+$data = $subpages->getEvents("24.06.2011");
+print_r($data);
 
 
 ?>
