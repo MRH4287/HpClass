@@ -50,7 +50,7 @@ if (isset ($get['del2']) and ($right[$level]['upload_del']))
 }
 
 
-if (!isset($_SESSION['username'])) 
+if (!$right[$level]["see_downloadPage"]) 
 {
   $error->error($lang->word('noright2'),"2");
 
