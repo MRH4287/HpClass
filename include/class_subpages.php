@@ -920,7 +920,140 @@ class subpages
     
   }
   
+  function dy_calendar($site, $templateConfig)
+  {
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $game = $hp->game;
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->fp;
+    
+    $arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
+
+    
+    $sql = "SELECT ID FROM `$dbpräfix"."subpages` WHERE `name` = '$site' OR `ID` = '$site';";
+    $erg = $hp->mysqlquery($sql);
+    $row = mysql_fetch_object($erg);
+    
+    $ID = $row->ID;
+    
+    // Sekunden pro Tag
+    $sPD = 86400;
+    
+    $childs = array();
+    $sql = "SELECT * FROM `$dbpräfix"."events`;";
+    $erg = $hp->mysqlquery($sql);
+    while ($row = mysql_fetch_object($erg))
+    {
+      $display = explode(",", $row->display);
+      if (in_array($ID, $display))
+      {
+        $startData = explode(".", $row->date);
+        $endData = explode(".", $row->enddate);
+        
+        $startDay = $startData[0];
+        $startMonth = $startData[1];
+        $startYear = $startData[2];
+        
+        $endDay = $endData[0];
+        $endMonth = $endData[1];
+        $endYear = $endData[2];
+        
+        $start = gregoriantojd($startMonth, $startDay, $startYear);
+        $end = gregoriantojd($endMonth, $endDay, $endYear);
+        
+        $countDays = ($end - $start);
+        
+        $startTime = mktime(0, 0, 0, $startMonth, $startDay, $startYear);
+        
+        
+        for ($i = 0; $i < $countDays+1; $i++)
+        {
+          
+          $myTime = $startTime + $i * $sPD;
+          
+          $monat = date("m", $myTime);
+          $day = date("d", $myTime);         
+          $year = date("Y", $myTime); 
+                   
+          $childs[$year][$monat][$day][] = $row;          
+       
+        }
+      }         
+    }
+        
+    $site = new siteTemplate($hp);
+    $site->load("calendar");
+    
+    $contentYear = "";
+    foreach ($childs as $year=>$MonthList)
+    {
+    
+      $contentMonth = "";
+      foreach ($MonthList as $month=>$DayList)
+      {
+        
+        $contentDay = "";
+        foreach ($DayList as $day=>$list)
+        {
+          
+          $content = "";
+          foreach ($list as $k => $row)
+          {
+            $data = array(
+              "ID" => $row->ID,
+              "time" => $row->start,
+              "endtime" => $row->end,
+              "description" => $row->description,
+              "date" => "$day.$month.$year",
+              "startdate" => $row->date,
+              "enddate" => $row->enddate,
+              "name" => $row->name          
+            );
+          
+            $content .= $site->getNode("List-Element", $data);
   
+          }
+          
+          $data = array(
+            "day" => $day,
+            "year" => $year,
+            "month" => $month,
+            "Content" => $content        
+          );
+          
+          $contentDay .= $site->getNode("List-Day", $data);
+        
+        }
+      
+        $data = array(
+          "name" => $arr_monate[$month-1],
+          "year" => $year,
+          "Content" => $contentDay      
+        );
+        
+        $contentMonth .= $site->getNode("List-Month", $data);
+      
+      }
+    
+      $data = array(
+        "name" => $year,
+        "Content" => $contentMonth      
+      );
+      
+      $contentYear .= $site->getNode("List-Year", $data);
+    
+    }
+    
+    
+    $site->set("Content", $contentYear);
+    
+        
+    return $site->get("List");
+    
+    
+  }  
   
 
 }

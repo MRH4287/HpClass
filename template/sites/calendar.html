@@ -2,6 +2,59 @@
 !!AUTOR=MRH
 
 
+[!=List!]
+
+<table border="0" cellpadding="2" cellspacing="0" width="90%" align="center">
+        <tbody>
+          #!Content#
+        </tbody>
+</table>
+ <br />
+#?manage_subpage : "<a href=index.php?site=calendar>Termin hinzufügen oder ändern</a>"#
+
+[!/List!]
+
+[!=List-Year!]
+
+#/ Name = name#
+#!Content#
+
+[!/List-Year!]
+
+[!=List-Month!]
+
+    <tr style="background: transparent url(./images/bg_head.gif) repeat-x scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" height="50">
+     <td colspan="4" style="border-bottom: 1px solid grey;" align="left" valign="bottom"><font face="Arial"><b>#!name# #!year#</b></font></td>
+    </tr>
+
+    #!Content#
+
+[!/List-Month!]
+
+[!=List-Day!]
+
+#/ Name = day, Month = month, Year = year#
+
+#!Content#
+
+
+[!/List-Day!]
+
+
+[!=List-Element!]
+
+	  <tr>
+     <td width="23%" align="left" valign="top" nowrap="nowrap" style="border-bottom: 1px solid grey;">
+       #!date#<br>
+       &nbsp;&nbsp;
+       #!time# - #!endtime#</td>
+     <td width="35%" align="left" valign="top" style="border-bottom: 1px solid grey;">#+event = name = ID#</td>
+     <td width="31%" align="left" valign="top" style="border-bottom: 1px solid grey;">#!description#</td>
+    </tr>
+
+[!/List-Element!]
+
+
 [!=Edit-Container!]
 <style type="text/css"> 
     <!-- 
