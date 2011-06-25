@@ -56,9 +56,9 @@ if (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0
         
 
         $eintrag = "INSERT INTO `".$dbpräfix."user`
-        (user, pass, name, nachname, datum, level, `email`, `tel`, `wohnort`, `geschlecht`)
+        (`user`, `pass`, `name`, `nachname`, `datum`, `level`, `email`, `tel`, `wohnort`, `geschlecht`)
         VALUES
-        ('$user', '$passwort123', '$name', '$nachname', '$datum', '1', '$email', '$wohnort', '$geschlecht')";
+        ('$user', '$passwort123', '$name', '$nachname', '$datum', '1', '$email', '$tel', '$wohnort', '$geschlecht')";
         $eintragen2 = $hp->mysqlquery($eintrag);
 
         if (!$local)
