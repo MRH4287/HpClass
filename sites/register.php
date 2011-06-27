@@ -14,10 +14,7 @@ $config = $hp->getconfig();
 $useMail = $config["user_mailagree"];
 
 
-if (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0.1"))
-{
-  $local = true;
-}
+$local = (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0.1"));
 
 
 //Registrierung:

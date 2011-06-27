@@ -17,7 +17,7 @@ class errorclass
     $l = (string) $l;
     if ($l == "1")
     {
-      $this->firephp->warn($string, $fu);
+      $this->firephp->warn($string, $function);
       echo $string;
       
     } elseif ($l == "2")
@@ -39,7 +39,7 @@ class errorclass
     {
     
       $datum = date('j').".".date('n').".".date('y');
-      $this->firephp->error($string, $fu);
+      $this->firephp->error($string, $function);
       
       echo "<font color=red>$string</font>";
       
