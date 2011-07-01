@@ -72,7 +72,13 @@ $registed = array(
   array (
   
   "name" => "manage_vote",
-  "desc" => "Das Rechte Umfragen zu Managen",
+  "desc" => "Das Rechte Umfragen zu verwalten",
+  "cat"  => "System"
+  ),
+  array (
+  
+  "name" => "manage_calendar",
+  "desc" => "Das Rechte den Kalender zu verwalten",
   "cat"  => "System"
   ),
   array (

@@ -126,7 +126,7 @@ class Xajax_Funktions
     $site->setArray($mainData);    
     
 
-    $iAnzahltage = date(t, mktime(0, 0, 0, $monat, 1, $jahr));
+    $iAnzahltage = date("t", mktime(0, 0, 0, $monat, 1, $jahr));
     
     $contentMain = "";
     
