@@ -462,7 +462,7 @@ class subpages
       
       while ($row = mysql_fetch_object($erg))
       {
-        $used[] = $row->site;
+        $used[] = strtolower($row->site);
       }
       
       $sql = "SELECT name FROM `$dbpräfix"."subpages` WHERE `parent` = '0';";
@@ -470,7 +470,7 @@ class subpages
       
       while ($row = mysql_fetch_object($erg))
       {
-        if (!in_array($row->name, $used))
+        if (!in_array(strtolower($row->name), $used))
         {
         $pages[] = $row->name;
         }
