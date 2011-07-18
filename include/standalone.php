@@ -102,8 +102,9 @@ class Standalone extends Hp
         
     $this->lang       = new lang;
     $this->setfirephp($firephp);
+    $this->right->sethp($this);
     //$this->error->sethp($this);
-    //$this->lang->sethp($this);
+    $this->lang->sethp($this);
     //$this->info->init($this->lang, $this->error, $this);
     
     //Config

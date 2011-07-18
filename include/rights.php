@@ -126,6 +126,12 @@ $registed = array(
   ),
   array (
   
+  "name" => "allow_ScriptAccess",
+  "desc" => "Erlaube Script Access",
+  "cat"  => "Kritisch"
+  ),
+  array (
+  
   "name" => "userdelet",
   "desc" => "Erlaubnis um einen User zu löschen",
   "cat"  => "Kritisch"

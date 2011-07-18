@@ -1,9 +1,15 @@
 <?php
-class PluginLoader
+
+require_once "class_api.php";
+
+class PluginLoader  extends Api
 {
   
-  private $hp;
+  protected $hp;
   public $plugins = array();
+  
+  private $apiCommands = array();
+  private $apiContentPrefix = "api_";
   
   // ------------------------------
   
@@ -20,6 +26,9 @@ class PluginLoader
   */
   function Init()
   {
+    
+    // Binde API-Funktionen ein
+    $this->registerApiFunctions($this);
      
     // Bindet die BasisKlasse der Plugins ein
     include_once './include/base/plugin.php';
@@ -308,6 +317,72 @@ class PluginLoader
     }
     
   }
+
+  
+  /*!
+  
+    Registriert API Funktionen im Pluginloader
+  
+  */
+  public function registerApiFunctions($object) 
+  {
+  	$methods = get_class_methods($object);
+  	
+  	foreach ($methods as $m) 
+    {
+     $p = $this->apiContentPrefix;
+  		 if (preg_match("/^{$p}[a-z]/", $m)) 
+        {
+  			$m2 = preg_replace("/^{$p}([a-z])/e", "strtolower('$1')", $m);
+
+  			$data = array();
+  			$data["name"] = $m2;
+  			$data["function"] = $m;
+  			$data["object"] = $object;
+  			
+  			$this->apiCommands[$m2] = $data;	
+  		}
+  	}
+  }
+  
+  
+  /*!
+  
+    API Funktionen ausführen
+  
+  */
+  protected function executeCommand($command, $arguments)
+  {
+    $hp = $this->hp;
+    
+    if (isset($this->apiCommands[$command]) && (is_array($this->apiCommands[$command])))
+    {
+      
+      $o = $this->apiCommands[$command]["object"]; 
+      $f = $this->apiCommands[$command]["function"];
+      
+      return json_encode($o->$f($arguments));
+    
+    } else
+    {
+      return json_encode(array("error" => "Unknown Function"));
+    }
+    
+    
+  }
+
+
+  // --------------------------  API - Funktionen ----------------------------------------
+  
+  
+  function api_ping($arguments)
+  {
+    return "pong";
+  }
+
+
+
+
 
 }
 ?>
