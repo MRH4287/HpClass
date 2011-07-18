@@ -12,7 +12,12 @@ require "include/class.php";
 require_once "include/standalone.php";
 require_once "include/api/types.inc.php";
 require_once "include/class_api.php";
+require_once 'include/class_widgets.php';
+require_once 'include/class_subpages.php';
 require_once 'include/class_pluginloader.php';
+require_once "include/base/SiteTemplate.php";
+require_once "include/base/subpageTemplate.php";
+
 require 'include/api/key.php';
 
 
@@ -21,9 +26,18 @@ require 'include/api/key.php';
 //Standalone:
 $hp             = new Standalone("include");
 $pluginloader   = new PluginLoader;
+$widgets        = new widgets;
+$subpages       = new subpages;
+
+
 
 $pluginloader->sethp($hp);
 $hp->setpluginloader($pluginloader);
+$widgets->sethp($hp);
+$hp->setwidgets($widgets);
+$subpages->sethp($hp);
+$hp->setsubpages($subpages);
+
 
 $pluginloader->Init();
 
