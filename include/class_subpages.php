@@ -462,7 +462,7 @@ class subpages
       
       while ($row = mysql_fetch_object($erg))
       {
-        $used[] = $row->site;
+        $used[] = strtolower($row->site);
       }
       
       $sql = "SELECT name FROM `$dbpräfix"."subpages` WHERE `parent` = '0';";
@@ -470,7 +470,7 @@ class subpages
       
       while ($row = mysql_fetch_object($erg))
       {
-        if (!in_array($row->name, $used))
+        if (!in_array(strtolower($row->name), $used))
         {
         $pages[] = $row->name;
         }
@@ -928,6 +928,7 @@ class subpages
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
+    $right = $hp->right;
     
     $arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
 
@@ -946,6 +947,11 @@ class subpages
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
     {
+      if (!$right->isAllowed($row->level))
+      {
+        continue;
+      }
+    
       $display = explode(",", $row->display);
       if (in_array($ID, $display))
       {

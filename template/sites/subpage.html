@@ -49,7 +49,7 @@ tinyMCE.init({
 <form action="?site=subpage" method="POST">
 
 <p>Unterseiten Name:</p>
-<p> <input name="subpage_name" type="text" value="#!subpage_name#"  #?:edit : "DISABLED"# /></p>
+<p> <input name="subpage_name" type="text" value="#!subpage_name#"  #?:edit : "DISABLED"#  pattern="[^ä^ö^ü^ß]*" title="Name ohne die Zeichen &uuml; &ouml; &auml; und &szlig;" /></p>
 
 <p>Template Name:</p>
 <p>

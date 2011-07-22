@@ -18,13 +18,12 @@
   
   $content = "";
   
-  if (!$right[$level]["manage_subpage"])
+  if (!$right[$level]["manage_calendar"])
   {
     $error->error("Sie haben nicht die benötigte Berechtigung!", "1");
 
   } else
   {
-    
     if (isset($get["new"]))
     {
     
@@ -192,7 +191,7 @@
         $error->error("Fehlerhafte Daten");
       }
   
-    } elseif ($get["edit"])
+    } elseif (isset($get["edit"]))
     {
        $sql = "SELECT * FROM `$dbpräfix"."events` WHERE `ID` = '".$get["edit"]."';";
        $erg = $hp->mysqlquery($sql);
@@ -284,7 +283,7 @@
        }
     
     
-    } elseif ($post["edit"])
+    } elseif (isset($post["edit"]))
     {
       $date = $post["date"];
       $reg = "/[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}/";
@@ -362,6 +361,18 @@
       }
       
     
+    } elseif (isset($post["eventdel"]))
+    {
+        $ID = $post["ID"];
+        $sql = "DELETE FROM `$dbpräfix"."events` WHERE `ID` = '$ID'";
+        $erg = $hp->mysqlquery($sql);
+        
+        $info->okn("Event erfolgreich gelöscht");
+        
+        
+        $content = $site->getNode("Error-Select");
+    
+    
     } else
     {   
       $content = $site->getNode("Error-Select");
@@ -371,10 +382,13 @@
     
     $site->display("Edit-Container");
     
-       
-   $this->hp->xajaxF->open("xajax_event_list()"); 
-   
+    $this->hp->xajaxF->open("xajax_event_list()"); 
   }
+  
+  
+  
+
+  
   
 
 ?>

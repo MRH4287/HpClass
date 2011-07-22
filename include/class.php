@@ -604,16 +604,16 @@ class HP
     $reg3 = "/[oO][nN][cC][lL][iI][cC][kK]=\"[^\"]*\"/";
     $reg4 = "/[oO][nN][mM][oO][uU][sS][eE][oO][vV][eE][rR]=\"[^\"]*\"/";
     $reg4 = "/[oO][nN][mM][oO][uU][sS][eE][dD][oO][wW][nN]=\"[^\"]*\"/";
-    //$reg5 = "/[hH][rR][eE][fF]\=([^\"^\>^ ]+)/";
-    //$reg6 = "/\\\"[\w]*[jJ][aA][vV][aA][sS][cC][rR][iI][pP][tT]\\:[^\\\"]*\\\"/";
+    $reg5 = "/\s[hH][rR][eE][fF]\=([^\s^\"^\>]+)[\s|>]/";
+    $reg6 = "/\\\"[\w]*[jJ][aA][vV][aA][sS][cC][rR][iI][pP][tT]\\:[^\\\"]*\\\"/";
     
     
     $new = preg_replace($reg, "$2", $text, -1);
     $new = preg_replace($reg2, "", $new, -1);
     $new = preg_replace($reg3, "", $new, -1);
     $new = preg_replace($reg4, "", $new, -1);
-    //$new = preg_replace($reg5, "href=\"$1\"", $new, -1);
-    //$new = preg_replace($reg6, "$2", $new, -1);
+    $new = preg_replace($reg5, " href=\"$1\" ", $new, -1);
+    $new = preg_replace($reg6, '"#JavaScript-Removed#"', $new, -1);
     
     $count = 0;
     
@@ -621,11 +621,11 @@ class HP
     $count += preg_match($reg2, $new);
     $count += preg_match($reg3, $new);
     $count += preg_match($reg4, $new);
-    //$count += preg_match($reg6, $new);
+    $count += preg_match($reg6, $new);
     
     if ($count > 0)
     {
-    //  $new = $this->scriptScript($new);
+      $new = $this->scriptScript($new);
     }
     $new = preg_replace("/\\\\[\\\\]*\\\\/", "\\", $new);
     $new = str_replace("\\\"", "\"", $new);

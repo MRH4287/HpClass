@@ -128,56 +128,65 @@ if (!$right[$level]["manage_subpage"])
   $site->load("info");
   
   $subpageName = $post["subpage_name"];
-  if ($subpages->getSite($subpageName) == false)
-  {
-    $templateName = $post["template_name"];
-    $tpC = $subpages->getTemplateConfig($templateName);
   
-    if (($tpC != false) && (isset($tpC["template"])))
+  if ((!stristr($subpageName, 'ä')) && (!stristr($subpageName, 'ö')) && (!stristr($subpageName, 'ü')) && (!stristr($subpageName, 'ß')))
+  {  
+  
+    if ($subpages->getSite($subpageName) == false)
     {
-     // Abfragen der Daten:
-      
-      $data = "";
-     foreach ($tpC["template"] as $name=>$type)
-     {
-       if (isset($post["tp_$name"]))
+      $templateName = $post["template_name"];
+      $tpC = $subpages->getTemplateConfig($templateName);
+    
+      if (($tpC != false) && (isset($tpC["template"])))
+      {
+       // Abfragen der Daten:
+        
+        $data = "";
+       foreach ($tpC["template"] as $name=>$type)
        {
-         $value = $post["tp_$name"];
-         
-         if ($data != "")
+         if (isset($post["tp_$name"]))
          {
-           $data .= "<!--!>";
+           $value = $post["tp_$name"];
+           
+           if ($data != "")
+           {
+             $data .= "<!--!>";
+           }
+           
+           $data .= "$name<!=!>$value";
          }
-         
-         $data .= "$name<!=!>$value";
        }
-     }
-     
-     $subpage = "0";
-     $subpageKat = "";
-     if (isset($post["subpage"]))
-     {
-      $subpage = $post["subpage"];
-      $subpageKat = $post["subpageKat"];
-     }
-     
-     
-     //Speichern der Unterseite:
-     $sql = "INSERT INTO `$dbpräfix"."subpages` (`name`, `content`, `template`, `created`, `parent`, `parent_kat`) VALUES ('$subpageName', '$data', '$templateName', '".time()."', '$subpage', '$subpageKat');";
-     $erg = $hp->mysqlquery($sql);
-     
-     $site->set("info", "Unterseite erfolgreich erstellt!<br><a href=?site=subpage>zurück</a>");
-     
-     
-  
+       
+       $subpage = "0";
+       $subpageKat = "";
+       if (isset($post["subpage"]))
+       {
+        $subpage = $post["subpage"];
+        $subpageKat = $post["subpageKat"];
+       }
+       
+       
+       //Speichern der Unterseite:
+       $sql = "INSERT INTO `$dbpräfix"."subpages` (`name`, `content`, `template`, `created`, `parent`, `parent_kat`) VALUES ('$subpageName', '$data', '$templateName', '".time()."', '$subpage', '$subpageKat');";
+       $erg = $hp->mysqlquery($sql);
+       
+       $site->set("info", "Unterseite erfolgreich erstellt!<br><a href=?site=subpage>zurück</a>");
+       
+       
+    
+      } else
+      {
+        $site->set("info", "Das gewählte Template ist nicht verfügbar!<br><a href=?site=subpage>zurück</a>");
+      }
+      
     } else
     {
-      $site->set("info", "Das gewählte Template ist nicht verfügbar!<br><a href=?site=subpage>zurück</a>");
+      $site->set("info", "Es exsistiert bereits eine Seite mit diesen Namen!<br><a href=?site=subpage>zurück</a>");
     }
     
   } else
   {
-    $site->set("info", "Es exsistiert bereits eine Seite mit diesen Namen!<br><a href=?site=subpage>zurück</a>");
+    $site->set("info", "Die Zeichen &uuml; &ouml; &auml; und &szlig; sind im Namen nicht erlaubt!<br><a href=?site=subpage>zurück</a>");
   }
   
   $site->display();

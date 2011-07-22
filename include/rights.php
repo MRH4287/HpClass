@@ -72,7 +72,13 @@ $registed = array(
   array (
   
   "name" => "manage_vote",
-  "desc" => "Das Rechte Umfragen zu Managen",
+  "desc" => "Das Rechte Umfragen zu verwalten",
+  "cat"  => "System"
+  ),
+  array (
+  
+  "name" => "manage_calendar",
+  "desc" => "Das Rechte den Kalender zu verwalten",
   "cat"  => "System"
   ),
   array (
@@ -116,6 +122,12 @@ $registed = array(
   
   "name" => "userchangelevel",
   "desc" => "Erlaubnis um das Level eines Benutzers zu ändern",
+  "cat"  => "Kritisch"
+  ),
+  array (
+  
+  "name" => "allow_ScriptAccess",
+  "desc" => "Erlaube Script Access",
   "cat"  => "Kritisch"
   ),
   array (

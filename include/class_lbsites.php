@@ -327,6 +327,40 @@ class lbsites
       $error->error($lang->word('noright'), "1");
     }
   }
+  
+  
+  function site_eventdel($vars)
+  {
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $info = $hp->info;
+    $error = $hp->error;
+    $lang=$hp->langclass;
+    $fp = $hp->fp;
+    $right = $hp->getright();
+    $level = $_SESSION['level'];
+    
+    if($right[$level]['manage_calendar'])
+    {
+      
+      $sql = "SELECT * FROM `$dbpräfix"."events` WHERE `ID` = '$vars';";
+      $erg = $hp->mysqlquery($sql);
+      $row = mysql_fetch_array($erg);
+      
+      $site = new siteTemplate($hp);
+      $site->load("calendar");
+      
+
+      $site->setArray($row);
+  
+      return $site->get("LbSite-Del");
+      
+      
+    } else
+    {
+      $error->error($lang->word('noright'), "1");
+    }
+  }
    
 
 } // CLASS ENDE !!

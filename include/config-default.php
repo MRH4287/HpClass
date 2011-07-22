@@ -56,6 +56,14 @@ $configData = array(
     "cat"       => "System",
     "type"      => "bool",
     "default"   => false 
+  ), 
+  
+  array(
+    "name"      => "enable_ScriptAccess",
+    "desc"      => "Soll der Zugriff über die Programmschnittstelle erlaubt werden",
+    "cat"       => "ScriptAccess",
+    "type"      => "bool",
+    "default"   => false 
   )
 
 );
