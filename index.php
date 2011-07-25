@@ -145,6 +145,8 @@ $error->showerrors();
 //-----------------------------------------------------------------------------
 
 
+$pluginloader->Save();
+
 ob_end_flush();
 ?>
 <!--PHP System by MRH-->

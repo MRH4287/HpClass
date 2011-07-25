@@ -28,6 +28,10 @@ abstract class Plugin
   // Sollte nur bei Systemkritischen Plugins auf true stehen!
   public $lock = false;
   
+  //Die Plugin Konfiguration
+  protected $config;
+  
+  
   function __construct($hp, $loader)
   {
     $this->hp       = $hp;
@@ -53,6 +57,17 @@ abstract class Plugin
     echo "<b>Warning:</b> Die Funktion 'OnLoad' wurde im Plugin '".$this->name."' nicht überschrieben! <br />";
   
   
+  }
+
+  public function setConfig($config)
+  {
+     $this->config = $config;
+  
+  }
+  
+  public function getConfig()
+  {
+    return $this->config;
   }
 
 

@@ -1,0 +1,1 @@
+ALTER TABLE `#!-PREFIX-!#plugins` ADD `config` LONGTEXT NOT NULL; 

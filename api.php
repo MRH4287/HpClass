@@ -72,4 +72,7 @@ if ($config["enable_ScriptAccess"])
   echo json_encode(array("error" => "Not Allowed"));
 }
 
+
+$pluginloader->Save();
+
 ?>

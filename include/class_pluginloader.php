@@ -11,6 +11,8 @@ class PluginLoader  extends Api
   private $apiCommands = array();
   private $apiContentPrefix = "api_";
   
+  private $pluginconfig = array();
+  
   // ------------------------------
   
   
@@ -145,7 +147,9 @@ class PluginLoader  extends Api
       
       if (isset($this->plugins[$name]) and is_array($this->plugins[$name]))
       {
-          $this->plugins[$name]["enabled"] = true;    
+          $this->plugins[$name]["enabled"] = true;
+          $this->plugins[$name]["name"] = $name;
+          $this->pluginconfig[$name] = (array)json_decode($row->config);    
       
       } else
       {
@@ -162,6 +166,8 @@ class PluginLoader  extends Api
     
   
   }
+    
+  
   
   
   /*
@@ -176,9 +182,41 @@ class PluginLoader  extends Api
     {
       if ($data["enabled"] == true)
       {
+        $config = $this->pluginconfig[$data["name"]];
+        if ($config == "")
+        {
+          $config = array();
+        }
+        $data["o"]->setConfig($config);
         $data["o"]->OnEnable(); 
       }
     }
+  
+  }
+
+  /*!
+  
+    Speichert die Config Daten
+  
+  */
+  public function Save()
+  {
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->fp;
+    $config = $hp->getconfig();
+    
+    
+    foreach ($this->plugins as $name=>$data)
+    {
+      $this->pluginconfig[$name] = $data["o"]->getConfig();
+      $sql = "UPDATE `$dbpräfix"."plugins` SET `config` = '".mysql_real_escape_string(json_encode($this->pluginconfig[$name]))."' WHERE `name` = '$name';";
+      $erg = $hp->mysqlquery($sql);   
+      
+    }
+    
   
   }
   
