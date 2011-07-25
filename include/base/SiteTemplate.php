@@ -59,11 +59,11 @@ class siteTemplate
       $path = "";
       if (is_dir($searchpathT) && is_file("$searchpathT/$name.html"))
       {
-      $path = "$searchpathT/$name.html";
+        $path = "$searchpathT/$name.html";   
       } else
       {
-      $path = "$searchpath/$name.html";
-      }
+        $path = "$searchpath/$name.html";  
+      } 
     } else
     {
       $path = $name;
@@ -106,18 +106,18 @@ class siteTemplate
       $blockname = "None";
       $lines = preg_split("/[\n|\r]/", $value);
       $content = "";
-        foreach ($lines as $lineNr=>$line) 
-        {     
-           if (preg_match("/\[\!\/([^!]*)\!]/", $line, $m))
-           { 
-            $blockname = $m[1];
-           } elseif (($line != "") && ($blockname == "None"))
-           {
-            $content .= $line."\n\r";
-           }
-          
+      foreach ($lines as $lineNr=>$line) 
+      {     
+         if (preg_match("/\[\!\/([^!]*)\!]/", $line, $m))
+         { 
+          $blockname = $m[1];
+         } elseif (($line != "") && ($blockname == "None"))
+         {
+          $content .= $line."\n\r";
+         }
         
-        }
+      
+      }
       $this->blocks[$blockname] = $content;
      
      // echo  $this->blocks[$blockname];
