@@ -90,7 +90,12 @@ class PluginLoader  extends Api
              $myClass = new $a($this->hp, $this);
              
                         
-             $this->plugins[$a] = array("o" => $myClass, "enabled" => $myClass->isEnabled, "extern" => $extern);
+             $this->plugins[$a] = array("o" => $myClass, "enabled" => $myClass->isEnabled, "extern" => $extern, "name" => $a);
+                  
+             if ($myClass->isEnabled)
+             {
+              $this->enablePlugin($a, true);
+             }
                   
             }
             catch (Exception $e) 
@@ -167,8 +172,7 @@ class PluginLoader  extends Api
   
   }
     
-  
-  
+    
   
   /*
   
@@ -262,7 +266,7 @@ class PluginLoader  extends Api
    Fügt ein Plugin zu der Liste der erlaubten Plugins hinzu
   
   */
-  function enablePlugin($name)
+  function enablePlugin($name, $force = false)
   {
     $hp = $this->hp;
     $dbpräfix = $hp->getpräfix();
@@ -274,7 +278,7 @@ class PluginLoader  extends Api
     {
       $plugin = $this->plugins[$name];
       
-      if (!$plugin["o"]->lock)
+      if (!$plugin["o"]->lock || $force)
       {
         // Eintragen in die Datenbank;
         
@@ -301,7 +305,7 @@ class PluginLoader  extends Api
    Entfernt ein Plugin von der Liste der erlaubten Plugins
   
   */
-  function disablePlugin($name)
+  function disablePlugin($name, $force = false)
   {
     $hp = $this->hp;
     $dbpräfix = $hp->getpräfix();
@@ -314,7 +318,7 @@ class PluginLoader  extends Api
     {
       $plugin = $this->plugins[$name];
       
-      if (!$plugin["o"]->lock)
+      if (!$plugin["o"]->lock || $force)
       {
         // Eintragen in die Datenbank;
         
