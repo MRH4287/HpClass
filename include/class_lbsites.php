@@ -411,7 +411,7 @@ class lbsites
             "enddate" => $row->enddate,
             "start" => $row->start,
             "end" => $row->end,
-            "description" => $row->description         
+            "description" => substr($row->description, 0, 200) . ((strlen( $row->description) > 200) ? " ..." : "" )        
                 
           );
       
