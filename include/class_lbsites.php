@@ -361,6 +361,84 @@ class lbsites
       $error->error($lang->word('noright'), "1");
     }
   }
+
+  function site_eventday($vars)
+  {
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $info = $hp->info;
+    $error = $hp->error;
+    $lang=$hp->langclass;
+    $fp = $hp->fp;
+    $right = $hp->getright();
+    $O_right = $hp->right;
+    $subpages = $hp->subpages;
+    
+    $arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'); 
+
+
+    
+    $date = explode(".", $vars);
+    
+    if (count($date) != 3)
+    {
+      return "Fehlerhafte Eingabedaten!";
+    } else
+    {
+    
+      $events = $subpages->getEvents($vars);
+      $site = new siteTemplate($hp);
+      $site->load("calendar");
+      
+      $day = $date[0];
+      $month  = $date[1];
+      $year  = $date[2];
+      
+      $Sdate = "$day. ".htmlentities($arr_monate[$month-1])." ".$year;
+      
+      $content = "";
+      
+      foreach ($events as $key => $row)
+      {
+      
+        if ($O_right->isAllowed($row->level))
+        {
+      
+          $data = array(
+            "name" => $row->name,
+            "ID"  => $row->ID,
+            "date" => $row->date,
+            "enddate" => $row->enddate,
+            "start" => $row->start,
+            "end" => $row->end,
+            "description" => $row->description         
+                
+          );
+      
+          $content .= $site->getNode("ShowDay-Element", $data);
+      
+        }
+      
+      }
+      
+      $data = array(
+        "date" => $Sdate,
+        "Content" => $content
+        
+      
+      );
+      
+      $site->setArray($data);
+      
+      return $site->get("LbSite-ShowDay");
+      
+      
+    
+      
+    } 
+
+  }
+
    
 
 } // CLASS ENDE !!

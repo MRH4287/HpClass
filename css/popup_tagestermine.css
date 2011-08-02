@@ -1,0 +1,43 @@
+body {
+	background-image:none;
+	text-align:left;
+}
+
+.date_container {
+	width:600px;
+}
+
+.date {
+	width:600px;
+	border:1px solid #dfdfdf;
+	background: transparent url(../images/bg_head_calendar_grey.png) repeat-x scroll 0% 0%; 
+	-moz-background-clip: border; 
+	-moz-background-origin: padding; 
+	-moz-background-inline-policy: continuous;
+}
+
+.date_title {
+	margin:8px 0px 0 5px;
+	color: #000000;
+    font-family: Calibri,Verdana;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.date table {
+	width:100%;
+	table-layout:fixed;
+	border-spacing:0px;
+}
+
+.date td {
+	padding-left:5px;
+	border:1px solid #dfdfdf;
+}
+
+.date_close {
+	width:26px;
+	height:26px;
+	background: transparent url(../images/close.gif) no-repeat;
+	float:right;
+}

@@ -23,6 +23,8 @@ $subpages = $hp->subpages;
 $data = $subpages->getEvents("24.06.2011");
 print_r($data);
 
+echo $lbs->link("eventday", "test", "02.08.2011");
+
 
 ?>
 
