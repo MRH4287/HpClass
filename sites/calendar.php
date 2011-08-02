@@ -153,7 +153,7 @@
             $endYear = $endData[2];
             
             
-            if (($endDay >= $startDay) && ($endMonth >= $startMonth) && ($endYear >= $startYear))
+            if ((($endYear*12+$endMonth)*30+$endDay) >= (($startYear*12+$startMonth)*30+$startDay))
             {         
               $options = "";
               if (isset($post["options"]))
@@ -322,7 +322,7 @@
             $ID = $post["ID"];
             
             
-            if (($endDay >= $startDay) && ($endMonth >= $startMonth) && ($endYear >= $startYear))
+            if ((($endYear*12+$endMonth)*30+$endDay) >= (($startYear*12+$startMonth)*30+$startDay))
             {         
               $options = "";
               if (isset($post["options"]))

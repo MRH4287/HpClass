@@ -835,13 +835,14 @@ class subpages
       $endMonth = $endData[1];
       $endYear = $endData[2];
 
+      $endstamp = (($endYear*12+$endMonth)*30+$endDay);
+      $startstamp = (($startYear*12+$startMonth)*30+$startDay);
+      $stamp = (($year*12+$month)*30+$day);
       
-      if ((($startDay <= $day) && ($endDay >= $day))
-       && (($startMonth <= $month) && ($endMonth >= $month))
-       && (($startYear <= $year) && ($endYear >= $year)))
-       {
+      if (($startstamp <= $stamp) &&  ($stamp <= $endstamp))
+      {
          $events[] = $row;
-       }
+      }
       
     
     }
@@ -982,12 +983,24 @@ class subpages
           $monat = date("m", $myTime);
           $day = date("d", $myTime);         
           $year = date("Y", $myTime); 
+          
+          $tev = (($year * 12) + $monat);
+          $tnw = ((date("Y") * 12) + date("n"));
+          
+          if ($tev < $tnw)
+          {
+            continue;
+          }
+      
+          
+     
                    
           $childs[$year][$monat][$day][] = $row;          
        
         }
       }         
     }
+
         
     $site = new siteTemplate($hp);
     $site->load("calendar");
@@ -995,10 +1008,12 @@ class subpages
     $contentYear = "";
     foreach ($childs as $year=>$MonthList)
     {
-    
+      ksort($MonthList);
+      
       $contentMonth = "";
       foreach ($MonthList as $month=>$DayList)
       {
+        ksort($DayList);
         
         $contentDay = "";
         foreach ($DayList as $day=>$list)
