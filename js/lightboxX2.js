@@ -127,6 +127,8 @@ lightboxX2.prototype = {
 	
 	// Begin Ajax request based off of the href of the clicked linked
 	loadInfo: function() {
+	
+	  $('lightboxX2').innerHTML = "<img src='images/loading.gif' alt='Wird geladen...' />";
 		var myAjax = new Ajax.Request(
         this.content,
         {method: 'post', parameters: "", onComplete: this.processInfo.bindAsEventListener(this)}
