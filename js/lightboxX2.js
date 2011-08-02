@@ -137,7 +137,8 @@ lightboxX2.prototype = {
 	// Display Ajax response
 	processInfo: function(response){
 		info = "<div id='lbContent'>" + response.responseText + "</div>";
-		new Insertion.Before($('lbLoadMessage'), info)
+		//new Insertion.Before($('lbLoadMessage'), info)
+		$('lightboxX2').innerHTML=info;
 		$('lightboxX2').className = "done";	
 		this.actions();			
 	},
@@ -151,6 +152,12 @@ lightboxX2.prototype = {
 			lbActions[i].onclick = function(){return false;};
 		}
 
+    lbox = document.getElementsByClassName('lbOn3');
+    for(i = 0; i < lbox.length; i++) {
+    		valid = new lightboxX2(lbox[i]);
+    }
+
+    resolution();
 	},
 	
 	// Example of creating your own functionality once lightbox is initiated
@@ -210,7 +217,7 @@ function addLightboxMarkup() {
 //lb.valign = "middle";
 //lb.align= "center";
 		lb.style.position = "absolute";
-		lb.style.background = "#ffd";
+		lb.style.background = "white";  // #ffd
 		lb.style.border = "1px solid #777";
 		lb.style.padding = '10px';
 		lb.style.cursor = 'pointer';

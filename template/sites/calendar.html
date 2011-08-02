@@ -312,6 +312,15 @@
 			</table>
 		</div>
 	</div>
+	<script>
+	
+	 	lbox = document.getElementsByClassName('lbOn3');
+    for(i = 0; i < lbox.length; i++) {
+    		valid = new lightboxX2(lbox[i]);
+    }
+	
+	</script>
+	
 	
 [!/LbSite-ShowDay!]
 
@@ -319,8 +328,30 @@
 
 				<tr>
 					<td width="15%">#!start# - #!end#</td>
-					<td><a href="#">#!name#</a></td>
+					<td><a href="?lbsite=event&vars=#!ID#" class="lbOn3">#!name#</a></td>
 					<td>#!description#</td>
 				</tr>
 
 [!/ShowDay-Element!]
+
+
+[!=LbSite-ShowSingle!]
+
+	<div class="date_container">
+		<div class="date">
+			<div class="date_title">
+				#!name#
+			</div>
+			<div class="date_time">
+				Vom #!date# (#!start#) bis zum #!enddate# (#!end#)
+			</div>
+			<div class="date_description">
+				#!description#
+    	</div>
+		</div>
+    <a href="?lbsite=eventday&vars=#!date#" class="lbOn3">Weitere Termine an diesem Tag ...</a>
+    
+	</div>
+
+
+[!/LbSite-ShowSingle!]

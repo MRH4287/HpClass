@@ -431,13 +431,62 @@ class lbsites
       $site->setArray($data);
       
       return $site->get("LbSite-ShowDay");
-      
-      
-    
-      
+ 
     } 
 
   }
+
+  function site_event($vars)
+  {
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $info = $hp->info;
+    $error = $hp->error;
+    $lang=$hp->langclass;
+    $fp = $hp->fp;
+    $right = $hp->getright();
+    $O_right = $hp->right;
+    $subpages = $hp->subpages;
+    
+  
+    $sql = "SELECT * FROM `$dbpräfix"."events` WHERE `ID` = '$vars';";
+    $erg = $hp->mysqlquery($sql);
+    if (mysql_num_rows($erg) > 0)
+    {
+    
+      $row = mysql_fetch_object($erg);
+       
+      $site = new siteTemplate($hp);
+      $site->load("calendar");
+      
+
+      if ($O_right->isAllowed($row->level))
+      {
+         $data = array(
+          "name" => $row->name,
+          "ID"  => $row->ID,
+          "date" => $row->date,
+          "enddate" => $row->enddate,
+          "start" => $row->start,
+          "end" => $row->end,
+          "description" => $row->description                   
+        );
+    
+        $site->setArray($data);
+      
+        return $site->get("LbSite-ShowSingle");
+    
+      }
+      
+      return "Ungültige Daten!";
+
+      
+    }
+      
+    
+
+  }
+
 
    
 
