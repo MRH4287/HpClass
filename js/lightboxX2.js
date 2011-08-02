@@ -265,18 +265,17 @@ function resolution()
 			var leftwidth = spacewidth / 2;
 			lb.style.left = leftwidth + 'px';
 			}
-		if (height >= document.body.clientHeight) 
-			{
-			lb.style.top = '200px';
-			//document.getElementById('fade').style.height = height+'px';
-			}
-		else
-			{
-			var spaceheight = document.body.clientHeight - height;
-			var topheight = spaceheight / 2;
-			topheight = topheight + 200;
-			lb.style.top = topheight+'px';
-			}	
+  		if ((height >= document.body.clientHeight) ||  ((document.body.clientHeight) >= height*4))
+  		{
+  			lb.style.top = '500px';
+  			
+  		}	else
+  		{
+  			var spaceheight = document.body.clientHeight - height;
+  			var topheight = spaceheight / 2;
+  			topheight = topheight + 200;
+  			lb.style.top = topheight+'px';
+  		}	
 
 
 }
