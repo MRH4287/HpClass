@@ -798,14 +798,19 @@ class subpages
   
   }
  
-  function getEvents($date)
+  function getEvents($date, $level = "all")
   {
     $hp = $this->hp;
     $dbpräfix = $hp->getpräfix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
+    $right = $hp->right;
     
+    if ($level == null)
+    {
+       $level = $_SESSION["level"];
+    }
     
     $dateData = explode(".",$date);
     
@@ -841,7 +846,10 @@ class subpages
       
       if (($startstamp <= $stamp) &&  ($stamp <= $endstamp))
       {
-         $events[] = $row;
+          if (($level == "all") || ($right->isAllowed($row->level, $level)))
+          {
+            $events[] = $row;
+          }
       }
       
     
