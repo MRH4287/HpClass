@@ -40,7 +40,7 @@ if (!$right[$level]["manage_subpage"])
   $ft = "";
   foreach ($templates as $ID=>$name)
   {
-    if ($subpage && ($ID == "navigation"))
+    if ($subpage && ($subpages->templateCanHaveChilds($ID)))
     {
       continue;
     }

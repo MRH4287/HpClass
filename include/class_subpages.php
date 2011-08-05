@@ -380,7 +380,21 @@ class subpages
     
     $site = $this->getSite($site);
     
-    $config = $this->getTemplateConfig($site["template"]);
+    return  $this->templateCanHaveChilds($site["template"]);
+
+  }
+  
+  function templateCanHaveChilds($template)
+  {
+    $hp = $this->hp;
+    $dbpräfix = $hp->getpräfix();
+    $game = $hp->game;
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->fp;
+    
+    
+    $config = $this->getTemplateConfig($template);
     
     if ($config === false)
     {
@@ -390,8 +404,7 @@ class subpages
       return in_array("navigation", $config["dyncontent"]);
       
     }
-    //return ($site["template"] == "navigation");
-  
+    //re
   }
   
   
@@ -675,7 +688,7 @@ class subpages
     $config = $hp->getconfig();
     
     $design = $config["design"];                       
-  
+    
     foreach ($this->templatePath as $k => $path)
     {
       $path = str_replace("#!Design#", $design, $path);
