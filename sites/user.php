@@ -38,7 +38,7 @@ if (isset ($get['delet2']))
   }
 }
 
-if (!isset($get['show']) && $right[$level]["see_userPage"]) 
+if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"]) 
 {
 
   $abfrage = "SELECT * FROM ".$dbpräfix."user ORDER BY `level` DESC ";
@@ -66,7 +66,7 @@ if (!isset($get['show']) && $right[$level]["see_userPage"])
   
   $site->display();
 
-} else if ($right[$level]["see_userPage"])
+} else if ($right[$_SESSION['level']]["see_userPage"])
 {
   $site = new siteTemplate($hp);
   $site->load("user_show");
@@ -122,23 +122,23 @@ if (!isset($get['show']) && $right[$level]["see_userPage"])
      
     $levels = $hp->right->getlevels();
     $content = "";
-    foreach ($levels as $k=>$level)
+    foreach ($levels as $k=>$levelD)
     {
-      $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$level'";
-      $erg = $hp->mysqlquery($sql);
+      $s = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$levelD'";
+      $e = $hp->mysqlquery($s);
       
-      if (mysql_num_rows($erg) > 0)
+      if (mysql_num_rows($e) > 0)
       {
-        $row = mysql_fetch_object($erg);
-        $name = $row->name;
+        $r = mysql_fetch_object($e);
+        $name = $r->name;
       } else
       {
         $name = $level;
       }
-      
+            
        $data = array(
-         "selected" => ($row->level == $level->level) ? "selected" : "",
-         "ID" => $level,
+         "selected" => ($row->level == $levelD) ? "selected" : "",
+         "ID" => $levelD,
          "name" => $name    
        );
      
