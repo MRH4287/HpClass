@@ -10,6 +10,7 @@ $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
 
+
 if (isset($post['changelevel'])) 
 {
   $leveltemp=$post['level'];
@@ -37,7 +38,7 @@ if (isset ($get['delet2']))
   }
 }
 
-if (!isset($get['show'])) 
+if (!isset($get['show']) && $right[$level]["see_userPage"]) 
 {
 
   $abfrage = "SELECT * FROM ".$dbpräfix."user ORDER BY `level` DESC ";
@@ -65,7 +66,7 @@ if (!isset($get['show']))
   
   $site->display();
 
-} else
+} else if ($right[$level]["see_userPage"])
 {
   $site = new siteTemplate($hp);
   $site->load("user_show");
@@ -161,6 +162,12 @@ if (!isset($get['show']))
   {
     $error->error("Der Benutzer exsistiert nicht!", "1");
   }
+} else
+{
+    $site = new siteTemplate($hp);
+    $site->load("info");
+    $site->set("info", "Sie haben kein Recht diese Seite zu betreten!");
+    $site->display();
 }
 
 ?>
