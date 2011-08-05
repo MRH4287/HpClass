@@ -52,7 +52,7 @@ if (!file_exists("include/api/key.php"))
 {
     $password_length = 128;
     $generated_password = "";
-    $valid_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!;:-_#";
+    $valid_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-";
     $i = 0;
     
     
