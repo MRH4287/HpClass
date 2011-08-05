@@ -846,7 +846,7 @@ class subpages
       
       if (($startstamp <= $stamp) &&  ($stamp <= $endstamp))
       {
-          if (($level == "all") || ($right->isAllowed($row->level, $level)))
+          if (($level === "all") || ($right->isAllowed($row->level, $level)))
           {
             $events[] = $row;
           }
