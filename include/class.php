@@ -478,6 +478,55 @@ class HP
     return $generated_password;   
   }
   
+  function getRequestToken($user = null)
+  {
+    $hp = $this;
+    $dbpräfix = $hp->getpräfix();
+    $game = $hp->game;
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->fp;
+  
+    if ($user === null)
+    {
+      $user = $_SESSION["username"];
+    }
+    
+    $con = $hp->generateToken();
+            
+    $sql = "REPLACE INTO `$dbpräfix"."token` (`user`, `token`, `verfall`) VALUES ('$user', '$con', -1);";
+    $erg = $hp->mysqlquery($sql);
+  
+    return $con;  
+  }
+  
+  function checkRequestToken($token, $user = null)
+  {
+    $hp = $this;
+    $dbpräfix = $hp->getpräfix();
+    $game = $hp->game;
+    $info = $hp->info;
+    $error = $hp->error;
+    $fp = $hp->fp;
+  
+    if ($user === null)
+    {
+      $user = $_SESSION["username"];
+    }
+    
+    $sql = "SELECT * FROM `$dbpräfix"."token` WHERE `user` = '$user';";
+    $erg = $hp->mysqlquery($sql);
+    $row = mysql_fetch_object($erg);
+    
+    $ok = ($token == $row->token);
+    
+    $sql = "DELETE FROM `$dbpräfix"."token` WHERE `user` = '$user';";
+    $erg = $hp->mysqlquery($sql);
+
+    return $ok;  
+  
+  }
+  
   
   function checksite($site)
   {
