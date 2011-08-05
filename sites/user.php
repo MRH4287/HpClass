@@ -133,7 +133,7 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
         $name = $r->name;
       } else
       {
-        $name = $level;
+        $name = $levelD;
       }
             
        $data = array(
