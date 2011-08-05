@@ -380,7 +380,17 @@ class subpages
     
     $site = $this->getSite($site);
     
-    return ($site["template"] == "navigation");
+    $config = $this->getTemplateConfig($site["template"]);
+    
+    if ($config === false)
+    {
+      return false;
+    } else
+    {
+      return in_array("navigation", $config["dyncontent"]);
+      
+    }
+    //return ($site["template"] == "navigation");
   
   }
   
@@ -658,14 +668,13 @@ class subpages
     
     
   }
-  
-  
+    
   function getTemplateConfig($template)
   {
     $hp = $this->hp;
     $config = $hp->getconfig();
     
-    $design = $config["design"];
+    $design = $config["design"];                       
   
     foreach ($this->templatePath as $k => $path)
     {
