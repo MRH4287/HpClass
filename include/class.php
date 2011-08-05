@@ -56,7 +56,7 @@ class HP
     
     // Siteckeckup
     $this->restrict       = array("login");
-    $this->superadminonly = array("rights", "config", "dragdrop", "plugins", "test");
+    $this->superadminonly = array("rights", "config", "dragdrop", "plugins", "test", "api");
     
     // Seiten, die von der Navigation ausgenommen sind
     $this->navigationIgnore = array("upload", "download2", "lostpw", "mailagree",

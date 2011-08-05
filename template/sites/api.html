@@ -1,0 +1,87 @@
+#!!NAME=Api-Informationen
+#!!AUTOR=MRH
+
+[!=Main!]
+
+  <style>
+  
+    .ApiInfoTable
+    {
+      -moz-border-radius: 5px 5px 0 0;
+    	-webkit-border-top-left-radius: 5px;
+    	-webkit-border-top-right-radius: 5px;
+    	-webkit-border-bottom-left-radius: 5px; 
+    	-webkit-border-bottom-right-radius: 5px; 
+    	-goog-ms-border-radius: 5px 5px 5px 5px;
+    	border-radius: 5px 5px 5px 5px; 
+    	-khtml-border-radius:5px;
+    	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+    	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+    	-goog-ms-box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+    	box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+    	border: thin black solid;
+    }
+    
+    .ApiInfoTable tr:nth-child(2n+1)
+    {
+     background-color:#cfcfcf;
+    }
+    .ApiInfoTable tr:nth-child(2n)
+    {
+    
+    }
+
+    .SharedSecretBox
+    {
+     height:30px;
+     width:500px;
+     overflow:auto;
+     font-weight:bold;
+     padding: 5px 5px 5px 5px;
+    }
+    
+  
+  </style>
+
+  <h1>Api-Schnittstelle</h1>
+  <p>&nbsp;</p>
+  <p>Hier stehen Informationen zu der Api-Schnittstelle.</p>
+  <p>Diese Seite zeigt nur Informationen und dient nicht zur Konfiguration.</p>
+  <p>Um die Einstellungen zu verändern, gehen Sie in das Konfigurations bzw. in 
+  das Rechte System.</p>
+  <table style="width: 100%" class="ApiInfoTable">
+  	<tr>
+  		<td>Status der Api Schnittstelle</td>
+  		<td>#?:on : !Activated : !Deactivated#</td>
+  	</tr>
+  	<tr>
+  		<td>Level, die über die Schnittstelle zugreifen können</td>
+  		<td>#!level#</td>
+  	</tr>
+  	  <tr>
+  		<td>Benutzer, die über die Schnittstelle zugreifen können</td>
+  		<td>#!user#</td>
+  	</tr>
+  </table>
+  <p>&nbsp;</p>
+  <p style="font-weight:bold">Shared Secret: </p>
+  <p style="font-size: small;">Warnung: Diesen Text nicht an dritte weitergeben. Sollte 
+  es zu einer unberechtigten Verbindung kommen, dann die key.php im Ordner 
+  include/api löschen!</p>
+  <p>
+  <div class="ApiInfoTable SharedSecretBox">
+  #!code#
+ </div></p>
+
+
+
+[!/Main!]
+
+[!=Activated!]
+  <img src="images/ok.gif" alt="Aktiviert" />
+[!/Activated!]
+
+[!=Deactivated!]
+  <img src="images/sub.gif" alt="Deaktiviert" />
+[!/Deactivated!]
+
