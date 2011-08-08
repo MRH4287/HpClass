@@ -282,7 +282,7 @@ class PluginLoader  extends Api
       {
         // Eintragen in die Datenbank;
         
-        $sql = "SELECT * FROM `$dbpräfix"."plugins` WHERE `name` = '$value';";
+        $sql = "SELECT * FROM `$dbpräfix"."plugins` WHERE `name` = '$name';";
         $erg = $hp->mysqlquery($sql);
         if (mysql_num_rows($erg) == 0)
         {
