@@ -10,6 +10,8 @@ class subpages
   
   private $display = array();
   
+  private $visible = array();
+  
   
   function __construct()
   {
@@ -243,6 +245,11 @@ class subpages
       $visited[] = $naviID;
     }
     
+    if (isset($this->visible[$naviID]))
+    {
+      return $this->visible[$naviID];
+    }
+    
     
     // Ermitteln, welche Seite gerade geladen ist
     $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `site` = '$hp->site';";
@@ -270,6 +277,7 @@ class subpages
       $ok1 = (("$row->parent" == $parent) || ("$row->parent" == $ID) || ($row->ID == $ID));
       if ($ok1)
       {
+        $this->visible[$naviID] = true;
         return true;
       }
       
@@ -282,6 +290,7 @@ class subpages
       {
         if ($row->ID == $ID)
         {
+          $this->visible[$naviID] = true;
           return true;
         }
       
@@ -296,9 +305,10 @@ class subpages
          $childs = $this->getChilds("$row->parent");
          
            foreach ($childs as $k => $row2)
-           {
-              if ($this->isVisible($row2->ID, $visited))
+           {           
+              if (($row->ID != $ID) && $this->isVisible($row2->ID, $visited))
               {
+                $this->visible[$naviID] = true;
                 return true;
               
               }
@@ -312,7 +322,7 @@ class subpages
     }
     
 
-    
+    $this->visible[$naviID] = ($depth == 1); 
     return ($depth == 1);
     
     
