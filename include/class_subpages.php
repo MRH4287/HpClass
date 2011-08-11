@@ -220,7 +220,7 @@ class subpages
   }
   
   
-  function isVisible ($naviID)
+  function isVisible ($naviID, $visited = null)
   {
     $hp = $this->hp;
     $dbpräfix = $hp->getpräfix();
@@ -229,9 +229,27 @@ class subpages
     $error = $hp->error;
     $fp = $hp->fp;
     
+    if ($visited === null)
+    {
+      $visited = array();
+      
+    } elseif (in_array($naviID, $visited))
+    {
+      return false;
+      
+    } else
+    {
+      
+      $visited[] = $naviID;
+    }
+    
+    
     // Ermitteln, welche Seite gerade geladen ist
     $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `site` = '$hp->site';";
     $erg = $hp->mysqlquery($sql);
+    
+    $depth = $this->getDepth($naviID);
+    
     
     if (mysql_num_rows($erg) > 0)
     {
@@ -247,11 +265,15 @@ class subpages
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_object($erg);
       
+      
+      
       $ok1 = (("$row->parent" == $parent) || ("$row->parent" == $ID) || ($row->ID == $ID));
       if ($ok1)
       {
         return true;
       }
+      
+
     
       $childs = $this->getChilds($naviID);
     
@@ -265,13 +287,31 @@ class subpages
       
     
       }
+      
+      $depthA = $this->getDepth($ID);
+  
+           
+      if (($depthA == 3) && ($depth == 2))
+      {
+         $childs = $this->getChilds("$row->parent");
+         
+           foreach ($childs as $k => $row2)
+           {
+              if ($this->isVisible($row2->ID, $visited))
+              {
+                return true;
+              
+              }
+               
+           }
+         
+    
+         
+      }
     
     }
     
 
-    
-    
-    $depth = $this->getDepth($naviID);
     
     return ($depth == 1);
     
