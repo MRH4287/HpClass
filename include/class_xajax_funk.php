@@ -1082,7 +1082,7 @@ class Xajax_Funktions
    $fp = $hp->fp;
    $pluginloader = $hp->pluginloader;
    
-   if (in_array($_SESSION['username'], $hp->getsuperadmin()))
+   if (isset($_SESSION['username']) && in_array($_SESSION['username'], $hp->getsuperadmin()))
    {
    
     if ($pluginloader->enablePlugin($name))
