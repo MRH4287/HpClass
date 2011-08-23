@@ -23,6 +23,8 @@ class siteTemplate
   protected $searchpathT = "";
   
   
+  public static $functions = array();
+  
   
   function __construct($hp)
   {
@@ -166,6 +168,8 @@ class siteTemplate
     $data = $this->replaceEquals($data);
     // Ersetzte die LbSites
     $data = $this->replaceLbSite($data);
+    // Ersetzt die Funktionen
+    $data = $this->replaceFunctions($data);
     
     
     return $data;
@@ -205,6 +209,69 @@ class siteTemplate
     foreach ($langData as $k=> $word)
     {
       $data = str_replace("#%$word#", $lang->word($word), $data);
+    }
+  
+    return $data;
+  }
+  
+  function replaceFunctions($data)
+  {
+    $hp = $this->hp;
+  
+  
+    $tempData = $this->getPlaceholder($data, "@");
+    
+    foreach ($tempData as $k=> $word)
+    {
+    
+      $split = explode(" : ", $word);
+      
+      $out = "";
+      if (isset(self::$functions[$split[0]]))
+      {
+          $sys = self::$functions[$split[0]];
+          
+          $obj = $sys["obj"];
+          $func = $sys["func"];
+          
+          $args = array();
+          
+          for ($i=1; $i < count($split); $i++)
+          {
+              $el = $split[$i];
+              
+              if (preg_match("/\"(.*)\"/", $el))
+              {
+                  $tmp = $this->replaceLangBlocks($this->replaceDefault($el));  
+                  $content =  str_replace("\"", "", $tmp);
+              } 
+              elseif (preg_match("/%(.*)/", $el))
+              {
+                  $content = $hp->getlangclass()->word(str_replace("%", "", $el));
+              } 
+              elseif (preg_match("/!(.*)/", $el))
+              {
+                  $content = $this->replace($this->blocks[str_replace("!", "", $el)]);
+              } 
+              elseif (isset($this->data[$el]))
+              {
+                  $content = $this->data[$el];
+              }  
+          
+              $args[] = $content;
+          
+          }
+          
+          
+          $out = $obj->$func($args); 
+        
+      
+      } else
+      {
+        $out = "[Func?]";
+      }
+      
+      $data = str_replace("#@$word#", $out, $data);
     }
   
     return $data;
@@ -674,6 +741,37 @@ class siteTemplate
     
       return $lang->word('noright2');
     }
+  }
+
+
+  // ------------------------ Static Functions ---------------------------------
+  static function extend($ext)
+  {
+    
+    if (is_object($ext))
+    {
+      //$ext->sethp($this->hp);
+      
+      $funktions = get_class_methods($ext);
+      
+      foreach ($funktions as $key=>$value) 
+      {
+        $split = explode("_", $value);
+        if ((count($split) > 1) && ($split[0] == "temp") && ($split[1] != ""))
+        {
+        	$array = array(
+           "name" => $split[1],
+           "func" => $value,
+           "obj" => $ext          
+          );
+          
+          self::$functions[$split[1]] = $array;
+          
+        }
+      }
+    
+    }
+  
   }
 
 

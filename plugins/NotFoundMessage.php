@@ -22,7 +22,7 @@ function __construct($hp, $loader)
   $this->autor = "MRH";
   
   //Die Homepage des Autors:
-  $this->homepage = "http://mrh.hes-technic.de";
+  $this->homepage = "http://mrh-development.de";
   
   //Notizen zu dem Plugin:
   $this->notes = "Dieses Plugin hat eine Reihe von Sprüchen, die kommen,<br>wenn ein 404 Fehler aufgerufen wurde.<br>".

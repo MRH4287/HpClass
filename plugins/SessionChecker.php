@@ -22,7 +22,7 @@ function __construct($hp, $loader)
   $this->autor = "MRH";
   
   //Die Homepage des Autors:
-  $this->homepage = "http://mrh.hes-technic.de";
+  $this->homepage = "http://mrh-development.de";
   
   //Notizen zu dem Plugin:
   $this->notes = "Dieses System überprüft, ob die Dauer einer Session abgelaufen ist.";

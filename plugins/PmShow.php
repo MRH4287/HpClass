@@ -22,7 +22,7 @@ function __construct($hp, $loader)
   $this->autor = "MRH";
   
   //Die Homepage des Autors:
-  $this->homepage = "http://mrh.hes-technic.de";
+  $this->homepage = "http://mrh-development.de";
   
   //Notizen zu dem Plugin:
   $this->notes = "Zeigt eine Info Zeile an, wenn der Benutzer eine ungelesene PM hat.";

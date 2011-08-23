@@ -14,16 +14,15 @@ $fp = $hp->fp;
 $right = $hp->right;
 $subpages = $hp->subpages;
 
-//$site = new siteTemplate($hp);
-//$site->load("news");
+$site = new siteTemplate($hp);
+$site->load("test");
+$site->set("hi", "test");
+
+$site->display();
+
 //echo "<pre>";
 //print_r($site->getPlaceholder($site->getNode("LbSite-Edit", array())));
 //echo "</pre>";
-
-$data = $subpages->getEvents("24.06.2011");
-print_r($data);
-
-echo $lbs->link("eventday", "test", "02.08.2011");
 
 
 ?>
