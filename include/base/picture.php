@@ -7,6 +7,11 @@ class Picture
   var $width = 0;
   var $height = 0;
   
+  function setAsBase64($data, $width, $height)
+  {
+     $this->setAsString(base64_decode($data), $width, $height); 
+  }
+  
   function setAsString($data, $width, $height)
   {
     $this->image = imagecreatefromstring($data);
