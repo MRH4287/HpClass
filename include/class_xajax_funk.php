@@ -1009,6 +1009,16 @@ class Xajax_Funktions
      	  $script = str_replace("\r", "", $script);
         $script = str_replace("\t", "", $script);
       
+        $script = str_replace("§", "&sect;", $script);
+        $script = str_replace("ü", "&uuml;", $script);
+        $script = str_replace("Ü", "&Uuml;", $script);
+        $script = str_replace("ö", "&ouml;", $script);
+        $script = str_replace("Ö", "&Ouml;", $script);
+        $script = str_replace("ä", "&auml;", $script);
+        $script = str_replace("Ä", "&Auml;", $script);
+        $script = str_replace("ß", "&szlig;", $script);
+    
+      
         $response->script($script);
         
       }
