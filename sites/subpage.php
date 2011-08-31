@@ -435,7 +435,7 @@ if (!$right[$level]["manage_subpage"])
       "name" => $row->name,
       "template" => $templates[$row->template],
       "ID" => $row->ID,
-      "hasChilds" => ($row->template == "navigation") ? "true" : "false"   
+      "hasChilds" => ($subpages->siteCanHaveChilds($row->name)) ? "true" : "false"   
     );  
   
    $elements .= $site->getNode("List_Element", $data);
