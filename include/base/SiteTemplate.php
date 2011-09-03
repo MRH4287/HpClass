@@ -188,7 +188,7 @@ class siteTemplate
   {
     foreach($this->data as $key=>$value)
     {
-      if (is_string($value))
+      if (!is_array($value) && !is_object($value))
       {
         $data = str_replace("#!$key#", $value, $data);
       }
