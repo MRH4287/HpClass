@@ -15,6 +15,9 @@ class siteTemplate
   
   private $blocks = array();
   protected $data = array();
+  protected $vars = array();
+  
+  private $aktArray = null;
   
   private $DEFAULT_NODE = "Main";
   
@@ -26,11 +29,13 @@ class siteTemplate
   public static $functions = array();
   
   
-  function __construct($hp)
+  public function __construct($hp)
   {
     $this->hp = $hp;
     $this->searchpath = "template/sites/";
     $this->searchpathT = "template/#!Design#/sites/";
+    
+    self::extend($this);
     
   }
   
@@ -41,7 +46,7 @@ class siteTemplate
     @param path Pfad zu der lesenden Datei
   
   */
-  function load($name, $direct = false)
+  public function load($name, $direct = false)
   {
   
     $hp = $this->hp;
@@ -131,12 +136,12 @@ class siteTemplate
   }
   
   
-  function getPlaceholder($content, $key = "!")
+  private function getPlaceholder($content, $key = "!", $trust = false)
   {
     $result = array();
   
       // Herausfiltern der Platzhalter:
-    	if (preg_match_all("/\#\\".$key."[^\#]*#/", $content, $m2))
+    	if (preg_match_all("/\#".((!$trust) ? "\\" : "").$key."[^\#]*#/", $content, $m2))
     	{
         foreach ($m2 as $k=>$data)
         {
@@ -157,7 +162,8 @@ class siteTemplate
   {
     // Ersetze Inline Platzhalter:
     $data = $this->replaceDefault($data);
-    
+    // Ersetzt die Variablen
+    $data = $this->replaceVars($data);
     // Die Kommentare in den Templates werden ersetzt
     $data = $this->replaceComment($data);                                                
     // Ersetze die Sprachblocks
@@ -170,23 +176,28 @@ class siteTemplate
     $data = $this->replaceLbSite($data);
     // Ersetzt die Funktionen
     $data = $this->replaceFunctions($data);
+    //Ersetzte die Loops
+    $data = $this->replaceLoop($data);
     
     
     return $data;
   }
   
   
-  function replaceDefault($data)
+  private function replaceDefault($data)
   {
     foreach($this->data as $key=>$value)
     {
-      $data = str_replace("#!$key#", $value, $data);
+      if (is_string($value))
+      {
+        $data = str_replace("#!$key#", $value, $data);
+      }
     }
     return $data;
   }
   
   
-  function replaceComment($data)
+  private function replaceComment($data)
   {
     $langData = $this->getPlaceholder($data, "/");
     foreach ($langData as $k=> $word)
@@ -198,7 +209,34 @@ class siteTemplate
   
   }
   
-  function replaceLangBlocks($data)
+  private function replaceVars($data)
+  {
+    $PData = $this->getPlaceholder($data, "V\\:", true);
+    foreach ($PData as $k=> $word)
+    {
+      $word = str_replace("V:", "", $word);
+      
+      $split = explode(" : ", $word);
+      $content = "";
+      
+      if (count($split) == 2)
+      {
+        $this->vars[$split[0]] =  $this->replaceExtendedInput($split[1]);
+       
+      } else
+      {
+        $content = "[Var?]";
+      }
+      
+    
+      $data = str_replace("#V:$word#", $content, $data);
+    }
+  
+    return $data;  
+  
+  }
+  
+  private function replaceLangBlocks($data)
   {
     $hp = $this->hp;
     $lang = $hp->getlangclass();
@@ -214,7 +252,7 @@ class siteTemplate
     return $data;
   }
   
-  function replaceFunctions($data)
+  private function replaceFunctions($data)
   {
     $hp = $this->hp;
   
@@ -240,23 +278,7 @@ class siteTemplate
           {
               $el = $split[$i];
               
-              if (preg_match("/\"(.*)\"/", $el))
-              {
-                  $tmp = $this->replaceLangBlocks($this->replaceDefault($el));  
-                  $content =  str_replace("\"", "", $tmp);
-              } 
-              elseif (preg_match("/%(.*)/", $el))
-              {
-                  $content = $hp->getlangclass()->word(str_replace("%", "", $el));
-              } 
-              elseif (preg_match("/!(.*)/", $el))
-              {
-                  $content = $this->replace($this->blocks[str_replace("!", "", $el)]);
-              } 
-              elseif (isset($this->data[$el]))
-              {
-                  $content = $this->data[$el];
-              }  
+              $content = $this->replaceExtendedInput($el);  
           
               $args[] = $content;
           
@@ -268,7 +290,7 @@ class siteTemplate
       
       } else
       {
-        $out = "[Func?]";
+        $out = "[@-Func?]";
       }
       
       $data = str_replace("#@$word#", $out, $data);
@@ -277,7 +299,7 @@ class siteTemplate
     return $data;
   }
   
-  function replaceLbSite($data)
+  private function replaceLbSite($data)
   {
     $hp = $this->hp;
     
@@ -293,70 +315,21 @@ class siteTemplate
       $content = "";
       
       
-      if (preg_match("/\"(.*)\"/", $values[1]))
-      {
-          $tmp = $this->replaceLangBlocks($this->replaceDefault($values[1]));  
-          $content =  str_replace("\"", "", $tmp);
-      } 
-      elseif (preg_match("/%(.*)/", $values[1]))
-      {
-          $content = $hp->getlangclass()->word(str_replace("%", "", $values[1]));
-      } 
-      elseif (preg_match("/!(.*)/", $values[1]))
-      {
-          $content = $this->replace($this->blocks[str_replace("!", "", $values[1])]);
-      } 
-      elseif (isset($this->data[$values[1]]))
-      {
-          $content = $this->data[$values[1]];
-      }  
+      $content = $this->replaceExtendedInput($values[1]);
+      
       
       $vars = "";
       if (count($values) > 2)
       {
         
-        if (preg_match("/\"(.*)\"/", $values[2]))
-        {
-            $tmp = $this->replaceLangBlocks($this->replaceDefault($values[2]));  
-            $vars =  str_replace("\"", "", $tmp);
-        } 
-        elseif (preg_match("/%(.*)/", $values[2]))
-        {
-            $vars = $hp->getlangclass()->word(str_replace("%", "", $values[2]));
-        } 
-        elseif (preg_match("/!(.*)/", $values[2]))
-        {
-            $vars = $this->replace($this->blocks[str_replace("!", "", $values[2])]);
-        } 
-        elseif (isset($this->data[$values[2]]))
-        {
-            $vars = $this->data[$values[2]];
-        }
-        
+        $vars = $this->replaceExtendedInput($values[2]);        
           
       }
       
       $type = "lbOn";
       if (count($values) > 3)
-      {
-        
-        if (preg_match("/\"(.*)\"/", $values[3]))
-        {
-            $tmp = $this->replaceLangBlocks($this->replaceDefault($values[3]));  
-            $type =  str_replace("\"", "", $tmp);
-        } 
-        elseif (preg_match("/%(.*)/", $values[3]))
-        {
-            $type = $hp->getlangclass()->word(str_replace("%", "", $values[3]));
-        } 
-        elseif (preg_match("/!(.*)/", $values[3]))
-        {
-            $type = $this->replace($this->blocks[str_replace("!", "", $values[3])]);
-        } 
-        elseif (isset($this->data[$values[3]]))
-        {
-            $type = $this->data[$values[3]];
-        }        
+      { 
+        $type = $this->replaceExtendedInput($values[3]);      
           
       }
            
@@ -373,7 +346,7 @@ class siteTemplate
   }
   
   
-  function replaceEquals($data)
+  private function replaceEquals($data)
   {
     $hp = $this->hp;
     $right = $hp->getright();
@@ -397,89 +370,20 @@ class siteTemplate
       }
       
       // A
-      if (preg_match("/\"(.*)\"/", $con[0]))
-      {
-         $tmp = $this->replaceLangBlocks($this->replaceDefault($con[0]));  
-         $compareA =  str_replace("\"", "", $tmp);
-      } 
-      elseif (preg_match("/%(.*)/", $con[0]))
-      {
-          $comapreA = $hp->getlangclass()->word(str_replace("%", "", $con[0]));
-      } 
-      elseif (preg_match("/!(.*)/", $con[0]))
-      {
-          $comapreA = $this->replace($this->blocks[str_replace("!", "", $con[0])]);
-      } 
-      elseif (isset($this->data[$con[0]]))
-      {
-        $compareA = $this->data[$con[0]];
-      } 
+      
+      $compareA = $this->replaceExtendedInput($con[0]);
       
       
       // B
-      if (preg_match("/\"(.*)\"/", $con[1]))
-      {
-         $tmp = $this->replaceLangBlocks($this->replaceDefault($con[1]));  
-         $compareB =  str_replace("\"", "", $tmp);
-      } 
-      elseif (preg_match("/%(.*)/", $con[1]))
-      {
-          $comapreB = $hp->getlangclass()->word(str_replace("%", "", $con[1]));
-      } 
-      elseif (preg_match("/!(.*)/", $con[1]))
-      {
-          $comapreB = $this->replace($this->blocks[str_replace("!", "", $con[1])]);
-      } 
-      elseif (isset($this->data[$con[1]]))
-      {
-        $compareB = $this->data[$con[1]];
-      } 
+      $compareB = $this->replaceExtendedInput($con[1]);
       
       
       // Values:
       
-      if (preg_match("/\"(.*)\"/", $values[1]))
-      {
-         $tmp = $this->replaceLangBlocks($this->replaceDefault($values[1]));  
-         $iftrue =  str_replace("\"", "", $tmp);
-      } 
-      elseif (preg_match("/%(.*)/", $values[1]))
-      {
-         $iftrue = $hp->getlangclass()->word(str_replace("%", "", $values[1]));
-      } 
-      elseif (preg_match("/!(.*)/", $values[1]))
-      {
-          $iftrue = $this->replace($this->blocks[str_replace("!", "", $values[1])]);
-      } 
-      elseif (isset($this->data[$values[1]]))
-      {
-         $iftrue = $this->data[$values[1]];
-      } else
-      {
-        $iftrue = "[T]";
-      }
-      
-      
-      if (preg_match("/\"(.*)\"/", $values[2]))
-      {
-         $tmp = $this->replaceLangBlocks($this->replaceDefault($values[2]));  
-         $iffalse =  str_replace("\"", "", $tmp);
-      } 
-      elseif (preg_match("/%(.*)/", $values[2]))
-      {
-         $iffalse = $hp->getlangclass()->word(str_replace("%", "", $values[2]));
-      } 
-      elseif (preg_match("/!(.*)/", $values[2]))
-      {
-          $iffalse = $this->replace($this->blocks[str_replace("!", "", $values[2])]);
-      } 
-      elseif (isset($this->data[$values[2]]))
-      {
-         $iffalse = $this->data[$values[2]];
-      } else
-      {
-        $iffalse = "[F]";
-      }
+      $iftrue = $this->replaceExtendedInput($values[1], "[T]");
+     
+      $iffalse = $this->replaceExtendedInput($values[2], "[F]");
+     
       
       $data = str_replace("#=$word#", ($compareA == $compareB)? $iftrue : $iffalse, $data);
     
@@ -489,7 +393,7 @@ class siteTemplate
   }
   
   
-  function replaceCondit($data)
+  private function replaceCondit($data)
   {
     $hp = $this->hp;
     $right = $hp->getright();
@@ -508,68 +412,26 @@ class siteTemplate
     {
       $con = explode(" : ", $word);
       $rightN = $con[0];
-      
-      
-      
-      if (preg_match("/\"(.*)\"/", $con[1]))
-      {
-         $tmp = $this->replaceLangBlocks($this->replaceDefault($con[1]));  
-         $iftrue =  str_replace("\"", "", $tmp);
-      } 
-      elseif (preg_match("/%(.*)/", $con[1]))
-      {
-          $iftrue = $hp->getlangclass()->word(str_replace("%", "", $con[1]));
-      } 
-      elseif (preg_match("/!(.*)/", $con[1]))
-      {
-          $iftrue = $this->replace($this->blocks[str_replace("!", "", $con[1])]);
-      } 
-      elseif (isset($this->data[$con[1]]))
-      {
-        $iftrue = $this->data[$con[1]];
-      } else
-      {
-        $iftrue = "[T]";
-      }
+       
+      $iftrue = $this->replaceExtendedInput($con[1], "[T]");
      
-     
+              
       $iffalse = "";
       
       if (isset($con[2]))
       {
-        if (preg_match("/\"(.*)\"/", $con[2]))
-        {
-         $tmp = $this->replaceLangBlocks($this->replaceDefault($con[2]));  
-         $iffalse =  str_replace("\"", "", $tmp);
-        } 
-        elseif (preg_match("/%(.*)/", $con[2]))
-        {
-          $iffalse = $hp->getlangclass()->word(str_replace("%", "", $con[2]));
-        }   
-        elseif (preg_match("/!(.*)/", $con[2]))
-        {
-          $iffalse = $this->replace($this->blocks[str_replace("!", "", $con[2])]);
-        }    
-        elseif (isset($this->data[$con[2]]))
-        {
-         $iffalse = $this->data[$con[2]];
-        } else
-        {
-          $iffalse = "[F]";
-        }
-    
+        $iffalse = $this->replaceExtendedInput($con[2], "[F]");
       }
+      
     
       if (preg_match("/\:(.*)/", $rightN))
       {
         $name = str_replace(":", "", $rightN);
-        if (isset($this->data[$name]))
-        {
-          $output = (($this->data[$name] == "true") ? $iftrue : $iffalse);
-        } else
-        {
-          $output = "[name?]";
-        }
+    
+        $in = $this->replaceExtendedInput($name, "false");
+        
+        $output = ((($in === "true") || ($in === true)) ? $iftrue : $iffalse);
+
   
       } elseif (preg_match("/\=(.*)/", $rightN))
       {
@@ -606,14 +468,224 @@ class siteTemplate
   }
   
   
+  private function replaceLoop($data)
+  {
+    $hp = $this->hp;
+    
+    $PData = $this->getPlaceholder($data, "L\\:", true);
+        
+    foreach ($PData as $k=> $word)
+    {
+      $word = str_replace("L:", "", $word);
+      $content = "";
+    
+      $split = explode(" : ", $word); 
+        
+      if (count($split) >= 2)
+      {
+      
+        $array = $this->replaceExtendedInput($split[0]);
+        if (is_array($array))
+        {
+          $text = "";
+          $myBase =  $this->replaceExtendedInput($split[1]);
+          
+          foreach ($array as $key => $value)
+          {
+             $text .= $this->replace($this->replaceLoopContent($myBase, $key, $value));           
+          }
+          
+          $content = $text;         
+      
+        } else
+        {
+          $content = "[Array?]";
+        }
+      } else
+      {
+        $content = "[Output?]";
+      }
+      $data = str_replace("#L:$word#", $content, $data);
+    }
+      
+    return $data;
+  }
   
   
-  function set($key, $value)
+  private function replaceLoopContent($data, $key, $value)
+  {
+    $hp = $this->hp;
+    
+    
+    if (is_array($value))
+    {
+      $this->aktArray = $value;
+      
+      $PData = $this->getPlaceholder($data, "l:", true);
+      
+      foreach ($PData as $k=> $word)
+      {
+        $word = str_replace("l:", "", $word);
+        $content = "";
+      
+        $split = explode(".", $word);
+        
+        if ((count($split) == 1) && ($split[0] !== "K"))
+        {
+          if (isset($value[$split[0]]))
+          {
+             $content = $this->replace($value[$split[0]]);          
+          
+          } else
+          {
+            $content = "[Unknown Array Index!]";
+          } 
+        
+        } 
+        elseif ((count($split) == 2) && ($split[0] === "V"))
+        {
+          if (isset($value[$split[1]]))
+          {
+             $content = $this->replace($value[$split[1]]);          
+          
+          } else
+          {
+            $content = "[Unknown Array Index!]";
+          } 
+        } 
+        elseif ((count($split) == 1) && ($split[0] === "K"))
+        {
+          $content = $key;                           
+        }
+        
+        $data = str_replace("#l:$word#", $content, $data);
+      }
+      
+    } else
+    {
+      $data = "[Second Array?]";
+    }
+  
+    $this->aktArray = null;
+  
+    return $data;
+  }
+  
+  
+  private function replaceExtendedInput($input, $fallback = "")
+  {
+      $hp = $this->hp;
+  
+      $content = "";
+      
+      
+      if (preg_match("/(.*)\(([^\)]*)\)/", $input, $m))
+      {          
+         if (isset(self::$functions[$m[1]]))
+         {
+             $sys = self::$functions[$m[1]];
+             
+             $obj = $sys["obj"];
+             $func = $sys["func"];
+             
+             $args = array();
+             
+             $split = explode(", ", $m[2]);
+              
+             foreach ($split as $i => $el)     
+             {                
+                 $content = $this->replaceExtendedInput($el);  
+             
+                 $args[] = $content;
+             
+             }
+             
+             
+             $content = $obj->$func($args); 
+           
+         
+         } else
+         {
+           $content = "[#-Func?]";
+         }
+        
+      }
+      elseif (preg_match("/\"(.*)\"/", $input))
+      {
+          $tmp = $this->replaceLangBlocks($this->replaceDefault($input));  
+          $content =  str_replace("\"", "", $tmp);
+      } 
+      elseif (preg_match("/%(.*)/", $input))
+      {
+      
+          $content = $hp->getlangclass()->word(str_replace("%", "", $input));
+          
+      } 
+      elseif (preg_match("/!(.*)/", $input))
+      {
+          $name = str_replace("!", "", $input);
+          
+          if (isset($this->blocks[$name]))
+          {
+            $content = $this->replace($this->blocks[str_replace("!", "", $input)]);
+            
+          } else
+          {
+            $content = "[Block?]";
+          }
+          
+          
+      }
+      elseif (preg_match("/l\:(.*)/", $input))
+      {
+        $input = str_replace("l:", "", $input);
+        
+        if ($this->aktArray != null)
+        {
+        
+          if (isset($this->aktArray[$input]))
+          {
+               $content = $this->aktArray[$input];          
+            
+          } else
+          {
+              $content = "[Unknown Array Index!]";
+          } 
+        
+        } else
+        {
+          $content = "[l: Array?]";
+        }
+      
+        
+      
+      } elseif (isset($this->data[$input]))
+      {
+        $content = $this->data[$input];
+
+      } elseif (isset($this->vars[$input]))
+      { 
+         
+        $content = $this->vars[$input];
+      } 
+      else
+      {
+        $content = $fallback;
+      } 
+  
+      return $content;
+  
+  }
+  
+    
+  
+  
+  public function set($key, $value)
   {
     $this->data[$key] = $value;
   }
   
-  function append($key, $value)
+  public function append($key, $value)
   {
     if (!isset($this->data[$key]))
     {
@@ -624,7 +696,7 @@ class siteTemplate
     }
   }
   
-  function setArray($data)
+  public function setArray($data)
   {
     foreach ($data as $key=>$value)
     {
@@ -634,7 +706,7 @@ class siteTemplate
   }
   
   
-  function getNode($name, $data = null)
+  public function getNode($name, $data = null)
   {
     if (isset($this->blocks[$name]))
     {
@@ -657,7 +729,7 @@ class siteTemplate
     }
   }
   
-  function foreachNode($nodeName, $data)
+  public function foreachNode($nodeName, $data)
   {
     if (!is_string($nodeName) || !is_array($data))
     {
@@ -680,18 +752,18 @@ class siteTemplate
   }
   
   
-  function right($right = "login")
+  public function right($right = "login")
   {
     $this->neededRight = $right;
   }
   
   
-  function display($node = null)
+  public function display($node = null)
   {
     echo $this->get($node);
   }
   
-  function get($node = null)
+  public function get($node = null)
   {
     
     $ok = false;
@@ -745,7 +817,7 @@ class siteTemplate
 
 
   // ------------------------ Static Functions ---------------------------------
-  static function extend($ext)
+  public static function extend($ext)
   {
     
     if (is_object($ext))
@@ -757,15 +829,17 @@ class siteTemplate
       foreach ($funktions as $key=>$value) 
       {
         $split = explode("_", $value);
-        if ((count($split) > 1) && ($split[0] == "temp") && ($split[1] != ""))
+        if ((count($split) > 1) && ($split[0] == "temp") && ($split[1] != "") && !in_array($split[1],  self::$functions))
         {
+          $name = $split[1];
+        
         	$array = array(
-           "name" => $split[1],
+           "name" => $name,
            "func" => $value,
            "obj" => $ext          
           );
-          
-          self::$functions[$split[1]] = $array;
+                    
+          self::$functions[$name] = $array;   
           
         }
       }
@@ -773,6 +847,38 @@ class siteTemplate
     }
   
   }
+
+
+ // ----------------------------- Template Functions ---------------------------
+ 
+ public function temp_echo($args)
+ {  
+    $value = "";
+    
+    foreach($args as $k=>$v)
+    {
+      $value .= (is_string($v)) ? $v : (is_array($v) ? "[Array]" : (is_bool($v) ? $v : (is_object($v) ? "[Object]" : "[Unknown]")));
+    }
+    
+    return $value;  
+ }
+ 
+ 
+ public function temp_inArray($args)
+ {
+    $argCount = count($args);
+    
+    if ($argCount != 2)
+    {
+      return "[InArray: Need 2 Arguments]";
+    } else
+    {
+      return  in_array($args[0], $args[1]);
+    }
+ 
+ }
+ 
+
 
 
 }

@@ -16,7 +16,27 @@ $subpages = $hp->subpages;
 
 $site = new siteTemplate($hp);
 $site->load("test");
-$site->set("hi", "test");
+
+$ar = array("a", "b", "c");
+$site->set("array", $ar);
+
+
+$ar2 = array(
+
+  array(
+  
+    "name" => "bla :D"
+),
+  
+  array(
+  
+    "name" => "blub ^^"
+
+  )
+
+);
+
+$site->set("array2", $ar2);
 
 $site->display();
 

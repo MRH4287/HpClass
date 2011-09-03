@@ -4,12 +4,45 @@
 
 [!=Main!]
 
-#@test : "a" : "b" : !TestEl#
+<br />
+
+is a in array? 
+#?:inArray("a", array) : "true" : "false"#  <br />
+
+is x in array? 
+#?:inArray("x", array) : "true" : "false"# <br />
+
+#@echo : !Test#
+#@echo : blub#
+
+
+ <br />
+ <hr />
+#L:array2 : !Loop#
+
+
+
 
 [!/Main!]
 
-[!=TestEl!]
+[!=Test!]
 
-#!hi#
+Test
+#V:blub : inArray("a", array)#
 
-[!/TestEl!]
+[!/Test!]
+
+
+[!=Loop!]
+
+#l:name# <br />
+#l:V.name#<br />
+#l:K# <br />
+
+ 
+
+<hr />
+
+
+
+[!/Loop!]
