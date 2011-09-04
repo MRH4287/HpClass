@@ -578,8 +578,12 @@ class siteTemplate
   
       $content = "";
       
-      
-      if (preg_match("/(.*)\(([^\)]*)\)/", $input, $m))
+      if (preg_match("/\"(.*)\"/", $input))
+      {
+          $tmp = $this->replaceLangBlocks($this->replaceDefault($input));  
+          $content =  str_replace("\"", "", $tmp);
+          
+      } elseif (preg_match("/([^\"]*)\(([^\)]*)\)/", $input, $m))
       {          
          if (isset(self::$functions[$m[1]]))
          {
@@ -609,12 +613,7 @@ class siteTemplate
            $content = "[#-Func?]";
          }
         
-      }
-      elseif (preg_match("/\"(.*)\"/", $input))
-      {
-          $tmp = $this->replaceLangBlocks($this->replaceDefault($input));  
-          $content =  str_replace("\"", "", $tmp);
-      } 
+      }      
       elseif (preg_match("/%(.*)/", $input))
       {
       
