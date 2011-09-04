@@ -67,6 +67,23 @@ class Xajax_Funktions
     $date = getdate();
     
     
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "month" => $month,
+      "jahr" => $jahr
+    );
+  
+    foreach ($data as $k => $v)
+    {
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$k = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
+    
+    
     $tag = $date['mday'];
     $monat2 = $date['mon'];
     
@@ -203,6 +220,21 @@ class Xajax_Funktions
     $arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
     $date = getdate();
     
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "month" => $month,
+      "jahr" => $jahr
+    );
+  
+    foreach ($data as $k => $v)
+    {
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$k = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
     
     $tag = $date['mday'];
     $monat2 = $date['mon'];
@@ -373,6 +405,29 @@ class Xajax_Funktions
     $fp = $hp->fp;
     $response = new xajaxResponse();
     
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "titel" => $titel,
+      "answer1" => $answer1,
+      "answer2" => $answer2,
+      "day" => $day,
+      "month" => $month,
+      "year" => $year,
+      "hour" => $hour,
+      "min" => $min,
+      "update" => $update
+    );
+  
+    foreach ($data as $k => $v)
+    {
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$k = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
+    
     //$fp->log("$titel, $answer1, $answer2");
     if (!$update)
     {
@@ -453,6 +508,22 @@ class Xajax_Funktions
     $ID = mysql_real_escape_string($ID);
     $vote = mysql_real_escape_string($vote);
     
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "ID", "vote"
+    );
+  
+    foreach ($data as $k => $name)
+    {
+      $v = $$name;
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$name = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
+    
     
     $sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = $ID";
     $erg = $hp->mysqlquery($sql);
@@ -526,6 +597,22 @@ class Xajax_Funktions
     $error = $hp->error;
     $fp = $hp->fp;
     $ID = mysql_escape_string($ID);
+    
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "ID"
+    );
+  
+    foreach ($data as $k => $name)
+    {
+      $v = $$name;
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$name = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
     
     $sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = $ID";
     $erg = $hp->mysqlquery($sql);
@@ -610,6 +697,22 @@ class Xajax_Funktions
     
     $ID = mysql_real_escape_string($ID);
     
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "ID", "vote"
+    );
+  
+    foreach ($data as $k => $name)
+    {
+      $v = $$name;
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$name = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
+    
     $sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = $ID";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
@@ -674,6 +777,22 @@ class Xajax_Funktions
     
     $id = mysql_real_escape_string($id);
     
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "id"
+    );
+  
+    foreach ($data as $k => $name)
+    {
+      $v = $$name;
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$name = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
+    
     
     if ($right[$level]["usedpics"])
     {
@@ -726,6 +845,22 @@ class Xajax_Funktions
     
     $temp = mysql_real_escape_string($temp);
     $config = mysql_real_escape_string($config);
+    
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "temp", "config"
+    );
+  
+    foreach ($data as $k => $name)
+    {
+      $v = $$name;
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$name = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
     
     $hp = $this->hp;
     $dbpräfix = $hp->getpräfix();
@@ -799,6 +934,22 @@ class Xajax_Funktions
     $infon = mysql_real_escape_string($infon);
     $info_droppable = mysql_real_escape_string($info_droppable);
     
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "dropper", "drag", "infon", "info_droppable"
+    );
+  
+    foreach ($data as $k => $name)
+    {
+      $v = $$name;
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$name = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
+    
     //$fp->group("Dragevent:");
     
     
@@ -862,6 +1013,22 @@ class Xajax_Funktions
     $drag = mysql_real_escape_string($drag);
     $infon = mysql_real_escape_string($infon);
     $info_droppable = mysql_real_escape_string($info_droppable);
+    
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "dropper", "drag", "infon", "info_droppable"
+    );
+  
+    foreach ($data as $k => $name)
+    {
+      $v = $$name;
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$name = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
     
     if (in_array($_SESSION['username'], $hp->getsuperadmin()))
     {
@@ -1041,6 +1208,22 @@ class Xajax_Funktions
   {
    $response = new xajaxResponse();
   
+   // Workaround for older PHP-Versions
+    
+    $data = array(
+      "del"
+    );
+  
+    foreach ($data as $k => $name)
+    {
+      $v = $$name;
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$name = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
+  
    $hp = $this->hp;
    $dbpräfix = $hp->getpräfix();
    $info = $hp->info;
@@ -1073,7 +1256,21 @@ class Xajax_Funktions
    $response = new xajaxResponse();
    $name =  mysql_real_escape_string($name);
     
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "name"
+    );
   
+    foreach ($data as $k => $name)
+    {
+      $v = $$name;
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$name = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
   
    $hp = $this->hp;
    $dbpräfix = $hp->getpräfix();
@@ -1099,6 +1296,23 @@ class Xajax_Funktions
   {
    $response = new xajaxResponse();
    $name = mysql_real_escape_string($name);
+  
+  
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "name"
+    );
+  
+    foreach ($data as $k => $name)
+    {
+      $v = $$name;
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$name = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
   
    $hp = $this->hp;
    $dbpräfix = $hp->getpräfix();
@@ -1136,6 +1350,22 @@ class Xajax_Funktions
     $subpages = $hp->subpages;
    
     $tempname = mysql_real_escape_string($tempname);
+   
+    // Workaround for older PHP-Versions
+    
+    $data = array(
+      "tempname"
+    );
+  
+    foreach ($data as $k => $name)
+    {
+      $v = $$name;
+      if (preg_match("/S(.*)/", $v, $m))
+      {
+        $$name = substr($v, 1, strlen($v));
+      }
+    }
+    // Workaround End
    
     // Seitenüberprüfung:
     $tpC = $subpages->getTemplateConfig($tempname);
