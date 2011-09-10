@@ -78,7 +78,7 @@ class Xajax_Funktions
     
       foreach ($data as $k => $v)
       {
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$k = substr($v, 1, strlen($v));
         }
@@ -143,7 +143,6 @@ class Xajax_Funktions
     );
         
     $site->setArray($mainData);    
-    
 
     $iAnzahltage = date("t", mktime(0, 0, 0, $monat, 1, $jahr));
     
@@ -233,7 +232,7 @@ class Xajax_Funktions
     
       foreach ($data as $k => $v)
       {
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$k = substr($v, 1, strlen($v));
         }
@@ -430,7 +429,7 @@ class Xajax_Funktions
     
       foreach ($data as $k => $v)
       {
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$k = substr($v, 1, strlen($v));
         }
@@ -530,7 +529,7 @@ class Xajax_Funktions
       foreach ($data as $k => $name)
       {
         $v = $$name;
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$name = substr($v, 1, strlen($v));
         }
@@ -623,7 +622,7 @@ class Xajax_Funktions
       foreach ($data as $k => $name)
       {
         $v = $$name;
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$name = substr($v, 1, strlen($v));
         }
@@ -727,7 +726,7 @@ class Xajax_Funktions
       foreach ($data as $k => $name)
       {
         $v = $$name;
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$name = substr($v, 1, strlen($v));
         }
@@ -811,7 +810,7 @@ class Xajax_Funktions
       foreach ($data as $k => $name)
       {
         $v = $$name;
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$name = substr($v, 1, strlen($v));
         }
@@ -883,7 +882,7 @@ class Xajax_Funktions
       foreach ($data as $k => $name)
       {
         $v = $$name;
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$name = substr($v, 1, strlen($v));
         }
@@ -976,7 +975,7 @@ class Xajax_Funktions
       foreach ($data as $k => $name)
       {
         $v = $$name;
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$name = substr($v, 1, strlen($v));
         }
@@ -1061,7 +1060,7 @@ class Xajax_Funktions
       foreach ($data as $k => $name)
       {
         $v = $$name;
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$name = substr($v, 1, strlen($v));
         }
@@ -1260,7 +1259,7 @@ class Xajax_Funktions
       foreach ($data as $k => $name)
       {
         $v = $$name;
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$name = substr($v, 1, strlen($v));
         }
@@ -1314,7 +1313,7 @@ class Xajax_Funktions
       foreach ($data as $k => $n)
       {
         $v = $$n;
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$n = substr($v, 1, strlen($v));
         }
@@ -1361,7 +1360,7 @@ class Xajax_Funktions
       foreach ($data as $k => $n)
       {
         $v = $$n;
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$n = substr($v, 1, strlen($v));
         }
@@ -1419,7 +1418,7 @@ class Xajax_Funktions
       foreach ($data as $k => $name)
       {
         $v = $$name;
-        if (preg_match("/S(.*)/", $v, $m))
+        if (preg_match("/[S|N](.*)/", $v, $m))
         {
           $$name = substr($v, 1, strlen($v));
         }
