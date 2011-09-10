@@ -64,6 +64,15 @@ $configData = array(
     "cat"       => "ScriptAccess",
     "type"      => "bool",
     "default"   => false 
+  ), 
+  
+  
+  array(
+    "name"      => "xajax_workaround",
+    "desc"      => "Nur aktivieren, wenn Probleme mit den dynamischen Aufrufen auftreten!",
+    "cat"       => "Compatibility",
+    "type"      => "bool",
+    "default"   => false 
   )
 
 );
