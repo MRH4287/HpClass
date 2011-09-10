@@ -1262,15 +1262,16 @@ class Xajax_Funktions
       "name"
     );
   
-    foreach ($data as $k => $name)
+    foreach ($data as $k => $n)
     {
-      $v = $$name;
+      $v = $$n;
       if (preg_match("/S(.*)/", $v, $m))
       {
-        $$name = substr($v, 1, strlen($v));
+        $$n = substr($v, 1, strlen($v));
       }
     }
     // Workaround End
+
   
    $hp = $this->hp;
    $dbpräfix = $hp->getpräfix();
@@ -1304,12 +1305,12 @@ class Xajax_Funktions
       "name"
     );
   
-    foreach ($data as $k => $name)
+    foreach ($data as $k => $n)
     {
-      $v = $$name;
+      $v = $$n;
       if (preg_match("/S(.*)/", $v, $m))
       {
-        $$name = substr($v, 1, strlen($v));
+        $$n = substr($v, 1, strlen($v));
       }
     }
     // Workaround End
