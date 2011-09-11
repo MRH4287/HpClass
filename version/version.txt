@@ -1,1 +1,9 @@
-V2.4.5
+
+D:\xampp\htdocs\Hpclass>@git.exe %*
+V2.4.8
+
+D:\xampp\htdocs\Hpclass>@set ErrorLevel=%ErrorLevel%
+
+D:\xampp\htdocs\Hpclass>@rem Restore the original console codepage.
+
+D:\xampp\htdocs\Hpclass>@chcp %cp_oem% > nul < nul

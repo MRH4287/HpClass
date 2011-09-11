@@ -2,3 +2,4 @@ config.php
 mysql.php
 downloads/*
 include/api/key.php
+updateVersion.bat
