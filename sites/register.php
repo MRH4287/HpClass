@@ -173,7 +173,7 @@ if (!isset($post['register']))
       {
         if (!$local)
         {
-         mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['mailtext'].$mail['pageadress']."?site=mailagree&user=$user&code=$code ".$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
+         mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['pageadress']."?site=mailagree&user=$user&code=$code ".$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
         } else
         {
           $msg .= "<br>Diese Funktion ist auf Localhost deaktiviert!<br>gehen Sie bitte auf folgende Seite:<br>";

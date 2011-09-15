@@ -69,9 +69,9 @@ if (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0
           $mail['pageadress']= "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']; // Der Pfad zu ihrer Homepage
           $mail['mailtext']= "Ihre Registrierung auf unserer Seite wurde abgeschlossen.\n \r";
           // Der Text, der nach der Aktivierungsmai stehen soll.
-          $mail['mailfooter']="\n \r Vielen Dank für ihr interesse!";
+          $mail['mailfooter']="\n \r Vielen Dank für ihr Interesse!";
           
-          mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['mailtext'].$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
+          mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
      
         }
 
