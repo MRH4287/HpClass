@@ -80,7 +80,7 @@ $info->info("Möchten Sie die Datei wirklick löschen? <a href=index.php?site=down
           $content = "";
           while($row2 = mysql_fetch_object($ergebnis2))
           {
-              if ($hp->right->isAllowed($row->level))
+              if ($hp->right->isAllowed($row2->level))
               {
                 $data = array(
                   "titel" => $row2->titel,
