@@ -3,21 +3,50 @@
 $hp = $this->hp;
 $dbpräfix = $hp->getpräfix();
 
-$sqlr = "SELECT * FROM `$dbpräfix"."ranks` ORDER BY `level` DESC";
-$ergr = $hp->mysqlquery($sqlr);
+$right = $hp->right;
+
 
 $template['member'] = "";
-while ($rowr = mysql_fetch_object($ergr))
+$levels = $right->getlevels();
+
+
+$ranks = array();
+$sql = "SELECT * FROM `$dbpräfix"."ranks`";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
 {
-  if ($rowr->level != 0)
+  $ranks[$row->level] = $row->name;
+}
+
+
+$data = array();
+$sql = "SELECT * FROM `$dbpräfix"."user`";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
+{
+  $data[$row->level][] = $row;
+
+}
+
+foreach ($levels as $k=>$level)
+{
+  if ($level != 0)
   {
+    if (isset($ranks[$level]))
+    {
+      $levelname = $ranks[$level];
+    } else
+    {
+      $levelname = $level;
+    }
   
-    $abfrage = "SELECT * FROM ".$dbpräfix."user WHERE `level` = '$rowr->level'";
-    $ergebnis = $hp->mysqlquery($abfrage);
-    $template['member'].="<tr><td ><b>$rowr->name:</b></td></tr>";
-    while($row = mysql_fetch_object($ergebnis))
-    { 
-       $template['member'].="<tr><td ><a href=index.php?site=user&show=$row->user>&raquo;&nbsp;$row->user</a></td></tr>";
+    $template['member'].="<tr><td ><b>$levelname:</b></td></tr>";
+    if (isset($data[$level]))
+    {
+      foreach ($data[$level] as $key=>$row)
+      { 
+         $template['member'].="<tr><td ><a href=index.php?site=user&show=$row->user>&raquo;&nbsp;$row->user</a></td></tr>";
+      }
     }
   
   }

@@ -72,6 +72,16 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
   $site->load("user_show");
   $site->right("see_userPage");
 
+
+  $ranks = array();
+  $sql = "SELECT * FROM `$dbpräfix"."ranks`";
+  $erg = $hp->mysqlquery($sql);
+  while ($row = mysql_fetch_object($erg))
+  {
+    $ranks[$row->level] = $row->name;
+  }
+
+  
   $abfrage = "SELECT * FROM ".$dbpräfix."user WHERE `user` = '".$get['show']."'";
 
   $ergebnis = $hp->mysqlquery($abfrage);
@@ -79,19 +89,14 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
   
   if ((mysql_num_rows($ergebnis) > 0) && ($row->user == $get['show']))
   {
-  
-      // Level Name:
-      $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$row->level'";
-      $erg2 = $hp->mysqlquery($sql);
-      $level = mysql_fetch_object($erg2);
-    
+     
     
      $data = array(
         "ID" => $row->ID,
         "user" => $row->user,
         "name" => $row->name,
         "nachname" => $row->nachname,
-        "level" => $level->name,
+        "level" => isset($ranks[$row->level]) ? $ranks[$row->level] : $row->level,
         "alter" => $row->alter,
         "wohnort" => $row->wohnort,
         "geburtstag" => $row->geburtstag,
@@ -124,17 +129,7 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
     $content = "";
     foreach ($levels as $k=>$levelD)
     {
-      $s = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$levelD'";
-      $e = $hp->mysqlquery($s);
-      
-      if (mysql_num_rows($e) > 0)
-      {
-        $r = mysql_fetch_object($e);
-        $name = $r->name;
-      } else
-      {
-        $name = $levelD;
-      }
+       $name = isset($ranks[$levelD]) ? $ranks[$levelD] : $levelD;
             
        $data = array(
          "selected" => ($row->level == $levelD) ? "selected" : "",

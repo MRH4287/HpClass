@@ -215,10 +215,12 @@ class PluginLoader  extends Api
     
     foreach ($this->plugins as $name=>$data)
     {
-      $this->pluginconfig[$name] = $data["o"]->getConfig();
-      $sql = "UPDATE `$dbpräfix"."plugins` SET `config` = '".mysql_real_escape_string(json_encode($this->pluginconfig[$name]))."' WHERE `name` = '$name';";
-      $erg = $hp->mysqlquery($sql);   
-      
+      $conf = json_encode($data["o"]->getConfig()); 
+      if (isset($this->pluginconfig[$name]) && ($conf != (json_encode($this->pluginconfig[$name]))))
+      {   
+        $sql = "UPDATE `$dbpräfix"."plugins` SET `config` = '".mysql_real_escape_string($conf)."' WHERE `name` = '$name';";
+        $erg = $hp->mysqlquery($sql);   
+      }
     }
     
   

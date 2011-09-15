@@ -55,8 +55,7 @@ Wie zum Beispiel das hinzufügen von Weiterleitungen.
 */
 function onLoad()
 {
-$this->hp->addredirect("404", "plugins/NotFoundMessage");
-
+  $this->hp->addredirect("404", "plugins/NotFoundMessage");
 }
 
 
