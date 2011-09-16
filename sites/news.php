@@ -129,9 +129,12 @@ $site->load("news");
 // --------
 
 
- if (!isset ($limit)) 
+ if (!isset ($get['limit'])) 
  {
   $limit = 5;
+ } else
+ {
+  $limit = intval($get['limit']);
  }
  $limit = $hp->escapestring($limit);
  
