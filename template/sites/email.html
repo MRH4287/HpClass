@@ -42,7 +42,7 @@
     #/ ----------------------------------------------------------------------- #
     #/ Der Text, der in der Aktivierungsemail stehen soll. Der Aktivierungslink, wird unten angefügt. #
     #V:mailtext1 : "Bitte folgen Sie folgenden Link um ihr Passwort zurückzusetzten:\r\n"#
-    #V:mailtext2 : @echo("http://", HTTP_HOST, PHP_SELF, "?site=lostpw&change=$code")#
+    #V:mailtext2 : @echo("http://", HTTP_HOST, PHP_SELF, "?site=lostpw&change=", code)#
     #V:mailtext : @echo(mailtext1, mailtext2)#
     #/ ----------------------------------------------------------------------- #
     #/ Der Text, der nach der Aktivierungsmail stehen soll.                    #

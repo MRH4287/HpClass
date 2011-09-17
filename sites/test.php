@@ -20,6 +20,7 @@ $site->load("email");
 $site->set("HTTP_HOST", $_SERVER['HTTP_HOST']);
 $site->set("PHP_SELF", $_SERVER['PHP_SELF']);
 
+$site->set("code", "Servus");
 $site->get();
 $data = $site->getVars();
 
