@@ -415,25 +415,26 @@ class HP
     $sql = "REPLACE INTO `$dbpräfix"."token` (`user`, `token`, `verfall`) VALUES ('$user', '$code', '$verfall')";
     $erg = $hp->mysqlquery($sql);
     
-     
-    $mail['mailcomefrom']="admin@".$_SERVER['HTTP_HOST']; // Die Emailadresse, von der angezeigt wird, dass die E-Mail kommt
-    $mail['mailbetreff']="Ihr Passwort"; // Der angezeigt  Betreff in der Registrations E-mail
     
-    $mail['mailtext']="Bitte folgen Sie folgenden Link um ihr Passwort zurückzusetzten:\r\n";
-    $mail['mailtext'].="http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?site=lostpw&change=$code";
-    // Der Text, der nach der Aktivierungsmai stehen soll.
-    $mail['mailfooter']="\n \r Vielen dank für ihr interesse!";
-    
+    // Laden der Template Daten:
+    $site = new siteTemplate($hp);
+    $site->load("email");
+          
+    $site->set("HTTP_HOST", $_SERVER['HTTP_HOST']);
+    $site->set("PHP_SELF", $_SERVER['PHP_SELF']);
+          
+    $site->get();
+    $mail = $site->getVars();
+          
+    $site->get("Register-Mailagree");
+    $mail = array_merge($mail, $site->getVars());
+        
     
      
     
     if (!$local)
     {
       
-      foreach ($mail as $key=>$value) 
-      {
-      	$$key = $value;
-      }
       $sql = "SELECT email FROM `$dbpräfix"."user` WHERE `user` = '$user'";
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_object($erg);
@@ -441,7 +442,7 @@ class HP
       
       $info->okn("Eine Bestätigungs E-Mail wurde an Sie geschickt.");
       //print_r($mail);
-      mail($row->email, $mailbetreff, $mailtext.$mailfooter ,"from:$mailcomefrom");
+      mail($row->email, $mail['mailbetreff'], $mail['mailtext'].$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
       $site = new siteTemplate($this);
       $site->load("info");
       $site->set("info", "Eine E-Mail mit einer Bestätigung wurde an ihre E-Mail Adresse geschickt!");

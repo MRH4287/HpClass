@@ -1,0 +1,74 @@
+#!!NAME=E-Mail Nachrichten
+#!!AUTOR=MRH
+
+
+[!=Main!]
+
+  #/ Hier werden alle Variablen definiert, die für alle E-Mails gleich sind #
+    #/ Die Emailadresse, von der angezeigt wird, dass die E-Mail kommt #
+    #V:mailcomefrom : @echo("admin@", HTTP_HOST)#
+       
+
+[!/Main!]
+
+[!=Register-Mailagree!]
+  #/ Variablen für das E-Mail senden # 
+    #/ Der angezeigt  Betreff in der Registrations E-mail #
+    #V:mailbetreff : @echo("Die Registrierung auf ", HTTP_HOST)# 
+    #/ ----------------------------------------------------------------------- #
+    #/ Der Pfad zu ihrer Homepage     #
+    #V:pageadress : @echo("http://", HTTP_HOST, PHP_SELF)#
+    #/ ----------------------------------------------------------------------- # 
+    #/ Der Text, den der Link zur Registrationsseite haben soll   #
+    #V:mailregistertext : "Aktivieren"# 
+    #/ ----------------------------------------------------------------------- #
+    #/ Der Text, der in der Aktivierungsemail stehen soll. Der Aktivierungslink, wird unten angefügt. #
+    #V:mailtext : "Herzich willkommen bei uns! \n \r Drücken sie unten stehenden Link, um die Registrierung abzuschließen:\n \r"#
+    #/ ----------------------------------------------------------------------- #
+    #/ Der Text, der nach der Aktivierungsmail stehen soll.                    #
+    #V:mailfooter : "\n \r Vielen dank für ihr interesse!"#
+
+    <!-- Hier steht kein HTML Content! -->
+    #/ Struktur des ausgegebenen Inhalts: #
+    #/ $mail['mailtext'].$mail['pageadress']."?site=mailagree&user=$user&code=$code ".$mail['mailfooter'] #
+
+[!/Register-Mailagree!]
+
+
+[!=LostPW!]
+  #/ Variablen für das E-Mail senden # 
+    #/ Der angezeigt  Betreff in der Registrations E-mail #
+    #V:mailbetreff : "Ihr Passwort"# 
+    #/ ----------------------------------------------------------------------- #
+    #/ Der Text, der in der Aktivierungsemail stehen soll. Der Aktivierungslink, wird unten angefügt. #
+    #V:mailtext1 : "Bitte folgen Sie folgenden Link um ihr Passwort zurückzusetzten:\r\n"#
+    #V:mailtext2 : @echo("http://", HTTP_HOST, PHP_SELF, "?site=lostpw&change=$code")#
+    #V:mailtext : @echo(mailtext1, mailtext2)#
+    #/ ----------------------------------------------------------------------- #
+    #/ Der Text, der nach der Aktivierungsmail stehen soll.                    #
+    #V:mailfooter : "\n \r Vielen dank für ihr interesse!"#
+
+    <!-- Hier steht kein HTML Content! -->
+    #/ Struktur des ausgegebenen Inhalts: #
+    #/ $mailtext.$mailfooter #
+
+
+[!/LostPW!]
+
+
+[!=Anwerter-OkMessage!]
+  #/ Variablen für das E-Mail senden # 
+    #/ Der angezeigt  Betreff in der Registrations E-mail #
+    #V:mailbetreff : @echo("Die Registrierung auf ", HTTP_HOST)# 
+    #/ ----------------------------------------------------------------------- #
+    #/ Der Text, der in der Aktivierungsemail stehen soll. Der Aktivierungslink, wird unten angefügt. #
+    #V:mailtext : Ihre Registrierung auf unserer Seite wurde abgeschlossen.\n \r"#
+    #/ ----------------------------------------------------------------------- #
+    #/ Der Text, der nach der Aktivierungsmail stehen soll.                    #
+    #V:mailfooter : "\n \r Vielen dank für ihr interesse!"#
+
+    <!-- Hier steht kein HTML Content! -->
+    #/ Struktur des ausgegebenen Inhalts: #
+    #/ $mailtext.$mailfooter #
+
+[!/Anwerter-OkMessage!]

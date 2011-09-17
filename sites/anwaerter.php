@@ -63,13 +63,20 @@ if (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0
 
         if (!$local)
         {
-          //Registrierung:
-          $mail['mailcomefrom']="admin@".$_SERVER['HTTP_HOST']; // Die Emailadresse, von der angezeigt wird, dass die E-Mail kommt
-          $mail['mailbetreff']="Die Registrierung auf ".$_SERVER['HTTP_HOST']; // Der angezeigt  Betreff in der Registrations E-mail
-          $mail['pageadress']= "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']; // Der Pfad zu ihrer Homepage
-          $mail['mailtext']= "Ihre Registrierung auf unserer Seite wurde abgeschlossen.\n \r";
-          // Der Text, der nach der Aktivierungsmai stehen soll.
-          $mail['mailfooter']="\n \r Vielen Dank für ihr Interesse!";
+        
+          // Laden der Template Daten:
+          $site = new siteTemplate($hp);
+          $site->load("email");
+          
+          $site->set("HTTP_HOST", $_SERVER['HTTP_HOST']);
+          $site->set("PHP_SELF", $_SERVER['PHP_SELF']);
+          
+          $site->get();
+          $mail = $site->getVars();
+          
+          $site->get("Anwerter-OkMessage");
+          $mail = array_merge($mail, $site->getVars());
+
           
           mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
      

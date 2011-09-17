@@ -16,64 +16,64 @@ $lbs = $hp->lbsites;
 if (isset($get['change']))
 {
 
-$code = $get['change']; 
-
-$sql = "SELECT * FROM `$dbpräfix"."token` WHERE `token` = '$code'";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
-
-
-
-if (isset($row->verfall) and ($row->verfall >= time()))
-{
-
- $data = array(
-  "user" => $row->user,
-  "code" => $code
- );
- 
- $site = new siteTemplate($hp);
- $site->load("lostpw");
- $site->setArray($data);
- $site->display("Change");
-
-
-} else
-{
- $error->error("Der angegebene Code schon benutzt worden oder ist bereits abgelaufen!", "1");
-}
+  $code = $get['change']; 
+  
+  $sql = "SELECT * FROM `$dbpräfix"."token` WHERE `token` = '$code'";
+  $erg = $hp->mysqlquery($sql);
+  $row = mysql_fetch_object($erg);
+  
+  
+  
+  if (isset($row->verfall) and ($row->verfall >= time()))
+  {
+  
+     $data = array(
+      "user" => $row->user,
+      "code" => $code
+     );
+   
+     $site = new siteTemplate($hp);
+     $site->load("lostpw");
+     $site->setArray($data);
+     $site->display("Change");
+    
+    
+  } else
+  {
+    $error->error("Der angegebene Code schon benutzt worden oder ist bereits abgelaufen!", "1");
+  }
 
 } else if (isset($post['change']))
 {
 
-$code = $post['token']; 
-
-$sql = "SELECT * FROM `$dbpräfix"."token` WHERE `token` = '$code'";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
-
-$pw = $post['pw'];
-$pw2 = $post['pw2'];
-
-if ($pw != $pw2)
-{
- $error->error("Die angegebenen Passwörter stimmen nicht überein!", "1");
-
-} else
- {
- 
- $sql = "UPDATE `$dbpräfix"."user` SET  `pass` = '".md5($pw)."' WHERE `user` = '$row->user'";
- $erg = $hp->mysqlquery($sql);
- 
- $sql = "DELETE FROM `$dbpräfix"."token` WHERE `user` = '$row->user'";
- $erg = $hp->mysqlquery($sql);
- 
- $site = new siteTemplate($hp);
- $site->load("info");
- $site->set("info", "Passwort erfolgreich geändert!");
- $site->display();
- 
- }
+  $code = $post['token']; 
+  
+  $sql = "SELECT * FROM `$dbpräfix"."token` WHERE `token` = '$code'";
+  $erg = $hp->mysqlquery($sql);
+  $row = mysql_fetch_object($erg);
+  
+  $pw = $post['pw'];
+  $pw2 = $post['pw2'];
+  
+  if ($pw != $pw2)
+  {
+    $error->error("Die angegebenen Passwörter stimmen nicht überein!", "1");
+  
+  } else
+  {
+   
+     $sql = "UPDATE `$dbpräfix"."user` SET  `pass` = '".md5($pw)."' WHERE `user` = '$row->user'";
+     $erg = $hp->mysqlquery($sql);
+     
+     $sql = "DELETE FROM `$dbpräfix"."token` WHERE `user` = '$row->user'";
+     $erg = $hp->mysqlquery($sql);
+     
+     $site = new siteTemplate($hp);
+     $site->load("info");
+     $site->set("info", "Passwort erfolgreich geändert!");
+     $site->display();
+   
+   }
 
 
 
@@ -106,8 +106,8 @@ if ($pw != $pw2)
 
   } else
   {
-  // alles OK
-  $hp->lostpassword($user);
+    // alles OK
+    $hp->lostpassword($user);
   }
 
 } else

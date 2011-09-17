@@ -15,34 +15,24 @@ $right = $hp->right;
 $subpages = $hp->subpages;
 
 $site = new siteTemplate($hp);
-$site->load("test");
+$site->load("email");
 
-$ar = array("a", "b", "c");
-$site->set("array", $ar);
+$site->set("HTTP_HOST", $_SERVER['HTTP_HOST']);
+$site->set("PHP_SELF", $_SERVER['PHP_SELF']);
+
+$site->get();
+$data = $site->getVars();
+
+$site->get("LostPW");
+$data = array_merge($data, $site->getVars());
 
 
-$ar2 = array(
+echo "<pre>";
+var_dump($data);
+echo "</pre>";
 
-  array(
-  
-    "name" => "bla :D"
-),
-  
-  array(
-  
-    "name" => "blub ^^"
 
-  )
 
-);
-
-$site->set("array2", $ar2);
-
-$site->display();
-
-//echo "<pre>";
-//print_r($site->getPlaceholder($site->getNode("LbSite-Edit", array())));
-//echo "</pre>";
 
 
 ?>

@@ -16,18 +16,6 @@ $useMail = $config["user_mailagree"];
 
 $local = (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0.1"));
 
-
-//Registrierung:
-$mail['mailcomefrom']="admin@".$_SERVER['HTTP_HOST']; // Die Emailadresse, von der angezeigt wird, dass die E-Mail kommt
-$mail['mailbetreff']="Die Registrierung auf ".$_SERVER['HTTP_HOST']; // Der angezeigt  Betreff in der Registrations E-mail
-$mail['pageadress']= "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']; // Der Pfad zu ihrer Homepage
-$mail['mailregistertext']="Aktivieren"; // Der Text, den der Link zur Registrationsseite haben soll
-// Der Text, der in der Aktivierungsemail stehen soll. Der Aktivierungslink, wird unten angefügt.
-$mail['mailtext']="Herzich willkommen bei uns! \n \r Drücken sie unten stehenden Link, um die Registrierung abzuschließen:\n \r";
-// Der Text, der nach der Aktivierungsmai stehen soll.
-$mail['mailfooter']="\n \r Vielen dank für ihr interesse!";
-
-
 //require_once( './include/captcha.class.php' );
 if (!isset($post['register'])) 
 {
@@ -173,7 +161,21 @@ if (!isset($post['register']))
       {
         if (!$local)
         {
-         mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['pageadress']."?site=mailagree&user=$user&code=$code ".$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
+          // Laden der Template Daten:
+          $site = new siteTemplate($hp);
+          $site->load("email");
+          
+          $site->set("HTTP_HOST", $_SERVER['HTTP_HOST']);
+          $site->set("PHP_SELF", $_SERVER['PHP_SELF']);
+          
+          $site->get();
+          $mail = $site->getVars();
+          
+          $site->get("Register-Mailagree");
+          $mail = array_merge($mail, $site->getVars());
+
+        
+           mail($email, $mail['mailbetreff'], $mail['mailtext'].$mail['pageadress']."?site=mailagree&user=$user&code=$code ".$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
         } else
         {
           $msg .= "<br>Diese Funktion ist auf Localhost deaktiviert!<br>gehen Sie bitte auf folgende Seite:<br>";

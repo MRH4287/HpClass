@@ -141,7 +141,7 @@ class siteTemplate
     $result = array();
   
       // Herausfiltern der Platzhalter:
-    	if (preg_match_all("/\#".((!$trust) ? "\\" : "").$key."[^\#]*#/", $content, $m2))
+    	if (preg_match_all("/#".((!$trust) ? "\\" : "").$key."[^\#]*#/", $content, $m2))
     	{
         foreach ($m2 as $k=>$data)
         {
@@ -199,7 +199,7 @@ class siteTemplate
   
   private function replaceComment($data)
   {
-    $langData = $this->getPlaceholder($data, "/");
+    $langData = $this->getPlaceholder($data, "/");   
     foreach ($langData as $k=> $word)
     {
       $data = str_replace("#/$word#", "", $data);
@@ -220,15 +220,13 @@ class siteTemplate
       $content = "";
       
       if (count($split) == 2)
-      {
-        $this->vars[$split[0]] =  $this->replaceExtendedInput($split[1]);
-       
+      {   
+        $this->vars[$split[0]] =  $this->replaceExtendedInput($split[1]);       
       } else
       {
         $content = "[Var?]";
       }
-      
-    
+
       $data = str_replace("#V:$word#", $content, $data);
     }
   
@@ -578,13 +576,9 @@ class siteTemplate
   
       $content = "";
       
-      if (preg_match("/\"(.*)\"/", $input))
-      {
-          $tmp = $this->replaceLangBlocks($this->replaceDefault($input));  
-          $content =  str_replace("\"", "", $tmp);
-          
-      } elseif (preg_match("/([^\"]*)\(([^\)]*)\)/", $input, $m))
-      {          
+      
+      if (preg_match("/@([^\"]*)\(([^\)]*)\)/", $input, $m))
+      {                 
          if (isset(self::$functions[$m[1]]))
          {
              $sys = self::$functions[$m[1]];
@@ -597,31 +591,31 @@ class siteTemplate
              $split = explode(", ", $m[2]);
               
              foreach ($split as $i => $el)     
-             {                
-                 $content = $this->replaceExtendedInput($el);  
-             
-                 $args[] = $content;
-             
-             }
-             
+             {   
+                 $content = $this->replaceExtendedInput($el);                         
+                 $args[] = $content;     
+             }        
              
              $content = $obj->$func($args); 
-           
-         
+                    
          } else
          {
            $content = "[#-Func?]";
          }
         
+      } elseif (preg_match("/\"(.*)\"/", $input))
+      {
+          $tmp = $this->replaceLangBlocks($this->replaceDefault($input));  
+          $content =  str_replace("\"", "", $tmp);
+          
       }      
       elseif (preg_match("/%(.*)/", $input))
-      {
-      
+      {               
           $content = $hp->getlangclass()->word(str_replace("%", "", $input));
           
       } 
       elseif (preg_match("/!(.*)/", $input))
-      {
+      {       
           $name = str_replace("!", "", $input);
           
           if (isset($this->blocks[$name]))
@@ -636,7 +630,7 @@ class siteTemplate
           
       }
       elseif (preg_match("/l\:(.*)/", $input))
-      {
+      {          
         $input = str_replace("l:", "", $input);
         
         if ($this->aktArray != null)
@@ -659,19 +653,18 @@ class siteTemplate
         
       
       } elseif (isset($this->data[$input]))
-      {
+      {               
         $content = $this->data[$input];
 
       } elseif (isset($this->vars[$input]))
-      { 
-         
+      {          
         $content = $this->vars[$input];
       } 
       else
-      {
+      {          
         $content = $fallback;
       } 
-  
+   
       return $content;
   
   }
@@ -813,6 +806,11 @@ class siteTemplate
       return $lang->word('noright2');
     }
   }
+  
+  public function getVars()
+  {
+    return $this->vars;
+  }
 
 
   // ------------------------ Static Functions ---------------------------------
@@ -853,12 +851,11 @@ class siteTemplate
  public function temp_echo($args)
  {  
     $value = "";
-    
+
     foreach($args as $k=>$v)
     {
       $value .= (is_string($v)) ? $v : (is_array($v) ? "[Array]" : (is_bool($v) ? $v : (is_object($v) ? "[Object]" : "[Unknown]")));
     }
-    
     return $value;  
  }
  
