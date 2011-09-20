@@ -203,6 +203,14 @@ class siteTemplate
         $data = str_replace("#!$key#", $value, $data);
       }
     }
+    foreach($this->vars as $key=>$value)
+    {
+      if (!is_array($value) && !is_object($value))
+      {
+        $data = str_replace("#!$key#", $value, $data);
+      }
+    }
+    
     return $data;
   }
   
@@ -905,18 +913,22 @@ class siteTemplate
     {
       $site->load($args[0]);      
       
+      $content = '';
+      
       switch ($argCount)
       {
         case 2:
-          return $site->get($args[1]);
-        
+          $content = $site->get($args[1]);
+          break;
         
         case 1:
         default:
-          return $site->get();
-          
-      }
-    
+          $content = $site->get();
+          break;
+      }     
+      $this->vars = array_merge($this->vars, $site->getVars());
+      
+      return $content;
     }         
  }
 
