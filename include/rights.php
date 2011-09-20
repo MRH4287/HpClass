@@ -92,6 +92,13 @@ $registed = array(
   "name" => "manage_subpage",
   "desc" => "Das Recht Unterseiten zu bearbeiten",
   "cat"  => "System"
+     
+  ),
+  array(
+  
+  "name" => "usedpics",
+  "desc" => "Das Recht die Bilder für die Newsmeldungen zu verwalten",
+  "cat"  => "System"
   
   ),
   array (

@@ -29,7 +29,7 @@ class siteTemplate
   public static $functions = array();
   
   
-  public function __construct($hp)
+  public function __construct($hp, $copy = null)
   {
     $this->hp = $hp;
     $this->searchpath = "template/sites/";
@@ -37,7 +37,17 @@ class siteTemplate
     
     self::extend($this);
     
+    if (($copy != null) && (is_a($copy, "siteTemplate")))
+    {
+      $this->data = array_merge($this->data, $copy->data);
+      $this->vars = array_merge($this->vars, $copy->vars);
+    }
+    
+    
   }
+  
+
+  
   
   
   /*!
@@ -874,6 +884,41 @@ class siteTemplate
  
  }
  
+ /*
+ 
+  Includes Content from another template File
+  Parameter:
+    - template File
+    - Block (Optional)
+ 
+ */
+ public function temp_include($args)
+ {
+    $argCount = count($args);
+    
+    $site = new siteTemplate($this->hp, $this);
+    
+    if ($argCount < 1)
+    {
+      return "[Args?]";
+    } elseif ($argCount >= 1)
+    {
+      $site->load($args[0]);      
+      
+      switch ($argCount)
+      {
+        case 2:
+          return $site->get($args[1]);
+        
+        
+        case 1:
+        default:
+          return $site->get();
+          
+      }
+    
+    }         
+ }
 
 
 
