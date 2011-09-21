@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 
@@ -53,7 +53,7 @@ $numsendfiles = count($_FILES);
 		$dateityp=mysql_real_escape_string($dateiinformationen['type']);
 		$daten=mysql_real_escape_string($daten);
 
-	$sql = "UPDATE `".$dbpräfix."user` SET `bild` = '$daten', `width` = '$Width', `height` = '$Height'  WHERE `user` = '".$_SESSION['username']."';";
+	$sql = "UPDATE `".$dbprefix."user` SET `bild` = '$daten', `width` = '$Width', `height` = '$Height'  WHERE `user` = '".$_SESSION['username']."';";
 	//	echo $sql."<br>";
     $result=$hp->mysqlquery($sql);
 		if(!$result)

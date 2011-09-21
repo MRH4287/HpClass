@@ -21,9 +21,9 @@ class config
   public function load()
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
   
-    $abfrage = "SELECT * FROM `".$dbpräfix ."config`";
+    $abfrage = "SELECT * FROM `".$dbprefix ."config`";
 
     $ergebnisss = $hp->mysqlquery($abfrage);
     echo mysql_error();
@@ -191,11 +191,11 @@ class config
   private function save($config)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();   
+    $dbprefix = $hp->getprefix();   
   
     if (is_array($config))
     {
-        $sql = "TRUNCATE `".$dbpräfix."config`;";
+        $sql = "TRUNCATE `".$dbprefix."config`;";
         $hp->mysqlquery($sql);
         
  
@@ -207,7 +207,7 @@ class config
             $on = ($on) ? "true" : "false";
           }
           
-          $sql = "INSERT INTO `".$dbpräfix."config` (
+          $sql = "INSERT INTO `".$dbprefix."config` (
           `ID` ,
           `name`,
           `ok`,

@@ -18,7 +18,7 @@ var $user;
 var $connection;
 var $password;
 var $db;
-var $präfix;
+var $prefix;
 var $error = array();
 
 //------------------------------------------------------------------
@@ -31,7 +31,7 @@ $this->host =  $dbserver;
 $this->user = $dbuser;
 $this->password = $dbpass;
 $this->db = $dbdatenbank;
-$this->präfix = $dbpräfix;
+$this->prefix = $dbprefix;
 
 $this->connect();
 }
@@ -188,9 +188,9 @@ return $query;
 
 //------------------------------------------------------------------
 
-function getpräfix()
+function getprefix()
 {
-return $this->präfix;
+return $this->prefix;
 }
 
 //------------------------------------------------------------------
@@ -256,8 +256,8 @@ $update = new update;
 	    foreach ($file as $a=>$v) {	
        $sql = $v;
 	
-	     $sql = str_replace("#!-PRÄFIX-!#", $update->getpräfix(), $sql);
-	     $sql = str_replace("#!-PREFIX-!#", $update->getpräfix(), $sql);
+	     $sql = str_replace("#!-PRÄFIX-!#", $update->getprefix(), $sql);
+	     $sql = str_replace("#!-PREFIX-!#", $update->getprefix(), $sql);
   	  
         if (($sql != "") and ($sql != "<br>"))
  	      {

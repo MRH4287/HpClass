@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -15,22 +15,14 @@ $right = $hp->right;
 $subpages = $hp->subpages;
 
 $site = new siteTemplate($hp);
-$site->load("email");
+$site->load("login");
 
-$site->set("HTTP_HOST", $_SERVER['HTTP_HOST']);
-$site->set("PHP_SELF", $_SERVER['PHP_SELF']);
-
-$site->set("code", "Servus");
-$site->get();
-$data = $site->getVars();
-
-$site->get("LostPW");
-$data = array_merge($data, $site->getVars());
+$site->set("username", "test");
 
 
-echo "<pre>";
-var_dump($data);
-echo "</pre>";
+$site->display("Links");
+
+
 
 
 

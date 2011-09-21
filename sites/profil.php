@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 
@@ -16,7 +16,7 @@ $error = $hp->geterror();
   {
     if (!isset ($post['pwändern']) and !isset($post['go']) and !isset($post['pwneu']))
     {
-      $abfrage = "SELECT * FROM ".$dbpräfix."user WHERE `user` = '".$_SESSION['username']."'";
+      $abfrage = "SELECT * FROM ".$dbprefix."user WHERE `user` = '".$_SESSION['username']."'";
       $ergebnis = $hp->mysqlquery($abfrage);
     
       
@@ -65,7 +65,7 @@ $error = $hp->geterror();
       $site = new siteTemplate($hp);
       $site->load("info");
 
-      $sql = "SELECT * FROM `".$dbpräfix."user` WHERE `user` = '".$_SESSION['username']."';";
+      $sql = "SELECT * FROM `".$dbprefix."user` WHERE `user` = '".$_SESSION['username']."';";
       $erg = $hp->mysqlquery($sql);
       
       if (mysql_num_rows($erg) > 0)
@@ -81,7 +81,7 @@ $error = $hp->geterror();
           
         if ((($passwortalt == $row->pass) or ($passwortalt2 == $row->pass)) and ($passwortneu == $passwortneu2))
         {
-          $eingabe = "UPDATE `".$dbpräfix."user` SET `pass` = '$passwortneu' WHERE `user` = '".$_SESSION['username']."';";
+          $eingabe = "UPDATE `".$dbprefix."user` SET `pass` = '$passwortneu' WHERE `user` = '".$_SESSION['username']."';";
           $ergebnis = $hp->mysqlquery($eingabe);
           $site->set("info", $lang->word('ok_profil')."!<br><a href=index.php?site=profil>".$lang->word('back')."</a>");
         } else 
@@ -99,7 +99,7 @@ $error = $hp->geterror();
       $site = new siteTemplate($hp);
       $site->load("info");
 
-      $ignore = array ("hp", "info", "error", "hp", "config", "dbpräfix", "right", "level");
+      $ignore = array ("hp", "info", "error", "hp", "config", "dbprefix", "right", "level");
       foreach ($post as $key=>$value) 
       {
         $value = str_replace('<',"&lt;" ,$value);
@@ -115,12 +115,12 @@ $error = $hp->geterror();
       if ((isset($name)) and (isset($nachname)) and (isset($wohnort))) 
       {
 
-        $eingabe = "UPDATE `".$dbpräfix."user` SET `name` = $name, `nachname` = $nachname, `alter` = $alter, `geburtstag` = $geburtstag, `wohnort` = $wohnort, `cpu` = $cpu,".
+        $eingabe = "UPDATE `".$dbprefix."user` SET `name` = $name, `nachname` = $nachname, `alter` = $alter, `geburtstag` = $geburtstag, `wohnort` = $wohnort, `cpu` = $cpu,".
         " `ram` = $ram, `graka` = $graka, `hdd` = $hdd, `clan` = $clan, `clantag` = $clantag  WHERE `user` = '".$_SESSION['username']."';";
 
         $ergebnis2 = $hp->mysqlquery($eingabe);
 
-        $eingabe = "UPDATE `".$dbpräfix."user` SET `clanhomepage` = $clanhomepage, `clanhistory` = $clanhistory, `tel` = $tel  WHERE `user` = '".$_SESSION['username']."';";
+        $eingabe = "UPDATE `".$dbprefix."user` SET `clanhomepage` = $clanhomepage, `clanhistory` = $clanhistory, `tel` = $tel  WHERE `user` = '".$_SESSION['username']."';";
 
         $ergebnis = $hp->mysqlquery($eingabe);
         

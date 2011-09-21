@@ -55,14 +55,14 @@ class PmShow extends Plugin
   function onLoad()
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
     
       if (isset($_SESSION['username']))
       {
-        $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `zu` = '".$_SESSION['username']."' AND `gelesen` = '0';";
+        $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `zu` = '".$_SESSION['username']."' AND `gelesen` = '0';";
     
         $erg = $hp->mysqlquery($abfrage);
           if (mysql_num_rows($erg) >= 1)

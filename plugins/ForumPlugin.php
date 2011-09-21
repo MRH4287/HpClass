@@ -101,7 +101,7 @@ function onLoad()
 
 
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $right = $hp->getright();
 $level = $_SESSION['level'];
 $info = $hp->getinfo();
@@ -109,14 +109,14 @@ $info = $hp->getinfo();
 if (isset($post['forum_editpost']))
 {
 
-$sql = "SELECT * FROM `$dbpräfix"."posts` WHERE `ID` = ".$post['postid'];
+$sql = "SELECT * FROM `$dbprefix"."posts` WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 $time = time();
 
 if (($row->userid == $_SESSION['ID']) or $right[$level]['forum_edit_post'])
 {
-$sql = "UPDATE `$dbpräfix"."posts` SET `text` = '".$post['text']."', `lastedit` = '$time' WHERE `ID` = ".$post['postid'];
+$sql = "UPDATE `$dbprefix"."posts` SET `text` = '".$post['text']."', `lastedit` = '$time' WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $info->okn("Post geändert");
 }
@@ -127,7 +127,7 @@ $info->okn("Post geändert");
 if (isset($post['forum_editthread']))
 {
 
-$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = ".$post['postid'];
+$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -156,7 +156,7 @@ $visible2 = "1";
 
 if (($row->userid == $_SESSION['ID']) or ($right[$level]['forum_edit_post']))
 {
-$sql = "UPDATE `$dbpräfix"."threads` SET `text` = '".$post['text']."', `level` = '$level', `type` = '$type', $pw `visible` = '$visible2', `titel` = '".$post['titel']."', `lastedit` = '$time' WHERE `ID` = ".$post['postid'];
+$sql = "UPDATE `$dbprefix"."threads` SET `text` = '".$post['text']."', `level` = '$level', `type` = '$type', $pw `visible` = '$visible2', `titel` = '".$post['titel']."', `lastedit` = '$time' WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $info->okn("Thread geändert");
 }
@@ -167,7 +167,7 @@ $info->okn("Thread geändert");
 if (isset($post['forum_editforum']))
 {
 
-$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = ".$post['postid'];
+$sql = "SELECT * FROM `$dbprefix"."forums` WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -196,7 +196,7 @@ $visible2 = "1";
 
 if (($row->userid == $_SESSION['ID']) or ($right[$level]['forum_edit_forum']))
 {
-$sql = "UPDATE `$dbpräfix"."forums` SET `description` = '".$post['text']."', `level` = '$level', `type` = '$type', $pw `visible` = '$visible2', `titel` = '".$post['titel']."' WHERE `ID` = ".$post['postid'];
+$sql = "UPDATE `$dbprefix"."forums` SET `description` = '".$post['text']."', `level` = '$level', `type` = '$type', $pw `visible` = '$visible2', `titel` = '".$post['titel']."' WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $info->okn("Forum geändert");
 }
@@ -207,7 +207,7 @@ $info->okn("Forum geändert");
 if (isset($post['forum_movethread']))
 {
 
-$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = ".$post['postid'];
+$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -215,7 +215,7 @@ $row = mysql_fetch_object($erg);
 
 if (($row->userid == $_SESSION['ID']) or $right[$level]['forum_edit_post'])
 {
-$sql = "UPDATE `$dbpräfix"."threads` SET `forumid` = '".$post['moveto']."' WHERE `ID` = ".$post['postid'];
+$sql = "UPDATE `$dbprefix"."threads` SET `forumid` = '".$post['moveto']."' WHERE `ID` = ".$post['postid'];
 $erg = $hp->mysqlquery($sql);
 $info->okn("Thread verschoben");
 }
@@ -233,13 +233,13 @@ $info->okn("Thread verschoben");
 function getusername($ID)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
 
-$sql = "SELECT * FROM `$dbpräfix"."user` WHERE `ID` = '$ID'";
+$sql = "SELECT * FROM `$dbprefix"."user` WHERE `ID` = '$ID'";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -249,19 +249,19 @@ return $row->user;
 function getrank($ID)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
 
-$sql = "SELECT * FROM `$dbpräfix"."user` WHERE `ID` = '$ID'";
+$sql = "SELECT * FROM `$dbprefix"."user` WHERE `ID` = '$ID'";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
 $level = $row->level;
 
-$sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = $level";
+$sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` = $level";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -272,17 +272,17 @@ return $row->name;
 function getcountposts($ID)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
 
-$sql = "SELECT * FROM `$dbpräfix"."posts` WHERE `userid` = $ID";
+$sql = "SELECT * FROM `$dbprefix"."posts` WHERE `userid` = $ID";
 $erg = $hp->mysqlquery($sql);
 $count = mysql_num_rows($erg);
 
-$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `userid` = $ID";
+$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `userid` = $ID";
 $erg = $hp->mysqlquery($sql);
 $count += mysql_num_rows($erg);
 
@@ -292,7 +292,7 @@ return $count;
 function getimage_f($forum)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
@@ -307,7 +307,7 @@ $lasttime = $_SESSION['lasttime_t'];
 
 $new = false;
 
-$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `forumid` = $forum";
+$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `forumid` = $forum";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
@@ -317,7 +317,7 @@ $new = true;
 }
 }
 
-$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = $forum";
+$sql = "SELECT * FROM `$dbprefix"."forums` WHERE `ID` = $forum";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -356,7 +356,7 @@ return $link;
 function getimage_t($ID)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
@@ -371,7 +371,7 @@ $lasttime = $_SESSION['lasttime_t'];
 
 $new = false;
 
-$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = $ID";
+$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = $ID";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -390,7 +390,7 @@ $lock = true;
 
 }
 
-$sql = "SELECT * FROM `$dbpräfix"."posts` WHERE `threadid` = '$ID'";
+$sql = "SELECT * FROM `$dbprefix"."posts` WHERE `threadid` = '$ID'";
 $erg = $hp->mysqlquery($sql);
 $config = $this->hp->getconfig();
 
@@ -463,13 +463,13 @@ return $link;
 function user_lastlogin($user)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
 
-$sql = "SELECT lastlogin FROM `$dbpräfix"."user` WHERE `ID` = '$user'";
+$sql = "SELECT lastlogin FROM `$dbprefix"."user` WHERE `ID` = '$user'";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -479,13 +479,13 @@ return $row->lastlogin;
 function getvote($threadid)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
 
-$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = $threadid";
+$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = $threadid";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -553,7 +553,7 @@ return $text;
 function createLink($forum = 0, $thread = 0)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 
 
 $link = '<a href="index.php?site=forum">Forum</a>';
@@ -561,7 +561,7 @@ $link = '<a href="index.php?site=forum">Forum</a>';
 if (($forum == 0) and ($thread != 0))
 {
 
-$sql = "SELECT forumid FROM `$dbpräfix"."threads` WHERE `ID` = '$thread'";
+$sql = "SELECT forumid FROM `$dbprefix"."threads` WHERE `ID` = '$thread'";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -571,7 +571,7 @@ $forum = $row->forumid;
 
 if ($forum != 0)
 {
-$sql = "SELECT titel FROM `$dbpräfix"."forums` WHERE `ID` = '$forum'";
+$sql = "SELECT titel FROM `$dbprefix"."forums` WHERE `ID` = '$forum'";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -582,7 +582,7 @@ $link .=" > ".'<a href="index.php?site=forum&forum='.$forum.'">'.$row->titel.'</
 
 if ($thread != 0)
 {
-$sql = "SELECT titel FROM `$dbpräfix"."threads` WHERE `ID` = '$thread'";
+$sql = "SELECT titel FROM `$dbprefix"."threads` WHERE `ID` = '$thread'";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -602,14 +602,14 @@ return $link;
 function site_forum_editpost($vars)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
 $get = $hp->get();
 
-$sql = "SELECT * FROM `$dbpräfix"."posts` WHERE `ID` = '$vars'";
+$sql = "SELECT * FROM `$dbprefix"."posts` WHERE `ID` = '$vars'";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -642,7 +642,7 @@ $row = mysql_fetch_object($erg);
 function site_forum_editthread($vars)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
@@ -651,7 +651,7 @@ $get = $hp->get();
 $right = $hp->getright();
 $level = $_SESSION['level'];
 
-$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = '$vars'";
+$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = '$vars'";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -704,7 +704,7 @@ $row = mysql_fetch_object($erg);
     
     <td width="85%"><table width="100%">
     <?php
-    $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` <= '$level';";
+    $sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` <= '$level';";
     $erg2 = $hp->mysqlquery($sql);
     while ($row2 = mysql_fetch_object($erg2))
     {
@@ -793,7 +793,7 @@ $row = mysql_fetch_object($erg);
 function site_forum_editforum($vars)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
@@ -802,7 +802,7 @@ $get = $hp->get();
 $right = $hp->getright();
 $level = $_SESSION['level'];
 
-$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = '$vars'";
+$sql = "SELECT * FROM `$dbprefix"."forums` WHERE `ID` = '$vars'";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -855,7 +855,7 @@ $row = mysql_fetch_object($erg);
     
     <td width="85%"><table width="100%">
     <?php
-    $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` <= '$level';";
+    $sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` <= '$level';";
     $erg2 = $hp->mysqlquery($sql);
     while ($row2 = mysql_fetch_object($erg2))
     {
@@ -915,7 +915,7 @@ $row = mysql_fetch_object($erg);
 function site_forum_delthread($vars)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $info = $hp->info;
 $error = $hp->error;
 $lang=$hp->langclass;
@@ -926,7 +926,7 @@ $level = $_SESSION['level'];
 if($right[$level]['forum_edit_post'])
 {
 
-$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = '$vars';";
+$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = '$vars';";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -956,7 +956,7 @@ echo $lang->word('noright');
 function site_forum_delpost($vars)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $info = $hp->info;
 $error = $hp->error;
 $lang=$hp->langclass;
@@ -967,7 +967,7 @@ $level = $_SESSION['level'];
 if($right[$level]['forum_edit_post'])
 {
 
-$sql = "SELECT * FROM `$dbpräfix"."posts` WHERE `ID` = '$vars';";
+$sql = "SELECT * FROM `$dbprefix"."posts` WHERE `ID` = '$vars';";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -996,7 +996,7 @@ echo $lang->word('noright');
 function site_forum_delforum($vars)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $info = $hp->info;
 $error = $hp->error;
 $lang=$hp->langclass;
@@ -1007,7 +1007,7 @@ $level = $_SESSION['level'];
 if($right[$level]['forum_del_forum'])
 {
 
-$sql = "SELECT * FROM `$dbpräfix"."forums` WHERE `ID` = '$vars';";
+$sql = "SELECT * FROM `$dbprefix"."forums` WHERE `ID` = '$vars';";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -1026,7 +1026,7 @@ $row = mysql_fetch_object($erg);
 <b>Themen:</b> <br>
 <ul>
 <?php
-$sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `forumid` = '$vars'";
+$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `forumid` = '$vars'";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
@@ -1048,7 +1048,7 @@ echo $lang->word('noright');
 function site_forum_movethread($vars)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $game = $hp->game;
 $info = $hp->info;
 $error = $hp->error;
@@ -1068,7 +1068,7 @@ $fp = $hp->fp;
     <td>Wohin:</td>
     <td><select name="moveto" id="moveto">
     <?php
-    $sql = "SELECT * FROM `$dbpräfix"."forums`";
+    $sql = "SELECT * FROM `$dbprefix"."forums`";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
     {

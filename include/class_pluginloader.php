@@ -127,7 +127,7 @@ class PluginLoader  extends Api
   function updatePluginList()
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -143,7 +143,7 @@ class PluginLoader  extends Api
     
     // Lade die Datenbank um alle Plugins zu suchen, die Aktiviert sind
     
-    $sql = "SELECT * FROM `$dbpräfix"."plugins`";
+    $sql = "SELECT * FROM `$dbprefix"."plugins`";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
     {
@@ -160,7 +160,7 @@ class PluginLoader  extends Api
       {
         
         $this->hp->info->info("Ungültiger Eintrag in Plugin Tabelle entfernt");
-        $sql2 = "DELETE FROM `$dbpräfix"."plugins` WHERE `name` = '$name';";
+        $sql2 = "DELETE FROM `$dbprefix"."plugins` WHERE `name` = '$name';";
         $hp->mysqlquery($sql2);
       
       
@@ -206,7 +206,7 @@ class PluginLoader  extends Api
   public function Save()
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -218,7 +218,7 @@ class PluginLoader  extends Api
       $conf = json_encode($data["o"]->getConfig()); 
       if (isset($this->pluginconfig[$name]) && ($conf != (json_encode($this->pluginconfig[$name]))))
       {   
-        $sql = "UPDATE `$dbpräfix"."plugins` SET `config` = '".mysql_real_escape_string($conf)."' WHERE `name` = '$name';";
+        $sql = "UPDATE `$dbprefix"."plugins` SET `config` = '".mysql_real_escape_string($conf)."' WHERE `name` = '$name';";
         $erg = $hp->mysqlquery($sql);   
       }
     }
@@ -271,7 +271,7 @@ class PluginLoader  extends Api
   function enablePlugin($name, $force = false)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -284,12 +284,12 @@ class PluginLoader  extends Api
       {
         // Eintragen in die Datenbank;
         
-        $sql = "SELECT * FROM `$dbpräfix"."plugins` WHERE `name` = '$name';";
+        $sql = "SELECT * FROM `$dbprefix"."plugins` WHERE `name` = '$name';";
         $erg = $hp->mysqlquery($sql);
         if (mysql_num_rows($erg) == 0)
         {
         
-          $sql = "REPLACE INTO `$dbpräfix"."plugins` (`name`) VALUES ('$name');";
+          $sql = "REPLACE INTO `$dbprefix"."plugins` (`name`) VALUES ('$name');";
           $erg = $hp->mysqlquery($sql);
         
         }
@@ -317,7 +317,7 @@ class PluginLoader  extends Api
   function disablePlugin($name, $force = false)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -331,7 +331,7 @@ class PluginLoader  extends Api
       {
         // Eintragen in die Datenbank;
         
-        $sql = "DELETE FROM `$dbpräfix"."plugins` WHERE `name` = '$name';";
+        $sql = "DELETE FROM `$dbprefix"."plugins` WHERE `name` = '$name';";
         $erg = $hp->mysqlquery($sql);
         
         return true;

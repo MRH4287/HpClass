@@ -52,7 +52,7 @@ class Xajax_Funktions
   function ax_event_list($month = "X", $jahr = "X")
   { 
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -209,7 +209,7 @@ class Xajax_Funktions
   function ax_calender_vote($month = "X", $jahr = "X")
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->firephp;
@@ -403,7 +403,7 @@ class Xajax_Funktions
   function ax_checkvote($titel, $answer1, $answer2, $day, $month, $year, $hour, $min, $update)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -509,7 +509,7 @@ class Xajax_Funktions
   {
     $response = new xajaxResponse();
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -537,7 +537,7 @@ class Xajax_Funktions
       // Workaround End
     }
     
-    $sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = $ID";
+    $sql = "SELECT * FROM `$dbprefix"."vote` WHERE `ID` = $ID";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
   
@@ -587,7 +587,7 @@ class Xajax_Funktions
       
       
       
-      $sql = "UPDATE `$dbpräfix"."vote` SET `ergebnisse` = '$ergebnisse', `voted` = '$users' WHERE `ID` = $ID";
+      $sql = "UPDATE `$dbprefix"."vote` SET `ergebnisse` = '$ergebnisse', `voted` = '$users' WHERE `ID` = $ID";
       $erg = $hp->mysqlquery($sql);
       
       
@@ -603,7 +603,7 @@ class Xajax_Funktions
   {
     $response = new xajaxResponse();
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -631,7 +631,7 @@ class Xajax_Funktions
     }
     
     
-    $sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = $ID";
+    $sql = "SELECT * FROM `$dbprefix"."vote` WHERE `ID` = $ID";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
     
@@ -706,7 +706,7 @@ class Xajax_Funktions
   {
     $response = new xajaxResponse();
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -734,7 +734,7 @@ class Xajax_Funktions
       // Workaround End
     }
     
-    $sql = "SELECT * FROM `$dbpräfix"."threads` WHERE `ID` = $ID";
+    $sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = $ID";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
     
@@ -777,7 +777,7 @@ class Xajax_Funktions
       $okn = "<img src=images/ok.gif height=12 width=12>";
       $response->assign("voteok", "innerHTML", $okn);
       
-      $sql = "UPDATE `$dbpräfix"."threads` SET `ergebnisse` = '$ergebnisse', `voted` = '$users' WHERE `ID` = $ID";
+      $sql = "UPDATE `$dbprefix"."threads` SET `ergebnisse` = '$ergebnisse', `voted` = '$users' WHERE `ID` = $ID";
       $erg = $hp->mysqlquery($sql);
       
       $response->assign("vote", "innerHTML", $forum->getvote($ID));
@@ -792,7 +792,7 @@ class Xajax_Funktions
     $response = new xajaxResponse();
     
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $right = $hp->getright();
     $level = $_SESSION['level'];
     $config = $hp->getconfig();
@@ -821,14 +821,14 @@ class Xajax_Funktions
     if ($right[$level]["usedpics"])
     {
     
-      $sql = "DELETE FROM `$dbpräfix"."usedpics` WHERE `ID` = '$id'";
+      $sql = "DELETE FROM `$dbprefix"."usedpics` WHERE `ID` = '$id'";
       $erg = $hp->mysqlquery($sql);
       
       // Aktualisieren:
       
       $data = "";
       
-      $sql = "SELECT * FROM `$dbpräfix"."usedpics`";
+      $sql = "SELECT * FROM `$dbprefix"."usedpics`";
       $erg = $hp->mysqlquery($sql);
       while ($row = mysql_fetch_object($erg))
       {
@@ -891,7 +891,7 @@ class Xajax_Funktions
     }
     
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $widget = $hp->widgets;
     
     
@@ -953,7 +953,7 @@ class Xajax_Funktions
     $response = new xajaxResponse();
     
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $fp = $hp->firephp;
     
     
@@ -1014,11 +1014,11 @@ class Xajax_Funktions
         
        
         
-        $sql = "DELETE FROM `$dbpräfix"."widget` WHERE `source` = '$drag'";
+        $sql = "DELETE FROM `$dbprefix"."widget` WHERE `source` = '$drag'";
         $erg = $hp->mysqlquery($sql);
         
         // Eintragen in die DB:
-        $sql = "INSERT INTO `$dbpräfix"."widget` (`ID`, `source`) VALUES ('$dropper', '$drag');";
+        $sql = "INSERT INTO `$dbprefix"."widget` (`ID`, `source`) VALUES ('$dropper', '$drag');";
         $erg = $hp->mysqlquery($sql);
         
       $response->script("xajax_reloadWidgets()");
@@ -1037,7 +1037,7 @@ class Xajax_Funktions
     $response = new xajaxResponse();
     
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -1070,7 +1070,7 @@ class Xajax_Funktions
     
     if (in_array($_SESSION['username'], $hp->getsuperadmin()))
     {
-      $sql = "DELETE FROM `$dbpräfix"."widget` WHERE `source` = '$drag'";
+      $sql = "DELETE FROM `$dbprefix"."widget` WHERE `source` = '$drag'";
       $erg = $hp->mysqlquery($sql);
     }
     
@@ -1084,7 +1084,7 @@ class Xajax_Funktions
     $response = new xajaxResponse();
     //$response->script(file_get_contents("./js/drag&drop.js"));
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -1269,7 +1269,7 @@ class Xajax_Funktions
   
   
    $hp = $this->hp;
-   $dbpräfix = $hp->getpräfix();
+   $dbprefix = $hp->getprefix();
    $info = $hp->info;
    $error = $hp->error;
    $fp = $hp->fp;
@@ -1322,7 +1322,7 @@ class Xajax_Funktions
     }
   
    $hp = $this->hp;
-   $dbpräfix = $hp->getpräfix();
+   $dbprefix = $hp->getprefix();
    $info = $hp->info;
    $error = $hp->error;
    $fp = $hp->fp;
@@ -1370,7 +1370,7 @@ class Xajax_Funktions
   
   
    $hp = $this->hp;
-   $dbpräfix = $hp->getpräfix();
+   $dbprefix = $hp->getprefix();
    $info = $hp->info;
    $error = $hp->error;
    $fp = $hp->fp;
@@ -1398,7 +1398,7 @@ class Xajax_Funktions
     $response = new xajaxResponse();
   
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;

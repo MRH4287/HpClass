@@ -17,10 +17,10 @@ if (!isset($site))
   $level = $_SESSION['level'];
   $get = $hp->get();
   $post = $hp->post();
-  $dbpräfix = $hp->getpräfix();
+  $dbprefix = $hp->getprefix();
   
   
-	$sql = "SELECT * FROM `".$dbpräfix."download` WHERE `id` = '$dateiid'";
+	$sql = "SELECT * FROM `".$dbprefix."download` WHERE `id` = '$dateiid'";
 	$erg = $hp->mysqlquery($sql);
 	if(!$erg)
 	{

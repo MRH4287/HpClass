@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -18,7 +18,7 @@ if (isset($get['change']))
 
   $code = $get['change']; 
   
-  $sql = "SELECT * FROM `$dbpräfix"."token` WHERE `token` = '$code'";
+  $sql = "SELECT * FROM `$dbprefix"."token` WHERE `token` = '$code'";
   $erg = $hp->mysqlquery($sql);
   $row = mysql_fetch_object($erg);
   
@@ -48,7 +48,7 @@ if (isset($get['change']))
 
   $code = $post['token']; 
   
-  $sql = "SELECT * FROM `$dbpräfix"."token` WHERE `token` = '$code'";
+  $sql = "SELECT * FROM `$dbprefix"."token` WHERE `token` = '$code'";
   $erg = $hp->mysqlquery($sql);
   $row = mysql_fetch_object($erg);
   
@@ -62,10 +62,10 @@ if (isset($get['change']))
   } else
   {
    
-     $sql = "UPDATE `$dbpräfix"."user` SET  `pass` = '".md5($pw)."' WHERE `user` = '$row->user'";
+     $sql = "UPDATE `$dbprefix"."user` SET  `pass` = '".md5($pw)."' WHERE `user` = '$row->user'";
      $erg = $hp->mysqlquery($sql);
      
-     $sql = "DELETE FROM `$dbpräfix"."token` WHERE `user` = '$row->user'";
+     $sql = "DELETE FROM `$dbprefix"."token` WHERE `user` = '$row->user'";
      $erg = $hp->mysqlquery($sql);
      
      $site = new siteTemplate($hp);
@@ -82,7 +82,7 @@ if (isset($get['change']))
   $user = $post['username'];
   $mail = $post['email'];
 
-  $sql = "SELECT * FROM `$dbpräfix"."user` WHERE `user` = '$user'";
+  $sql = "SELECT * FROM `$dbprefix"."user` WHERE `user` = '$user'";
   $erg = $hp->mysqlquery($sql);
   $row = mysql_fetch_object($erg);
 

@@ -60,7 +60,7 @@ class siteTemplate
   {
   
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;

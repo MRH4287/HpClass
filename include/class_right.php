@@ -24,10 +24,10 @@ class right
   function load()
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
   
       // Rechte
-    $abfrage = "SELECT * FROM `".$dbpräfix."right` Order By `level` ASC";
+    $abfrage = "SELECT * FROM `".$dbprefix."right` Order By `level` ASC";
     //$ergebnis = SQLexec($abfrage, "index");
     $ergebnisss = $hp->mysqlquery($abfrage);
     $right = array();
@@ -233,11 +233,11 @@ class right
   function save($rights)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();   
+    $dbprefix = $hp->getprefix();   
   
     if (is_array($rights))
     {
-        $sql = "TRUNCATE `".$dbpräfix."right`;";
+        $sql = "TRUNCATE `".$dbprefix."right`;";
         $hp->mysqlquery($sql);
         
         foreach ($rights as $aktlevel => $right)
@@ -247,7 +247,7 @@ class right
           
             $on = ($on) ? "true" : "false";
           
-            $sql = "INSERT INTO `".$dbpräfix."right` (
+            $sql = "INSERT INTO `".$dbprefix."right` (
             `ID` ,
             `level` ,
             `right`,

@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -93,7 +93,7 @@ if (!$right[$level]['upload'])
             } else
             {
         
-          		$sql = 	"INSERT INTO `".$dbpräfix."download` (titel, dateiname, datum, autor, beschreibung, level, dateityp, datei, kat, Zeitstempel) \n".
+          		$sql = 	"INSERT INTO `".$dbprefix."download` (titel, dateiname, datum, autor, beschreibung, level, dateityp, datei, kat, Zeitstempel) \n".
           				"VALUES ('$posttitel', '$dateiname', '$datum', '$username', '$beschreibung', '$dlevel', '$dateityp', '$daten', '$kat', NOW()) \n";
               $result=$hp->mysqlquery($sql);
           		if($result)
@@ -144,7 +144,7 @@ if (!$right[$level]['upload'])
                 
               } else
               {
-                $eintrag = "INSERT INTO `".$dbpräfix."download`
+                $eintrag = "INSERT INTO `".$dbprefix."download`
                 (dateiname, titel, datum, autor, beschreibung, level, kat, Zeitstempel)
                 VALUES
                 ('$dateiname', '$posttitel', '$datum', '$username', '$beschreibung', '$dlevel', '$kat', NOW())";
@@ -176,7 +176,7 @@ if (!$right[$level]['upload'])
     $content = "";
     foreach ($levels as $k=>$level)
     {
-      $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$level'";
+      $sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` = '$level'";
       $erg = $hp->mysqlquery($sql);
       
       if (mysql_num_rows($erg) > 0)
@@ -201,7 +201,7 @@ if (!$right[$level]['upload'])
    
     $site->set("levels", $content);
   
-    $abfrage = "SELECT * FROM ".$dbpräfix."download_kat";
+    $abfrage = "SELECT * FROM ".$dbprefix."download_kat";
     $ergebnis = $hp->mysqlquery($abfrage);
      
     $kats = "";
@@ -235,7 +235,7 @@ if (!$right[$level]['upload'])
   } elseif (isset($get['filechange']))
   {
   
-    $abfrage2 = "SELECT * FROM ".$dbpräfix."download WHERE `ID` = '".$get['filechange']."'";
+    $abfrage2 = "SELECT * FROM ".$dbprefix."download WHERE `ID` = '".$get['filechange']."'";
     $ergebnis2 = $hp->mysqlquery($abfrage2);
       
     if (mysql_num_rows($ergebnis2) > 0)
@@ -252,7 +252,7 @@ if (!$right[$level]['upload'])
       $content = "";
       foreach ($levels as $k=>$level)
       {
-        $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$level'";
+        $sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` = '$level'";
         $ergl = $hp->mysqlquery($sql);
         
         if (mysql_num_rows($ergl) > 0)
@@ -277,7 +277,7 @@ if (!$right[$level]['upload'])
      
       $site->set("levels", $content);
     
-      $abfrage = "SELECT * FROM ".$dbpräfix."download_kat";
+      $abfrage = "SELECT * FROM ".$dbprefix."download_kat";
       $ergebnis = $hp->mysqlquery($abfrage);
        
       $kats = "";
@@ -325,7 +325,7 @@ if (!$right[$level]['upload'])
     $dlevel = $hp->escapestring($dlevel);
     $fp = $this->firephp;
 
-    $sql = "UPDATE `".$dbpräfix."download` SET `titel` = '$posttitel',
+    $sql = "UPDATE `".$dbprefix."download` SET `titel` = '$posttitel',
     `level` = '$dlevel',
     `kat` = '$dkat',    
     `beschreibung` = '$beschreibung' WHERE `ID` ='".$dID."' LIMIT 1 ;";
@@ -348,7 +348,7 @@ if (!$right[$level]['upload'])
     $content = "";
     foreach ($levels as $k=>$level)
     {
-      $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$level'";
+      $sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` = '$level'";
       $erg = $hp->mysqlquery($sql);
       
       if (mysql_num_rows($erg) > 0)
@@ -398,7 +398,7 @@ if (!$right[$level]['upload'])
     
     
     
-    $eintrag = "INSERT INTO `".$dbpräfix."download_kat`
+    $eintrag = "INSERT INTO `".$dbprefix."download_kat`
     (name, description, level)
     VALUES
     ('$posttitel', '$beschreibung', '$dlevel')";
@@ -418,7 +418,7 @@ if (!$right[$level]['upload'])
   
   } elseif (isset($get['katchange']))
   {
-    $abfrage2 = "SELECT * FROM ".$dbpräfix."download_kat WHERE `ID` = '".$get['katchange']."'";
+    $abfrage2 = "SELECT * FROM ".$dbprefix."download_kat WHERE `ID` = '".$get['katchange']."'";
     $ergebnis2 = $hp->mysqlquery($abfrage2);
       
     if (mysql_num_rows($ergebnis2) > 0)
@@ -435,7 +435,7 @@ if (!$right[$level]['upload'])
       $content = "";
       foreach ($levels as $k=>$level)
       {
-        $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$level'";
+        $sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` = '$level'";
         $ergl = $hp->mysqlquery($sql);
         
         if (mysql_num_rows($ergl) > 0)
@@ -490,7 +490,7 @@ if (!$right[$level]['upload'])
     
     
     
-    $sql = "UPDATE `".$dbpräfix."download_kat` SET `name` = '$posttitel',
+    $sql = "UPDATE `".$dbprefix."download_kat` SET `name` = '$posttitel',
     `level` = '$dlevel', `description` = '$beschreibung' WHERE `ID` ='".$dID."' LIMIT 1 ;";
     
     $res = $hp->mysqlquery($sql);
@@ -508,7 +508,7 @@ if (!$right[$level]['upload'])
   } elseif (isset($get['katdel']) && $right[$level]['upload_del'])
   {
   
-    $abfrage = "SELECT * FROM ".$dbpräfix."download WHERE `kat` = '".$get['katdel']."'";
+    $abfrage = "SELECT * FROM ".$dbprefix."download WHERE `kat` = '".$get['katdel']."'";
     $ergebnis = $hp->mysqlquery($abfrage);
         
     $x = mysql_num_rows($ergebnis);
@@ -534,7 +534,7 @@ if (!$right[$level]['upload'])
   } elseif (isset($get['katdel2']))
   {
   
-    $abfrage = "DELETE FROM ".$dbpräfix."download_kat WHERE `ID`=".$_GET['katdel2'];
+    $abfrage = "DELETE FROM ".$dbprefix."download_kat WHERE `ID`=".$_GET['katdel2'];
     $ergebnis = $hp->mysqlquery($abfrage);
  
     if ($ergebnis == true) 

@@ -5,7 +5,7 @@
   $level = $_SESSION['level'];
   $get = $hp->get();
   $post = $hp->post();
-  $dbpräfix = $hp->getpräfix();
+  $dbprefix = $hp->getprefix();
   $lang = $hp->getlangclass();
   $error = $hp->geterror();
   $info = $hp->getinfo();
@@ -79,7 +79,7 @@
       }
       
       
-      $sql = "INSERT INTO `$dbpräfix"."vote` (
+      $sql = "INSERT INTO `$dbprefix"."vote` (
       `ID` ,
       `name` ,
       `userid` ,
@@ -106,7 +106,7 @@
     {
       $id = $get['editvote'];
       
-      $sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = $id";
+      $sql = "SELECT * FROM `$dbprefix"."vote` WHERE `ID` = $id";
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_object($erg);
       
@@ -190,7 +190,7 @@
       }
       
       
-      $sql = "UPDATE `$dbpräfix"."vote` SET `name` = '$titel', `antworten` = '$antworten', `upto` = '$timestamp' WHERE `ID` = '$ID';";
+      $sql = "UPDATE `$dbprefix"."vote` SET `name` = '$titel', `antworten` = '$antworten', `upto` = '$timestamp' WHERE `ID` = '$ID';";
       $erg = $hp->mysqlquery($sql);
       
       
@@ -204,7 +204,7 @@
       
     } elseif (isset($post['votedel']))
     {
-      $sql = "DELETE FROM `$dbpräfix"."vote` WHERE `ID` = ".$post['voteiddel'];
+      $sql = "DELETE FROM `$dbprefix"."vote` WHERE `ID` = ".$post['voteiddel'];
       $erg = $hp->mysqlquery($sql);
     
       $info->okm("Umfrage erfolgreich gelöscht!");
@@ -217,7 +217,7 @@
     } else
     {
       
-      $sql = "SELECT * FROM `$dbpräfix"."vote`";
+      $sql = "SELECT * FROM `$dbprefix"."vote`";
       $erg = $hp->mysqlquery($sql);
   
       $contentMain = "";

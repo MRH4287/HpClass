@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -23,13 +23,13 @@ if (isset($_SESSION['username']))
     foreach ($dellarr as $id)
     {
 
-      $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `ID` = '".$id."' ORDER BY `ID`;";
+      $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `ID` = '".$id."' ORDER BY `ID`;";
       $ergebnis = $hp->mysqlquery($abfrage);
       $row = mysql_fetch_object($ergebnis);
     
       if (strtolower($_SESSION['username']) == strtolower("$row->zu"))
       {
-       $eintrag = "DELETE FROM `".$dbpräfix."pm` WHERE `ID`= ".$id;
+       $eintrag = "DELETE FROM `".$dbprefix."pm` WHERE `ID`= ".$id;
        $eintragen = $hp->mysqlquery($eintrag);
 
        if ($eintragen == true)
@@ -53,13 +53,13 @@ if (isset($_SESSION['username']))
     foreach ($sellarr as $id)
     {
 
-     $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `ID` = '".$id."' ORDER BY `ID`;";
+     $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `ID` = '".$id."' ORDER BY `ID`;";
      $ergebnis = $hp->mysqlquery($abfrage);
      $row = mysql_fetch_object($ergebnis);
     
      if (strtolower($_SESSION['username']) == strtolower("$row->zu"))
      {
-        $eintrag = "UPDATE `".$dbpräfix."pm` SET `gelesen` = 1 WHERE `ID`= ".$id;
+        $eintrag = "UPDATE `".$dbprefix."pm` SET `gelesen` = 1 WHERE `ID`= ".$id;
         $eintragen = $hp->mysqlquery($eintrag);
 
 
@@ -74,13 +74,13 @@ if (isset($_SESSION['username']))
   } elseif (isset($get['del']))
   {
     $del = $get['del'];
-    $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `ID` = '".$del."';";
+    $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `ID` = '".$del."';";
     $ergebnis = $hp->mysqlquery($abfrage);
     $row = mysql_fetch_object($ergebnis);
   
     if ($_SESSION['username'] == "$row->zu")
     {
-      $eintrag = "DELETE FROM `".$dbpräfix."pm` WHERE `ID`= ".$del;
+      $eintrag = "DELETE FROM `".$dbprefix."pm` WHERE `ID`= ".$del;
       $eintragen =$hp->mysqlquery($eintrag);
 
 
@@ -104,13 +104,13 @@ if (isset($_SESSION['username']))
     {
       $Betreff = "Kein Betreff angegeben";
     }
-    $abfrage = "SELECT ID FROM ".$dbpräfix."pm WHERE `timestamp` = '".$timestamp."'";
+    $abfrage = "SELECT ID FROM ".$dbprefix."pm WHERE `timestamp` = '".$timestamp."'";
     $ergebnis = $hp->mysqlquery($abfrage);
     $number = mysql_num_rows($ergebnis);
       
     if ($number == 0)
     {
-      $eintrag = "INSERT INTO `".$dbpräfix."pm`
+      $eintrag = "INSERT INTO `".$dbprefix."pm`
       (von, datum, zu, text, Betreff, gelesen, timestamp)
       VALUES
       ('$von', '$datum', '$zu', '$text', '$Betreff', '0', '$timestamp')";
@@ -131,7 +131,7 @@ if (isset($_SESSION['username']))
   if (!isset($get['read']) and !isset($get['new']) and !isset($post["post"]) and  !isset($get['ausgang']))
   {
 
-    $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `zu` = '".$_SESSION['username']."' ORDER BY `ID` DESC;";
+    $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `zu` = '".$_SESSION['username']."' ORDER BY `ID` DESC;";
     $ergebnis = $hp->mysqlquery($abfrage);
     if ($ergebnis == false)
     {
@@ -164,7 +164,7 @@ if (isset($_SESSION['username']))
  } elseif (isset($get['read']))
  {
 
-  $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `ID` = '".$get['read']."' ORDER BY `ID`;";
+  $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `ID` = '".$get['read']."' ORDER BY `ID`;";
   $ergebnis = $hp->mysqlquery($abfrage);
   $row = mysql_fetch_object($ergebnis);
   
@@ -172,7 +172,7 @@ if (isset($_SESSION['username']))
   {
     if ($_SESSION['username'] != "$row->von") 
     { 
-       $eingabe2 = "UPDATE `".$dbpräfix."pm` SET `gelesen` = '1' WHERE `ID` = $row->ID;";
+       $eingabe2 = "UPDATE `".$dbprefix."pm` SET `gelesen` = '1' WHERE `ID` = $row->ID;";
        $ergebnis2 = $hp->mysqlquery($eingabe2);
     }   
 
@@ -234,7 +234,7 @@ if (isset($_SESSION['username']))
  {
 
 
-  $abfrage = "SELECT * FROM ".$dbpräfix."pm  WHERE `von` = '".$_SESSION['username']."' ORDER BY `ID`;";
+  $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `von` = '".$_SESSION['username']."' ORDER BY `ID`;";
   $ergebnis =$hp->mysqlquery($abfrage);
 
  

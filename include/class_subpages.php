@@ -94,13 +94,13 @@ class subpages
   function getNavigationID($siteID)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $fp->fp;
   
   
-    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `site` = '$siteID' AND `dynamic` = '1';";
+    $sql = "SELECT * FROM `$dbprefix"."navigation` WHERE `site` = '$siteID' AND `dynamic` = '1';";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
   
@@ -111,17 +111,17 @@ class subpages
   function getSubpageID($naviID)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
   
   
-    $sql = "SELECT site FROM `$dbpräfix"."navigation` WHERE `ID` = '$naviID' OR `name` = '$naviID';";
+    $sql = "SELECT site FROM `$dbprefix"."navigation` WHERE `ID` = '$naviID' OR `name` = '$naviID';";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
   
-    $sql = "SELECT ID FROM `$dbpräfix"."subpages` WHERE `ID` = '$row->site' OR `name` = '$row->site';";
+    $sql = "SELECT ID FROM `$dbprefix"."subpages` WHERE `ID` = '$row->site' OR `name` = '$row->site';";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
   
@@ -131,7 +131,7 @@ class subpages
   function getSiteTemplate($ID, $navigation = false)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -139,7 +139,7 @@ class subpages
   
     if ($navigation)
     {
-      $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `ID` = '$ID' OR `name` = '$ID';";
+      $sql = "SELECT * FROM `$dbprefix"."navigation` WHERE `ID` = '$ID' OR `name` = '$ID';";
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_object($erg);
   
@@ -147,7 +147,7 @@ class subpages
     }                
   
   
-    $sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `ID` = '$ID' OR `name` = '$ID';";
+    $sql = "SELECT * FROM `$dbprefix"."subpages` WHERE `ID` = '$ID' OR `name` = '$ID';";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
   
@@ -159,7 +159,7 @@ class subpages
   function getChilds($parent, $navigationID = true)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -172,7 +172,7 @@ class subpages
   
     }
   
-    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `parent` = '$parent' ORDER BY `order` ASC;";
+    $sql = "SELECT * FROM `$dbprefix"."navigation` WHERE `parent` = '$parent' ORDER BY `order` ASC;";
     $erg = $hp->mysqlquery($sql);
   
     $childs = array();
@@ -189,7 +189,7 @@ class subpages
   function getDepth($naviID, $visited = null)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -200,7 +200,7 @@ class subpages
       $visited = array();
     }
     
-    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `ID` = '$naviID';";
+    $sql = "SELECT * FROM `$dbprefix"."navigation` WHERE `ID` = '$naviID';";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
     
@@ -225,7 +225,7 @@ class subpages
   function isVisible ($naviID, $visited = null)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -252,7 +252,7 @@ class subpages
     
     
     // Ermitteln, welche Seite gerade geladen ist
-    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `site` = '$hp->site';";
+    $sql = "SELECT * FROM `$dbprefix"."navigation` WHERE `site` = '$hp->site';";
     $erg = $hp->mysqlquery($sql);
     
     $depth = $this->getDepth($naviID);
@@ -268,7 +268,7 @@ class subpages
       
       // Ist die Aktuelle Seite Verwandt ..
       
-      $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `ID` = '$naviID';";
+      $sql = "SELECT * FROM `$dbprefix"."navigation` WHERE `ID` = '$naviID';";
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_object($erg);
       
@@ -334,7 +334,7 @@ class subpages
   function removeFromNavigation($SiteID, $visited = null)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -360,7 +360,7 @@ class subpages
     
     foreach ($childs as $k=>$el)
     {
-      $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `name` = '$el->name';";
+      $sql = "SELECT * FROM `$dbprefix"."navigation` WHERE `name` = '$el->name';";
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_object($erg);
     
@@ -368,7 +368,7 @@ class subpages
     
     }
    
-    $sql = "DELETE FROM `$dbpräfix"."navigation` WHERE `ID` = '$SiteID';";
+    $sql = "DELETE FROM `$dbprefix"."navigation` WHERE `ID` = '$SiteID';";
     $erg = $hp->mysqlquery($sql);
   
   
@@ -385,7 +385,7 @@ class subpages
   function getSite($site)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -393,7 +393,7 @@ class subpages
   
   
     
-    $sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `ID` = '$site' OR `name` = '$site';";
+    $sql = "SELECT * FROM `$dbprefix"."subpages` WHERE `ID` = '$site' OR `name` = '$site';";
     $erg = $hp->mysqlquery($sql);
   
     $array = mysql_fetch_array($erg);
@@ -405,14 +405,14 @@ class subpages
   function siteHaveChilds($parent)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
   
   
-    $sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `parent` = '$parent';";
+    $sql = "SELECT * FROM `$dbprefix"."subpages` WHERE `parent` = '$parent';";
     $erg = $hp->mysqlquery($sql);
     
     return (mysql_num_rows($erg)> 0);
@@ -422,7 +422,7 @@ class subpages
   function siteCanHaveChilds($site)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -437,7 +437,7 @@ class subpages
   function templateCanHaveChilds($template)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -461,14 +461,14 @@ class subpages
   function printNavigation($maxdepth = 5)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
   
     $result = "";
   
-    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `parent` = '0' ORDER BY `order` ASC;";
+    $sql = "SELECT * FROM `$dbprefix"."navigation` WHERE `parent` = '0' ORDER BY `order` ASC;";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
     {
@@ -484,7 +484,7 @@ class subpages
   private function printNavigation_r($element, $maxdepth, $depth)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -501,7 +501,7 @@ class subpages
    foreach ($childs as $key=>$value) 
    {
    
-    $sql = "SELECT * FROM `$dbpräfix"."navigation` WHERE `name` = '$value->name';";
+    $sql = "SELECT * FROM `$dbprefix"."navigation` WHERE `name` = '$value->name';";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
     {
@@ -517,7 +517,7 @@ class subpages
   function getAllAvailableSites($dynamic = false)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -528,7 +528,7 @@ class subpages
     if ($dynamic)
     {
     
-      $sql = "SELECT site FROM `$dbpräfix"."navigation` WHERE `dynamic` = '1';";
+      $sql = "SELECT site FROM `$dbprefix"."navigation` WHERE `dynamic` = '1';";
       $erg = $hp->mysqlquery($sql);
     
       $used = array();
@@ -538,7 +538,7 @@ class subpages
         $used[] = strtolower($row->site);
       }
       
-      $sql = "SELECT name FROM `$dbpräfix"."subpages` WHERE `parent` = '0';";
+      $sql = "SELECT name FROM `$dbprefix"."subpages` WHERE `parent` = '0';";
       $erg = $hp->mysqlquery($sql);
       
       while ($row = mysql_fetch_object($erg))
@@ -554,7 +554,7 @@ class subpages
     } else
     {
   
-      $sql = "SELECT site FROM `$dbpräfix"."navigation` WHERE `dynamic` = '0';";
+      $sql = "SELECT site FROM `$dbprefix"."navigation` WHERE `dynamic` = '0';";
       $erg = $hp->mysqlquery($sql);
     
       $used = array();
@@ -605,7 +605,7 @@ class subpages
   function loadSite($site)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -873,7 +873,7 @@ class subpages
   function getEvents($date, $level = "all")
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
@@ -895,7 +895,7 @@ class subpages
     $month = $dateData[1];
     $year = $dateData[2];
     
-    $sql = "SELECT * FROM `$dbpräfix"."events`;";
+    $sql = "SELECT * FROM `$dbprefix"."events`;";
     $erg = $hp->mysqlquery($sql);
     $events = array();
     
@@ -948,13 +948,13 @@ class subpages
   function dy_navigation($site, $templateConfig)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
     $fp = $hp->fp;
     
-    $sql = "SELECT ID FROM `$dbpräfix"."subpages` WHERE `name` = '$site' OR `ID` = '$site';";
+    $sql = "SELECT ID FROM `$dbprefix"."subpages` WHERE `name` = '$site' OR `ID` = '$site';";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
     
@@ -962,7 +962,7 @@ class subpages
     
     
     $childs = array();
-    $sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `parent` = '$ID' ORDER BY `parent_kat` ASC, `created` DESC;";
+    $sql = "SELECT * FROM `$dbprefix"."subpages` WHERE `parent` = '$ID' ORDER BY `parent_kat` ASC, `created` DESC;";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_array($erg))
     {
@@ -1004,7 +1004,7 @@ class subpages
   function dy_calendar($site, $templateConfig)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -1014,7 +1014,7 @@ class subpages
     $arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
 
     
-    $sql = "SELECT ID FROM `$dbpräfix"."subpages` WHERE `name` = '$site' OR `ID` = '$site';";
+    $sql = "SELECT ID FROM `$dbprefix"."subpages` WHERE `name` = '$site' OR `ID` = '$site';";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
     
@@ -1024,7 +1024,7 @@ class subpages
     $sPD = 86400;
     
     $childs = array();
-    $sql = "SELECT * FROM `$dbpräfix"."events`;";
+    $sql = "SELECT * FROM `$dbprefix"."events`;";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
     {

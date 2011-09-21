@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -14,7 +14,7 @@ $info = $hp->getinfo();
 if (isset($post['changelevel'])) 
 {
   $leveltemp=$post['level'];
-  $eingabe = "UPDATE `".$dbpräfix."user` SET `level` = '$leveltemp' WHERE `user` = '".$get['change']."';";
+  $eingabe = "UPDATE `".$dbprefix."user` SET `level` = '$leveltemp' WHERE `user` = '".$get['change']."';";
   $ergebnis = $hp->mysqlquery($eingabe);
 }
 
@@ -30,7 +30,7 @@ if (isset ($get['delet2']))
    $error->error($lang->word('noright'),"1");
   } else
   {
-    $eingabe = "DELETE FROM `".$dbpräfix."user` WHERE `ID` = '".$get['delet2']."';";
+    $eingabe = "DELETE FROM `".$dbprefix."user` WHERE `ID` = '".$get['delet2']."';";
     $ergebnis = $hp->mysqlquery($eingabe);
     if ($ergebnis==true) {
       $info->okn($lang->word('delok'));
@@ -41,7 +41,7 @@ if (isset ($get['delet2']))
 if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"]) 
 {
 
-  $abfrage = "SELECT * FROM ".$dbpräfix."user ORDER BY `level` DESC ";
+  $abfrage = "SELECT * FROM ".$dbprefix."user ORDER BY `level` DESC ";
   $ergebnis = $hp->mysqlquery($abfrage);
 
   $site = new siteTemplate($hp);
@@ -74,7 +74,7 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
 
 
   $ranks = array();
-  $sql = "SELECT * FROM `$dbpräfix"."ranks`";
+  $sql = "SELECT * FROM `$dbprefix"."ranks`";
   $erg = $hp->mysqlquery($sql);
   while ($row = mysql_fetch_object($erg))
   {
@@ -82,7 +82,7 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
   }
 
   
-  $abfrage = "SELECT * FROM ".$dbpräfix."user WHERE `user` = '".$get['show']."'";
+  $abfrage = "SELECT * FROM ".$dbprefix."user WHERE `user` = '".$get['show']."'";
 
   $ergebnis = $hp->mysqlquery($abfrage);
   $row = mysql_fetch_object($ergebnis);

@@ -19,8 +19,10 @@ require_once 'include/class_config.php';
 require_once 'include/class_widgets.php';
 require_once 'include/class_subpages.php';
 require_once 'include/class_pluginloader.php';
-require_once "include/base/SiteTemplate.php";
-require_once "include/base/subpageTemplate.php";
+require_once 'include/base/SiteTemplate.php';
+require_once 'include/base/subpageTemplate.php';
+require_once 'include/base/pluginTemplate.php';
+
 //----------------------------------------------------------------------------
 
 //--------------------------------------Class Area----------------------------
@@ -39,7 +41,7 @@ $pluginloader   = new PluginLoader;
 // ----------------------------------------------------------------------------
 
 //-----------------------------------MYSQL Area (DB Verbindung)----------------
-$hp->setdata($dbserver, $dbuser, $dbpass, $dbpräfix, $dbdatenbank);
+$hp->setdata($dbserver, $dbuser, $dbpass, $dbprefix, $dbdatenbank);
 $hp->connect();
 //-----------------------------------------------------------------------------
 

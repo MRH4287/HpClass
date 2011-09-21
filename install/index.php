@@ -36,7 +36,7 @@ if (!isset($s1) and !isset($s2))
   <input type="text" name="dbpass" size="20"></p>
   <p>Datenbank:<br>
   <input type="text" name="dbdatenbank" size="20"><input type="checkbox" name="dbcreate" value="ON">Erstellen</p>
-  <p>Präfix<br>
+  <p>prefix<br>
   <input type="text" name="dbpraefix" size="20" value="test_">
   <input type="checkbox" name="dbonlyconfig" value="ON">Nur Config erzeugen
   <input type="submit" value="Abschicken" name="s1"></p>
@@ -157,7 +157,7 @@ $userdatei = fopen ("../include/config.php","w");
       fwrite($userdatei, "\$dbuser=\"$dbuser\";\n");
       fwrite($userdatei, "\$dbpass=\"$dbpass\";\n");
       fwrite($userdatei, "\$dbdatenbank=\"$dbdatenbank\";\n");
-      fwrite($userdatei, "\$dbpräfix=\"$dbpraefix\";\n");
+      fwrite($userdatei, "\$dbprefix=\"$dbpraefix\";\n");
       fwrite($userdatei, "?"); 
       fwrite($userdatei, ">\n");
       fclose($userdatei);

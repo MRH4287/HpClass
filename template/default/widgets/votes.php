@@ -17,7 +17,7 @@ $text = '<table bgcolor="#89A9B8"  width="170" border="0" cellpadding="0" cellsp
 
   //vote#6
 
-$sql = "SELECT * FROM `$dbpräfix"."vote`";
+$sql = "SELECT * FROM `$dbprefix"."vote`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {

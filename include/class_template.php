@@ -145,7 +145,7 @@ class template extends siteTemplate
   function addVote()
   {
   $hp = $this->hp;
-  $dbpräfix = $hp->getpräfix();
+  $dbprefix = $hp->getprefix();
   $info = $hp->info;
   $error = $hp->error;
   $fp = $hp->fp;
@@ -156,7 +156,7 @@ class template extends siteTemplate
   
   
   
-  $sql = "SELECT * FROM `$dbpräfix"."vote`";
+  $sql = "SELECT * FROM `$dbprefix"."vote`";
   $erg = $hp->mysqlquery($sql);
   
    

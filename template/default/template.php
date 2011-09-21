@@ -1,7 +1,7 @@
 <?php
 
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 
 $right = $hp->right;
 
@@ -11,7 +11,7 @@ $levels = $right->getlevels();
 
 
 $ranks = array();
-$sql = "SELECT * FROM `$dbpräfix"."ranks`";
+$sql = "SELECT * FROM `$dbprefix"."ranks`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
@@ -20,7 +20,7 @@ while ($row = mysql_fetch_object($erg))
 
 
 $data = array();
-$sql = "SELECT * FROM `$dbpräfix"."user`";
+$sql = "SELECT * FROM `$dbprefix"."user`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {

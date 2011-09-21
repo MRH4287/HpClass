@@ -114,7 +114,7 @@ if (!isset($site) && isset($_GET['id']) && isset($_GET['source']))
   $level = $_SESSION['level'];
   $get = $hp->get();
   $post = $hp->post();
-  $dbpräfix = $hp->getpräfix();
+  $dbprefix = $hp->getprefix();
 
 
 
@@ -138,7 +138,7 @@ if (!isset($site) && isset($_GET['id']) && isset($_GET['source']))
 
    $info = array();
    
-   $sql = "SELECT * FROM `$dbpräfix".$source["table"]."` WHERE `".$source["index"]."` = '".$get["id"]."';";
+   $sql = "SELECT * FROM `$dbprefix".$source["table"]."` WHERE `".$source["index"]."` = '".$get["id"]."';";
    $result= $hp->mysqlquery($sql);
     if(!$result)
     {

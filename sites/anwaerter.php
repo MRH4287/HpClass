@@ -6,7 +6,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -34,7 +34,7 @@ if (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0
 
       } elseif (isset($get['register']))
       {
-        $abfrage = "SELECT * FROM ".$dbpräfix."anwaerter WHERE `user`= '".$get['register']."'";
+        $abfrage = "SELECT * FROM ".$dbprefix."anwaerter WHERE `user`= '".$get['register']."'";
         $ergebnis = $hp->mysqlquery($abfrage);
     
         $row = mysql_fetch_object($ergebnis);
@@ -51,11 +51,11 @@ if (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0
         
    
   
-        $eintrag = "DELETE FROM `".$dbpräfix."anwaerter` WHERE `user` = '".$get['register']."'";
+        $eintrag = "DELETE FROM `".$dbprefix."anwaerter` WHERE `user` = '".$get['register']."'";
         $eintragen1 = $hp->mysqlquery($eintrag);
         
 
-        $eintrag = "INSERT INTO `".$dbpräfix."user`
+        $eintrag = "INSERT INTO `".$dbprefix."user`
         (`user`, `pass`, `name`, `nachname`, `datum`, `level`, `email`, `tel`, `wohnort`, `geschlecht`)
         VALUES
         ('$user', '$passwort123', '$name', '$nachname', '$datum', '1', '$email', '$tel', '$wohnort', '$geschlecht')";
@@ -95,7 +95,7 @@ if (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0
 
       } elseif (isset($get['delet']))
       {
-        $eintrag = "DELETE FROM `".$dbpräfix."anwaerter` WHERE `user` = '".$get['delet']."'";
+        $eintrag = "DELETE FROM `".$dbprefix."anwaerter` WHERE `user` = '".$get['delet']."'";
         $eintragen = $hp->mysqlquery($eintrag);
         if ($eintragen == true)
         {
@@ -107,7 +107,7 @@ if (($_SERVER['HTTP_HOST'] == "localhost") or ($_SERVER['HTTP_HOST'] == "127.0.0
       }
 
 
-      $abfrage = "SELECT * FROM ".$dbpräfix."anwaerter";
+      $abfrage = "SELECT * FROM ".$dbprefix."anwaerter";
       $ergebnis = $hp->mysqlquery($abfrage);
     
       $site = new siteTemplate($hp);

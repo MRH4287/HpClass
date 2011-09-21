@@ -6,7 +6,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -32,7 +32,7 @@ $site->load("news");
     $newstext = str_replace('<?',"&lt;?" ,$newstext);
     $newslevel=$post['newslevel'];
     $newstitel = mysql_real_escape_string($newstitel);
-    $eingabe = "UPDATE `".$dbpräfix."news` SET `datum` = '$newsdatum', `titel` = '$newstitel', `typ` = '$newstyp', `text` = '$newstext', `level`= '$newslevel' WHERE `ID` = '".$newsidchange."';";
+    $eingabe = "UPDATE `".$dbprefix."news` SET `datum` = '$newsdatum', `titel` = '$newstitel', `typ` = '$newstyp', `text` = '$newstext', `level`= '$newslevel' WHERE `ID` = '".$newsidchange."';";
 
     $ergebnis = mysql_query($eingabe);
     if ($ergebnis == true)
@@ -55,13 +55,13 @@ $site->load("news");
 
   } else
   {
-    $eintrag = "DELETE FROM `".$dbpräfix."news` WHERE `ID`= ".$post['newsiddel'];
+    $eintrag = "DELETE FROM `".$dbprefix."news` WHERE `ID`= ".$post['newsiddel'];
     $eintragen = mysql_query($eintrag);
     if ($eintragen == false)
     {
       $error->error(mysql_error(), "2");
     }
-    $eintrag2 = "DELETE FROM `".$dbpräfix."kommentar` WHERE `zuid`= ".$post['newsiddel'];
+    $eintrag2 = "DELETE FROM `".$dbprefix."kommentar` WHERE `zuid`= ".$post['newsiddel'];
     $eintragen2 = mysql_query($eintrag2);
     if ($eintragen2 == false)
     {
@@ -106,7 +106,7 @@ $site->load("news");
     if (isset($newstitel) and isset($newsersteller) and isset($newsdatum) and isset($newstext) and isset($newslevel))
     {
 
-     $eintrag = "INSERT INTO `".$dbpräfix."news`
+     $eintrag = "INSERT INTO `".$dbprefix."news`
      (ersteller, datum, titel, typ, text, level)
      VALUES
      ('$newsersteller', '$newsdatum', '$newstitel', '$newstyp', '$newstext', '$newslevel')";
@@ -138,7 +138,7 @@ $site->load("news");
  }
  $limit = $hp->escapestring($limit);
  
- $abfrage = "SELECT * FROM ".$dbpräfix."news ORDER BY `ID` DESC LIMIT ".$limit;
+ $abfrage = "SELECT * FROM ".$dbprefix."news ORDER BY `ID` DESC LIMIT ".$limit;
  $ergebnis = $hp->mysqlquery($abfrage);  
 
  

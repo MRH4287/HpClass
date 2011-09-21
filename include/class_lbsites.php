@@ -85,7 +85,7 @@ class lbsites
   function site_Test($vars)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $lang=$hp->langclass;
@@ -93,7 +93,7 @@ class lbsites
   
     
     $content = "";
-    $sql = "SELECT * FROM `$dbpräfix"."user`";
+    $sql = "SELECT * FROM `$dbprefix"."user`";
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
     {
@@ -107,7 +107,7 @@ class lbsites
   function site_delvote($vars)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $lang=$hp->langclass;
@@ -121,7 +121,7 @@ class lbsites
     if($right[$level]['manage_vote'])
     {
       $site->load("vote");
-      $sql = "SELECT * FROM `$dbpräfix"."vote` WHERE `ID` = '$vars';";
+      $sql = "SELECT * FROM `$dbprefix"."vote` WHERE `ID` = '$vars';";
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_object($erg);
     
@@ -148,7 +148,7 @@ class lbsites
   function site_newschange($site)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -167,7 +167,7 @@ class lbsites
     
     } else
     {
-      $sql = "SELECT * FROM ".$dbpräfix."news WHERE `ID` ='".$site."';";
+      $sql = "SELECT * FROM ".$dbprefix."news WHERE `ID` ='".$site."';";
       $ergebnis = $hp->mysqlquery($sql); 
       $row = mysql_fetch_object($ergebnis);
       $newstext="$row->text";
@@ -192,7 +192,7 @@ class lbsites
     
       $data = "";
       
-      $sql = "SELECT * FROM `$dbpräfix"."usedpics`";
+      $sql = "SELECT * FROM `$dbprefix"."usedpics`";
       $erg = $hp->mysqlquery($sql);
       while ($row = mysql_fetch_object($erg))
       {
@@ -226,7 +226,7 @@ class lbsites
   function site_newnews()
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -259,7 +259,7 @@ class lbsites
   
       $data = "";
   
-      $sql = "SELECT * FROM `$dbpräfix"."usedpics`";
+      $sql = "SELECT * FROM `$dbprefix"."usedpics`";
       $erg = $hp->mysqlquery($sql);
       while ($row = mysql_fetch_object($erg))
       {
@@ -293,7 +293,7 @@ class lbsites
   function site_delnews($vars)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $lang=$hp->langclass;
@@ -304,7 +304,7 @@ class lbsites
     if($right[$level]['newsdel'])
     {
       
-      $sql = "SELECT * FROM `$dbpräfix"."news` WHERE `ID` = '$vars';";
+      $sql = "SELECT * FROM `$dbprefix"."news` WHERE `ID` = '$vars';";
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_object($erg);
       
@@ -332,7 +332,7 @@ class lbsites
   function site_eventdel($vars)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $lang=$hp->langclass;
@@ -343,7 +343,7 @@ class lbsites
     if($right[$level]['manage_calendar'])
     {
       
-      $sql = "SELECT * FROM `$dbpräfix"."events` WHERE `ID` = '$vars';";
+      $sql = "SELECT * FROM `$dbprefix"."events` WHERE `ID` = '$vars';";
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_array($erg);
       
@@ -365,7 +365,7 @@ class lbsites
   function site_eventday($vars)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $lang=$hp->langclass;
@@ -439,7 +439,7 @@ class lbsites
   function site_event($vars)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $info = $hp->info;
     $error = $hp->error;
     $lang=$hp->langclass;
@@ -449,7 +449,7 @@ class lbsites
     $subpages = $hp->subpages;
     
   
-    $sql = "SELECT * FROM `$dbpräfix"."events` WHERE `ID` = '$vars';";
+    $sql = "SELECT * FROM `$dbprefix"."events` WHERE `ID` = '$vars';";
     $erg = $hp->mysqlquery($sql);
     if (mysql_num_rows($erg) > 0)
     {

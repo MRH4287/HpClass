@@ -21,7 +21,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 
 	// Check the upload
 	if (!isset($_FILES["Filedata"]) || !is_uploaded_file($_FILES["Filedata"]["tmp_name"]) || $_FILES["Filedata"]["error"] != 0) {
@@ -68,7 +68,7 @@ $phproot=substr($_SERVER['SCRIPT_FILENAME'],0,strlen($_SERVER['SCRIPT_FILENAME']
    $datum = time();
 
 
-	$sql = "INSERT INTO `".$dbpräfix."usedpics` (data, filename, height, width, time) VALUES ('$daten', '$dateiname', '$Height', '$Width', '$datum')";
+	$sql = "INSERT INTO `".$dbprefix."usedpics` (data, filename, height, width, time) VALUES ('$daten', '$dateiname', '$Height', '$Width', '$datum')";
 		$result=$hp->mysqlquery($sql);
      echo mysql_error();
 	// Get the image and create a thumbnail

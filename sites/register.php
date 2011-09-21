@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -88,7 +88,7 @@ if (!isset($post['register']))
 	} 
 } */
 
-    $abfrage = "SELECT * FROM ".$dbpräfix."user";
+    $abfrage = "SELECT * FROM ".$dbprefix."user";
     $ergebnis = $hp->mysqlquery($abfrage);
         
     while($row = mysql_fetch_object($ergebnis))
@@ -100,7 +100,7 @@ if (!isset($post['register']))
         }
        }
     
-    $abfrage = "SELECT * FROM ".$dbpräfix."anwaerter";
+    $abfrage = "SELECT * FROM ".$dbprefix."anwaerter";
     $ergebnis = $hp->mysqlquery($abfrage);
         
     while($row = mysql_fetch_object($ergebnis))
@@ -140,7 +140,7 @@ if (!isset($post['register']))
   
   
   
-      $eintrag = "INSERT INTO `".$dbpräfix."anwaerter`
+      $eintrag = "INSERT INTO `".$dbprefix."anwaerter`
       (user, pass, name, nachname, datum, text, email, geschlecht, wohnort, tel, code)
       VALUES
       ('$user', '$passwort12', '$name', '$nachname', '$datum', '$text', '$email', '$geschlecht', '$wohnort', '$tel', '$code')";

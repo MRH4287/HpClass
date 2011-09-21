@@ -29,7 +29,7 @@ class HP
   protected $outputg;
   protected $outputp;
   protected $host;
-  protected $präfix;
+  protected $prefix;
   protected $user;
   protected $password;
   protected $db;
@@ -79,12 +79,12 @@ class HP
     $this->lang = $this->langclass->getlang();
   }
   
-  function setdata($host, $user,$password, $präfix, $db)
+  function setdata($host, $user,$password, $prefix, $db)
   {
     $this->host=$host;
     $this->password=$password;
     $this->user=$user;
-    $this->präfix=$präfix;
+    $this->prefix=$prefix;
     $this->db=$db;
   }
   
@@ -185,9 +185,9 @@ class HP
     return $this->site;
   }
   
-  function getpräfix()
+  function getprefix()
   {
-    return $this->präfix;
+    return $this->prefix;
   }
   
   
@@ -391,7 +391,7 @@ class HP
   function lostpassword($user)
   {
     $hp = $this;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -412,7 +412,7 @@ class HP
      //Ermittlung des Ablaufdatums
     $verfall = time() + 7200;
      
-    $sql = "REPLACE INTO `$dbpräfix"."token` (`user`, `token`, `verfall`) VALUES ('$user', '$code', '$verfall')";
+    $sql = "REPLACE INTO `$dbprefix"."token` (`user`, `token`, `verfall`) VALUES ('$user', '$code', '$verfall')";
     $erg = $hp->mysqlquery($sql);
     
     
@@ -436,7 +436,7 @@ class HP
     if (!$local)
     {
       
-      $sql = "SELECT email FROM `$dbpräfix"."user` WHERE `user` = '$user'";
+      $sql = "SELECT email FROM `$dbprefix"."user` WHERE `user` = '$user'";
       $erg = $hp->mysqlquery($sql);
       $row = mysql_fetch_object($erg);
       
@@ -483,7 +483,7 @@ class HP
   function getRequestToken($user = null)
   {
     $hp = $this;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -496,7 +496,7 @@ class HP
     
     $con = $hp->generateToken();
             
-    $sql = "REPLACE INTO `$dbpräfix"."token` (`user`, `token`, `verfall`) VALUES ('$user', '$con', -1);";
+    $sql = "REPLACE INTO `$dbprefix"."token` (`user`, `token`, `verfall`) VALUES ('$user', '$con', -1);";
     $erg = $hp->mysqlquery($sql);
   
     return $con;  
@@ -505,7 +505,7 @@ class HP
   function checkRequestToken($token, $user = null)
   {
     $hp = $this;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $game = $hp->game;
     $info = $hp->info;
     $error = $hp->error;
@@ -516,13 +516,13 @@ class HP
       $user = $_SESSION["username"];
     }
     
-    $sql = "SELECT * FROM `$dbpräfix"."token` WHERE `user` = '$user';";
+    $sql = "SELECT * FROM `$dbprefix"."token` WHERE `user` = '$user';";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
     
     $ok = ($token == $row->token);
     
-    $sql = "DELETE FROM `$dbpräfix"."token` WHERE `user` = '$user';";
+    $sql = "DELETE FROM `$dbprefix"."token` WHERE `user` = '$user';";
     $erg = $hp->mysqlquery($sql);
 
     return $ok;  
@@ -629,7 +629,7 @@ class HP
     $datum = date('j.n.y');
     
     
-    	$eintragintodb = "INSERT INTO `".$this->präfix."pm`
+    	$eintragintodb = "INSERT INTO `".$this->prefix."pm`
     (
     von, 
     datum, 

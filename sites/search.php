@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -33,7 +33,7 @@ if (isset($post["s"]) or isset($get["s"]))
   $resultSub = array();
 
   // Frage alle Einträge im Subpage System ab:
-  $sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `name` LIKE '%$s%' OR `content` LIKE '%$s%';";
+  $sql = "SELECT * FROM `$dbprefix"."subpages` WHERE `name` LIKE '%$s%' OR `content` LIKE '%$s%';";
   $erg = $hp->mysqlquery($sql);
   while ($row = mysql_fetch_array($erg))
   {
@@ -43,7 +43,7 @@ if (isset($post["s"]) or isset($get["s"]))
   $resultNews = array();
   
   //Frage alle Newsmeldungen / Projekte ab
-  $sql = "SELECT * FROM `$dbpräfix"."news` WHERE `text` LIKE '%$s%' OR `titel` LIKE '%$s%';";
+  $sql = "SELECT * FROM `$dbprefix"."news` WHERE `text` LIKE '%$s%' OR `titel` LIKE '%$s%';";
   $erg = $hp->mysqlquery($sql);
   while ($row = mysql_fetch_array($erg))
   {

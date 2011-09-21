@@ -97,7 +97,7 @@ if ($clang == "dev")
 function savetodb($file = true)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $fp = $hp->fp;
 
 if ($file)
@@ -107,7 +107,7 @@ $this->incfiles();
 }
 
 
-$sql = "TRUNCATE `$dbpräfix"."lang`";
+$sql = "TRUNCATE `$dbprefix"."lang`";
 $erg = $hp->mysqlquery($sql);
 
 
@@ -115,7 +115,7 @@ foreach ($this->lang as $lang=>$langarray) {
 
 foreach ($langarray as $key=>$value) {
 	
-	$sql = "INSERT INTO `$dbpräfix"."lang` (`lang`, `word`, `wort`) VALUES ('$lang', '$key', '$value');";
+	$sql = "INSERT INTO `$dbprefix"."lang` (`lang`, `word`, `wort`) VALUES ('$lang', '$key', '$value');";
 	$erg = $hp->mysqlquery($sql);
 	
 }
@@ -132,17 +132,17 @@ $this->loadfromdb();
 function loadfromdb()
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 
 $fp = $hp->fp;
 
-$sql = "SHOW TABLES LIKE '$dbpräfix"."lang';";
+$sql = "SHOW TABLES LIKE '$dbprefix"."lang';";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_array($erg);
 if ((count($row) >= 1) and ($row!=false))
 {
 
-$sql = "SELECT * FROM `$dbpräfix"."lang`";
+$sql = "SELECT * FROM `$dbprefix"."lang`";
 $erg = $hp->mysqlquery($sql);
 
 while ($row = mysql_fetch_object($erg))

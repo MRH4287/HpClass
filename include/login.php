@@ -1,5 +1,5 @@
 <?php
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 
 
  if (!isset($_SESSION['username'])) 
@@ -13,8 +13,15 @@ $dbpräfix = $hp->getpräfix();
     $site = new siteTemplate($hp);
     $site->load("login");
     
+    $data = array(
+      'username' => $_SESSION['username'],
+      'level' =>    $_SESSION['level'],
+      'Links' =>    $site->get("Links")
+    
+    );
+    
  
-   $template['login'] = $site->get("Links");
+   $template['login'] = $site->getNode('List', $data);
 
 
 }

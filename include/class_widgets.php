@@ -47,7 +47,7 @@ $this->hp = $hp;
 function replace()
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
@@ -62,7 +62,7 @@ $this->incwidgetfiles();
 $superadmin = ( isset($_SESSION['username']) and in_array($_SESSION['username'], $hp->getsuperadmin()));
 
  // Datenbank Abfrage, ob bereits ein Widget verschoben wurde:
-$sql = "SELECT * FROM `$dbpräfix"."widget`";
+$sql = "SELECT * FROM `$dbprefix"."widget`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
@@ -104,12 +104,12 @@ foreach ($this->placeholder as $key=>$value) {
 function getParent($widget)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
 
-$sql = "SELECT * FROM `$dbpräfix"."widget` WHERE `source` = '$widget';";
+$sql = "SELECT * FROM `$dbprefix"."widget` WHERE `source` = '$widget';";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -122,7 +122,7 @@ return $row->ID;
 function addtotemp()
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
@@ -149,7 +149,7 @@ return in_array($widget, $this->placed);
 function getwidgets($placed = false, $config = true)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->fp;
@@ -213,7 +213,7 @@ return $this->placeholder;
 function addwidget($name, $value)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->firephp;
@@ -239,7 +239,7 @@ $this->placeholder[] = $name;
  function incwidgetfiles()
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $info = $hp->info;
 $error = $hp->error;
 $fp = $hp->firephp;
@@ -303,10 +303,10 @@ $design = $config['design'];
 function getConfig($widget)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 
 
-$sql = "SELECT * FROM `$dbpräfix"."widgetconfig` WHERE `widget` = '$widget';";
+$sql = "SELECT * FROM `$dbprefix"."widgetconfig` WHERE `widget` = '$widget';";
 $erg = $hp->mysqlquery($sql);
 $row = mysql_fetch_object($erg);
 
@@ -323,11 +323,11 @@ return $config;
 function saveConfig($widget, $config)
 {
 $hp = $this->hp;
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 
 $text = serialize($config);
 
-$sql = "REPLACE INTO `$dbpräfix"."widgetconfig` (`widget`, `config`) VALUES ('$widget', '$text');";
+$sql = "REPLACE INTO `$dbprefix"."widgetconfig` (`widget`, `config`) VALUES ('$widget', '$text');";
 $erg = $hp->mysqlquery($sql);
 
 }

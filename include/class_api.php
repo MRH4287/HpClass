@@ -15,14 +15,14 @@ abstract class Api
   public function request($data)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $right = $hp->getright();
   
     $data = json_decode($data);
     $ok = true;
     
     
-    $sql = "SELECT * FROM `$dbpräfix"."user` WHERE `user` = '$data->user';";
+    $sql = "SELECT * FROM `$dbprefix"."user` WHERE `user` = '$data->user';";
     $erg = $hp->mysqlquery($sql);
     if (mysql_num_rows($erg) > 0)
     {  
@@ -60,7 +60,7 @@ abstract class Api
         
         $time = time();
         
-        $sql = "UPDATE `$dbpräfix"."user` SET `token` = '$token', `counter` = 0, `lastaction` = '$time' WHERE `user` = '$data->user';";
+        $sql = "UPDATE `$dbprefix"."user` SET `token` = '$token', `counter` = 0, `lastaction` = '$time' WHERE `user` = '$data->user';";
         $erg = $hp->mysqlquery($sql);
         
         $resp = new Initialize();
@@ -93,14 +93,14 @@ abstract class Api
   public function command($data)
   {
     $hp = $this->hp;
-    $dbpräfix = $hp->getpräfix();
+    $dbprefix = $hp->getprefix();
     $right = $hp->getright();
   
     $data = json_decode($data);
     $ok = true;
     
         
-    $sql = "SELECT * FROM `$dbpräfix"."user` WHERE `token` = '$data->token';";
+    $sql = "SELECT * FROM `$dbprefix"."user` WHERE `token` = '$data->token';";
     $erg = $hp->mysqlquery($sql);
     if (mysql_num_rows($erg) > 0)
     {  
@@ -120,7 +120,7 @@ abstract class Api
         
         // Jemand hat versucht eine Session zu hacken, invalidieren der Session:
         $token = $this->getRandomToken();
-        $sql = "UPDATE `$dbpräfix"."user` SET `token` = '$token', `counter` = 0 WHERE `token` = '$data->token';";
+        $sql = "UPDATE `$dbprefix"."user` SET `token` = '$token', `counter` = 0 WHERE `token` = '$data->token';";
         $erg = $hp->mysqlquery($sql);
         
         
@@ -135,7 +135,7 @@ abstract class Api
         
         $time = time();
         
-        $sql = "UPDATE `$dbpräfix"."user` SET `counter` = '$counter', `lastaction` = '$time' WHERE `token` = '$data->token';";
+        $sql = "UPDATE `$dbprefix"."user` SET `counter` = '$counter', `lastaction` = '$time' WHERE `token` = '$data->token';";
         $erg = $hp->mysqlquery($sql);
         
         

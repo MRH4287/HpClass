@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 
@@ -98,7 +98,7 @@ $_SESSION["file_info"] = array();
 <?php
 $data = "";
 
-$sql = "SELECT * FROM `$dbpräfix"."usedpics`";
+$sql = "SELECT * FROM `$dbprefix"."usedpics`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {

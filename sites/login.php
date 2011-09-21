@@ -21,7 +21,7 @@ $ok = false;
 if (isset($_POST['login'])) 
 {
 
-$abfrage = "SELECT * FROM ".$dbpräfix."user";
+$abfrage = "SELECT * FROM ".$dbprefix."user";
 $ergebnis = mysql_query($abfrage);
     
     
@@ -39,7 +39,7 @@ while($row = mysql_fetch_object($ergebnis))
       if (($passwort == md5("pw_".$row->pass)) or (md5("pw_".$passwort) == $row->pass))
       {
       // KEin MD5 ...
-      $sql = "UPDATE `".$dbpräfix."user` SET `pass` = '".md5("pw_".$_POST['passwort'].$row->ID)."' WHERE `user` = '".$user."'";
+      $sql = "UPDATE `".$dbprefix."user` SET `pass` = '".md5("pw_".$_POST['passwort'].$row->ID)."' WHERE `user` = '".$user."'";
       mysql_query($sql);
       echo mysql_error();
       $_SESSION['username']="$user";
@@ -51,7 +51,7 @@ while($row = mysql_fetch_object($ergebnis))
  if ($ok)
  {
 
- $abfrage = "SELECT * FROM ".$dbpräfix."user WHERE `user` = '".$user."'";
+ $abfrage = "SELECT * FROM ".$dbprefix."user WHERE `user` = '".$user."'";
  $ergebnis =  mysql_query($abfrage);
  while($row = mysql_fetch_object($ergebnis))
    {
@@ -59,7 +59,7 @@ while($row = mysql_fetch_object($ergebnis))
    $_SESSION['ID'] = $row->ID;
    }
   $time =(int) time();
-  $eingabe2 = "UPDATE `".$dbpräfix."user` SET `lastlogin` = '$time' WHERE `user` = '".$user."';";
+  $eingabe2 = "UPDATE `".$dbprefix."user` SET `lastlogin` = '$time' WHERE `user` = '".$user."';";
   $ergebnis2 = mysql_query($eingabe2);
   echo mysql_error();
  }

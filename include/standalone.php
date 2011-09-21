@@ -61,7 +61,7 @@ class Standalone extends Hp
       $this->host=$dbserver;
       $this->password=$dbpass;
       $this->user=$dbuser;
-      $this->präfix=$dbpräfix;
+      $this->prefix=$dbprefix;
       $this->db=$dbdatenbank;
       
       

@@ -48,7 +48,7 @@ $dbuser,$dbpass);
 // RSS Feed
 
 $limit=10;
-$abfrage = "SELECT * FROM ".$dbpräfix."news ORDER BY `ID` DESC LIMIT ".$limit;
+$abfrage = "SELECT * FROM ".$dbprefix."news ORDER BY `ID` DESC LIMIT ".$limit;
 $ergebnis = mysql_query($abfrage)
     OR die("Error: $abfrage <br>".mysql_error());
     

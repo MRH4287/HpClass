@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -14,11 +14,11 @@ $info = $hp->getinfo();
 if (isset ($get['del2']) and ($right[$level]['upload_del']))
 {
   /*
-  $abfrage = "DELETE FROM ".$dbpräfix."download WHERE `ID`=".$get['del'];
+  $abfrage = "DELETE FROM ".$dbprefix."download WHERE `ID`=".$get['del'];
   $ergebnis = $hp->mysqlquery($abfrage);
   */
   
-  $abfrage = "SELECT * FROM ".$dbpräfix."download WHERE `ID` = '".$_GET['del2']."'";
+  $abfrage = "SELECT * FROM ".$dbprefix."download WHERE `ID` = '".$_GET['del2']."'";
   $ergebnis = $hp->mysqlquery($abfrage);
       
   if (mysql_num_rows($ergebnis) > 0)
@@ -28,7 +28,7 @@ if (isset ($get['del2']) and ($right[$level]['upload_del']))
     
     @unlink("downloads/$row->dateiname");
    
-    $abfrage = "DELETE FROM ".$dbpräfix."download WHERE `ID`=".$_GET['del2'];
+    $abfrage = "DELETE FROM ".$dbprefix."download WHERE `ID`=".$_GET['del2'];
     $ergebnis = $hp->mysqlquery($abfrage);
         
     
@@ -66,7 +66,7 @@ $info->info("Möchten Sie die Datei wirklick löschen? <a href=index.php?site=down
     $site = new siteTemplate($hp);
     $site->load("download");
   
-    $abfrage = "SELECT * FROM ".$dbpräfix."download_kat";
+    $abfrage = "SELECT * FROM ".$dbprefix."download_kat";
     $ergebnis = $hp->mysqlquery($abfrage);
 
     $contentcat = "";   
@@ -74,7 +74,7 @@ $info->info("Möchten Sie die Datei wirklick löschen? <a href=index.php?site=down
     {
        if ($hp->right->isAllowed($row->level))
        {
-          $abfrage2 = "SELECT * FROM ".$dbpräfix."download WHERE `kat` = '$row->ID'";
+          $abfrage2 = "SELECT * FROM ".$dbprefix."download WHERE `kat` = '$row->ID'";
           $ergebnis2 = $hp->mysqlquery($abfrage2);
               
           $content = "";
@@ -117,7 +117,7 @@ $info->info("Möchten Sie die Datei wirklick löschen? <a href=index.php?site=down
   } else 
   {
   
-    $abfrage = "SELECT * FROM ".$dbpräfix."download WHERE `ID` = '".$get['id']."'";
+    $abfrage = "SELECT * FROM ".$dbprefix."download WHERE `ID` = '".$get['id']."'";
     $erg = $hp->mysqlquery($abfrage);
     
     $site = new siteTemplate($hp);

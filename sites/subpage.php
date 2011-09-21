@@ -5,7 +5,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -86,7 +86,7 @@ if (!$right[$level]["manage_subpage"])
       $toDisplay = $subpages->getAllTemplatesWithDynContent("navigation");
       
       // Abfragen aller Seiten:
-      $sql = "SELECT * FROM `$dbpräfix"."subpages`;";
+      $sql = "SELECT * FROM `$dbprefix"."subpages`;";
       $erg = $hp->mysqlquery($sql);
       while ($row = mysql_fetch_object($erg))
       {
@@ -167,7 +167,7 @@ if (!$right[$level]["manage_subpage"])
        
        
        //Speichern der Unterseite:
-       $sql = "INSERT INTO `$dbpräfix"."subpages` (`name`, `content`, `template`, `created`, `parent`, `parent_kat`) VALUES ('$subpageName', '$data', '$templateName', '".time()."', '$subpage', '$subpageKat');";
+       $sql = "INSERT INTO `$dbprefix"."subpages` (`name`, `content`, `template`, `created`, `parent`, `parent_kat`) VALUES ('$subpageName', '$data', '$templateName', '".time()."', '$subpage', '$subpageKat');";
        $erg = $hp->mysqlquery($sql);
        
        $site->set("info", "Unterseite erfolgreich erstellt!<br><a href=?site=subpage>zurück</a>");
@@ -301,7 +301,7 @@ if (!$right[$level]["manage_subpage"])
           $toDisplay = $subpages->getAllTemplatesWithDynContent("navigation");
           
           // Abfragen aller Seiten:
-          $sql = "SELECT * FROM `$dbpräfix"."subpages`;";
+          $sql = "SELECT * FROM `$dbprefix"."subpages`;";
           $erg = $hp->mysqlquery($sql);
           while ($row = mysql_fetch_object($erg))
           {
@@ -385,7 +385,7 @@ if (!$right[$level]["manage_subpage"])
      }
      
      //Speichern der Unterseite:
-     $sql = "UPDATE `$dbpräfix"."subpages` SET `content` = '$data', `parent` = '$subpage', `parent_kat` = '$subpageKat' WHERE `ID` = '$ID';";
+     $sql = "UPDATE `$dbprefix"."subpages` SET `content` = '$data', `parent` = '$subpage', `parent_kat` = '$subpageKat' WHERE `ID` = '$ID';";
      $erg = $hp->mysqlquery($sql);
      
      $site->set("info", "Unterseite erfolgreich modifiziert!<br><a href=?site=subpage>zurück</a>");
@@ -416,11 +416,11 @@ if (!$right[$level]["manage_subpage"])
   if (isset($get["sub"]))
   {
     $subpage = true;
-    $sql = "SELECT * FROM `$dbpräfix"."subpages` WHERE `parent` = '".$get["sub"]."';";
+    $sql = "SELECT * FROM `$dbprefix"."subpages` WHERE `parent` = '".$get["sub"]."';";
   
   } else
   {
-    $sql = "SELECT * FROM `$dbpräfix"."subpages`;";
+    $sql = "SELECT * FROM `$dbprefix"."subpages`;";
     
   }
   
@@ -462,7 +462,7 @@ if (!$right[$level]["manage_subpage"])
   // Ist die Bestätigung vorhanden?
   if (isset($get["ok"]))
   {
-    $sql = "DELETE FROM `$dbpräfix"."subpages` WHERE `ID` = '".$get["del"]."';";
+    $sql = "DELETE FROM `$dbprefix"."subpages` WHERE `ID` = '".$get["del"]."';";
     $erg = $hp->mysqlquery($sql);
     
     $site = new siteTemplate($hp);

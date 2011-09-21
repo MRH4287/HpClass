@@ -5,7 +5,7 @@
   $level = $_SESSION['level'];
   $get = $hp->get();
   $post = $hp->post();
-  $dbpräfix = $hp->getpräfix();
+  $dbprefix = $hp->getprefix();
   $lang = $hp->getlangclass();
   $error = $hp->geterror();
   $info = $hp->getinfo();
@@ -48,7 +48,7 @@
         $toDisplay = $subpage->getAllTemplatesWithDynContent("calendar");
         
         // Abfragen aller Seiten:
-        $sql = "SELECT * FROM `$dbpräfix"."subpages`;";
+        $sql = "SELECT * FROM `$dbprefix"."subpages`;";
         $erg = $hp->mysqlquery($sql);
         while ($row = mysql_fetch_object($erg))
         {
@@ -78,7 +78,7 @@
         $con = "";
         foreach ($levels as $k=>$level)
         {
-          $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$level'";
+          $sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` = '$level'";
           $erg = $hp->mysqlquery($sql);
           
           if (mysql_num_rows($erg) > 0)
@@ -161,7 +161,7 @@
                 $options = $post["options"];
               }
               
-              $sql = "INSERT INTO `$dbpräfix"."events` (`name`, `date`, `enddate`, `start`, `end`, `level`, `display`,  `options`, `user`,  `time`, `description`) VALUES 
+              $sql = "INSERT INTO `$dbprefix"."events` (`name`, `date`, `enddate`, `start`, `end`, `level`, `display`,  `options`, `user`,  `time`, `description`) VALUES 
               ('$name', '$date', '$enddate', '$time', '$endtime', '$level', '".implode(",",$display)."', '$options', '".$_SESSION["username"]."', '".time()."', '$description');";
               $erg = $hp->mysqlquery($sql);
               
@@ -193,7 +193,7 @@
   
     } elseif (isset($get["edit"]))
     {
-       $sql = "SELECT * FROM `$dbpräfix"."events` WHERE `ID` = '".$get["edit"]."';";
+       $sql = "SELECT * FROM `$dbprefix"."events` WHERE `ID` = '".$get["edit"]."';";
        $erg = $hp->mysqlquery($sql);
        if (mysql_num_rows($erg) > 0)
        { 
@@ -217,7 +217,7 @@
          $toDisplay = $subpage->getAllTemplatesWithDynContent("calendar");
          
          // Abfragen aller Seiten:
-         $sql = "SELECT * FROM `$dbpräfix"."subpages`;";
+         $sql = "SELECT * FROM `$dbprefix"."subpages`;";
          $erg = $hp->mysqlquery($sql);
          while ($row2 = mysql_fetch_object($erg))
          {
@@ -247,7 +247,7 @@
          $con = "";
          foreach ($levels as $k=>$level)
          {
-           $sql = "SELECT * FROM `$dbpräfix"."ranks` WHERE `level` = '$level'";
+           $sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` = '$level'";
            $erg = $hp->mysqlquery($sql);
            
            if (mysql_num_rows($erg) > 0)
@@ -330,7 +330,7 @@
                 $options = $post["options"];
               }
               
-              $sql = "UPDATE `$dbpräfix"."events` SET `name` = '$name', `enddate` = '$enddate', `start` = '$time', `end` = '$endtime', `level` = '$level',
+              $sql = "UPDATE `$dbprefix"."events` SET `name` = '$name', `enddate` = '$enddate', `start` = '$time', `end` = '$endtime', `level` = '$level',
               `display` =  '".implode(",",$display)."', `options` = '$options', `description` = '$description' WHERE `ID` = '$ID';";
               $erg = $hp->mysqlquery($sql);
               
@@ -364,7 +364,7 @@
     } elseif (isset($post["eventdel"]))
     {
         $ID = $post["ID"];
-        $sql = "DELETE FROM `$dbpräfix"."events` WHERE `ID` = '$ID'";
+        $sql = "DELETE FROM `$dbprefix"."events` WHERE `ID` = '$ID'";
         $erg = $hp->mysqlquery($sql);
         
         $info->okn("Event erfolgreich gelöscht");

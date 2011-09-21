@@ -6,7 +6,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -35,7 +35,7 @@ $site->set("level", implode(", ", $al));
 
 $user = array();
 
-$sql = "SELECT user, level FROM `$dbpräfix"."user`";
+$sql = "SELECT user, level FROM `$dbprefix"."user`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {

@@ -6,7 +6,7 @@ $right = $hp->getright();
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
-$dbpräfix = $hp->getpräfix();
+$dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
@@ -19,7 +19,7 @@ $info = $hp->getinfo();
   {
     $codeg = $get['code'];
 
-    $abfrage = "SELECT * FROM ".$dbpräfix."anwaerter WHERE `user`= '".$get['user']."'";
+    $abfrage = "SELECT * FROM ".$dbprefix."anwaerter WHERE `user`= '".$get['user']."'";
     $ergebnis = $hp->mysqlquery($abfrage);
     
     $row = mysql_fetch_object($ergebnis);
@@ -43,10 +43,10 @@ $info = $hp->getinfo();
     {
       if (isset($user) and ($user != ""))
       {
-        $eintrag = "DELETE FROM `".$dbpräfix."anwaerter` WHERE `user` = '".$get['user']."'";
+        $eintrag = "DELETE FROM `".$dbprefix."anwaerter` WHERE `user` = '".$get['user']."'";
         $eintragen1 = $hp->mysqlquery($eintrag);
 
-        $eintrag = "INSERT INTO `".$dbpräfix."user`
+        $eintrag = "INSERT INTO `".$dbprefix."user`
         (user, pass, name, nachname, datum, level, email, wohnort, tel, geschlecht)
         VALUES
         ('$user', '$passwort123', '$name', '$nachname', '$datum', '1', '$email', '$wohnort',  '$tel', '$geschlecht')";
@@ -58,7 +58,7 @@ $info = $hp->getinfo();
 
           foreach ($hp->superadmin as $key=>$superadmin) 
           {
-	           $hp->PM($superadmin, "System", "Neuer User", "Ein neuer User:<br>$user", $datum, $dbpräfix);
+	           $hp->PM($superadmin, "System", "Neuer User", "Ein neuer User:<br>$user", $datum, $dbprefix);
           }
 
         } else 
