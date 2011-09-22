@@ -408,11 +408,8 @@ class HP
     
     $code = $this->generateToken();
      
-     
-     //Ermittlung des Ablaufdatums
-    $verfall = time() + 7200;
-     
-    $sql = "REPLACE INTO `$dbprefix"."token` (`user`, `token`, `verfall`) VALUES ('$user', '$code', '$verfall')";
+          
+    $sql = "REPLACE INTO `$dbprefix"."token` (`user`, `token`, `verfall`) VALUES ('$user', '$code', DATE_ADD(NOW(), INTERVAL 2 HOUR));";
     $erg = $hp->mysqlquery($sql);
     
     
@@ -640,7 +637,7 @@ class HP
     timestamp
     )
     VALUES
-    ('$von', '$datum', '$zu', '$text', '$Betreff', '0', '$time')";
+    ('$von', '$datum', '$zu', '$text', '$Betreff', '0', NOW())";
     $this->mysqlquery($eintragintodb);
   }
   

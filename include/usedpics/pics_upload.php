@@ -65,10 +65,10 @@ $phproot=substr($_SERVER['SCRIPT_FILENAME'],0,strlen($_SERVER['SCRIPT_FILENAME']
 		
 		
 		$daten=$hp->escapestring($daten,$db);
-   $datum = time();
 
 
-	$sql = "INSERT INTO `".$dbprefix."usedpics` (data, filename, height, width, time) VALUES ('$daten', '$dateiname', '$Height', '$Width', '$datum')";
+
+	$sql = "INSERT INTO `".$dbprefix."usedpics` (data, filename, height, width, time) VALUES ('$daten', '$dateiname', '$Height', '$Width', NOW())";
 		$result=$hp->mysqlquery($sql);
      echo mysql_error();
 	// Get the image and create a thumbnail

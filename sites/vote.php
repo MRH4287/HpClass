@@ -58,7 +58,7 @@
       $hour = $post['hour'];
       $min = $post['min'];
       $user = $_SESSION['ID'];
-      $time = time();
+     
       
       $timestamp = mktime($hour, $min, 0, $month, $day, $year);
       $antworten = "";
@@ -89,7 +89,7 @@
       `upto`
       )
       VALUES (
-      NULL , '$titel', '$user', '$antworten', '', '$time', '$timestamp'
+      NULL , '$titel', '$user', '$antworten', '', NOW(), FROM_UNIXTIME($timestamp)
       );
       ";
       $erg = $hp->mysqlquery($sql);
@@ -190,7 +190,7 @@
       }
       
       
-      $sql = "UPDATE `$dbprefix"."vote` SET `name` = '$titel', `antworten` = '$antworten', `upto` = '$timestamp' WHERE `ID` = '$ID';";
+      $sql = "UPDATE `$dbprefix"."vote` SET `name` = '$titel', `antworten` = '$antworten', `upto` = FROM_UNIXTIME($timestamp) WHERE `ID` = '$ID';";
       $erg = $hp->mysqlquery($sql);
       
       
@@ -217,7 +217,7 @@
     } else
     {
       
-      $sql = "SELECT * FROM `$dbprefix"."vote`";
+      $sql = "SELECT ÌD`, `userid`, `antworten`, `name`, `ergebnisse`, `voted`, UNIX_TIMESTAMP(`timestamp`) AS `timestamp`, UNIX_TIMESTAMP(`upto`) AS `upto` FROM `$dbprefix"."vote`";
       $erg = $hp->mysqlquery($sql);
   
       $contentMain = "";

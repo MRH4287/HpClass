@@ -97,7 +97,7 @@ $registed = array(
   array(
   
   "name" => "usedpics",
-  "desc" => "Das Recht die Bilder für die Newsmeldungen zu verwalten",
+  "desc" => "DEPRECATED! Das Recht die Bilder für die Newsmeldungen zu verwalten",
   "cat"  => "System"
   
   ),

@@ -58,9 +58,7 @@ abstract class Api
         
         $token = $this->getRandomToken();
         
-        $time = time();
-        
-        $sql = "UPDATE `$dbprefix"."user` SET `token` = '$token', `counter` = 0, `lastaction` = '$time' WHERE `user` = '$data->user';";
+        $sql = "UPDATE `$dbprefix"."user` SET `token` = '$token', `counter` = 0, `lastaction` = NOW() WHERE `user` = '$data->user';";
         $erg = $hp->mysqlquery($sql);
         
         $resp = new Initialize();
@@ -100,7 +98,7 @@ abstract class Api
     $ok = true;
     
         
-    $sql = "SELECT * FROM `$dbprefix"."user` WHERE `token` = '$data->token';";
+    $sql = "SELECT token, counter, user, ID, level, UNIX_TIMESTAMP(`lastaction`) AS `lastaction` FROM `$dbprefix"."user` WHERE `token` = '$data->token';";
     $erg = $hp->mysqlquery($sql);
     if (mysql_num_rows($erg) > 0)
     {  
@@ -131,16 +129,13 @@ abstract class Api
 
         $result = $this->executeCommand($data->command, $data->arguments);
 
-        $counter = $row->counter+1;
-        
-        $time = time();
-        
-        $sql = "UPDATE `$dbprefix"."user` SET `counter` = '$counter', `lastaction` = '$time' WHERE `token` = '$data->token';";
+       
+        $sql = "UPDATE `$dbprefix"."user` SET `counter` = `counter` + 1, `lastaction` = NOW() WHERE `token` = '$data->token';";
         $erg = $hp->mysqlquery($sql);
         
         
         
-        $key = md5(SHARED_SECRET.$row->token.$row->user.SHARED_SECRET.$counter.SHARED_SECRET);
+        $key = md5(SHARED_SECRET.$row->token.$row->user.SHARED_SECRET.($row->counter +1 ).SHARED_SECRET);
          
         $response = new Response();
         $response->token = $data->token;

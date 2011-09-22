@@ -58,8 +58,8 @@ while($row = mysql_fetch_object($ergebnis))
    $_SESSION['level']="$row->level";
    $_SESSION['ID'] = $row->ID;
    }
-  $time =(int) time();
-  $eingabe2 = "UPDATE `".$dbprefix."user` SET `lastlogin` = '$time' WHERE `user` = '".$user."';";
+
+  $eingabe2 = "UPDATE `".$dbprefix."user` SET `lastlogin` = NOW() WHERE `user` = '".$user."';";
   $ergebnis2 = mysql_query($eingabe2);
   echo mysql_error();
  }
@@ -72,7 +72,6 @@ if (isset($_GET['logout']))
   setcookie ("username", "", time() -1);
   setcookie ("level", "", time() -1);
   session_destroy();
-  $time =(int) time();
 }
 if ($ok == true)
 {

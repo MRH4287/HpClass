@@ -18,7 +18,7 @@ if (isset($get['change']))
 
   $code = $get['change']; 
   
-  $sql = "SELECT * FROM `$dbprefix"."token` WHERE `token` = '$code'";
+  $sql = "SELECT `user`, UNIX_TIMESTAMP(`verfall`) AS `verfall` FROM `$dbprefix"."token` WHERE `token` = '$code'";
   $erg = $hp->mysqlquery($sql);
   $row = mysql_fetch_object($erg);
   

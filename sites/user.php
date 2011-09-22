@@ -104,7 +104,7 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
         "clantag" => $row->clantag,
         "clanhomepage" => $row->clanhomepage,
         "clanhistory" => $row->clanhistory,
-        "lastlogin" => ($row->lastlogin != 0)?  date("d.m.Y H:i s", $row->lastlogin) : $lang->word('never'),
+        "lastlogin" => $row->lastlogin,
         "user" => $row->user
       );
   

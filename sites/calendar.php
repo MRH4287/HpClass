@@ -162,7 +162,7 @@
               }
               
               $sql = "INSERT INTO `$dbprefix"."events` (`name`, `date`, `enddate`, `start`, `end`, `level`, `display`,  `options`, `user`,  `time`, `description`) VALUES 
-              ('$name', '$date', '$enddate', '$time', '$endtime', '$level', '".implode(",",$display)."', '$options', '".$_SESSION["username"]."', '".time()."', '$description');";
+              ('$name', '$date', '$enddate', '$time', '$endtime', '$level', '".implode(",",$display)."', '$options', '".$_SESSION["username"]."', NOW(), '$description');";
               $erg = $hp->mysqlquery($sql);
               
               $content = "Erfolgreich erstellt";

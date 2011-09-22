@@ -3,3 +3,4 @@ mysql.php
 downloads/*
 include/api/key.php
 updateVersion.bat
+*.komodoproject

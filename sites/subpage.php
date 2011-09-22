@@ -167,7 +167,7 @@ if (!$right[$level]["manage_subpage"])
        
        
        //Speichern der Unterseite:
-       $sql = "INSERT INTO `$dbprefix"."subpages` (`name`, `content`, `template`, `created`, `parent`, `parent_kat`) VALUES ('$subpageName', '$data', '$templateName', '".time()."', '$subpage', '$subpageKat');";
+       $sql = "INSERT INTO `$dbprefix"."subpages` (`name`, `content`, `template`, `created`, `parent`, `parent_kat`) VALUES ('$subpageName', '$data', '$templateName', NOW(), '$subpage', '$subpageKat');";
        $erg = $hp->mysqlquery($sql);
        
        $site->set("info", "Unterseite erfolgreich erstellt!<br><a href=?site=subpage>zurück</a>");
