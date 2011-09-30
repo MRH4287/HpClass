@@ -217,7 +217,7 @@
     } else
     {
       
-      $sql = "SELECT ÌD`, `userid`, `antworten`, `name`, `ergebnisse`, `voted`, UNIX_TIMESTAMP(`timestamp`) AS `timestamp`, UNIX_TIMESTAMP(`upto`) AS `upto` FROM `$dbprefix"."vote`";
+      $sql = "SELECT `ID`, `userid`, `antworten`, `name`, `ergebnisse`, `voted`, UNIX_TIMESTAMP(`timestamp`) AS `timestamp`, UNIX_TIMESTAMP(`upto`) AS `upto` FROM `$dbprefix"."vote`";
       $erg = $hp->mysqlquery($sql);
   
       $contentMain = "";
