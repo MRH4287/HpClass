@@ -432,6 +432,11 @@ class PluginLoader  extends Api
   }
 
 
+  function api_echo($arguments)
+  {
+    return implode(", ", $arguments);    
+  }
+
 
 
 
