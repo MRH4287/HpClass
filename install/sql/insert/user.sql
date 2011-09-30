@@ -23,5 +23,5 @@ INSERT INTO `#!-PRÄFIX-!#user` (
 `tel`
 )
 VALUES (
-NULL , 'admin', '93e53b1c9f5cb327768731a24ac62be1', NULL , NULL , NULL , NULL , NULL , NULL , '', '4', '', NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , ''
+NULL , 'admin', MD5('pw_install'), NULL , NULL , NULL , NULL , NULL , NULL , '', '4', '', NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , ''
 );
