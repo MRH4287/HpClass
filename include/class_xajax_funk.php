@@ -192,7 +192,7 @@ class Xajax_Funktions
     $site->set("Content", $contentMain);
     
     
-    $response->assign("calender_list", "innerHTML", htmlentities( $site->get("Event-List") ));
+    $response->assign("calender_list", "innerHTML",  self::prepare($site->get("Event-List")) );
     $response->script("	lbox = document.getElementsByClassName('lbOn3');
     	for(i = 0; i < lbox.length; i++) {
     		valid = new lightboxX2(lbox[i]);
@@ -1546,6 +1546,27 @@ class Xajax_Funktions
   }
   
   
+  // ---------------------------------------- Globale Funktionen -----------------------------------------
+  
+  /**
+   * Bereitet die Ausgaben entsprechend vor um sie zu senden
+   * @var $input string Der String der überprüft werden soll
+   * @return string Überprüfter String
+   */
+  public static function prepare($input)
+  {
+	  $output = $input;
+	  $output = str_replace("§", "&sect;", $output);
+	  $output = str_replace("ü", "&uuml;", $output);
+	  $output = str_replace("Ü", "&Uuml;", $output);
+	  $output = str_replace("ö", "&ouml;", $output);
+	  $output = str_replace("Ö", "&Ouml;", $output);
+	  $output = str_replace("ä", "&auml;", $output);
+	  $output = str_replace("Ä", "&Auml;", $output);
+	  $output = str_replace("ß", "&szlig;", $output);
+	
+	  return $output;
+  }
   
   
   // ---------------------------------------- Erweiterungen ----------------------------------------------
