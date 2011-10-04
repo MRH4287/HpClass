@@ -192,7 +192,7 @@ class Xajax_Funktions
     $site->set("Content", $contentMain);
     
     
-    $response->assign("calender_list", "innerHTML", $site->get("Event-List"));
+    $response->assign("calender_list", "innerHTML", htmlentities( $site->get("Event-List") ));
     $response->script("	lbox = document.getElementsByClassName('lbOn3');
     	for(i = 0; i < lbox.length; i++) {
     		valid = new lightboxX2(lbox[i]);
