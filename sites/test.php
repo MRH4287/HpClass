@@ -14,20 +14,11 @@ $fp = $hp->fp;
 $right = $hp->right;
 $subpages = $hp->subpages;
 
-$site = new siteTemplate($hp);
-$site->load("login");
-
-$site->set("username", "test");
-
-
-$site->display("Links");
-
-
-
-
-
-
 
 ?>
+
+
+<a class="lbMe" href="?lbsite=Test" onclick="return false";>Test</a>
+
 
 

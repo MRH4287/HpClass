@@ -1,75 +1,108 @@
-/* - - - - - - - - - - - - - - - - - - - - -
-
-Title : Lightbox CSS
-Author : Kevin Hale
-URL : http://particletree.com/features/lightbox-gone-wild/
-
-Created : January 13, 2006
-Modified : February 1, 2006
-
-- - - - - - - - - - - - - - - - - - - - - */
-
-#lightboxX2{
-	display:none;
+/**
+ * jQuery lightboxX2 plugin
+ * This jQuery plugin was inspired and based on lightboxX2 2 by Lokesh Dhakar (http://www.huddletogether.com/projects/lightboxX22/)
+ * and adapted to me for use like a plugin from jQuery.
+ * @name jquery-lightboxX2-0.5.css
+ * @author Leandro Vieira Pinho - http://leandrovieira.com
+ * @version 0.5
+ * @date April 11, 2008
+ * @category jQuery plugin
+ * @copyright (c) 2008 Leandro Vieira Pinho (leandrovieira.com)
+ * @license CCAttribution-ShareAlike 2.5 Brazil - http://creativecommons.org/licenses/by-sa/2.5/br/deed.en_US
+ * @example Visit http://leandrovieira.com/projects/jquery/lightboxX2/ for more informations about this jQuery plugin
+ */
+#jquery-overlay {
 	position: absolute;
-	/*
-  top:50%; 
-  left:50%;
-	
-  top:50%;
-	left:50%;
-	*/
-	z-index:9999;
-	
-	/*
-	width:800px;
-	height:600px;
-		margin:0 auto;*/
-   margin:-220px 0 0 -250px;
-   margin-left: auto;
-  margin-right: auto;
-
-	
-	border:1px solid #fff;
-	background:#FDFCE9;
-	text-align:left;
+	top: 0;
+	left: 0;
+	z-index: 90;
+	width: 100%;
+	height: 500px;
+}
+#jquery-lightboxX2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	text-align: center;
+}
+#jquery-lightboxX2 a img { border: none; }
+#lightboxX2-container-image-box {
+	position: relative;
+	background-color: #fff;
+	width: 250px;
+	height: 250px;
+	margin: 0 auto;
+}
+#lightboxX2-container-image { padding: 10px; }
+#lightboxX2-loading {
+	position: absolute;
+	top: 40%;
+	left: 0%;
+	height: 25%;
+	width: 100%;
+	text-align: center;
+	line-height: 0;
+}
+#lightboxX2-nav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+}
+#lightboxX2-container-image-box > #lightboxX2-nav { left: 0; }
+#lightboxX2-nav a { outline: none;}
+#lightboxX2-nav-btnPrev, #lightboxX2-nav-btnNext {
+	width: 49%;
+	height: 100%;
+	zoom: 1;
+	display: block;
+}
+#lightboxX2-nav-btnPrev { 
+	left: 0; 
+	float: left;
+}
+#lightboxX2-nav-btnNext { 
+	right: 0; 
+	float: right;
+}
+#lightboxX2-container-image-data-box {
+	font: 10px Verdana, Helvetica, sans-serif;
+	background-color: #fff;
+	margin: 0 auto;
+	line-height: 1.4em;
 	overflow: auto;
+	width: 100%;
+	padding: 0 10px 0;
 }
-#lightboxX2[id]{
-	position:fixed;
+#lightboxX2-container-image-data {
+	padding: 0 10px; 
+	color: #666; 
 }
-
-#overlayX2{
-	display:none;
-	position:absolute;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;
-	z-index:5000;
-	background-color:#000;
-	-moz-opacity: 0.8;
-	opacity:.80;
-	filter: alpha(opacity=80);
-}
-#overlayX2[id]{
-	position:fixed;
-}
-
-#lightboxX2.done #lbLoadMessage{
-	display:none;
-}
-#lightboxX2.done #lbContent{
-	display:block;
-}
-#lightboxX2.loading #lbContent{
-	display:none;
-}
-#lightboxX2.loading #lbLoadMessage{
-	display:block;
+#lightboxX2-container-image-data #lightboxX2-image-details { 
+	width: 70%; 
+	float: left; 
+	text-align: left; 
+}	
+#lightboxX2-image-details-caption { font-weight: bold; }
+#lightboxX2-image-details-currentNumber {
+	display: block; 
+	clear: left; 
+	padding-bottom: 1.0em;	
+}			
+#lightboxX2-secNav-btnClose {
+	width: 66px; 
+	float: right;
+	padding-bottom: 0.7em;	
 }
 
-#lightboxX2.done img{
-/*	width:100%;
-	height:100%;*/
-}
+
+#lightboxX2-content {
+  position: absolute;
+  z-index: -1;
+  overflow:hidden;
+
+} 
