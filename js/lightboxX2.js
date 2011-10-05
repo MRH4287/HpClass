@@ -97,7 +97,7 @@
      *
      */
     function _set_image_to_view() 
-    { // show the loading
+    { 
     	// Show the loading
   		$('#lightboxX2-loading').show();
     	
@@ -114,7 +114,7 @@
           $('#lightboxX2-content').html(data);
          
           var loaded = $('#lightboxX2-content');
-                          
+         
           _resize_container_image_box(loaded.width(),loaded.height());
           
 					
@@ -131,7 +131,7 @@
         		theme_advanced_toolbar_location : "top",
         		theme_advanced_toolbar_align : "left",
         		theme_advanced_statusbar_location : "bottom",
-        		theme_advanced_resizing : true
+        		theme_advanced_resizing : false
       	 });
       	 
 				 
@@ -153,7 +153,36 @@
       });
     };
 
-
+		/**
+		 * Create the jQuery lightBox plugin interface
+		 *
+		 * The HTML markup will be like that:
+			<div id="jquery-overlay"></div>
+			<div id="jquery-lightboxX2">
+				<div id="lightboxX2-container-image-box">
+					<div id="lightboxX2-container-image">
+						<div id="lightboxX2-content">
+							Hello World
+						</div>
+						<div id="lightboxX2-loading">
+							<a href="#" id="lightboxX2-loading-link">
+								<img src="../images/lightbox-ico-loading.gif">
+							</a>
+						</div>
+					</div>
+				</div>
+				<div id="lightboxX2-container-image-data-box">
+					<div id="lightboxX2-container-image-data">
+						<div id="lightboxX2-secNav">
+							<a href="#" id="lightboxX2-secNav-btnClose">
+								<img src="../images/lightbox-btn-close.gif">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		 *
+		 */
 		function _set_interface() 
     {
   		// Apply the HTML markup into body tag
