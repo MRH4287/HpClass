@@ -828,24 +828,24 @@ class Xajax_Funktions
       $erg = $hp->mysqlquery($sql);
       while ($row = mysql_fetch_object($erg))
       {
-      
-               $breite=$row->width; 
-               $hoehe=$row->height; 
-      
-               $neueHoehe=100;
-               $neueBreite=intval($breite*$neueHoehe/$hoehe); 
-               
-              $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\" onclick=\"del_a_pic($row->ID)\"> ";
-             
-              
-              if ($data == "")
-              {
-                $data = "'".$img."'";
-              } else
-              {
-                $data .= ", '".$img."'";
-              }
-            
+		
+		$breite=$row->width; 
+		$hoehe=$row->height; 
+  
+		$neueHoehe=100;
+		$neueBreite=intval($breite*$neueHoehe/$hoehe); 
+		  
+		$img = '<img src="include/image.php?id='.$row->ID.'&source=usedpic" width="'.$neueBreite.'" height="'.$neueHoehe.'" onclick="del_a_pic('.$row->ID.')"> ';
+		
+		 
+		if ($data == "")
+		{
+		  $data = "'".$img."'";
+		} else
+		{
+		  $data .= ", '".$img."'";
+		}
+		
       
       
       }
