@@ -73,12 +73,14 @@ class lbsites
     {
       $this->fp->error("ungültige LB-Site ($site)");
       $content = $siteT->get('notFound');
+	  
+	  header("HTTP/1.0 204 No Content");
     }
     
     $siteT->set("Content", $content);
     $siteT->display();
   
-	header("HTTP/1.0 204 No Content");
+	
   
     ob_end_flush();
   

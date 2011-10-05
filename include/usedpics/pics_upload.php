@@ -1,27 +1,29 @@
 <?php
-
+	
+	
+	
 	if (isset($_POST["PHPSESSID"])) {
 		session_id($_POST["PHPSESSID"]);
 	}
 
 
-session_start();
-ini_set("html_errors", "0");
+	session_start();
 
-//ob_start();
-include "../class.php";
-include "../standalone.php";
 
-//Standalone:
-$hp = new Standalone("..");
-//$hp->outputdivs();
+	//ob_start();
+	include "../class.php";
+	include "../standalone.php";
 
-// Site Config:
-$right = $hp->getright();
-$level = $_SESSION['level'];
-$get = $hp->get();
-$post = $hp->post();
-$dbprefix = $hp->getprefix();
+	//Standalone:
+	$hp = new Standalone("..");
+	//$hp->outputdivs();
+	
+	// Site Config:
+	$right = $hp->getright();
+	$level = $_SESSION['level'];
+	$get = $hp->get();
+	$post = $hp->post();
+	$dbprefix = $hp->getprefix();
 
 	// Check the upload
 	if (!isset($_FILES["Filedata"]) || !is_uploaded_file($_FILES["Filedata"]["tmp_name"]) || $_FILES["Filedata"]["error"] != 0) {
@@ -31,68 +33,101 @@ $dbprefix = $hp->getprefix();
 
 
 
-$datum = time();
-
-$phproot=substr($_SERVER['SCRIPT_FILENAME'],0,strlen($_SERVER['SCRIPT_FILENAME'])-strlen($_SERVER['SCRIPT_NAME']));
+	$datum = time();
+	
+	$phproot=substr($_SERVER['SCRIPT_FILENAME'],0,strlen($_SERVER['SCRIPT_FILENAME'])-strlen($_SERVER['SCRIPT_NAME']));
 
 
 	$dateiinformationen = $_FILES["Filedata"];
 	
-		if($dateiinformationen['error']!=0)
-		{
-			$error->error("Fehler {$dateiinformationen['error']}.","2");
-			continue;
-		}
+	if($dateiinformationen['error']!=0)
+	{
+		echo "ERROR: ".$dateiinformationen['error'];
+		exit(0);
+	}
+					
 		
-				
-		
-		$speicherort=$dateiinformationen['tmp_name'];
-		
-		$datei=fopen($speicherort,'r');
-		$daten=fread($datei,filesize($speicherort));
-		fclose($datei);
-				
-	    $aSize = getimagesize($speicherort);
-
-    $Width = $aSize[0];
-    $Height = $aSize[1];
+	$speicherort=$dateiinformationen['tmp_name'];
 	
+	$datei=fopen($speicherort,'r');
+	$daten=fread($datei,filesize($speicherort));
+	fclose($datei);
+			
+	$aSize = getimagesize($speicherort);
 
-		$dateiname=$hp->escapestring($dateiinformationen['name']);
-		$dateityp=$hp->escapestring($dateiinformationen['type']);
-		$size = $hp->escapestring($dateiinformationen['size']);
+	$Width = $aSize[0];
+	$Height = $aSize[1];
 
-		
-		
-		$daten=$hp->escapestring($daten,$db);
+	
+	$dateiname=$hp->escapestring($dateiinformationen['name']);
+	$dateityp=$hp->escapestring($dateiinformationen['type']);
+	$size = $hp->escapestring($dateiinformationen['size']);
+
+
+	$daten=$hp->escapestring($daten);
 
 
 
 	$sql = "INSERT INTO `".$dbprefix."usedpics` (data, filename, height, width, time) VALUES ('$daten', '$dateiname', '$Height', '$Width', NOW())";
-		$result=$hp->mysqlquery($sql);
-     echo mysql_error();
+	
+	
+	
+	$result=$hp->mysqlquery($sql);
+    
 	// Get the image and create a thumbnail
 	
-  $img = @imagecreatefromstring($daten);
-  
-  if (!$img)	
-	$img = @imagecreatefromjpeg($_FILES["Filedata"]["tmp_name"]);
-	if (!$img)
-	{
-  $img = @imagecreatefromgif($_FILES["Filedata"]["tmp_name"]);
-  }
-	if (!$img)
-	{
-  $img = @imagecreatefrompng($_FILES["Filedata"]["tmp_name"]);
-  }	
+	
+	$img = false;
+	
+	$type = explode('.',$dateiname);
+	$type = strtolower( $type[count($type)-1] );
 	
 	
-	if (!$img) {
+	switch ($type)
+	{
+		case 'jpg':		
+		try
+		{
+			$img = @imagecreatefromjpeg($_FILES["Filedata"]["tmp_name"]);
+		} catch (Exception $ex)
+		{
+			
+		}
+		break;
+		
+		case 'gif':	
+		try
+		{
+			$img = @imagecreatefromgif($_FILES["Filedata"]["tmp_name"]);
+		} catch (Exception $ex)
+		{
+			
+		}
+		break;
+		
+		case 'png':
+		try
+		{
+			$img = @imagecreatefrompng($_FILES["Filedata"]["tmp_name"]);
+		} catch (Exception $ex)
+		{
+			
+		}
+		break;
+	
+		
+	}
+	
+	if (!$img)
+	{
 		//echo "ERROR:could not create image handle ". $_FILES["Filedata"]["tmp_name"].". Datei wurde trotzdem ges";
 		echo "Thumbnail Bild konnte nicht erstellt werden (Datei wurde trotzdem hochgeladen)";
 		exit(0);
 	}
-
+		
+	
+	
+	
 	$width = imageSX($img);
 	$height = imageSY($img);
 
@@ -100,7 +135,9 @@ $phproot=substr($_SERVER['SCRIPT_FILENAME'],0,strlen($_SERVER['SCRIPT_FILENAME']
 		echo "ERROR:Invalid width or height";
 		exit(0);
 	}
+	
 
+	
 	// Build the thumbnail
 	$target_width = 100;
 	$target_height = 100;
@@ -147,10 +184,7 @@ $phproot=substr($_SERVER['SCRIPT_FILENAME'],0,strlen($_SERVER['SCRIPT_FILENAME']
 	$file_id = md5($_FILES["Filedata"]["tmp_name"] + rand()*100000);
 	
 	$_SESSION["file_info"][$file_id] = $imagevariable;
-
+	
 	echo "FILEID:" . $file_id;	// Return the file id to the script	
-
-
-
-
+	
 ?>

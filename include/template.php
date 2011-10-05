@@ -39,21 +39,22 @@ $template['jsu']='
 <script type="text/javascript" src="include/usedpics/js/picturelist.js"></script>
 <script src="js/autorun.js"></script>
 <script src="js/jquery-ui-1.8.16.custom.min.js"></script>
-';
-
-$template['js']='
 <script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
 <link rel="stylesheet" href="css/jquery.lightbox-0.5.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/lightboxX2.js"></script>
 <link rel="stylesheet" href="css/lightboxX2.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/votes.js"></script>
-<script type="text/javascript" src="js/wz_tooltip.js"></script>
 <link rel="stylesheet" href="css/forum.css" type="text/css"/>
 <link rel="stylesheet" href="css/widget.css" type="text/css"/>
 <link rel="stylesheet" href="include/usedpics/css/usedpics.css" type="text/css" />
 <link rel="stylesheet" href="css/news.css" type="text/css"/>
 <link rel="stylesheet" href="css/plugins.css" type="text/css"/>
 <link rel="stylesheet" href="css/popup_tagestermine.css" type="text/css"/>
+<link rel="stylesheet" href="css/smoothness/jquery-ui-1.8.16.custom.css" type="text/css" />
+';
+
+$template['js']='
+
 ';
 
 ?>

@@ -65,20 +65,23 @@ picturelist_print();
 
 function picturelist_print()
 {
-$("picturelist_holder").innerHTML = "";
-
-var to = picturelist_offset+picturelist_count;
-if (to > picturelist_data.length)
-{
-to = picturelist_data.length;
-}
-
-
-for (i = picturelist_offset; i < to; i++)
-{
-
-if (picturelist_data[i])
-$("picturelist_holder").innerHTML += picturelist_data[i];
-}
-
+  
+  var content = "";
+  
+  var to = picturelist_offset+picturelist_count;
+  if (to > picturelist_data.length)
+  {
+    to = picturelist_data.length;
+  }
+  
+  
+  for (i = picturelist_offset; i < to; i++)
+  {
+  
+    if (picturelist_data[i])
+    {
+      content += picturelist_data[i];
+    }
+  }
+ $("#picturelist_holder").html(content);
 }

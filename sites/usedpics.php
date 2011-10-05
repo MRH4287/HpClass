@@ -33,7 +33,7 @@ $_SESSION["file_info"] = array();
 				post_params: {"PHPSESSID": "<?php echo session_id(); ?>"},
 
 				// File Upload Settings
-				file_size_limit : "2 MB",	// 2MB
+				file_size_limit : "2MB",	// 2MB
 				file_types : "*.jpg; *.png; *.gif",
 				file_types_description : "Gültiges Bild-Format",
 				file_upload_limit : "0",
@@ -102,46 +102,44 @@ $sql = "SELECT * FROM `$dbprefix"."usedpics`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
-
-         $breite=$row->width; 
-         $hoehe=$row->height; 
-
-         $neueHoehe=100;
-         $neueBreite=intval($breite*$neueHoehe/$hoehe); 
-         
-        $img = "<img src=\"include/usedpics/pic.php?id=$row->ID\" width=\"$neueBreite\" height=\"$neueHoehe\" onclick=\"del_a_pic($row->ID)\"> ";
-       
-        
-        if ($data == "")
-        {
-        $data = "'".$img."'";
-        } else
-        {
-          $data .= ", '".$img."'";
-        }
-      
-
+		
+		$breite=$row->width; 
+		$hoehe=$row->height; 
+		
+		$neueHoehe=100;
+		$neueBreite=intval($breite*$neueHoehe/$hoehe); 
+		
+		$img = '<img src="include/image.php?id='.$row->ID.'&source=usedpic" width="'.$neueBreite.'" height="'.$neueHoehe.'" onclick="del_a_pic('.$row->ID.')"> ';
+		
+		
+		if ($data == "")
+		{
+		$data = "'".$img."'";
+		} else
+		{
+		$data .= ", '".$img."'";
+		}
 
 }
 ?> 
 
 <script>
 
-function del_a_pic(id)
-{
-$("question").innerHTML = "Möchten Sie das eben gewähle Element löschen?<br>"+
-"<a href=\"#\" onclick=\" del_click("+id+"); return false;\">Ja</a>  "+
-"<a href=\"#\" onclick=\" document.getElementById('question').innerHTML=''; return false;\">Nein</a>";
-
-}
-
-function del_click(id)
-{
-xajax_picturelist_delElement(id);
-$("question").innerHTML ="";
-
-
-}
+		function del_a_pic(id)
+		{
+				$("#question").html("Möchten Sie das eben gewähle Element löschen?<br>"+
+				"<a href=\"#\" onclick=\" del_click("+id+"); return false;\">Ja</a>  "+
+				"<a href=\"#\" onclick=\" document.getElementById('question').innerHTML=''; return false;\">Nein</a>");
+		
+		}
+		
+		function del_click(id)
+		{
+				xajax_picturelist_delElement(id);
+				$("#question").html("");
+		
+		
+		}
 
 </script>    
 

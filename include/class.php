@@ -259,8 +259,16 @@ class HP
     $myerror = mysql_error();
     if ($myerror <> "")
     {
-        include 'include/config.php';
-        if (isset($debug) && ($debug == true))
+        $display = (!file_exists('include/config.php'));
+        if (!$display)
+        {
+          include 'include/config.php';
+          if (isset($debug) && ($debug == true))
+          {
+            $display = true;
+          }
+        }
+        if ($display)
         { 
           $this->error->error("$myerror", "2");
           echo "<b>Mysql Error: $myerror</b> ";

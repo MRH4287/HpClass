@@ -64,8 +64,8 @@ function uploadProgress(file, bytesLoaded) {
 
 function uploadSuccess(file, serverData) {
 	try {
-		var progress = new FileProgress(file,  this.customSettings.upload_target);
-
+		
+		var progress = new FileProgress(file, this.customSettings.upload_target);
 		if (serverData.substring(0, 7) === "FILEID:") {
 			addImage("include/usedpics/pics_thumbnail.php?id=" + serverData.substring(7));
 
@@ -131,7 +131,7 @@ function uploadError(file, errorCode, message) {
 			imageName = "uploadlimit.gif";
 			break;
 		default:
-			alert(message);
+			alert("Error "+errorCode+": "+message+" ("+file+")");
 			break;
 		}
 
