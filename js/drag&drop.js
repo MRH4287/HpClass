@@ -2,11 +2,11 @@ function getinfo(element)
 {
 var info = "";
 
-info += "id:="+element.id;
+info += "id:="+element.attr('id');
 info += "<!--!>";
-info += "innerHTML:="+element.innerHTML;
+info += "innerHTML:="+element.html();
 info += "<!--!>";
-info += "className:="+element.className;
+info += "className:="+element.attr('class');
 
 return info;
 
@@ -27,7 +27,11 @@ function createWidgetBox(holderT, key, value)
   
   holder.appendChild(newNode);
   
-  new Draggable(key,{revert: true});
+  
+  $("#"+key).draggable({
+			revert: true
+		});
+
 
 }
 
@@ -45,18 +49,34 @@ function createDropBox(holderT, key)
   
   holder.appendChild(newNode);
   
-Droppables.add(key,{onDrop: function(drag, base) {
-
-widgetDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));
-
- }, hoverclass: 'hclass'});
+  $( "#"+key ).droppable(
+  {
+      hoverClass: "hclass",
+			drop: function( event, ui ) {
+      widgetDropEvent($(this).attr('id'), ui.draggable.attr('id'), getinfo(ui.draggable), getinfo($(this)));
+			}
+	});
  
+}
+
+function setAsDropBox(id)
+{
+
+  $( "#"+id ).droppable(
+    {
+        hoverClass: "hclass",
+  			drop: function( event, ui ) {
+  			 widgetDropEvent($(this).attr("id"), ui.draggable.attr("id"), getinfo(ui.draggable), getinfo($(this)));
+  			}
+  	});
 }
 
 
 function widgetDropEvent(dropper, drag, infon, info_droppable)
 {
 killElement(drag);
+
+
 xajax_dragevent(dropper, drag, infon, info_droppable);
 //xajax_reloadWidgets();
 

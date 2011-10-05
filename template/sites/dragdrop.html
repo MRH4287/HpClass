@@ -36,12 +36,18 @@
 
 <script>
 
-Droppables.add('widget_DelWidgets',{onDrop: function(drag, base) {
 
-widgetDeletDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));
+ $( "#widget_DelWidgets" ).droppable(
+  {
+      hoverClass: "hclass",
+			drop: function( event, ui ) {
+        
+        console.log(ui); 
+  			 widgetDeletDropEvent($(this).attr('id'), ui.draggable.attr('id'));
 
- }, hoverclass: 'hclass', accept:'drag'});
- 
+			}
+	});
+
 
 </script>
 

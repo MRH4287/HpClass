@@ -271,7 +271,7 @@
 
  <tr>
         <td><strong>#!time#</strong></td>
-        <td align="center" valign="middle"> #+eventdel = "<img src=images/btndel_2.gif width=16 height=16/>" = ID = "lbOn3"#
+        <td align="center" valign="middle"> #+eventdel = "<img src=images/btndel_2.gif width=16 height=16/>" = ID#
          <a href=index.php?site=calendar&edit=#!ID#><img src="images/btnNext_2.gif" alt="" width="16" height="16"  /></a></td>
   </tr>
 
@@ -312,14 +312,7 @@
 			</table>
 		</div>
 	</div>
-	<script>
-	
-	 	lbox = document.getElementsByClassName('lbOn3');
-    for(i = 0; i < lbox.length; i++) {
-    		valid = new lightboxX2(lbox[i]);
-    }
-	
-	</script>
+
 	
 	
 [!/LbSite-ShowDay!]
@@ -328,7 +321,7 @@
 
 				<tr>
 					<td width="15%">#!start# - #!end#</td>
-					<td><a href="?lbsite=event&vars=#!ID#" class="lbOn3">#!name#</a></td>
+					<td><a href="?lbsite=event&vars=#!ID#" class="lbOn">#!name#</a></td>
 					<td>#!description#</td>
 				</tr>
 
@@ -349,7 +342,7 @@
 				#!description#
     	</div>
 		</div>
-    <a href="?lbsite=eventday&vars=#!date#" class="lbOn3">Weitere Termine an diesem Tag ...</a>
+    <a href="?lbsite=eventday&vars=#!date#" class="lbOn">Weitere Termine an diesem Tag ...</a>
     
 	</div>
 

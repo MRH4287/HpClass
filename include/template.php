@@ -38,6 +38,7 @@ $template['jsu']='
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="include/usedpics/js/picturelist.js"></script>
 <script src="js/autorun.js"></script>
+<script src="js/jquery-ui-1.8.16.custom.min.js"></script>
 ';
 
 $template['js']='

@@ -193,11 +193,7 @@ class Xajax_Funktions
     
     
     $response->assign("calender_list", "innerHTML",  self::prepare($site->get("Event-List")) );
-    $response->script("	lbox = document.getElementsByClassName('lbOn3');
-    	for(i = 0; i < lbox.length; i++) {
-    		valid = new lightboxX2(lbox[i]);
-    	}
-      ");
+
     
     return $response;
 
@@ -1184,10 +1180,8 @@ class Xajax_Funktions
         // Setzte den Inahlt des Platzhalters zu den Ihalt
         $response->assign("widget_$name", "innerHTML", $wert);
         
-        // Schreibe den Script zur erstellund der DropDown Funktion
-        $script = "Droppables.add('$name',{onDrop: function(drag, base) {     
-          widgetDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));      
-          }, hoverclass: 'hclass', accept:'drag'});";
+        // Schreibe den Script zur erstellung der DropDown Funktion
+        $script = 'setAsDropBox(\''.$name.'\');';
         //$script = str_replace("'", "\'", $script);
      	  $script = str_replace("\n", "", $script);
      	  $script = str_replace("\r", "", $script);

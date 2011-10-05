@@ -32,132 +32,135 @@
 
 
  		/**
-	 * Start the jQuery lightBox plugin
-	 *
-	 * @param object objClicked The object (link) whick the user have clicked
-	 * @param object jQueryMatchedObj The jQuery object with all elements matched
-	 */
-	function _start(objClicked,jQueryMatchedObj) {    
-    // Hime some elements to avoid conflict with overlay in IE. These elements appear above the overlay.
-		$('embed, object, select').css({ 'visibility' : 'hidden' });
-		// Call the function to create the markup structure; style some elements; assign events in some elements.
-		
-    console.log('start');
-    console.log(objClicked);
-    
-    _set_interface();
-		
-		settings.clicked = objClicked;
-	
-		// Call the function that prepares image exibition
-		_set_image_to_view();
-	}
-
-
-
-  /**
-   * Prepares image exibition; doing a image큦 preloader to calculate it큦 size
-   *
-   */
-  function _set_image_to_view() { // show the loading
-  	// Show the loading
-		$('#lightboxX2-loading').show();
+  	 * Start the jQuery lightBox plugin
+  	 *
+  	 * @param object objClicked The object (link) whick the user have clicked
+  	 * @param object jQueryMatchedObj The jQuery object with all elements matched
+  	 */
+  	function _start(objClicked,jQueryMatchedObj) 
+    {    
+      // Hime some elements to avoid conflict with overlay in IE. These elements appear above the overlay.
+  		$('embed, object, select').css({ 'visibility' : 'hidden' });
+  		// Call the function to create the markup structure; style some elements; assign events in some elements.
+  		
+      console.log('start');
+      console.log(objClicked);
+      
+      _set_interface();
+  		
+  		settings.clicked = objClicked;
   	
-
-  	$('#lightboxX2-container-image-data-box').hide();
-  	
-  	var url = settings.clicked.getAttribute('href');
-  	 	
-  	// Load Content over AJAX
-  	$.ajax({
-      url: url,
-      success: function(data) 
-      {
-        $('#lightboxX2-content').html(data);
-       
-        var loaded = $('#lightboxX2-content');
-        
-        console.log(loaded);
-        console.log('W:'+loaded.width()+' H:'+loaded.height());
-              
-        _resize_container_image_box(loaded.width(),loaded.height());
-        
-        tinyMCE.init(
+  		// Call the function that prepares image exibition
+  		_set_image_to_view();
+  	}
+  
+  
+  
+    /**
+     * Prepares image exibition; doing a image큦 preloader to calculate it큦 size
+     *
+     */
+    function _set_image_to_view() 
+    { // show the loading
+    	// Show the loading
+  		$('#lightboxX2-loading').show();
+    	
+  
+    	$('#lightboxX2-container-image-data-box').hide();
+    	
+    	var url = settings.clicked.getAttribute('href');
+    	 	
+    	// Load Content over AJAX
+    	$.ajax({
+        url: url,
+        success: function(data) 
         {
-      		mode : "textareas",
-      		theme : "advanced",
-      		plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
-    		  theme_advanced_buttons1 : "bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-    		  theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,search,replace,bullist,numlist,outdent,indent,blockquote,undo,redo,link,unlink,anchor,image,cleanup,help,code,insertdate,inserttime,preview,forecolor,backcolor",
-    		  theme_advanced_buttons3 : "tablecontrols,hr,removeformat,visualaid,sub,sup,charmap,emotions,iespell,media,advhr,ltr,rtl,fullscreen",
-    		  theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,styleprops,cite,abbr,acronym,del,ins,attribs,visualchars,nonbreaking,template,pagebreak",
-      		theme_advanced_toolbar_location : "top",
-      		theme_advanced_toolbar_align : "left",
-      		theme_advanced_statusbar_location : "bottom",
-      		theme_advanced_resizing : true,
-    	 });
-    	 
-    	 $('.lbOn[lbSet!="true"]').lightBoxX2().attr('lbSet', 'true');
+          $('#lightboxX2-content').html(data);
+         
+          var loaded = $('#lightboxX2-content');
+          
+          console.log(loaded);
+          console.log('W:'+loaded.width()+' H:'+loaded.height());
                 
-      }
-    });
-  };
+          _resize_container_image_box(loaded.width(),loaded.height());
+          
+          tinyMCE.init(
+          {
+        		mode : "textareas",
+        		theme : "advanced",
+        		plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+      		  theme_advanced_buttons1 : "bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+      		  theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,search,replace,bullist,numlist,outdent,indent,blockquote,undo,redo,link,unlink,anchor,image,cleanup,help,code,insertdate,inserttime,preview,forecolor,backcolor",
+      		  theme_advanced_buttons3 : "tablecontrols,hr,removeformat,visualaid,sub,sup,charmap,emotions,iespell,media,advhr,ltr,rtl,fullscreen",
+      		  theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,styleprops,cite,abbr,acronym,del,ins,attribs,visualchars,nonbreaking,template,pagebreak",
+        		theme_advanced_toolbar_location : "top",
+        		theme_advanced_toolbar_align : "left",
+        		theme_advanced_statusbar_location : "bottom",
+        		theme_advanced_resizing : true,
+      	 });
+      	 
+      	 $('.lbOn[lbSet!="true"]').lightBoxX2().attr('lbSet', 'true');
+                  
+        }
+      });
+    };
 
 
-		function _set_interface() {
-		// Apply the HTML markup into body tag
-		$('body').append('<div id="jquery-overlay"></div><div id="jquery-lightboxX2"><div id="lightboxX2-container-image-box"><div id="lightboxX2-container-image"><div id="lightboxX2-content"></div><div id="lightboxX2-loading"><a href="#" id="lightboxX2-loading-link"><img src="' + settings.imageLoading + '" /></a></div></div></div><div id="lightboxX2-container-image-data-box"><div id="lightboxX2-container-image-data"><div id="lightboxX2-secNav"><a href="#" id="lightboxX2-secNav-btnClose"><img src="' + settings.imageBtnClose + '"></a></div></div></div></div>');	
-		// Get page sizes
-		var arrPageSizes = ___getPageSize();
-		// Style overlay and show it
-		$('#jquery-overlay').css({
-			backgroundColor:	settings.overlayBgColor,
-			opacity:			settings.overlayOpacity,
-			width:				arrPageSizes[0],
-			height:				arrPageSizes[1]
-		}).fadeIn();
-		// Get page scroll
-		var arrPageScroll = ___getPageScroll();
-		// Calculate top and left offset for the jquery-lightbox div object and show it
-		$('#jquery-lightboxX2').css({
-			top:	arrPageScroll[1] + (arrPageSizes[3] / 10),
-			left:	arrPageScroll[0]
-		}).show();
-	
-  	// Assigning click events in elements to close overlay
-		$('#jquery-overlay').click(function() {       // ,#jquery-lightboxX2
-			_finish();									
-		});
-		// Assign the _finish function to lightbox-loading-link and lightbox-secNav-btnClose objects
-		$('#lightboxX2-loading-link,#lightboxX2-secNav-btnClose').click(function() {
-			_finish();
-			return false;
-		});
-		// If window was resized, calculate the new overlay dimensions
-		$(window).resize(function() {
-			// Get page sizes
-			var arrPageSizes = ___getPageSize();
-			// Style overlay and show it
-			$('#jquery-overlay').css({
-				width:		arrPageSizes[0],
-				height:		arrPageSizes[1]
-			});
-			// Get page scroll
-			var arrPageScroll = ___getPageScroll();
-			// Calculate top and left offset for the jquery-lightbox div object and show it
-			$('#jquery-lightboxX2').css({
-				top:	arrPageScroll[1] + (arrPageSizes[3] / 10),
-				left:	arrPageScroll[0]
-			});
-		});
-		
-		 // Deaktiviert, wegen den Eingaben ...
-		//_enable_keyboard_navigation();
-	}
+		function _set_interface() 
+    {
+  		// Apply the HTML markup into body tag
+  		$('body').append('<div id="jquery-overlay"></div><div id="jquery-lightboxX2"><div id="lightboxX2-container-image-box"><div id="lightboxX2-container-image"><div id="lightboxX2-content"></div><div id="lightboxX2-loading"><a href="#" id="lightboxX2-loading-link"><img src="' + settings.imageLoading + '" /></a></div></div></div><div id="lightboxX2-container-image-data-box"><div id="lightboxX2-container-image-data"><div id="lightboxX2-secNav"><a href="#" id="lightboxX2-secNav-btnClose"><img src="' + settings.imageBtnClose + '"></a></div></div></div></div>');	
+  		// Get page sizes
+  		var arrPageSizes = ___getPageSize();
+  		// Style overlay and show it
+  		$('#jquery-overlay').css({
+  			backgroundColor:	settings.overlayBgColor,
+  			opacity:			settings.overlayOpacity,
+  			width:				arrPageSizes[0],
+  			height:				arrPageSizes[1]
+  		}).fadeIn();
+  		// Get page scroll
+  		var arrPageScroll = ___getPageScroll();
+  		// Calculate top and left offset for the jquery-lightbox div object and show it
+  		$('#jquery-lightboxX2').css({
+  			top:	arrPageScroll[1] + (arrPageSizes[3] / 10),
+  			left:	arrPageScroll[0]
+  		}).show();
+  	
+    	// Assigning click events in elements to close overlay
+  		$('#jquery-overlay').click(function() {       // ,#jquery-lightboxX2
+  			_finish();									
+  		});
+  		// Assign the _finish function to lightbox-loading-link and lightbox-secNav-btnClose objects
+  		$('#lightboxX2-loading-link,#lightboxX2-secNav-btnClose').click(function() {
+  			_finish();
+  			return false;
+  		});
+  		// If window was resized, calculate the new overlay dimensions
+  		$(window).resize(function() {
+  			// Get page sizes
+  			var arrPageSizes = ___getPageSize();
+  			// Style overlay and show it
+  			$('#jquery-overlay').css({
+  				width:		arrPageSizes[0],
+  				height:		arrPageSizes[1]
+  			});
+  			// Get page scroll
+  			var arrPageScroll = ___getPageScroll();
+  			// Calculate top and left offset for the jquery-lightbox div object and show it
+  			$('#jquery-lightboxX2').css({
+  				top:	arrPageScroll[1] + (arrPageSizes[3] / 10),
+  				left:	arrPageScroll[0]
+  			});
+  		});
+  		
+  		// Deaktiviert, wegen den Eingaben ...
+		  //_enable_keyboard_navigation();
+	   }
 
 
 
-      		/**
+    /**
 		 * Enable a support to keyboard navigation
 		 *
 		 */
@@ -198,7 +201,7 @@
 
 
 
-			/**
+		/**
 		 * Perfomance an effect in the image container resizing it
 		 *
 		 * @param integer intImageWidth The image큦 width that will be showed
@@ -266,7 +269,7 @@
 		}
 
 
-  		/**
+  	/**
 		 / THIRD FUNCTION
 		 * getPageSize() by quirksmode.com
 		 *
@@ -314,6 +317,7 @@
 			arrayPageSize = new Array(pageWidth,pageHeight,windowWidth,windowHeight);
 			return arrayPageSize;
 		};
+		
 		/**
 		 / THIRD FUNCTION
 		 * getPageScroll() by quirksmode.com
@@ -335,6 +339,7 @@
 			arrayPageScroll = new Array(xScroll,yScroll);
 			return arrayPageScroll;
 		};
+		
 		 /**
 		  * Stop the code execution from a escified time in milisecond
 		  *
@@ -350,96 +355,4 @@
 		return this.unbind('click').click(_initialize);
 	};
 })(jQuery);
-
-/*-----------------------------------------------------------------------------------------------*/
-
-/*
-// Onload, make all links that need to trigger a lightbox active
-function initialize(){
-	addLightboxMarkup();
-	lbox = document.getElementsByClassName('lbOn');
-	for(i = 0; i < lbox.length; i++) {
-		valid = new lightboxX2(lbox[i]);
-	}
-}
-
-var lb;
-// Add in markup necessary to make this work. Basically two divs:
-// Overlay holds the shadow
-// Lightbox is the centered square that the content is put into.
-function addLightboxMarkup() {
-	bod 				= document.getElementsByTagName('body')[0];
-	over 		  	=  document.createElement('div');
-	
-
-	
-	over.id		= 'overlayX2';
-	lb					= document.createElement('div');
-	lb.id				= 'lightboxX2';
-	lb.className 	= 'loading';
-		//	lb.style.opacity = '0.9';
-//lb.valign = "middle";
-//lb.align= "center";
-		lb.style.position = "absolute";
-		lb.style.background = "white";  // #ffd
-		lb.style.border = "1px solid #777";
-		lb.style.padding = '10px';
-		lb.style.cursor = 'pointer';
-		lb.style.color = '#555';
-		lb.style.top = '0px';
-		lb.style.left = '0px';
-
-
-    
-		lb.style.fontSize = '11px';
-	lb.innerHTML	= '<div id="lbLoadMessage">' +
-						  '<p>Loading</p>' +
-						  '</div>';
-	bod.appendChild(over);
-	bod.appendChild(lb);
-	
-resolution();
-}
-
-
-
-function resolution()
-{
-
-//var div = document.getElementsByTagName('body')[0].childNodes[document.getElementsByTagName('body')[0].childNodes.length-1];
-// var  divs = document.getElementsByTagName('div');
-// for(i = 0; i < divs.length; i++) {
-// 
-// document.write(divs[i].id);
-
-//alert(lb);
-		var width = lb.offsetWidth;
-		var height = lb.offsetHeight;
-
-		if (width >= document.body.clientWidth) 
-			{
-			lb.style.left = '200px';
-			//document.getElementById('fade').style.width = width+'px';
-			}
-		else
-			{
-			var spacewidth = document.body.clientWidth - width;
-			var leftwidth = spacewidth / 2;
-			lb.style.left = leftwidth + 'px';
-			}
-  		if ((height >= document.body.clientHeight) ||  ((document.body.clientHeight) >= height*4))
-  		{
-  			lb.style.top = '500px';
-  			
-  		}	else
-  		{
-  			var spaceheight = document.body.clientHeight - height;
-  			var topheight = spaceheight / 2;
-  			topheight = topheight + 200;
-  			lb.style.top = topheight+'px';
-  		}	
-
-}
-
-*/
 
