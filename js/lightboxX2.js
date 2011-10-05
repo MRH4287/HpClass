@@ -1,33 +1,51 @@
+/**
+ * Modified Version by MRH
+ * for the usage for the HPClass CMS
+ * I dont't claim any rights for this code.
+ *
+ * jQuery lightBox plugin
+ * This jQuery plugin was inspired and based on Lightbox 2 by Lokesh Dhakar (http://www.huddletogether.com/projects/lightbox2/)
+ * and adapted to me for use like a plugin from jQuery.
+ * @name jquery-lightbox-0.5.js
+ * @author Leandro Vieira Pinho - http://leandrovieira.com
+ * @version 0.5
+ * @date April 11, 2008
+ * @category jQuery plugin
+ * @copyright (c) 2008 Leandro Vieira Pinho (leandrovieira.com)
+ * @license CCAttribution-ShareAlike 2.5 Brazil - http://creativecommons.org/licenses/by-sa/2.5/br/deed.en_US
+ * @example Visit http://leandrovieira.com/projects/jquery/lightbox/ for more informations about this jQuery plugin
+ */
+
 (function($) {
 
   $.fn.lightBoxX2 = function(settings)
   {
-    settings = jQuery.extend({
-      // Configuration related to overlay
-			overlayBgColor: 		'#000',		// (string) Background color to overlay; inform a hexadecimal value like: #RRGGBB. Where RR, GG, and BB are the hexadecimal values for the red, green, and blue values of the color.
-			overlayOpacity:			0.8,		// (integer) Opacity value to overlay; inform: 0.X. Where X are number from 0 to 9
-			containerBorderSize:	10,			// (integer) If you adjust the padding in the CSS for the container, #lightbox-container-image-box, you will need to update this value
-			containerResizeSpeed:	400,		// (integer) Specify the resize duration of container image. These number are miliseconds. 400 is default.
-			keyToClose:				  'c',		// (string) (c = close) Letter to close the jQuery lightBox interface. Beyond this letter, the letter X and the SCAPE key is used to.	    
-	    clicked:			      0,
-	    imageLoading:			'images/loading.gif',		// (string) Path and the name of the loading icon
-			imageBtnClose:		'images/closelabel.gif'		// (string) Path and the name of the close btn
+		settings = jQuery.extend({
+				overlayBgColor: 		'#000',		// (string) Background color to overlay; inform a hexadecimal value like: #RRGGBB. Where RR, GG, and BB are the hexadecimal values for the red, green, and blue values of the color.
+				overlayOpacity:			0.8,		// (integer) Opacity value to overlay; inform: 0.X. Where X are number from 0 to 9
+				containerBorderSize:	10,			// (integer) If you adjust the padding in the CSS for the container, #lightbox-container-image-box, you will need to update this value
+				containerResizeSpeed:	400,		// (integer) Specify the resize duration of container image. These number are miliseconds. 400 is default.
+				keyToClose:				  'c',		// (string) (c = close) Letter to close the jQuery lightBox interface. Beyond this letter, the letter X and the SCAPE key is used to.	    
+				clicked:			      0,
+				imageLoading:			'images/loading.gif',		// (string) Path and the name of the loading icon
+				imageBtnClose:		'images/closelabel.gif'		// (string) Path and the name of the close btn
 
     
     }, settings);
     
 
     var jQueryMatchedObj = this; // This, in this context, refer to jQuery object
+		var present = false; 	// Is an older Window still open?
 
-    function _initialize() {
-      console.log('init'); 
-             
-      // Close old Windows:
-      _finish(true);   
-                
+
+    function _initialize()
+		{
+       
+			// Close old Windows:
+			//		_finish(true);   
+			
 			_start(this,jQueryMatchedObj); // This, in this context, refer to object (link) which the user have clicked
 			return false; // Avoid the browser following the link
-			
 		}
 
 
@@ -38,16 +56,34 @@
   	 * @param object jQueryMatchedObj The jQuery object with all elements matched
   	 */
   	function _start(objClicked,jQueryMatchedObj) 
-    {    
-      // Hime some elements to avoid conflict with overlay in IE. These elements appear above the overlay.
-  		$('embed, object, select').css({ 'visibility' : 'hidden' });
-  		// Call the function to create the markup structure; style some elements; assign events in some elements.
-  		
-      console.log('start');
-      console.log(objClicked);
-      
-      _set_interface();
-  		
+    {
+			
+			// Check for older Windows
+			this.present = ($("#jquery-lightboxX2").length != 0);
+
+			// Hide some elements to avoid conflict with overlay in IE. These elements appear above the overlay.
+			$('embed, object, select').css({ 'visibility' : 'hidden' });
+
+
+
+			if (!this.present)
+			{
+				// Clean up everything, just to be shure ;)
+				_finish(true);
+				
+				// Call the function to create the markup structure; style some elements; assign events in some elements.
+				_set_interface();
+				
+			} else
+			{
+				// Some Cleanup
+				$('#lightboxX2-content').css('overflow','hidden').css('position','absolute')
+				.css('z-index', '-1');
+			
+				$('#lightboxX2-container-image-data-box').slideUp('fast');
+
+			}
+
   		settings.clicked = objClicked;
   	
   		// Call the function that prepares image exibition
@@ -78,12 +114,11 @@
           $('#lightboxX2-content').html(data);
          
           var loaded = $('#lightboxX2-content');
-          
-          console.log(loaded);
-          console.log('W:'+loaded.width()+' H:'+loaded.height());
-                
+                          
           _resize_container_image_box(loaded.width(),loaded.height());
           
+					
+					// Load tinyMCE here to support Text editing within the popups.
           tinyMCE.init(
           {
         		mode : "textareas",
@@ -96,12 +131,25 @@
         		theme_advanced_toolbar_location : "top",
         		theme_advanced_toolbar_align : "left",
         		theme_advanced_statusbar_location : "bottom",
-        		theme_advanced_resizing : true,
+        		theme_advanced_resizing : true
       	 });
       	 
+				 
+				 // Enable Lightbox Popups within the Popup
       	 $('.lbOn[lbSet!="true"]').lightBoxX2().attr('lbSet', 'true');
-                  
-        }
+         
+        },
+				error: function()
+				{
+					var data = '<div class="#lightboxX2-content"><img src="./images/alert2.gif" alt="Error" /> Error while loading document</div>';
+					
+					$('#lightboxX2-content').html(data);
+         
+          var loaded = $('#lightboxX2-content');
+
+                
+          _resize_container_image_box(loaded.width(),loaded.height());	
+				}
       });
     };
 
@@ -207,17 +255,13 @@
 		 * @param integer intImageWidth The image´s width that will be showed
 		 * @param integer intImageHeight The image´s height that will be showed
 		 */
-		function _resize_container_image_box(intImageWidth,intImageHeight) {
-		                                           
-		  console.log('resize - ');
-		  console.log(intImageWidth+' - '+intImageHeight);
+		function _resize_container_image_box(intImageWidth,intImageHeight)
+		{
 		
 			// Get current width and height
 			var intCurrentWidth = $('#lightboxX2-container-image-box').width();
 			var intCurrentHeight = $('#lightboxX2-container-image-box').height();
 			
-			console.log('current:');
-			console.log(intCurrentWidth+':'+intCurrentHeight);
 			
 			// Get the width and height of the selected image plus the padding
 			var intWidth = (intImageWidth + (settings.containerBorderSize * 2)); // Plus the image´s width and the left and right padding value
@@ -235,17 +279,25 @@
 				}
 			} 
 			$('#lightboxX2-container-image-data-box').css({ width: intImageWidth });
-			};
-		
-			function _show_image() {
-			$('#lightboxX2-loading').hide();
-			
-			$('#lightboxX2-content').css('overflow','visible').css('position','block')
-      .css('z-index', '0');
-		
-		  $('#lightboxX2-container-image-data-box').slideDown('fast');
-			
 		};
+		
+		
+		
+		
+			/**
+			 * Displays the Image after loading is complete
+			 *
+			 */
+			function _show_image()
+			{
+				$('#lightboxX2-loading').hide();
+				
+				$('#lightboxX2-content').css('overflow','visible').css('position','block')
+				.css('z-index', '0');
+			
+				$('#lightboxX2-container-image-data-box').slideDown('fast');
+			
+			};
 
 
 
@@ -253,7 +305,8 @@
 		 * Remove jQuery lightBox plugin HTML markup
 		 *
 		 */
-		function _finish(second) {
+		function _finish(second)
+		{
 		  second = second || false;
 		
 			$('#jquery-lightboxX2').remove();
@@ -275,7 +328,8 @@
 		 *
 		 * @return Array Return an array with page width, height and window width, height
 		 */
-		function ___getPageSize() {
+		function ___getPageSize()
+		{
 			var xScroll, yScroll;
 			if (window.innerHeight && window.scrollMaxY) {	
 				xScroll = window.innerWidth + window.scrollMaxX;
@@ -315,6 +369,7 @@
 				pageWidth = windowWidth;
 			}
 			arrayPageSize = new Array(pageWidth,pageHeight,windowWidth,windowHeight);
+			
 			return arrayPageSize;
 		};
 		
@@ -324,7 +379,8 @@
 		 *
 		 * @return Array Return an array with x,y page scroll values.
 		 */
-		function ___getPageScroll() {
+		function ___getPageScroll()
+		{
 			var xScroll, yScroll;
 			if (self.pageYOffset) {
 				yScroll = self.pageYOffset;
@@ -344,7 +400,8 @@
 		  * Stop the code execution from a escified time in milisecond
 		  *
 		  */
-		 function ___pause(ms) {
+		 function ___pause(ms)
+		 {
 			var date = new Date(); 
 			curDate = null;
 			do { var curDate = new Date(); }
@@ -355,4 +412,3 @@
 		return this.unbind('click').click(_initialize);
 	};
 })(jQuery);
-

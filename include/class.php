@@ -353,7 +353,13 @@ class HP
     
     if (isset($get['lbsite']))
     {
-      $vars = $get['vars'];
+      if (isset($get['vars']))
+      {
+        $vars = $get['vars'];
+      } else
+      {
+        $vars = null;
+      }
       
       $this->lbsites->load($get['lbsite'], $vars);
       exit;

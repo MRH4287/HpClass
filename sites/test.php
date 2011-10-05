@@ -18,7 +18,7 @@ $subpages = $hp->subpages;
 ?>
 
 
-<a class="lbOn" href="?lbsite=Test">Test</a>
+<a class="lbOn" href="?lbsite=Test22">Test</a>
 
 
 
