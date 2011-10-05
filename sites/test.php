@@ -18,7 +18,7 @@ $subpages = $hp->subpages;
 ?>
 
 
-<a class="lbMe" href="?lbsite=Test" onclick="return false";>Test</a>
+<a class="lbOn" href="?lbsite=Test">Test</a>
 
 
 

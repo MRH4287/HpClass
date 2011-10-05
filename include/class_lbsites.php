@@ -100,8 +100,9 @@ class lbsites
       $content .= $row->user."<br>";
     }
     $content .= " ö Ö ä Ä ü Ü ß ^ ` ' # + * , ; |";
-    $content .= ".....................................................................................<br><br><br>...";
+    $content .= $this->link("Test", "Test");
     
+     
     return $content;
   }
   

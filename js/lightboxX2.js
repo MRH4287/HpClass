@@ -8,10 +8,8 @@
 			overlayOpacity:			0.8,		// (integer) Opacity value to overlay; inform: 0.X. Where X are number from 0 to 9
 			containerBorderSize:	10,			// (integer) If you adjust the padding in the CSS for the container, #lightbox-container-image-box, you will need to update this value
 			containerResizeSpeed:	400,		// (integer) Specify the resize duration of container image. These number are miliseconds. 400 is default.
-
-	    
+			keyToClose:				  'c',		// (string) (c = close) Letter to close the jQuery lightBox interface. Beyond this letter, the letter X and the SCAPE key is used to.	    
 	    clicked:			      0,
-	    
 	    imageLoading:			'images/loading.gif',		// (string) Path and the name of the loading icon
 			imageBtnClose:		'images/closelabel.gif'		// (string) Path and the name of the close btn
 
@@ -23,6 +21,9 @@
 
     function _initialize() {
       console.log('init'); 
+             
+      // Close old Windows:
+      _finish(true);   
                 
 			_start(this,jQueryMatchedObj); // This, in this context, refer to object (link) which the user have clicked
 			return false; // Avoid the browser following the link
@@ -36,8 +37,8 @@
 	 * @param object objClicked The object (link) whick the user have clicked
 	 * @param object jQueryMatchedObj The jQuery object with all elements matched
 	 */
-	function _start(objClicked,jQueryMatchedObj) {
-		// Hime some elements to avoid conflict with overlay in IE. These elements appear above the overlay.
+	function _start(objClicked,jQueryMatchedObj) {    
+    // Hime some elements to avoid conflict with overlay in IE. These elements appear above the overlay.
 		$('embed, object, select').css({ 'visibility' : 'hidden' });
 		// Call the function to create the markup structure; style some elements; assign events in some elements.
 		
@@ -81,8 +82,6 @@
               
         _resize_container_image_box(loaded.width(),loaded.height());
         
-        $('#lightboxX2-container-image-data-box').slideDown('fast');
-        
         tinyMCE.init(
         {
       		mode : "textareas",
@@ -97,8 +96,9 @@
       		theme_advanced_statusbar_location : "bottom",
       		theme_advanced_resizing : true,
     	 });
-        
-        
+    	 
+    	 $('.lbOn[lbSet!="true"]').lightBoxX2().attr('lbSet', 'true');
+                
       }
     });
   };
@@ -125,9 +125,9 @@
 		}).show();
 	
   	// Assigning click events in elements to close overlay
-	//	$('#jquery-overlay,#jquery-lightboxX2').click(function() {
-	//		_finish();									
-	//	});
+		$('#jquery-overlay').click(function() {       // ,#jquery-lightboxX2
+			_finish();									
+		});
 		// Assign the _finish function to lightbox-loading-link and lightbox-secNav-btnClose objects
 		$('#lightboxX2-loading-link,#lightboxX2-secNav-btnClose').click(function() {
 			_finish();
@@ -150,7 +150,52 @@
 				left:	arrPageScroll[0]
 			});
 		});
+		
+		 // Deaktiviert, wegen den Eingaben ...
+		//_enable_keyboard_navigation();
 	}
+
+
+
+      		/**
+		 * Enable a support to keyboard navigation
+		 *
+		 */
+		function _enable_keyboard_navigation() {
+			$(document).keydown(function(objEvent) {
+				_keyboard_action(objEvent);
+			});
+		}
+		/**
+		 * Disable the support to keyboard navigation
+		 *
+		 */
+		function _disable_keyboard_navigation() {
+			$(document).unbind();
+		}
+		/**
+		 * Perform the keyboard actions
+		 *
+		 */
+		function _keyboard_action(objEvent) {
+			// To ie
+			if ( objEvent == null ) {
+				keycode = event.keyCode;
+				escapeKey = 27;
+			// To Mozilla
+			} else {
+				keycode = objEvent.keyCode;
+				escapeKey = objEvent.DOM_VK_ESCAPE;
+			}
+			// Get the key in lower case form
+			key = String.fromCharCode(keycode).toLowerCase();
+			// Verify the keys to close the ligthBox
+			if ( ( key == settings.keyToClose ) || ( key == 'x' ) || ( keycode == escapeKey ) ) {
+				_finish();
+			}
+			
+		}
+
 
 
 			/**
@@ -195,6 +240,7 @@
 			$('#lightboxX2-content').css('overflow','visible').css('position','block')
       .css('z-index', '0');
 		
+		  $('#lightboxX2-container-image-data-box').slideDown('fast');
 			
 		};
 
@@ -204,11 +250,19 @@
 		 * Remove jQuery lightBox plugin HTML markup
 		 *
 		 */
-		function _finish() {
+		function _finish(second) {
+		  second = second || false;
+		
 			$('#jquery-lightboxX2').remove();
-			$('#jquery-overlay').fadeOut(function() { $('#jquery-overlay').remove(); });
-			// Show some elements to avoid conflict with overlay in IE. These elements appear above the overlay.
-			$('embed, object, select').css({ 'visibility' : 'visible' });
+			if (!second)
+			{    
+  			$('#jquery-overlay').fadeOut(function() { $('#jquery-overlay').remove(); });
+  			// Show some elements to avoid conflict with overlay in IE. These elements appear above the overlay.
+			} else
+			{
+        	$('#jquery-overlay').remove();
+      }
+      $('embed, object, select').css({ 'visibility' : 'visible' });
 		}
 
 
