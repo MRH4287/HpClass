@@ -1,0 +1,37 @@
+#!!NAME=Foren
+#!!AUTOR=MRH
+
+[!=Main!]
+
+  #/ Load Content #
+  #@ForumLoadContent : "forums"#
+  
+  
+  #/ Display the Container for the foren list #
+  
+
+  <table width="100%" border="1">
+    <tr>
+      <td width="60%">Forum</td>
+      <td width="5%">Themen</td>
+      <td width="5%">Beiträge</td>
+      <td width="30%">Letzter Beitrag</td>
+    </tr>
+    
+    #L:content : !ForenList#  
+  </table>
+
+[!/Main!]
+
+[!=ForenList!]
+
+  <tr>
+    <td><a href="?site=forum&fid=#l:ID#">#l:titel#</a> <br />
+      #l:description#
+    </td>
+    <td>#l:threads#</td>
+    <td>#l:posts#</td>
+    <td>#l:lastpost#</td>
+
+  </tr>
+[!/ForenList!]

@@ -1,13 +1,32 @@
 <?php
+// Class Config
+$hp = $this;
+$right = $hp->getright();
+$level = $_SESSION['level'];
+$get = $hp->get();
+$post = $hp->post();
+$dbprefix = $hp->getprefix();
+$lang = $hp->getlangclass();
+$error = $hp->geterror();
+$info = $hp->getinfo();
+$right = $hp->right;
+
 
 // try to load something:
 
 $site = new pluginTemplate($this, 'forum');
 
-$site->load('index');
 
+if( isset($get['forums']))
+{
+  $site->load('forums');
+  
+} else
+{
+  
+  $site->load('index');
+  
+}
 $site->display();
-
-
 
 ?>

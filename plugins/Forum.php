@@ -74,6 +74,9 @@ class Forum extends Plugin
      if (in_array($site, $functions))
      {
         $this->$site($args, $context);
+     } else
+     {
+        return '[site?]';
      }
      
     // Always return an empty string
@@ -85,21 +88,71 @@ class Forum extends Plugin
   // --------------------   Context für Unterseiten  ---------------------------
   
   
- 
-  public function site_test($args, $context)
+  public function site_forums($args, $context)
   {
+    $hp = $this->hp;
+    $dbprefix = $hp->getprefix();
+    $right = $hp->right;
+    $level = $_SESSION['level'];
     
-    $s = '';
-    foreach ($context->getVars() as $k=>$v)
+    
+    $sql = 'SELECT f.ID, f.titel, f.timestamp AS time, f.level, f.passwort,
+            f.visible, f.description, f.type, u.user, f.userid,
+            (
+              SELECT count(*) FROM `'.$dbprefix.'threads` WHERE `forumid` = f.ID GROUP BY `forumid`          
+              
+            ) AS threads,
+            (
+              SELECT count(*) FROM `'.$dbprefix.'posts` WHERE `threadid` IN (
+                 SELECT `ID` FROM `'.$dbprefix.'threads` WHERE `forumid` = f.ID  
+              ) GROUP BY `threadid`                       
+            ) AS posts,
+            IFNULL(
+            (
+              SELECT timestamp FROM `'.$dbprefix.'posts` WHERE `threadid` IN (
+                 SELECT `ID` FROM `'.$dbprefix.'threads` WHERE `forumid` = f.ID  
+              ) ORDER BY `ID` DESC LIMIT 1                       
+            ), \'Keiner\') AS lastpost
+
+            FROM `'.$dbprefix.'forums` f LEFT JOIN
+            `'.$dbprefix.'user` u ON f.userid = u.ID;';
+    $erg = $hp->mysqlquery($sql);
+    
+    
+    
+    $content = array();
+    
+    while ($row = mysql_fetch_object($erg))
     {
-      $s .= "[$k] => $v, ";
+      if (($row->visible == 1) || $right->isAllowed($row->level))
+      {
+        $data = array(
+          
+          'ID' => $row->ID,
+          'titel' => $row->titel,
+          'level' => $row->level,
+          'passwort' => $row->passwort,
+          'visible' => ($row->visible == '1'),
+          'description' => $row->description,
+          'type' => $row->type,
+          'user' => $row->user,
+          'userid' => $row->userid,
+          'threads' => intval($row->threads),
+          'posts' => intval($row->posts),
+          'lastpost' => $row->lastpost
+          );
+        
+          $content[] = $data;
+        
+      }
     }
     
+    $context->set('content', $content);
     
-    $context->set('test', $s);  
   
-  } 
   
+  }
+
   
   
   
