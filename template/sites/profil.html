@@ -4,189 +4,181 @@
 
 [!=Main!]
 
-<form method="POST" action="index.php?site=profil">
-<div id="page1">
-  <table border="0" width="318">
-    <tr>
-      <td width="300" colspan="2">
-        <p align="center">#%page-intern#:</td>
-    </tr>
-    <tr>
-      <td width="125">#%username#:</td>
-      <td width="175">#!username#</td>
-    </tr>
-    <tr>
-      <td width="125">#%password#:</td>
-      <td width="175"><input type="submit" value="#%changepw#" name="pwändern"></td>
-      </form>
-      
-    </tr>
-        <tr>
-      <td width="125">#%avatar#:</td>
-      <td width="175">
- 
-      <img border="0" src="include/userpics.php?id=#!ID#">
-      
-      	<form enctype="multipart/form-data" action="index.php?site=userpicchange&id=#!ID#" method="post">
-		<input name="FILE" type="file">
-		<input type="hidden" name="MAX_FILE_SIZE" value="30000">
-		<input type="submit" value="#%upload-picture#" name="sendfiles" />
-	</form>
-      
-      </td>
-      
-      
-    </tr>
-    <form method="POST" action="index.php?site=profil">
-    <tr>
-      <td width="125"></td>
-      <td width="175"></td>
-    </tr>
-  </table>
-  </div>
-  <div id="page2" style="display:none">
-  <table border="0" width="318">
-    <tr>
-      <td width="300" colspan="2">
-        <p align="center">#%persönliches#:</td>
-    </tr>
-    <tr>
-      <td width="125">#%name#: </td>
-      <td width="175"><input  name="name" size="24" value="#!name#" ></td>
-    </tr>
-    <tr>
-      <td width="125">#%nachname#: </td>
-      <td width="175"><input  name="nachname" size="24" value="#!nachname#"></td>
-    </tr>
-    <tr>
-      <td width="125">#%alter#:</td>
-      <td width="175"><input  name="alter" size="24" value="#!alter#" ></td>
-    </tr>
-    <tr>
-      <td width="125">#%birthday#:</td>
-      <td width="175"><input  name="geburtstag" size="24" value="#!geburtstag#" ></td>
-    </tr>
-    <tr>
-      <td width="125">#%wohnort#:</td>
-      <td width="175"><input  name="wohnort" size="24" value="#!wohnort#" ></td>
-    </tr>
-        <tr>
-      <td width="125">#%telephone#:</td>
-      <td width="175"><input  name="tel" size="24" value="#!tel#" ></td>
-    </tr>
-        <tr>
-      <td width="125">#%email#:</td>
-      <td width="175">#!email#</td>
-    </tr>
-    <tr>
-      <td width="125"></td>
-      <td width="175"></td>
-    </tr>
-    <tr>
-      <td width="300" colspan="2">
-     <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
-     <button type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button></p></td>
-     
-     
-    </tr>
-    </table>
-    </div>
-    <div id="page3" style="display:none">
+<div id="tabs">
+  <ul>
+    <li><a href="#page1">#%start#</a></li>
+    <li><a href="#page2">#%persönliches#</a></li>
+    <li><a href="#page3" style="display:none">#%sonstiges#</a></li>
+    <li><a href="#page4" style="display:none">#%clan#</a></li>
+  </ul>
+  <div id="page1">
     <table border="0" width="318">
-    
-    <tr>
-      <td width="300" colspan="2">
-        <p align="center">#%sonstiges#:</td>
-    </tr>
-
-    
-    <tr>
-      <td width="125">#%cpu#:</td>
-      <td width="175"><input type="text" name="cpu" value="#!cpu#" size="24" maxlength="30"></td>
-    </tr>
-    <tr>
-      <td width="125">#%ram#:</td>
-      <td width="175"><input type="text" name="ram" value="#!ram#" size="24" maxlength="30"></td>
-    </tr>
-    <tr>
-      <td width="125">#%graka#:</td>
-      <td width="175"><input type="text" name="graka" value="#!graka#" size="24" maxlength="30"></td>
-    </tr>
-    <tr>
-      <td width="125">#%hdd#:</td>
-      <td width="175"><input type="text" name="hdd" value="#!hdd#" size="24" maxlength="30"></td>
-    </tr>
-    
-    <tr>
-      <td width="125"></td>
-      <td width="175"></td>
-    </tr>
-    <tr>
-      <td width="300" colspan="2">
-     <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
-     <button type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button></p></td>
-    </tr>
-  </table>
-  </div>
-  <div id="page4" style="display:none">
-     <table border="0" width="318">
-    
-    <tr>
-      <td width="300" colspan="2">
-        <p align="center">#%clan#:</td>
-    </tr>
-
-    
-    <tr>
-      <td width="125">#%clanname#:</td>
-      <td width="175"><input type="text" name="clan" value="#!clan#" size="24" maxlength="30"></td>
-    </tr>
-
-    <tr>
-      <td width="125">#%clantag#:</td>
-      <td width="175"><input type="text" name="clantag" value="#!clantag#" size="24" maxlength="30"></td>
-    </tr>
-    <tr>
-      <td width="125">#%clanhp#:</td>
-      <td width="175"><input type="text" name="clanhomepage" value="#!clanhomepage#" size="24" maxlength="30"></td>
-    </tr>
+      <tr>
+        <td width="300" colspan="2">
+          <p align="center">#%page-intern#:</td>
+      </tr>
+      <tr>
+        <td width="125">#%username#:</td>
+        <td width="175">#!username#</td>
+      </tr>
+      <tr>
+        <td width="125">#%password#:</td>
+        <td width="175"><input type="submit" value="#%changepw#" name="pwändern"></td>
+       </tr>
+      <tr>
+        <td width="125">#%avatar#:</td>
+        <td width="175">
+   
+        <img border="0" src="include/userpics.php?id=#!ID#">
+        
+        	<form enctype="multipart/form-data" action="index.php?site=userpicchange&id=#!ID#" method="post">
+        		<input name="FILE" type="file">
+        		<input type="hidden" name="MAX_FILE_SIZE" value="30000">
+        		<input type="submit" value="#%upload-picture#" name="sendfiles" />
+        	</form>
+        
+        </td>
+      
+      </tr>
+      <tr>
+        <td width="125"></td>
+        <td width="175"></td>
+      </tr>
+    </table>
+  </div> 
+   
+  <form method="POST" action="index.php?site=profil">
+    <div id="page2">
+      <table border="0" width="318">
         <tr>
-      <td width="125">#%clanhist#:</td>
-      <td width="175"><textarea rows="2" name="clanhistory" cols="40">#!clanhistory#</textarea></td>
-    </tr>
+          <td width="300" colspan="2">
+            <p align="center">#%persönliches#:</td>
+        </tr>
+        <tr>
+          <td width="125">#%name#: </td>
+          <td width="175"><input  name="name" size="24" value="#!name#" ></td>
+        </tr>
+        <tr>
+          <td width="125">#%nachname#: </td>
+          <td width="175"><input  name="nachname" size="24" value="#!nachname#"></td>
+        </tr>
+        <tr>
+          <td width="125">#%alter#:</td>
+          <td width="175"><input  name="alter" size="24" value="#!alter#" ></td>
+        </tr>
+        <tr>
+          <td width="125">#%birthday#:</td>
+          <td width="175"><input  name="geburtstag" size="24" value="#!geburtstag#" ></td>
+        </tr>
+        <tr>
+          <td width="125">#%wohnort#:</td>
+          <td width="175"><input  name="wohnort" size="24" value="#!wohnort#" ></td>
+        </tr>
+            <tr>
+          <td width="125">#%telephone#:</td>
+          <td width="175"><input  name="tel" size="24" value="#!tel#" ></td>
+        </tr>
+            <tr>
+          <td width="125">#%email#:</td>
+          <td width="175">#!email#</td>
+        </tr>
+        <tr>
+          <td width="125"></td>
+          <td width="175"></td>
+        </tr>
+        <tr>
+          <td width="300" colspan="2">
+         <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
+         <button type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button></p></td>
+         
+         
+        </tr>
+      </table>
+    </div>
+    <div id="page3">
+      <table border="0" width="318">
+        
+        <tr>
+          <td width="300" colspan="2">
+            <p align="center">#%sonstiges#:</td>
+        </tr>
     
-    <tr>
-      <td width="125"></td>
-      <td width="175"></td>
-    </tr>
-    <tr>
-      <td width="300" colspan="2">
-     <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
-     <button type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button></p></td>
-    </tr>
-  </table>
-  </div>
+        
+        <tr>
+          <td width="125">#%cpu#:</td>
+          <td width="175"><input type="text" name="cpu" value="#!cpu#" size="24" maxlength="30"></td>
+        </tr>
+        <tr>
+          <td width="125">#%ram#:</td>
+          <td width="175"><input type="text" name="ram" value="#!ram#" size="24" maxlength="30"></td>
+        </tr>
+        <tr>
+          <td width="125">#%graka#:</td>
+          <td width="175"><input type="text" name="graka" value="#!graka#" size="24" maxlength="30"></td>
+        </tr>
+        <tr>
+          <td width="125">#%hdd#:</td>
+          <td width="175"><input type="text" name="hdd" value="#!hdd#" size="24" maxlength="30"></td>
+        </tr>
+        
+        <tr>
+          <td width="125"></td>
+          <td width="175"></td>
+        </tr>
+        <tr>
+          <td width="300" colspan="2">
+         <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
+         <button type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button></p></td>
+        </tr>
+      </table>
+    </div>
+    <div id="page4">
+       <table border="0" width="318">
+        <tr>
+          <td width="300" colspan="2">
+            <p align="center">#%clan#:</td>
+        </tr>
+    
+        
+        <tr>
+          <td width="125">#%clanname#:</td>
+          <td width="175"><input type="text" name="clan" value="#!clan#" size="24" maxlength="30"></td>
+        </tr>
+    
+        <tr>
+          <td width="125">#%clantag#:</td>
+          <td width="175"><input type="text" name="clantag" value="#!clantag#" size="24" maxlength="30"></td>
+        </tr>
+        <tr>
+          <td width="125">#%clanhp#:</td>
+          <td width="175"><input type="text" name="clanhomepage" value="#!clanhomepage#" size="24" maxlength="30"></td>
+        </tr>
+            <tr>
+          <td width="125">#%clanhist#:</td>
+          <td width="175"><textarea rows="2" name="clanhistory" cols="40">#!clanhistory#</textarea></td>
+        </tr>
+        
+        <tr>
+          <td width="125"></td>
+          <td width="175"></td>
+        </tr>
+        <tr>
+          <td width="300" colspan="2">
+         <p align="center"> <button type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
+         <button type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button></p></td>
+        </tr>
+      </table>
+    </div>
+  </form>
+</div>  
 
-  
-</form>
 
 <script type="text/javascript">
-var page1 = document.getElementById('page1');
-var page2 = document.getElementById('page2');
-var page3 = document.getElementById('page3');
-var page4 = document.getElementById('page4');
-
-
+  $(function()
+  {
+    $("#tabs").tabs();
+  })
 
 </script>
-
-
-
-
-<input type="button" value="#%start#" onclick="page1.style.display = ''; page2.style.display = 'none'; page3.style.display = 'none'; page4.style.display = 'none'; ">
-<input type="button" value="#%persönliches#" onclick="page2.style.display = ''; page1.style.display = 'none'; page3.style.display = 'none'; page4.style.display = 'none'; ">
-<input type="button" value="#%sonstiges#" onclick="page3.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none'; page4.style.display = 'none'; ">
-<input type="button" value="#%clan#" onclick="page4.style.display = ''; page1.style.display = 'none'; page2.style.display = 'none'; page3.style.display = 'none'; ">
-
 
 [!/Main!]

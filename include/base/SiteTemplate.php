@@ -37,10 +37,16 @@ class siteTemplate
     
     self::extend($this);
     
-    if (($copy != null) && (is_a($copy, "siteTemplate")))
+    if ($copy != null)
     {
-      $this->data = array_merge($this->data, $copy->data);
-      $this->vars = array_merge($this->vars, $copy->vars);
+      if (is_a($copy, "siteTemplate"))
+      {
+        $this->data = array_merge($this->data, $copy->data);
+        $this->vars = array_merge($this->vars, $copy->vars);
+      } else
+      {
+        $hp->error->error("siteTemplate: supplied Object is no siteTemplate");
+      }
     }
     
     
@@ -109,6 +115,20 @@ class siteTemplate
        }
     
     }
+    
+    if (empty($this->name))
+    {
+      if (is_object($this->hp->info))
+      {
+        $this->hp->info->info("siteTemplate: No name defined! ($name)");
+      } else
+      {
+        echo "<b>Warning:</b> siteTemplate-No name defined! ($name) <br />";
+      }
+    }
+
+    
+    
     //echo "Name: $this->name<br>";
    //echo "Autor: $this->autor<br>";
   
@@ -170,10 +190,14 @@ class siteTemplate
   
   public function replace($data)
   {
+    // Ersetzt die Variablen
+    // Diese Zeile muss oben stehen, da Funktionen auf Variablen zugreifen können!
+    $data = $this->replaceVars($data);
+    // Ersetzt die Funktionen
+    // Diese Zeile muss oben stehen, da über Funktionen Variablen gesetzt werden können!
+    $data = $this->replaceFunctions($data);
     // Ersetze Inline Platzhalter:
     $data = $this->replaceDefault($data);
-    // Ersetzt die Variablen
-    $data = $this->replaceVars($data);
     // Die Kommentare in den Templates werden ersetzt
     $data = $this->replaceComment($data);                                                
     // Ersetze die Sprachblocks
@@ -184,10 +208,8 @@ class siteTemplate
     $data = $this->replaceEquals($data);
     // Ersetzte die LbSites
     $data = $this->replaceLbSite($data);
-    // Ersetzt die Funktionen
-    $data = $this->replaceFunctions($data);
     //Ersetzte die Loops
-    $data = $this->replaceLoop($data);
+    $data = $this->replaceLoop($data); 
     
     
     return $data;
@@ -301,7 +323,7 @@ class siteTemplate
           }
           
           
-          $out = $obj->$func($args); 
+          $out = $obj->$func($args, $this); 
         
       
       } else
@@ -614,7 +636,7 @@ class siteTemplate
                  $args[] = $content;     
              }        
              
-             $content = $obj->$func($args); 
+             $content = $obj->$func($args, $this); 
                     
          } else
          {

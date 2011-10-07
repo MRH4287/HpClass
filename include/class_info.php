@@ -24,7 +24,10 @@ class infoclass
    if (!in_array($info, $this->infoarray))
     {
       array_push($this->infoarray, $info);
-      $this->firephp->info($info);
+      if (is_object($this->firephp))
+      {
+        $this->firephp->info($info);
+      }
     }
   }
   
@@ -33,7 +36,10 @@ class infoclass
    if (!in_array($okm, $this->okmarray))
     {
       array_push($this->okmarray, $okm);
-      $this->firephp->log($okm);
+      if (is_object($this->firephp))
+      {
+        $this->firephp->log($okm);
+      }
     }
   }
   
