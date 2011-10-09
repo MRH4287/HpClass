@@ -21,11 +21,15 @@ if( isset($get['forums']))
 {
   $site->load('forums');
   
-} else
+} elseif (isset($get['fid']))
 {
   
-  $site->load('index');
+  $site->load('threads');
+  $site->set('fid', intval($get['fid']));
   
+} else
+{ 
+  $site->load('index');
 }
 $site->display();
 

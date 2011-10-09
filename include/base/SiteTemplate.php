@@ -401,10 +401,11 @@ class siteTemplate
       
       $compareA = "A";    
       $compareB = "B";
-      
-      if ((count($values) != 3) || (count($con) != 2))
+            
+      if (count($values) != 3)
       {
-        continue;
+        $data = str_replace("#=$word#", "[Args?]", $data);
+        return $data;  
       }
       
       // A
@@ -525,12 +526,16 @@ class siteTemplate
         $array = $this->replaceExtendedInput($split[0]);
         if (is_array($array))
         {
+          
           $text = "";
-          $myBase =  $this->replaceExtendedInput($split[1]);
+           
           
           foreach ($array as $key => $value)
           {
-             $text .= $this->replace($this->replaceLoopContent($myBase, $key, $value));           
+             $this->aktArray = $value; 
+             $myBase =  $this->replaceExtendedInput($split[1], "");   
+             $text .= $this->replaceLoopContent($myBase, $key, $value);   
+             $this->aktArray = null;        
           }
           
           $content = $text;         
@@ -572,7 +577,7 @@ class siteTemplate
         {
           if (isset($value[$split[0]]))
           {
-             $content = $this->replace($value[$split[0]]);          
+             $content = $value[$split[0]];          
           
           } else
           {
@@ -584,7 +589,7 @@ class siteTemplate
         {
           if (isset($value[$split[1]]))
           {
-             $content = $this->replace($value[$split[1]]);          
+             $content = $value[$split[1]];          
           
           } else
           {
@@ -613,7 +618,7 @@ class siteTemplate
   private function replaceExtendedInput($input, $fallback = "")
   {
       $hp = $this->hp;
-  
+      
       $content = "";
       
       

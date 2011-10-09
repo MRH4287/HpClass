@@ -1,0 +1,92 @@
+#!!NAME=Threads
+#!!AUTOR=MRH
+
+[!=Main!]
+
+  #/ Set the Ammunt of entrys shown per page#
+  #V:entrysPerPage : "15"#
+  #@ForumLoadContent : "threads" : fid#
+  
+  #/ Error Check #
+  #=error == "" : !Display : !ErrorView#
+  
+  
+[!/Main!]
+
+
+[!=Display!]
+
+
+<a href="?site=forum&forums">Forums</a> > <a href="?site=forum&fid=#!forumid#">#!forumtitel#</a>
+<br />
+<br />
+
+#@ForumDisplayPages : page : pageCount : !NavigationLink# 
+Seiten: #!result#  
+<br />
+<br />
+<table width="100%" border="1">
+  <tr>
+    <td width="70%">Themen</td>
+    <td width="10%">Antworten</td>
+    <td width="20%">Letzte Anwort</td>
+  </tr>
+  
+  #L:content : !ListElement#
+  
+</table>
+
+
+
+[!/Display!]
+
+
+[!=ListElement!]
+
+  <tr>
+    <td><a href="?site=forum&tid=#l:ID#">#l:titel#</a> <br />
+    von <a href="?site=user&show=#l:user#">#l:user#</a><br />
+    (#l:timestamp#)
+    </td>
+    <td>#l:posts#</td>
+    <td>#l:lastpost#</td>
+  </tr>
+
+[!/ListElement!]
+
+
+
+------ Navigation ------
+
+
+[!=NavigationLink!]
+
+<a href="?site=forum&fid=#!fid#&page=#!ForumNavigationPageID#">#!ForumNavigationPageID#</a>
+
+[!/NavigationLink!]
+
+
+
+
+
+
+----- This Page Loads if an Error happens -----
+
+[!=ErrorView!]
+
+  #=error == "NoRight" : !NoRight : ""#
+  #=error == "NotFound" : !NotFound : ""#
+
+[!/ErrorView!]
+
+[!=NoRight!]
+
+  <strong>Sie haben nicht das Recht dieses Forum zu betrachten!</strong>
+
+[!/NoRight!]
+
+[!=NotFound!]
+
+  <strong>Es gibt kein Forum mit dieser ID!</strong>
+
+[!/NotFound!]

@@ -27,11 +27,15 @@
 
   <tr>
     <td><a href="?site=forum&fid=#l:ID#">#l:titel#</a> <br />
-      #l:description#
+      #V:locked : l:locked#
+      #l:description# #?:locked : "(gesperrt)"#
     </td>
     <td>#l:threads#</td>
     <td>#l:posts#</td>
-    <td>#l:lastpost#</td>
+    #V:lastpostTitel : @echo("<a href="?site=forum&tid=", l:lastpostThreadID, "">", l:lastpostTitel, "</a>")#
+    #V:lastpostUser : @echo("<a href="?site=user&show=", l:lastpostUser, "">", l:lastpostUser, "</a>")#
+    #V:lastpostOk : @echo(lastpostTitel, " ", %by, " ", lastpostUser, " <br /> ", l:lastpost)#
+    <td>#=l:lastpost == "Keiner" : l:lastpost : lastpostOk#</td>
 
   </tr>
 [!/ForenList!]
