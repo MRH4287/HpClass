@@ -27,6 +27,11 @@ if( isset($get['forums']))
   $site->load('threads');
   $site->set('fid', intval($get['fid']));
   
+} elseif (isset($get['tid']))
+{
+  $site->load('threadView');
+  $site->set('tid', intval($get['tid']));
+  
 } else
 { 
   $site->load('index');

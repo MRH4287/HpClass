@@ -622,7 +622,7 @@ class siteTemplate
       $content = "";
       
       
-      if (preg_match("/@([^\"]*)\(([^\)]*)\)/", $input, $m))
+      if (preg_match("/@([^\"]*)\((.*)\)/", $input, $m))
       {                 
          if (isset(self::$functions[$m[1]]))
          {

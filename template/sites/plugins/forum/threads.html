@@ -32,10 +32,14 @@ Seiten: #!result#
     <td width="20%">Letzte Anwort</td>
   </tr>
   
+  #L:announcement : !ListElement#
   #L:content : !ListElement#
   
 </table>
 
+<br />
+<br />
+#?:forumlock : "Locked" : "Open"#
 
 
 [!/Display!]
@@ -48,8 +52,12 @@ Seiten: #!result#
     von <a href="?site=user&show=#l:user#">#l:user#</a><br />
     (#l:timestamp#)
     </td>
-    <td>#l:posts#</td>
-    <td>#l:lastpost#</td>
+    <td>#l:posts#</td>    
+    #V:lastpostUser : @echo(%by, " <a href="?site=user&show=", l:lastpostUser, "">", l:lastpostUser, "</a>")#
+    #V:lastpostTime : @echo("(", l:lastpost, ")")#
+    #V:lastpost : @echo(lastpostUser, "<br />", lastpostTime)#
+    
+    <td>#=l:lastpost == "never" : "" : lastpost#</td>
   </tr>
 
 [!/ListElement!]

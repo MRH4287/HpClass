@@ -1,0 +1,123 @@
+#!!NAME=Thread Ansicht
+#!!AUTOR=MRH
+
+
+[!=Main!]
+  #/ Set the Ammunt of entrys shown per page#
+  #V:entrysPerPage : "30"#
+  #@ForumLoadContent : "thread" : tid#
+  
+  #/ Error Check #
+  #=error == "" : !Display : !ErrorView#
+
+[!/Main!]
+
+
+[!=Display!]
+
+<a href="?site=forum&forums">Forums</a> > <a href="?site=forum&fid=#!forumid#">#!forumtitel#</a> > <a href="?site=forum&tid=#!threadid#">#!threadtitel#</a>
+<br />
+<br />
+
+#@ForumDisplayPages : page : pageCount : !NavigationLink# 
+Seiten: #!result#  
+
+<br />
+<br />
+
+
+#L:contentMixed : !ListElement#
+
+<br />
+<br />
+#?:lock : "Locked" : "Open"#
+
+
+
+[!/Display!]
+
+
+[!=ListElement!]
+
+#/ Decide if this Element is the Thread or is a post#
+#V:thread : l:thread#
+#?:thread : !ThreadView : !PostView#
+
+
+[!/ListElement!]
+
+
+
+[!=ThreadView!]
+
+<table width="100%" border="1">
+  <tr>
+    <td width="15%">#l:user#</td>
+    <td width="85%">#l:titel#</td>
+  </tr>
+  <tr>
+    <td>
+      <img src="include/image.php?id=#l:userid#&source=usr" alt="#l:user#" />
+      
+      Anzahl der Beiträge: #l:userPostCount# <br />
+    Anzahl der eröffneten Themen: #l:userThreadCount#</td>
+    <td>#l:text#</td>
+  </tr>
+</table>
+<br />
+
+[!/ThreadView!]
+
+[!=PostView!]
+
+<table width="100%" border="1">
+  <tr>
+    <td width="15%">#l:user#</td>
+    <td width="85%">Post View:</td>
+  </tr>
+  <tr>
+    <td>
+      <img src="include/image.php?id=#l:userid#&source=usr" alt="#l:user#" />
+      Anzahl der Beiträge: #l:userPostCount# <br />
+    Anzahl der eröffneten Themen: #l:userThreadCount#
+    </td>
+    <td>#l:text#</td>
+  </tr>
+</table>
+
+<br />
+
+[!/PostView!]
+
+
+
+------ Navigation ------
+
+
+[!=NavigationLink!]
+
+<a href="?site=forum&fid=#!fid#&page=#!ForumNavigationPageID#">#!ForumNavigationPageID#</a>
+
+[!/NavigationLink!]
+
+
+----- This Page Loads if an Error happens -----
+
+[!=ErrorView!]
+
+  #=error == "NoRight" : !NoRight : ""#
+  #=error == "NotFound" : !NotFound : ""#
+
+[!/ErrorView!]
+
+[!=NoRight!]
+
+  <strong>Sie haben nicht das Recht diesen Thread zu betrachten!</strong>
+
+[!/NoRight!]
+
+[!=NotFound!]
+
+  <strong>Es gibt keinen Thread mit dieser ID!</strong>
+
+[!/NotFound!]

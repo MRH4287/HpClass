@@ -321,8 +321,9 @@ class Forum extends Plugin
       pageCount - String - Wieviele Seiten gibt es
       content - Array - Liste der Threads im Forum
       announcement - Array - Liste der Announcements im Forum
-      forumtitel - Titel des Forums
-      forumid - ID des Forums
+      forumtitel - String - Titel des Forums
+      forumid - String - ID des Forums
+      forumlock - Bool - Is this Forum locked
    
   */
   public function site_threads($args, $context)
@@ -375,9 +376,9 @@ class Forum extends Plugin
       } else
       {
    
-        $allowed = $right->isAllowed($row->level);      
+        $allowedF = $right->isAllowed($row->level);      
         
-        if (!$allowed && ($row->visible != "1"))
+        if (!$allowedF && ($row->visible != "1"))
         {
           $context->set('error', 'NotRight');
           
@@ -385,30 +386,38 @@ class Forum extends Plugin
         {
           // Load Content of the Forum
           
-          $sql = 'SELECT t.ID, t.titel, t.userid, t.level, t.visible, t.closed, t.type, t.timestamp,
-          IFNULL(t.lastedit, \'never\') AS lastedit, IFNULL(t.lastpost, \'never\') AS lastpost, u.user,
-          t.passwort,
-          IFNULL(t.lastpost, t.timestamp) AS lastaction,
-          IFNULL((
-            SELECT COUNT(*) FROM `'.$dbprefix.'posts` WHERE `threadid` = t.ID GROUP BY `threadid`
-          ), 0) AS posts,
-          IFNULL((
-            SELECT userid FROM `'.$dbprefix.'posts` WHERE threadid IN
-              (
-               SELECT ID FROM `'.$dbprefix.'threads` WHERE `forumid` = t.forumid
-              ) ORDER BY timestamp DESC LIMIT 1
-          ), -1) AS lastpostUserID,
-          IFNULL((
-            SELECT user
-            FROM `'.$dbprefix.'user` WHERE `ID` = lastpostUserID                            
-          ), \'\') AS lastpostUser,
+          $sql = '
+          SELECT o.*, IFNULL(IFNULL(o.lastpost, o.lastedit),o.timestamp) as lastaction,
+          IFNULL(o.lastpost, \'never\') AS lastpost, IFNULL(o.lastedit, \'never\') AS lastedit
+          FROM
           (
-            SELECT titel FROM `'.$dbprefix.'forums` WHERE ID = t.forumid
-          ) AS forumtitel
+            SELECT t.ID, t.titel, t.userid, t.level, t.visible, t.closed, t.type, t.timestamp,
+            t.lastedit, u.user, t.passwort,
+            IFNULL((
+              SELECT COUNT(*) FROM `'.$dbprefix.'posts` WHERE `threadid` = t.ID GROUP BY `threadid`
+            ), 0) AS posts,
+            IFNULL((
+              SELECT ID FROM `'.$dbprefix.'posts` WHERE threadid = t.ID ORDER BY timestamp DESC LIMIT 1
+            ), -1) AS lastpostID,
+            (
+              SELECT timestamp FROM `'.$dbprefix.'posts` WHERE ID = lastpostID 
+            ) AS lastpost,
+            IFNULL((
+              SELECT userid FROM `'.$dbprefix.'posts` WHERE ID = lastpostID 
+            ), -1) AS lastpostUserID,
+            IFNULL((
+              SELECT user
+              FROM `'.$dbprefix.'user` WHERE `ID` = lastpostUserID                            
+            ), \'\') AS lastpostUser,
+            (
+              SELECT titel FROM `'.$dbprefix.'forums` WHERE ID = t.forumid
+            ) AS forumtitel
+  
+            FROM `'.$dbprefix.'threads` t
+            LEFT JOIN `'.$dbprefix.'user` u ON t.userid = u.ID WHERE `forumid` = '.$forumid.'
+          ) o
           
-          
-          FROM `'.$dbprefix.'threads` t
-          LEFT JOIN `'.$dbprefix.'user` u ON t.userid = u.ID WHERE `forumid` = '.$forumid.' ORDER BY lastaction DESC;';
+          ORDER BY lastaction DESC;';
          
           $erg = $hp->mysqlquery($sql);
 
@@ -428,6 +437,7 @@ class Forum extends Plugin
               $allowed = $right->isAllowed($row->level);
               if (($row->visible == 1) || $allowed)
               {
+                $row->allowed = $allowed;
                 $threads[$row->type][] = $row;
               }
             }
@@ -452,8 +462,11 @@ class Forum extends Plugin
               $page = $pages;
             }
             
-       
+            $firstEntry = $entrysPerPage * ($page -1);
+            $lastEntry = $firstEntry + $entrysPerPage;
             
+            
+       
             $data = array();
             
             // Sticky Threads
@@ -475,9 +488,6 @@ class Forum extends Plugin
             }
             
             $content = array();
-            
-            $firstEntry = $entrysPerPage * ($page -1);
-            $lastEntry = $firstEntry + $entrysPerPage;
             
             
             for($i = $firstEntry; $i < $lastEntry; $i++)
@@ -506,7 +516,7 @@ class Forum extends Plugin
                 'lastpostUserID' => $row->lastpostUserID,
                 'lastpostUser' => $row->lastpostUser,
                 'timestamp' => $row->timestamp,
-                'locked' => !$allowed || ($row->closed == 1),
+                'locked' => !($row->allowed) || ($row->closed == 1),
                 'sticky' => ($row->type == 1),
                 'normal' => ($row->type == 0),
                 'announcement' => false
@@ -540,7 +550,7 @@ class Forum extends Plugin
                   'lastpostUserID' => $row->lastpostUserID,
                   'lastpostUser' => $row->lastpostUser,
                   'timestamp' => $row->timestamp,
-                  'locked' => !$allowed || ($row->closed == 1),
+                  'locked' => !($row->allowed) || ($row->closed == 1),
                   'sticky' => false,
                   'normal' => false,
                   'announcement' => true 
@@ -556,6 +566,7 @@ class Forum extends Plugin
             $context->set('pageCount', $pages);
             $context->set('forumtitel', $forumtitel);
             $context->set('forumid', $forumid);
+            $context->set('forumlock', !$allowedF);
             
           } else
           {
@@ -567,7 +578,249 @@ class Forum extends Plugin
     }
   }
   
+  /*
+   
+    Setzt die Informationen für die Thread-Ansichts-Seite
+    
+    Variablen:
+      entrysPerPage - Wievele Einträge pro Seite (Default=30)
+
+    Parameter (GET):
+      page - Regelt, welche Seite dargestellt werden soll
+     
+    Argumente:
+      0 - /
+      1 - ThreadID
+     
+    Ausgabe:
+      error - String - Ist ein Fehler aufgetreten
+      page - String - Welche Seite ist offen
+      pageCount - String - Wieviele Seiten gibt es
+      content - Array - Nur die Daten über diesen Thread
+      contentPosts - Array - Nur die Posts zu diese Thread
+      contentMixed - Array - Erst die Daten zu diesem Thread dann die Posts
+      forumtitel - String - Titel des Forums
+      forumid - String - ID des Forums
+      forumlock - Bool - Is the Forum this thread is assigned to is locked
+      lock - Bool - Is this Thread locked
+      threadtitel - String - Titel des Threads
+      threadid - String - ID des Threads
+   
+  */
+  public function site_thread($args, $context)
+  {
+    $hp = $this->hp;
+    $dbprefix = $hp->getprefix();
+    $right = $hp->right;
+    $get = $hp->get();
   
+    if (count($args) < 1)
+    {
+      return "[Args?]";
+    } else
+    {
+  
+      $threadid = intval($args[1]);
+      $page = 1;
+      $entrysPerPage = 30;
+      
+      if( isset($get['page']) )
+      {
+        $page = intval($get['page']);
+        if ($page < 1)
+        {
+          $page = 1;
+        }
+      }
+      
+      $vars = $context->getVars();
+      
+      if (isset($vars['entrysPerPage']))
+      {
+        $entrysPerPage = intval($vars['entrysPerPage']);
+      }
+      
+    
+      // First we lookup the security Flags of this thread and the forum this thread is assigned to
+      // If no result is found, no thread with this ID exists
+      $sql = 'SELECT t.level , t.visible, f.level AS forumLevel, f.visible AS forumVisible FROM `'.$dbprefix.'threads` t 
+      LEFT JOIN `'.$dbprefix.'forums` f ON t.forumid = f.ID WHERE t.ID = '.$threadid.';';
+      
+      $erg = $hp->mysqlquery($sql);
+      
+      if (mysql_num_rows($erg) > 0)
+      {
+        $row = mysql_fetch_object($erg);
+       
+        $allowed = $right->isAllowed($row->level);
+        $allowedF = $right->isAllowed($row->forumLevel);
+        
+        if ((($row->forumVisible == '1') || $allowedF)
+              && (($row->visible == '1') || $allowed))
+        {
+          
+          $sql = 'SELECT t.ID, t.titel, t.forumid, t.userid, t.text, t.level, t.closed, t.type,
+          t.timestamp, IFNULL(t.lastedit, \'never\') AS lastedit,
+          f.titel as forumtitel, f.userid AS forumuserid, f.description AS forumdescription,
+          (
+            SELECT user FROM `'.$dbprefix.'user` WHERE `ID` = t.userid
+          ) AS user,
+          (
+            SELECT user FROM `'.$dbprefix.'user` WHERE `ID` = f.userid
+          ) AS forumuser,
+          IFNULL((
+            SELECT COUNT(*) FROM `'.$dbprefix.'posts` p WHERE p.userid = t.userid GROUP BY p.userid
+          ), 0) AS userPostCount,
+          IFNULL((
+            SELECT COUNT(*) FROM `'.$dbprefix.'threads` tr WHERE tr.userid = t.userid GROUP BY tr.userid
+          ), 0) AS userThreadCount
+          FROM `'.$dbprefix.'threads` t
+          LEFT JOIN `'.$dbprefix.'forums` f ON t.forumid = f.ID
+          WHERE t.ID = '.$threadid.';';
+          
+          $erg = $hp->mysqlquery($sql);
+          
+          $thread = mysql_fetch_object($erg);
+          
+          $content = array();
+          
+          $data = array(
+            'ID' => $thread->ID,
+            'titel' => $thread->titel,
+            'userid' => $thread->userid,
+            'text' => $thread->text,
+            'level' => $thread->level,
+            'locked' => (!$allowed) || ($thread->closed == 1),
+            'normal' => ($thread->type == 0),
+            'sticky' => ($thread->type == 1),
+            'announcement' => ($thread->type == 2),
+            'timestamp' => $thread->timestamp,
+            'lastedit' => $thread->lastedit,
+            'forumtitel' => $thread->forumtitel,
+            'forumuserid' => $thread->forumuserid,
+            'forumdescription' => $thread->forumdescription,
+            'user' => $thread->user,
+            'forumuser' => $thread->forumuser,
+            'userPostCount' => $thread->userPostCount,
+            'userThreadCount' => $thread->userThreadCount,
+            'thread' => true
+          );
+          
+          // Content without Posts
+          $content[] = $data;
+          
+          // Create a holder for Mixed Data and include the thread Data
+          $contentMixed = array();
+          $contentMixed[] = $data;
+          
+          // Get all posts that are assigned to this Thread
+          $sql = 'SELECT p.ID, p.userid, p.text, p.timestamp, IFNULL(p.lastedit, \'never\') AS lastedit, u.user,
+          IFNULL((
+            SELECT COUNT(*) FROM `'.$dbprefix.'posts` po WHERE po.userid = p.userid GROUP BY po.userid
+          ), 0) AS userPostCount,
+          IFNULL((
+            SELECT COUNT(*) FROM `'.$dbprefix.'threads` tr WHERE tr.userid = p.userid GROUP BY tr.userid
+          ), 0) AS userThreadCount
+          FROM `'.$dbprefix.'posts` p LEFT JOIN `'.$dbprefix.'user` u
+          ON p.userid = u.ID WHERE p.threadid = '.$threadid.' ORDER BY p.timestamp ASC;';
+          $contentPosts = array();
+          
+          $erg = $hp->mysqlquery($sql);
+          
+          if (mysql_num_rows($erg) > 0)
+          {
+            while ($row = mysql_fetch_object($erg))
+            {
+             $data = array(
+              'ID' => $row->ID,
+              'titel' => '',
+              'userid' => $row->userid,
+              'text' => $row->text,
+              'level' => '0',
+              'locked' => false,
+              'normal' => true,
+              'sticky' => false,
+              'announcement' => false,
+              'timestamp' => $row->timestamp,
+              'lastedit' => $row->lastedit,
+              'forumtitel' => $thread->forumtitel,
+              'forumuserid' => $thread->forumuserid,
+              'forumdescription' => $thread->forumdescription,
+              'user' => $row->user,
+              'forumuser' => $thread->forumuser,
+              'userPostCount' => $row->userPostCount,
+              'userThreadCount' => $row->userThreadCount,
+              'thread' => false
+              );
+             
+             $contentPosts[] = $data;
+             $contentMixed[] = $data;
+            }
+            
+          }
+          
+          // Next we hae to decide which Array is our meassurement Array
+          // I decide to use contentMixed because its the Array i want to use :)
+          
+          $count = count($contentMixed);         
+          $pages = ceil($count / $entrysPerPage);
+          
+          if ($pages < 1)
+          {
+            $pages = 1;
+          }
+          
+          if ($page > $pages)
+          {
+            $page = $pages;
+          }
+          
+          $firstEntry = $entrysPerPage * ($page -1);
+          $lastEntry = $firstEntry + $entrysPerPage;
+          
+          
+          $contentMixedOut = array();
+          $contentPostsOut = array();
+          
+          for($i = $firstEntry; $i < $lastEntry; $i++)
+          {
+            if (isset($contentMixed[$i]))
+            {
+              $contentMixedOut[] = $contentMixed[$i];
+            }
+            if (isset($contentPosts[$i]))
+            {
+              $contentPostsOut[] = $contentPosts[$i];
+            }
+          }
+          
+          
+          $context->set('error', ''); 
+          $context->set('page', $page);
+          $context->set('pageCount', $pages);
+          $context->set('content', $content);
+          $context->set('contentPosts', $contentPostsOut);
+          $context->set('contentMixed', $contentMixedOut);
+          $context->set('forumtitel', $thread->forumtitel);
+          $context->set('forumid', $thread->forumid);
+          $context->set('forumlock', !$allowedF);
+          $context->set('lock', (!$allowed) || ($thread->closed == 1));
+          $context->set('threadtitel', $thread->titel);
+          $context->set('threadid', $thread->ID);
+          
+          
+        } else
+        {
+          $context->set('error', 'NoRight'); 
+        }
+        
+      } else
+      { 
+        $context->set('error', 'NotFound'); 
+      } 
+    }
+  
+  }
   
 }
 

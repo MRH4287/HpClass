@@ -26,15 +26,12 @@ ALTER TABLE `#!-PREFIX-!#threads` CHANGE `lastedit_new` `lastedit_new` DATETIME 
 UPDATE `#!-PREFIX-!#threads` SET `lastedit_new` = FROM_UNIXTIME(`lastedit`);
 ALTER TABLE `#!-PREFIX-!#threads` DROP `lastedit`;
 ALTER TABLE `#!-PREFIX-!#threads` CHANGE `lastedit_new` `lastedit` DATETIME NOT NULL;
-ALTER TABLE `#!-PREFIX-!#threads` ADD `lastpost_new` DATETIME NOT NULL;
-ALTER TABLE `#!-PREFIX-!#threads` CHANGE `lastpost_new` `lastpost_new` DATETIME NOT NULL;
-UPDATE `#!-PREFIX-!#threads` SET `lastpost_new` = FROM_UNIXTIME(`lastpost`);
 ALTER TABLE `#!-PREFIX-!#threads` DROP `lastpost`;
-ALTER TABLE `#!-PREFIX-!#threads` CHANGE `lastpost_new` `lastpost` DATETIME NOT NULL;
 ALTER TABLE `#!-PREFIX-!#forums` ADD INDEX ( `userid` );
 ALTER TABLE `#!-PREFIX-!#threads` ADD INDEX ( `forumid` );
 ALTER TABLE `#!-PREFIX-!#threads` ADD INDEX ( `userid` );
 ALTER TABLE `#!-PREFIX-!#posts` ADD INDEX ( `threadid` );
 ALTER TABLE `#!-PREFIX-!#posts` ADD INDEX ( `userid` );
-ALTER TABLE `#!-PREFIX-!#threads` CHANGE `lastedit` `lastedit` DATETIME NULL DEFAULT NULL, CHANGE `lastpost` `lastpost` DATETIME NULL DEFAULT NULL;
+ALTER TABLE `#!-PREFIX-!#posts` CHANGE `lastedit` `lastedit` DATETIME NULL; 
+ALTER TABLE `#!-PREFIX-!#threads` CHANGE `lastedit` `lastedit` DATETIME NULL DEFAULT NULL;
 ALTER TABLE `#!-PREFIX-!#download` CHANGE `ID` `ID` INT( 100 ) NOT NULL AUTO_INCREMENT, CHANGE `dateityp` `dateityp` VARCHAR( 100 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL, CHANGE `datei` `datei` LONGBLOB NULL DEFAULT NULL, CHANGE `titel` `titel` VARCHAR( 100 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL, CHANGE `datum` `datum` VARCHAR( 80 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL, CHANGE `autor` `autor` VARCHAR( 100 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL, CHANGE `level` `level` VARCHAR( 20 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL, CHANGE `dateiname` `dateiname` VARCHAR( 200 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL, CHANGE `Zeitstempel` `Zeitstempel` DATETIME NOT NULL, CHANGE `beschreibung` `beschreibung` VARCHAR( 500 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL, CHANGE `kat` `kat` INT( 100 ) NOT NULL;
