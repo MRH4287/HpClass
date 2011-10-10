@@ -38,7 +38,44 @@ class Forum extends Plugin
   */
   function onEnable()
   {
+    $hp = $this->hp;
     
+    
+     
+
+    $rights = array(
+    
+        array (
+          "name" => "manage_forums",
+          "desc" => "Das Recht Foren zu verwalten. (erstellen, bearbeiten, löschen)",
+          "cat"  => "Forum"
+        )
+    );
+    
+    
+    $hp->right->registerArray($rights);
+  
+    /*$level = array(
+      array("SMV", "2")  
+    );
+    
+    $hp->right->registerLevel($level);
+  
+    $configs = array(
+      array(
+        "name"      => "allow_register",
+        "desc"      => "Dürfen sich Benutzer Registrieren",
+        "cat"       => "FOS",
+        "type"      => "bool",
+        "default"   => false 
+      )
+    
+    );
+    
+    $hp->config->registerArray($configs);
+    */
+
+
 
     $this->hp->addredirect("forum", "plugins/Forum");
   }
