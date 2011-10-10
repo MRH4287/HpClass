@@ -1,1 +1,2 @@
-INSERT INTO `#!-PRÄFIX-!#modul` (`Name` ,`run` ,`description` ,`date` ,`path`, `active`)VALUES ( 'Xajax Template Extention', 'autorun.php', 'Ermöglicht das laden von Dynamischen Inhalten über den Template Ordner', '5.5.10', 'XAJAXTemplate', '1');
+-- INSERT INTO `#!-PRÄFIX-!#modul` (`Name` ,`run` ,`description` ,`date` ,`path`, `active`)VALUES ( 'Xajax Template Extention', 'autorun.php', 'Ermöglicht das laden von Dynamischen Inhalten über den Template Ordner', '5.5.10', 'XAJAXTemplate', '1');
+-- Modul System no longer in user (use plugins instead)

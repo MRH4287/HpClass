@@ -1,1 +1,2 @@
-CREATE TABLE IF NOT EXISTS `#!-PREFIX-!#subpages` (`ID` int(100) NOT NULL AUTO_INCREMENT, `name` varchar(100) NOT NULL, `content` longtext NOT NULL, `template` varchar(100) NOT NULL, `parent` int(100) NOT NULL, `created` int(100) NOT NULL, `order` int(100) NOT NULL DEFAULT '1', PRIMARY KEY (`ID`), UNIQUE KEY `name` (`name`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+-- CREATE TABLE IF NOT EXISTS `#!-PREFIX-!#subpages` (`ID` int(100) NOT NULL AUTO_INCREMENT, `name` varchar(100) NOT NULL, `content` longtext NOT NULL, `template` varchar(100) NOT NULL, `parent` int(100) NOT NULL, `created` int(100) NOT NULL, `order` int(100) NOT NULL DEFAULT '1', PRIMARY KEY (`ID`), UNIQUE KEY `name` (`name`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+-- Will be deleted in Update 22

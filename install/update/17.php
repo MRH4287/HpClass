@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS `#!-PRÄFIX-!#usedpics` (`ID` int(100) NOT NULL AUTO_INCREMENT,`filename` varchar(100) COLLATE latin1_general_ci NOT NULL,`height` int(5) NOT NULL,`width` int(5) NOT NULL,`time` int(50) NOT NULL,`data` longblob NOT NULL,PRIMARY KEY (`ID`)) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ;	
-INSERT INTO `#!-PRÄFIX-!#right` ( `level` , `right` , `ok` , `description` ) VALUES ( '1', 'usedpics', 'false', 'Das Recht, die für Newsmeldungen verwendeten Bilder zu Managen' );
-INSERT INTO `#!-PRÄFIX-!#right` ( `level` , `right` , `ok` , `description` ) VALUES ( '2', 'usedpics', 'false', 'Das Recht, die für Newsmeldungen verwendeten Bilder zu Managen' );
-INSERT INTO `#!-PRÄFIX-!#right` ( `level` , `right` , `ok` , `description` ) VALUES ( '3', 'usedpics', 'false', 'Das Recht, die für Newsmeldungen verwendeten Bilder zu Managen' );
-INSERT INTO `#!-PRÄFIX-!#right` ( `level` , `right` , `ok` , `description` ) VALUES ( '4', 'usedpics', 'false', 'Das Recht, die für Newsmeldungen verwendeten Bilder zu Managen' );
+-- INSERT INTO `#!-PRÄFIX-!#right` ( `level` , `right` , `ok` , `description` ) VALUES ( '1', 'usedpics', 'false', 'Das Recht, die für Newsmeldungen verwendeten Bilder zu Managen' );
+-- INSERT INTO `#!-PRÄFIX-!#right` ( `level` , `right` , `ok` , `description` ) VALUES ( '2', 'usedpics', 'false', 'Das Recht, die für Newsmeldungen verwendeten Bilder zu Managen' );
+-- INSERT INTO `#!-PRÄFIX-!#right` ( `level` , `right` , `ok` , `description` ) VALUES ( '3', 'usedpics', 'false', 'Das Recht, die für Newsmeldungen verwendeten Bilder zu Managen' );
+-- INSERT INTO `#!-PRÄFIX-!#right` ( `level` , `right` , `ok` , `description` ) VALUES ( '4', 'usedpics', 'false', 'Das Recht, die für Newsmeldungen verwendeten Bilder zu Managen' );
+-- This system is no longer in use (Use config Files instead)
