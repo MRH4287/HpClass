@@ -132,8 +132,7 @@
         		theme_advanced_toolbar_align : "left",
         		theme_advanced_statusbar_location : "bottom",
         		theme_advanced_resizing : false
-      	 });
-      	 
+      	 });     	 
 				 
 				 // Enable Lightbox Popups within the Popup
       	 $('.lbOn[lbSet!="true"]').lightBoxX2().attr('lbSet', 'true');

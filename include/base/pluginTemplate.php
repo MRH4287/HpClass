@@ -9,8 +9,8 @@ class pluginTemplate extends siteTemplate
   {
       parent::__construct($hp, $copy);
     
-      $this->searchpath = "template/sites/plugins/$folder/";
-      $this->searchpathT = "template/#!Design#/sites/plugins/$folder/";
+      $this->searchpath = "template/sites/plugins/$folder";
+      $this->searchpathT = "template/#!Design#/sites/plugins/$folder";
     
       if (!is_dir("./template/sites/plugins/"))
       {
@@ -42,6 +42,10 @@ class pluginTemplate extends siteTemplate
     } elseif ($argCount >= 1)
     {
       $site->load($args[0]);      
+      $path = ' -> '.$this->path;
+       
+      $site->append('traceback', $path);
+      
       
       $content = '';
       

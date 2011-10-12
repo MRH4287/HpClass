@@ -17,6 +17,7 @@ class siteTemplate
   protected $data = array();
   protected $vars = array();
   
+  
   private $aktArray = null;
   
   private $DEFAULT_NODE = "Main";
@@ -25,6 +26,12 @@ class siteTemplate
   protected $searchpath = "";
   protected $searchpathT = "";
   
+  // For Debug
+  protected $path = "";
+  
+  // if this value is true, then a error Message will be displayed to the user
+  protected $error = false;
+  
   
   public static $functions = array();
   
@@ -32,8 +39,8 @@ class siteTemplate
   public function __construct($hp, $copy = null)
   {
     $this->hp = $hp;
-    $this->searchpath = "template/sites/";
-    $this->searchpathT = "template/#!Design#/sites/";
+    $this->searchpath = "template/sites";
+    $this->searchpathT = "template/#!Design#/sites";
     
     self::extend($this);
     
@@ -92,7 +99,16 @@ class siteTemplate
       $path = $name;
     }
     
+    $this->path = $path;
   
+  
+    if (!file_exists($path))
+    {
+      $error->error("Template not found! ($path)");
+	  $this->error = true;
+	  return;
+    
+    }
     // Laden der Datei
     $input =  file_get_contents($path);
   
@@ -299,9 +315,25 @@ class siteTemplate
     
     foreach ($tempData as $k=> $word)
     {
-    
-      $split = explode(" : ", $word);
+	  
+      // Check for newer Syntax
+      if (preg_match('/([^\(^\)]*)\((.*)\)/', $word, $m))
+      {      
+        $split = explode(", ", $m[2]);
+		$sp = array($m[1]);
+		foreach($split as $k=>$v)
+		{
+		  $sp[] = $v;
+		}
+		$split = $sp;
+		
+      } else
+      {   
+        $split = explode(" : ", $word);
+      }
       
+
+	  
       $out = "";
       if (isset(self::$functions[$split[0]]))
       {
@@ -803,6 +835,11 @@ class siteTemplate
   public function get($node = null)
   {
     
+	if ($this->error)
+	{
+	  return "<b>Error Occured</b>";	  
+	}
+	
     $ok = false;
     $nr = $this->neededRight;
     
@@ -938,7 +975,11 @@ class siteTemplate
       return "[Args?]";
     } elseif ($argCount >= 1)
     {
-      $site->load($args[0]);      
+      $site->load($args[0]);     
+      $path = (isset($this->data['traceback'])) ? ($this->data['traceback'].' -> '.$this->path) : $this->path;
+       
+      $site->append('traceback', $path);
+      
       
       $content = '';
       
