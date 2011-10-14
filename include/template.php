@@ -44,6 +44,8 @@ $template['jsu']='
 <script type="text/javascript" src="js/lightboxX2.js"></script>
 <link rel="stylesheet" href="css/lightboxX2.css" type="text/css" media="screen" />
 <script type="text/javascript" src="js/votes.js"></script>
+<script type="text/javascript" src="js/jquery.tipTip.js"></script>
+<link rel="stylesheet" href="css/tipTip.css" type="text/css"/>
 <link rel="stylesheet" href="css/forum.css" type="text/css"/>
 <link rel="stylesheet" href="css/widget.css" type="text/css"/>
 <link rel="stylesheet" href="include/usedpics/css/usedpics.css" type="text/css" />
@@ -54,7 +56,7 @@ $template['jsu']='
 ';
 
 $template['js']='
-<script type="text/javascript" src="js/wz_tooltip.js"></script>
+
 ';
 
 ?>
