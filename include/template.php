@@ -54,7 +54,7 @@ $template['jsu']='
 ';
 
 $template['js']='
-
+<script type="text/javascript" src="js/wz_tooltip.js"></script>
 ';
 
 ?>
