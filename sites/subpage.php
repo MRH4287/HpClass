@@ -2,6 +2,7 @@
 // Site Config:
 $hp = $this;
 $right = $hp->getright();
+$rightO = $hp->right;
 $level = $_SESSION['level'];
 $get = $hp->get();
 $post = $hp->post();
@@ -222,9 +223,11 @@ if (!$right[$level]["manage_subpage"])
        {
         case "textbox":
         
+          $current = (isset($tempData[$ID])) ? $tempData[$ID] : '';
+        
           $data = array(
            "name" => $ID,
-            "value" => $tempData[$ID],
+            "value" => $current,
             "ID" => "tp_".$ID       
           );
         
@@ -235,10 +238,11 @@ if (!$right[$level]["manage_subpage"])
       
       
         case "textarea":
-       
+          
+          $current = (isset($tempData[$ID])) ? $tempData[$ID] : '';
           $data = array(
            "name" => $ID,
-           "value" => $tempData[$ID],
+           "value" => $current,
            "ID" => "tp_".$ID       
           );
        
@@ -250,9 +254,10 @@ if (!$right[$level]["manage_subpage"])
       
         case "checkbox":
        
+         $current = (isset($tempData[$ID])) ? $tempData[$ID] : '';
          $data = array(
             "name" => $ID,
-            "checked" => $tempData[$ID],
+            "checked" => $current,
             "ID" => "tp_".$ID       
           );
        
@@ -264,6 +269,8 @@ if (!$right[$level]["manage_subpage"])
         case "combobox":
        
           $options = "";
+          $current = (isset($tempData[$ID])) ? $tempData[$ID] : '';
+          
           if (isset($tpC["data"][$ID]) and is_array($tpC["data"][$ID]))
           {
            foreach ($tpC["data"][$ID] as $k=>$value)
@@ -272,7 +279,7 @@ if (!$right[$level]["manage_subpage"])
              
              "ID" => $value,
              "value" => $value,
-             "selected" => ($value == $tempData[$ID])? "selected" : ""            
+             "selected" => ($value == $current)? "selected" : ""            
              );
             
              $options .= $site->getNode("ComboBoxOption", $data);
@@ -288,7 +295,37 @@ if (!$right[$level]["manage_subpage"])
           $content .= $site->getNode("ComboBox", $data);
        
         
-        break;  
+        break; 
+        
+        case "level":
+         
+         $current = (isset($tempData[$ID])) ? $tempData[$ID] : '';
+         $levels = $rightO->getlevels();
+         $options = "";
+
+         foreach ($levels as $k=>$value)
+         {
+           $data = array(
+           
+           "ID" => $value,
+           "value" => $value,
+           "selected" => ($value == $current)? "selected" : ""            
+           );
+          
+           $options .= $site->getNode("ComboBoxOption", $data);
+          
+          }
+
+          $data = array(
+           "name" => $ID,
+           "ID" => "tp_".$ID,
+           "Options" => $options       
+          );
+       
+          $content .= $site->getNode("ComboBox", $data);
+        
+        
+        break; 
     
        }
      }   

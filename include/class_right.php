@@ -11,6 +11,8 @@ class right
   private $desc  = array();
   private $levels = array();
   
+  
+  private $permissionCache = array();
 
   public function sethp($hp)
   {
@@ -185,8 +187,22 @@ class right
     {
       $level = $_SESSION["level"];  
     }
+   
+    if (isset($this->permissionCache[$level]) && isset($this->permissionCache[$level][$needed]))
+    {
+      return $this->permissionCache[$level][$needed];
+    }
+    $allowed = $this->rec_isAllowed($level, $needed); 
     
-    return $this->rec_isAllowed($level, $needed);
+    if (!isset($this->permissionCache[$level]))
+    {
+      $this->permissionCache[$level] = array();
+    }
+    
+    $this->permissionCache[$level][$needed] = $allowed;
+    
+    
+    return $allowed;
     
   
   }

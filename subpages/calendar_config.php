@@ -17,7 +17,8 @@
     // Die Liste aller statischen Inhalte:
     $subpageconfig["template"]    = array(
       "headline" => "textbox",
-      "main"     => "textarea"
+      "main"     => "textarea",
+      "MinLevel" => "level"
     );
     // Die Liste alles dynamischen Inhalte:
     $subpageconfig["dyncontent"]  = array("calendar" => "calendar");

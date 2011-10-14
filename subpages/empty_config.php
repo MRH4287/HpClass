@@ -15,7 +15,10 @@
     // Der Name dieses Templates:
     $subpageconfig["name"]        = "Leer";
     // Die Liste aller statischen Inhalte:
-    $subpageconfig["template"]    = array("main" => "textarea");
+    $subpageconfig["template"]    = array(
+                                          "main" => "textarea",
+                                          "MinLevel" => "level"
+                                          );
     // Die Liste alles dynamischen Inhalte:
     $subpageconfig["dyncontent"]  = array();
     
