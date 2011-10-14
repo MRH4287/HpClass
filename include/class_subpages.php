@@ -610,6 +610,7 @@ class subpages
     $error = $hp->error;
     $fp = $hp->fp;
     $config = $hp->getconfig();
+    $right = $hp->right;
     
     $design = $config["design"];
     $page = $this->getSite($site);
@@ -657,6 +658,23 @@ class subpages
   
     // Lade die Template Daten für diese Unterseite und ersetzte die statischen Inhalte
     $templateArray = $this->getTemplateData($site);
+    
+    $ok = true;
+    if (isset($templateArray['MinLevel']))
+    {
+      
+       $level = $templateArray['MinLevel'];
+       $ok = $right->isAllowed($level);       
+    }
+    
+    if (!$ok)
+    {
+      $site = new siteTemplate($hp);
+      $site->load("info");
+      $site->set("info", "Sie haben nicht das nötige Recht, diese Seite zu betreten!");
+      return $site->get();
+    
+    }
     
     $content->setArray($templateArray);
   
