@@ -1511,7 +1511,37 @@ class Xajax_Funktions
           $content .= $site->getNode("ComboBox", $data);
          
           
-         break;  
+         break; 
+         
+         case "level":
+         
+         $current = (isset($tempData[$ID])) ? $tempData[$ID] : '';
+         $levels = $rightO->getlevels();
+         $options = "";
+
+         foreach ($levels as $k=>$value)
+         {
+           $data = array(
+           
+           "ID" => $value,
+           "value" => $value,
+           "selected" => ($value == $current)? "selected" : ""            
+           );
+          
+           $options .= $site->getNode("ComboBoxOption", $data);
+          
+          }
+
+          $data = array(
+           "name" => $ID,
+           "ID" => "tp_".$ID,
+           "Options" => $options       
+          );
+       
+          $content .= $site->getNode("ComboBox", $data);
+        
+        
+        break;  
       
         }
     
