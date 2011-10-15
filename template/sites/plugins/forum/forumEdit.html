@@ -13,28 +13,41 @@
 #/ This Page creates and modifies forums in order to differ between these two, #
 #/ there is the variable edit wich is true if a entry is being modified #
 
-  <table width="100%" border="1">
-    <tr>
-      <td>Titel</td>
-      <td><input type="text" name="titel" value="#!titel#" requred />
-    </tr>
-    <tr>
-      <td>Minimales Level:</td>
-      <td> 
-        <select name="level">
-          #L:levels : !LevelSelect#
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td>Beschreibung</td>
-      <td>
-        <textarea name="description">#!description#</textarea>
-      </td>
-    
-    </tr>
-  </table>
-  
+  <form action="?site=forum" method="POST">
+    <table width="100%" border="1">
+      <tr>
+        <td>Titel</td>
+        <td><input type="text" name="titel" value="#!titel#" required />
+      </tr>
+      <tr>
+        <td>Minimales Level:</td>
+        <td> 
+          <select name="level">
+           #L:levels : !LevelSelect# 
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Sichtbar
+        </td>
+        <td>
+          <input type="checkbox" name="visible" #?:visible : "checked="checked""# id="visible" />
+          <label for="visible">Soll das Forum sichtbar sein, selbst wenn der Benutzer keine Berechtigung hat?</label>
+        </td>
+      </tr>
+      <tr>
+        <td>Beschreibung</td>
+        <td>
+          <textarea name="description">#!description#</textarea>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"><input type="submit" name="newForum" value="Abschicken" /></td>
+      </tr>
+    </table>
+  </form>
+   
   #@include("utilities", "TinyMCEInit-Full")#
 
 [!/Main!]
@@ -44,7 +57,7 @@
 [!=LevelSelect!]
 
   #V:lLevel : l:level#
-  <option value="#l:level" #=lLevel == level : "selected="selected"" : ""# />
+  <option value="#l:level#" #=lLevel == level : "selected="selected"" : ""# >#l:name#</option>
 
 [!/LevelSelect!]
 

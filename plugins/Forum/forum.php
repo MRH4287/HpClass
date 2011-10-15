@@ -41,7 +41,7 @@
     $ranks = $hp->right->getLevelNames();
     
     $levels = array();
-    foreach($rights as $level => $name)
+    foreach($ranks as $level => $name)
     {
       $levels[] = array(
         'level' => $level,
@@ -62,6 +62,40 @@
 
     $site->setArray($data);
 
+  
+  }  elseif (isset($post['newForum']) && ($right->is('manage_forums')))
+  {
+    $titel = $post['titel'];
+    $level = $post['level'];
+    $visible = isset($post['visible']) ? 1 : 0;
+    $description = $post['description'];
+    
+    $passwort = '';
+    $typ = 0;
+    
+    $uid = $_SESSION['ID'];
+    
+    $sql = "SELECT * FROM `$dbprefix"."forums` WHERE `titel` = '$titel';";
+    $erg = $hp->mysqlquery($sql);
+    if (mysql_num_rows($erg) > 0)
+    {
+      $site = new siteTemplate($hp);
+      $site->load('info');
+      $site->set('info', 'Es existiert bereits ein Forum mit diesem Titel!<br/><a href="?site=forum&newForum">Zurück</a>');
+    
+    } else
+    {
+    
+      $sql = "INSERT INTO `$dbprefix"."forums` (`titel`, `userid`, `level`, `passwort`, `visible`, `description`, `type`, `timestamp`)
+              VALUES('$titel', '$uid', '$level', '$passwort', $visible, '$description', $typ, NOW());";
+      
+      $erg = $hp->mysqlquery($sql);
+      
+      $hp->info->okn("Forum erfolgreich erstellt");
+      
+      $site->load('index');
+      
+    }
   
   } else
   { 
