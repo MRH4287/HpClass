@@ -73,13 +73,7 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
   $site->right("see_userPage");
 
 
-  $ranks = array();
-  $sql = "SELECT * FROM `$dbprefix"."ranks`";
-  $erg = $hp->mysqlquery($sql);
-  while ($row = mysql_fetch_object($erg))
-  {
-    $ranks[$row->level] = $row->name;
-  }
+  $ranks = $hp->right->getLevelNames();
 
   
   $abfrage = "SELECT * FROM ".$dbprefix."user WHERE `user` = '".$get['show']."'";

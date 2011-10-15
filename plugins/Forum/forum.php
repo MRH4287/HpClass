@@ -37,10 +37,31 @@
   {
   
     $site->load('forumEdit'); 
-    $site->set('edit', false);
-    $site->set('ID', -1);
     
+    $ranks = $hp->right->getLevelNames();
     
+    $levels = array();
+    foreach($rights as $level => $name)
+    {
+      $levels[] = array(
+        'level' => $level,
+        'name' => $name
+      );
+    }
+    
+    $data = array(
+      'levels' => $levels,
+      'edit' => false,
+      'ID' => -1,
+      'titel' => '',
+      'description' => '',
+      'level' => 0,
+      'visible' => false     
+    
+    );
+
+    $site->setArray($data);
+
   
   } else
   { 

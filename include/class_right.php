@@ -167,6 +167,33 @@ class right
 
     return $levels;
   }
+  
+  function getLevelNames()
+  {
+    $hp = $this->hp;
+    $dbprefix = $hp->getprefix();
+    
+    
+    $ranks = array();
+    
+    $sql = "SELECT * FROM `$dbprefix"."ranks`";
+    $erg = $hp->mysqlquery($sql);
+    while ($row = mysql_fetch_object($erg))
+    {
+      $ranks[$row->level] = $row->name;
+    }
+    
+    $levels = array();
+    foreach ($this->levels as $key => $data)
+    {
+       $name = isset($ranks[$key]) ? $ranks[$key] : $key;
+       $levels[$key] = $name; 
+    }
+
+    return $levels;
+    
+  
+  }
 
   function cat($right)
   {

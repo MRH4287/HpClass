@@ -22,7 +22,7 @@
       <td>Minimales Level:</td>
       <td> 
         <select name="level">
-          <option value="0">Besucher</option> 
+          #L:levels : !LevelSelect#
         </select>
       </td>
     </tr>
@@ -30,7 +30,6 @@
       <td>Beschreibung</td>
       <td>
         <textarea name="description">#!description#</textarea>
-      
       </td>
     
     </tr>
@@ -39,4 +38,13 @@
   #@include("utilities", "TinyMCEInit-Full")#
 
 [!/Main!]
+
+
+
+[!=LevelSelect!]
+
+  #V:lLevel : l:level#
+  <option value="#l:level" #=lLevel == level : "selected="selected"" : ""# />
+
+[!/LevelSelect!]
 
