@@ -14,6 +14,7 @@
 #/ there is the variable edit wich is true if a entry is being modified #
 
   <form action="?site=forum" method="POST">
+    <input type="hidden" name="ID" value="#!ID#" />
     <table width="100%" border="1">
       <tr>
         <td>Titel</td>
@@ -43,7 +44,7 @@
         </td>
       </tr>
       <tr>
-        <td colspan="2"><input type="submit" name="newForum" value="Abschicken" /></td>
+        <td colspan="2"><input type="submit" name="#?:edit : "editForum" : "newForum"#" value="Abschicken" /></td>
       </tr>
     </table>
   </form>

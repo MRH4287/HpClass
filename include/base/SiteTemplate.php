@@ -691,13 +691,28 @@ class siteTemplate
           $content = $hp->getlangclass()->word(str_replace("%", "", $input));
           
       } 
+      elseif (preg_match("/!!(.*)/", $input))
+      {       
+          $name = str_replace("!!", "", $input);
+          
+          if (isset($this->blocks[$name]))
+          {
+            $content = $this->blocks[$name];
+            
+          } else
+          {
+            $content = "[Block?]";
+          }
+          
+          
+      }
       elseif (preg_match("/!(.*)/", $input))
       {       
           $name = str_replace("!", "", $input);
           
           if (isset($this->blocks[$name]))
           {
-            $content = $this->replace($this->blocks[str_replace("!", "", $input)]);
+            $content = $this->replace($this->blocks[$name]);
             
           } else
           {

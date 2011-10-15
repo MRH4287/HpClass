@@ -33,6 +33,53 @@
     $site->load('threadView');
     $site->set('tid', intval($get['tid']));
     
+  } elseif (isset($get['editForum']) && ($right->is('manage_forums')))
+  {
+  
+    $id = intval($get['editForum']);
+    
+    $sql = "SELECT * FROM `$dbprefix"."forums` WHERE `ID` = $id;";
+    $erg = $hp->mysqlquery($sql);
+    
+    if (mysql_num_rows($erg) == 0)
+    {
+      $site = new siteTemplate($hp);
+      $site->load('info');
+      $site->set('info', 'Es gibt kein Forum mit dieser ID!<br/><a href="?site=forum&newForum">Zurück</a>');
+    
+    } else
+    {
+      
+      $row = mysql_fetch_object($erg);
+      
+      $site->load('forumEdit'); 
+      
+      $ranks = $hp->right->getLevelNames();
+      
+      $levels = array();
+      foreach($ranks as $level => $name)
+      {
+        $levels[] = array(
+          'level' => $level,
+          'name' => $name
+        );
+      }
+      
+      $data = array(
+        'levels' => $levels,
+        'edit' => true,
+        'ID' => $row->ID,
+        'titel' => $row->titel,
+        'description' => $row->description,
+        'level' => $row->level,
+        'visible' => ($row->visible == 1)     
+      
+      );
+  
+      $site->setArray($data);
+  
+  }
+  
   } elseif (isset($get['newForum']) && ($right->is('manage_forums')))
   {
   

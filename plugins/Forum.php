@@ -140,9 +140,9 @@ class Forum extends Plugin
       1 - Maximale Anzahl an Seiten
       2 - Block der pro Link ausgegeben werden soll
       3 - Wieviele Links sollen zusätzlich links und rechts angezeigt werden? (Wenn nicht definiert dann 1)
-      4 - Abtrennungs Block       (Wenn nicht definiert dann " ... ")
-      5 - Block für Erste Seite   (Wenn nicht definiert dann 2)
-      6 - Block für Letzte Seite  (Wenn nicht definiert dann 2)
+      4 - Abtrennungs Block         (Wenn nicht definiert dann " ... ")
+      5 - Block für Erste Seite     (Wenn nicht definiert dann 2)
+      6 - Block für Letzte Seite    (Wenn nicht definiert dann 2)
     
     Ausgabe:
       result - String - Die Seitennavigation
@@ -183,11 +183,13 @@ class Forum extends Plugin
       {
         $lastPageBlock = $args[6];
       }
-      
+            
       $content = "";
-      
+            
       // Always display the first Page
       $context->set('ForumNavigationPageID', 1);
+      $context->set('current', ($page == 1));
+            
       $content .= $context->replace($fistPageBlock);
       
       $diffToFirst = ($page - 2);
@@ -203,11 +205,12 @@ class Forum extends Plugin
         if (($i <= 1) || ($i >= $pageCount))
         {
           continue;
-        }
+        }                      
         
         $context->set('ForumNavigationPageID', $i);
+        $context->set('current', ($page == $i));
         $content .= $context->replace($block); 
-        
+
       }
       
       $diffToLast = $pageCount - $page -1;
@@ -220,6 +223,7 @@ class Forum extends Plugin
       if ($pageCount != 1)
       {
         $context->set('ForumNavigationPageID', $pageCount);
+        $context->set('current', ($page == $pageCount));
         $content .= $context->replace($lastPageBlock);
       }
       
@@ -400,12 +404,19 @@ class Forum extends Plugin
       
       // Check for the Level
       // We can't do that over a Query because we manage our rights over config files
-      $sql = 'SELECT ID, level, visible FROM `'.$dbprefix.'forums` WHERE ID = '.$forumid.';';
+      $sql = 'SELECT f.ID, f.level, f.visible, f.titel,
+       (
+        SELECT COUNT(ID) FROM `'.$dbprefix.'threads` WHERE `forumid` = f.ID GROUP BY `forumid` 
+       ) AS count
+       FROM `'.$dbprefix.'forums` f WHERE ID = '.$forumid.';';
       $erg = $hp->mysqlquery($sql);
       
       $context->set('error', '');
       
       $row = mysql_fetch_object($erg);
+      
+      $count = $row->count;
+      $forumtitel = $row->titel;
       
       if ((mysql_num_rows($erg) == 0))
       {
@@ -421,6 +432,7 @@ class Forum extends Plugin
           
         } else
         {
+
           // Load Content of the Forum
           
           $sql = '
@@ -445,10 +457,7 @@ class Forum extends Plugin
             IFNULL((
               SELECT user
               FROM `'.$dbprefix.'user` WHERE `ID` = lastpostUserID                            
-            ), \'\') AS lastpostUser,
-            (
-              SELECT titel FROM `'.$dbprefix.'forums` WHERE ID = t.forumid
-            ) AS forumtitel
+            ), \'\') AS lastpostUser
   
             FROM `'.$dbprefix.'threads` t
             LEFT JOIN `'.$dbprefix.'user` u ON t.userid = u.ID WHERE `forumid` = '.$forumid.'
@@ -463,13 +472,8 @@ class Forum extends Plugin
           if (mysql_num_rows($erg) >0)
           {
             
-            // Forumtitel
-            // Save this here for later use
-            $forumtitel = "";
-            
             while ($row = mysql_fetch_object($erg))
             {
-              $forumtitel = $row->forumtitel;
               
               $allowed = $right->isAllowed($row->level);
               if (($row->visible == 1) || $allowed)
@@ -609,6 +613,12 @@ class Forum extends Plugin
           {
             $context->set('announcement', array());
             $context->set('content', array());
+            $context->set('page', 1);
+            $context->set('pageCount', 1);
+            $context->set('forumtitel', $forumtitel);
+            $context->set('forumid', $forumid);
+            $context->set('forumlock', !$allowedF);
+            
           }
         }
       }

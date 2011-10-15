@@ -21,7 +21,7 @@
 <br />
 <br />
 
-#@ForumDisplayPages : page : pageCount : !NavigationLink# 
+#@ForumDisplayPages : page : pageCount : !!Navigation# 
 Seiten: #!result#  
 <br />
 <br />
@@ -66,6 +66,12 @@ Seiten: #!result#
 
 ------ Navigation ------
 
+[!=Navigation!]
+
+#?:current : !NavigationCurrent : !NavigationLink#
+
+[!/Navigation!]
+
 
 [!=NavigationLink!]
 
@@ -73,7 +79,11 @@ Seiten: #!result#
 
 [!/NavigationLink!]
 
+[!=NavigationCurrent!]
 
+<strong>#!ForumNavigationPageID#</strong>
+
+[!/NavigationCurrent!]
 
 
 
