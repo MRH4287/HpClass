@@ -146,7 +146,8 @@ class Forum extends Plugin
     
     Ausgabe:
       result - String - Die Seitennavigation
-      ForumNavigationPageID - String - Wird für intene Zwecke genutzt
+      ForumNavigationPageID - String - Die aktuelle Seite innehalb eines der Blöcke
+      current - Bool - Ist die Seite im aktuellem Block die aktuelle Seite
   
   */
   public function temp_ForumDisplayPages($args, $context)
