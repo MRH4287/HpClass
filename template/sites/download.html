@@ -3,24 +3,6 @@
 
 [!=Main!]
 
-  <script type="text/javascript">
-  function toggleDetails(element, block)
-  {
-  	var b = document.getElementById(block);
-  	if(b.style.display == 'none')
-  	{
-  		b.style.display = 'block';  
-  	}
-  	else
-  	{
-  		b.style.display = 'none';
- 	
-  	}
-  	
-  	return false;
-  }
-  
-  </script>
 
   <p align="center"><font face="Comic Sans MS" size="6">Download - Area</font></p>
   <p align="center">&nbsp;</p><br>
@@ -33,7 +15,7 @@
 [!=DL-Cat!]
   <div align="left" style="background-color:#e9e9e9;">
     <p align="left"><strong>
-    <a href=# onclick="return toggleDetails(this,'dl#!ID#');">
+    <a href=# onclick="$('#dl#!ID#').slideToggle();">
     #!name#</a>
     #?:katchange : "-- <a href=index.php?site=upload&katchange=#!ID#>Bearbeiten</a> -- <a href=index.php?site=upload&katdel=#!ID#>Löschen</a>"#  
     </strong>:</p>

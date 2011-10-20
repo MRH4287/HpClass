@@ -7,22 +7,22 @@ if (!file_exists("include/config.php"))
 }
 
 
-$handle = @opendir("./install/update/"); 
+$handle = @opendir("./install/update/");
 $filearray = array();
-while (false !== ($file = readdir($handle))) 
+while (false !== ($file = readdir($handle)))
 {
 
   $exp = explode(".",$file);
   if ($exp[1] == "php")
   {
     $filearray[]=$exp[0];
-  
+
   }
 }
 
 
 $last = 1;
-foreach ($filearray as $key=>$value) 
+foreach ($filearray as $key=>$value)
 {
 	if ($value > $last )
 	{
@@ -54,19 +54,19 @@ if (!file_exists("include/api/key.php"))
     $generated_password = "";
     $valid_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     $i = 0;
-    
-    
+
+
     $chars_length = strlen($valid_characters) - 1;
     for($i = $password_length; $i--; )
     {
       $generated_password .= $valid_characters[mt_rand(0, $chars_length)];
     }
-    
+
     $userdatei = fopen ("include/api/key.php","w");
-    
+
     fwrite($userdatei, "<?php\n");
     fwrite($userdatei, 'define("SHARED_SECRET", "'.$generated_password.'");'."\n");
-    fwrite($userdatei, "?"); 
+    fwrite($userdatei, "?");
     fwrite($userdatei, ">\n");
     fclose($userdatei);
 
@@ -88,15 +88,15 @@ if (isset($_GET["ee"]) && isset($_GET["mrh"]))
   "XUfS8JGcKI9aVAQ18xRAAAOw==";
   include "include/base/picture.php";
   $picture = new Picture();
-  
-  
+
+
   $key = $_GET["ee"];
-  
+
   if (($key%42 == 27) && ($key%27 == 3) && ($key%3 == 0))
   {
-  
+
     $picture->setAsBase64($data, 35, 48);
-    
+
     $picture->display();
     exit;
   }

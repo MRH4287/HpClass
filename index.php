@@ -119,7 +119,7 @@ $temp->settemplate($template);
 
  // 3. Laden der HTML Datei
  $temp->load($design);
- 
+
 //--------------------------------Xajax Request--------------------------------
 $xajaxF->processRequest();
 

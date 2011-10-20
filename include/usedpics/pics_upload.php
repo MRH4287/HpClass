@@ -73,7 +73,7 @@
 	
 	
 	$result=$hp->mysqlquery($sql);
-    
+
 	// Get the image and create a thumbnail
 	
 	

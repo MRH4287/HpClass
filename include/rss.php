@@ -6,7 +6,7 @@
 
 	$connection=mysql_connect($dbserver,
 $dbuser,$dbpass);
-	if(!$connection) 
+	if(!$connection)
 	{
 		print "Fehler bei Datenbankverbindungsaufbau.<br/>\n";
 		print mysql_error($connection)."<br/>\n";			
@@ -22,15 +22,15 @@ $dbuser,$dbpass);
 
 
 
- header("Content-type: text/xml"); 
+ header("Content-type: text/xml");
  echo "<". "?xml version =\"1.0\" encoding=\"ISO-8859-1\"?".">\n";
- 
+
  function Textcutter($text, $anzahl)
  { // BEGIN function Textcutter
  	preg_match("/(.{0,$anzahl}\b)/s", $text, $kurtz);
  	return $kurtz[0].' ...';
  } // END function Textcutter
- 
+
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
  <channel>
@@ -51,7 +51,7 @@ $limit=10;
 $abfrage = "SELECT * FROM ".$dbprefix."news ORDER BY `ID` DESC LIMIT ".$limit;
 $ergebnis = mysql_query($abfrage)
     OR die("Error: $abfrage <br>".mysql_error());
-    
+
 while($row = mysql_fetch_object($ergebnis))
 {
 $newstext= "$row->text";
@@ -73,7 +73,7 @@ echo "  <pubDate>$row->datum</pubDate>\n";
 echo "  <author>$row->user</author>\n";
 
 echo " </item>\n";
-} 
+}
 
 }
 

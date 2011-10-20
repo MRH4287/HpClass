@@ -18,13 +18,13 @@ $error = $hp->geterror();
     {
       $abfrage = "SELECT * FROM ".$dbprefix."user WHERE `user` = '".$_SESSION['username']."'";
       $ergebnis = $hp->mysqlquery($abfrage);
-    
-      
+
+
       $row = mysql_fetch_object($ergebnis);
-      
+
       $site = new siteTemplate($hp);
       $site->load("profil");
-      
+
       $data = array(
         "username" => $_SESSION['username'],
         "ID" => $row->ID,
@@ -43,67 +43,67 @@ $error = $hp->geterror();
         "clantag" => $row->clantag,
         "clanhomepage" => $row->clanhomepage,
         "clanhistory" => $row->clanhistory
-                 
+
       );
-      
+
       $site->setArray($data);
       $site->display();
-      
-     
-    } elseif (isset ($post['pwändern'])) 
+
+
+    } elseif (isset ($post['pwändern']))
     {
-      
+
       $site = new siteTemplate($hp);
       $site->load("profil_changepw");
       $site->display();
-      
-    } elseif (isset ($post['pwneu'])) 
+
+    } elseif (isset ($post['pwneu']))
     {
 
-      
+
 
       $site = new siteTemplate($hp);
       $site->load("info");
 
       $sql = "SELECT * FROM `".$dbprefix."user` WHERE `user` = '".$_SESSION['username']."';";
       $erg = $hp->mysqlquery($sql);
-      
+
       if (mysql_num_rows($erg) > 0)
       {
-        
+
         $row = mysql_fetch_object($erg);
-        
+
         $passwort=$post['passwortalt'];
         $passwortneu=md5("pw_".$post['passwort']);
         $passwortneu2=md5("pw_".$post['passwort2']);
         $passwortalt = md5("pw_".$passwort);
         $passwortalt2 = md5("pw_".$passwort.$row->ID);
-          
+
         if ((($passwortalt == $row->pass) or ($passwortalt2 == $row->pass)) and ($passwortneu == $passwortneu2))
         {
           $eingabe = "UPDATE `".$dbprefix."user` SET `pass` = '$passwortneu' WHERE `user` = '".$_SESSION['username']."';";
           $ergebnis = $hp->mysqlquery($eingabe);
           $site->set("info", $lang->word('ok_profil')."!<br><a href=index.php?site=profil>".$lang->word('back')."</a>");
-        } else 
-        { 
-          $site->set("info", $lang->word('pwwrong_profil')."!<br><a href=index.php?site=profil>".$lang->word('back')."</a>"); 
+        } else
+        {
+          $site->set("info", $lang->word('pwwrong_profil')."!<br><a href=index.php?site=profil>".$lang->word('back')."</a>");
         }
      } else
      {
       $site->set("info", "Fehler");
      }
       $site->display();
-      
-    } elseif (isset($post['go'])) 
+
+    } elseif (isset($post['go']))
     {
       $site = new siteTemplate($hp);
       $site->load("info");
 
       $ignore = array ("hp", "info", "error", "hp", "config", "dbprefix", "right", "level");
-      foreach ($post as $key=>$value) 
+      foreach ($post as $key=>$value)
       {
         $value = str_replace('<',"&lt;" ,$value);
-        $value = str_replace('\'',"\"" ,$value);// , 
+        $value = str_replace('\'',"\"" ,$value);// ,
 
         // Leicht Unsicher, da aber alle Variablen, die hier ankommen eh gestrippt werden, ist das irrelevant
         if (!in_array($key, $ignore))
@@ -111,8 +111,8 @@ $error = $hp->geterror();
 	         $$key = "'".$value."'";
 	      }
       }
-      
-      if ((isset($name)) and (isset($nachname)) and (isset($wohnort))) 
+
+      if ((isset($name)) and (isset($nachname)) and (isset($wohnort)))
       {
 
         $eingabe = "UPDATE `".$dbprefix."user` SET `name` = $name, `nachname` = $nachname, `alter` = $alter, `geburtstag` = $geburtstag, `wohnort` = $wohnort, `cpu` = $cpu,".
@@ -123,8 +123,8 @@ $error = $hp->geterror();
         $eingabe = "UPDATE `".$dbprefix."user` SET `clanhomepage` = $clanhomepage, `clanhistory` = $clanhistory, `tel` = $tel  WHERE `user` = '".$_SESSION['username']."';";
 
         $ergebnis = $hp->mysqlquery($eingabe);
-        
-        $site->set("info", $lang->word('ok_profil')."!<br><a href=index.php>".$lang->word('back')."</a>");  
+
+        $site->set("info", $lang->word('ok_profil')."!<br><a href=index.php>".$lang->word('back')."</a>");
       } else
       {
         $site->set("info", $lang->word('notallfields'));
@@ -135,4 +135,4 @@ $error = $hp->geterror();
 
   }
 
- ?> 
+ ?>

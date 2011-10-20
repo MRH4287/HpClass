@@ -8,7 +8,7 @@ class subpageTemplate extends siteTemplate
     parent::__construct($hp);
     $this->searchpath = "subpages/";
     $this->searchpathT = "template/#!Design#/subpages/";
-    
+
   }
 
 }

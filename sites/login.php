@@ -6,7 +6,7 @@ include("../include/config.php");
 $db = mysql_connect($dbserver,
 $dbuser,$dbpass)
 or print "keine Verbindung möglich. Benutzername oder Passwort sind falsch";
- 
+
 mysql_select_db($dbdatenbank, $db)
 or print "Die Datenbank existiert nicht.";
 
@@ -14,26 +14,26 @@ or print "Die Datenbank existiert nicht.";
 $user=$_POST['user'];
 $passwort=$_POST['passwort'];
 
-$user = mysql_real_escape_string($user); 
+$user = mysql_real_escape_string($user);
 
 
 $ok = false;
-if (isset($_POST['login'])) 
+if (isset($_POST['login']))
 {
 
 $abfrage = "SELECT * FROM ".$dbprefix."user";
 $ergebnis = mysql_query($abfrage);
-    
-    
+
+
 while($row = mysql_fetch_object($ergebnis))
    {
-   
+
     $passwortCH = md5("pw_".$passwort.$row->ID);
-   
+
     if ($user == "$row->user" and $passwortCH == "$row->pass")
     {
        $_SESSION['username']="$user";
-       $ok=true; 
+       $ok=true;
     } elseif ($user == "$row->user" and $passwortCH != $row->pass) // Kein Md5
     {
       if (($passwort == md5("pw_".$row->pass)) or (md5("pw_".$passwort) == $row->pass))
@@ -45,7 +45,7 @@ while($row = mysql_fetch_object($ergebnis))
       $_SESSION['username']="$user";
       $ok = true;
       }
-   
+
     }
    }
  if ($ok)

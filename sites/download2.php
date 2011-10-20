@@ -18,8 +18,8 @@ if (!isset($site))
   $get = $hp->get();
   $post = $hp->post();
   $dbprefix = $hp->getprefix();
-  
-  
+
+
 	$sql = "SELECT * FROM `".$dbprefix."download` WHERE `id` = '$dateiid'";
 	$erg = $hp->mysqlquery($sql);
 	if(!$erg)
@@ -43,31 +43,31 @@ if (!isset($site))
   	$path = "../downloads/".$datei['dateiname'];
   	if (file_exists($path))
   	{
-      
+
       //$mmtype = mime_content_type($path);
-      
+
      	//$datei=fopen($path,'r');
       //$daten=fread($datei,filesize($path));
       //fclose($datei);
-      
-      
+
+
       //echo $mmtype."<br/>";
-      
+
      	header("Content-type: {$mmtype}");
     	header("Content-disposition: attachement; filename={$datei['dateiname']}");
     	
     	//print $daten;	
       readfile($path);
-    
-    
+
+
     } else
-    {        
+    {
     	header("Content-type: {$datei['dateityp']}");
     	header("Content-disposition: attachement; filename={$datei['dateiname']}");
     	
     	print $datei['datei'];	
     }
-    
+
   } else
   {
     echo "Sie haben nicht die nötige berechtigung, diese Datei herunter zu laden!";

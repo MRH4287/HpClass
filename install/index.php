@@ -47,7 +47,7 @@ if (!isset($s1) and !isset($s2))
 if (!isset($s2) and !isset($dbonlyconfig)) {
 ?>
 <p align="left"><font size="4">Verlauf:</font></p>
-<?php  
+<?php
 
 
 $db = mysql_connect($dbserver,
@@ -55,7 +55,7 @@ $dbuser,$dbpass)
 or print "keine Verbindung möglich.
  Benutzername oder Passwort sind falsch<br>";
 if (!isset($dbcreate)){
-echo "select ok<br>"; 
+echo "select ok<br>";
 mysql_select_db($dbdatenbank, $db)
 
 or print "Die Datenbank existiert nicht.<br>";
@@ -77,7 +77,7 @@ mysql_select_db($dbdatenbank, $db);
 
 
 
-$handle = @opendir("./sql"); 
+$handle = @opendir("./sql");
 while (false !== ($file = readdir($handle))) {
 
 $exp = explode(".",$file);
@@ -97,7 +97,7 @@ echo "Tabelle ".$exp[0]." erstellt<br>";
 
 }
 
-$handle = @opendir("./sql/insert"); 
+$handle = @opendir("./sql/insert");
 while (false !== ($file = readdir($handle))) {
 
 $exp = explode(".",$file);
@@ -158,7 +158,7 @@ $userdatei = fopen ("../include/config.php","w");
       fwrite($userdatei, "\$dbpass=\"$dbpass\";\n");
       fwrite($userdatei, "\$dbdatenbank=\"$dbdatenbank\";\n");
       fwrite($userdatei, "\$dbprefix=\"$dbpraefix\";\n");
-      fwrite($userdatei, "?"); 
+      fwrite($userdatei, "?");
       fwrite($userdatei, ">\n");
       fclose($userdatei);
       echo "<br>Erfolgreich eingetragen!<br>";
@@ -166,10 +166,10 @@ echo "<br>Installation Erfolgreich!<br>";
 echo "<p align=\"center\"><font size=\"4\">Herzlichen Glückwunsch!<br>Die Website ist nun voll Funktionsfähig!!</font></p>";
 echo "<p align=\"center\"><font size=\"4\">Die Benutzerdaten sind: admin Passwort: admin (dieser Benutzer kann ohne gefahren wieder gelöscht werden)</font></p>";
 echo "<br><b>Bitte diese Datei Löschen!!</b><br><a href=\"../index.php\">Zurück zur Hauptseite</a>";
-      
+
 } else
-{ 
-if (file_exists("../include/config.php")) 
+{
+if (file_exists("../include/config.php"))
 {
 echo "<br>Installation Erfolgreich!<br>";
 echo "<p align=\"center\"><font size=\"4\">Herzlichen Glückwunsch!<br>Die Website ist nun voll Funktionsfähig!!</font></p>";

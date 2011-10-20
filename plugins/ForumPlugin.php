@@ -8,26 +8,26 @@ function __construct($hp, $loader)
   // Laden der Daten
   // Nicht Editieren!
   parent::__construct($hp, $loader);
-  
+
   // Plugin Config:
   // -----------------------------------------------
-  
+
   // Der Name des Plugins:
   $this->name = "Forum";
-  
+
   // Die Version des Plugins:
   $this->version = "1.0.0";
-  
+
   // Der Autor des Plugins:
   $this->autor = "MRH";
-  
+
   //Die Homepage des Autors:
   $this->homepage = "mrh.hes-technic.de";
-  
-  
-    
+
+
+
   //------------------------------------------------
-   
+
 }
 
 
@@ -41,49 +41,49 @@ z.B. Datenbank Aufrufe, Datei Aufrufe, etc.
 function onEnable()
 {
    $right = $this->hp->right;
-   
+
    $rights = array(
     array (
-      
+
       "name" => "forum_nopassword",
       "desc" => "Forum: Darf Themen betrachten ohne das Passwort eizugeben",
       "cat"  => "Forum"
       ),
       array (
-      
+
       "name" => "forum_edit_post",
       "desc" => "Forum: Darf Threads und Posts bearbeiten die nicht ihm gehören",
       "cat"  => "Forum"
       ),
       array (
-      
+
       "name" => "forum_canusetypes",
       "desc" => "Forum: Darf die Thread Typen verwenden: (Sticky, Announce)",
       "cat"  => "Forum"
       ),
       array (
-      
+
       "name" => "forum_canclosethread",
       "desc" => "Forum: Darf Threads schließen. (<b>Keiner</b> kann schreiben)",
       "cat"  => "Forum"
       ),
       array (
-      
+
       "name" => "forum_edit_forum",
       "desc" => "Forum: Darf Foren bearbeiten.",
       "cat"  => "Forum"
       ),
         array (
-      
+
       "name" => "forum_del_forum",
       "desc" => "Forum: Darf komplette Foren löschen.",
       "cat"  => "Forum"
       )
-   
+
    );
-   
+
    $right->registerArray($rights);
-   
+
   $this->hp->addredirect("forum", "plugins/Forum");
 
 
@@ -222,7 +222,7 @@ $info->okn("Thread verschoben");
 
 
 }
-  
+
 
 }
 
@@ -495,7 +495,7 @@ $count = 0;
 $value = 0;
 foreach ($erg as $key=>$wert) {
 	$count++;
-	$value += $wert; 
+	$value += $wert;
 }
 $rating = 0;
 
@@ -694,14 +694,14 @@ $row = mysql_fetch_object($erg);
     </tr>
     </table>
   </tr>
- 
+
  <tr>
   <td colspan="3">
   <div id="more" style="display:none;">
   <table border="0" width="100%">
   <tr>
     <td width="80">Level:</td>
-    
+
     <td width="85%"><table width="100%">
     <?php
     $sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` <= '$level';";
@@ -709,7 +709,7 @@ $row = mysql_fetch_object($erg);
     while ($row2 = mysql_fetch_object($erg2))
     {
         ?>
-    
+
       <tr>
         <td><label>
           <input type="radio" name="level" value="<?php echo $row2->level?>" <?php if ($row->level == $row2->level) { echo " checked=\"true\"";} ?>>
@@ -717,7 +717,7 @@ $row = mysql_fetch_object($erg);
       </tr>
      <?php
     }
-     ?> 
+     ?>
     </table>
       <p>Notiz: Jeder Benutzer eines höheren Levels kann dieses Forum trotzdem lesen!</p></td>
   </tr>
@@ -741,10 +741,10 @@ $row = mysql_fetch_object($erg);
           <input type="radio" name="type" value="2"   <?php if ($row->type == "2") { echo " checked=\"true\"";} ?>>
           Announce</label></td>
       </tr>
-   
-   
+
+
    </table>
-   
+
    </td>
   </tr>
  <?php } else
@@ -752,7 +752,7 @@ $row = mysql_fetch_object($erg);
  ?>
  <input type="hidden" name="type" value="0">
  <?php
- } ?> 
+ } ?>
   <tr>
     <td>Passwort</td>
     <td><p>
@@ -763,7 +763,7 @@ $row = mysql_fetch_object($erg);
   <tr>
     <td>Sichtbar:</td>
     <td><p>
-        <input type="checkbox" name="visible" id="visible"  <?php if ($row->visible == "1") { echo " checked=\"true\"";} ?>> 
+        <input type="checkbox" name="visible" id="visible"  <?php if ($row->visible == "1") { echo " checked=\"true\"";} ?>>
       Ja</p>
       <p>Notiz: Das Thema ist für Benutzer eines geringeren Levels Sichtbar, Sie können aber nicht Antworten.</p></td>
   </tr>
@@ -845,14 +845,14 @@ $row = mysql_fetch_object($erg);
     </tr>
     </table>
   </tr>
- 
+
  <tr>
   <td colspan="3">
   <div id="more" style="display:none;">
   <table border="0" width="100%">
   <tr>
     <td width="80">Level:</td>
-    
+
     <td width="85%"><table width="100%">
     <?php
     $sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` <= '$level';";
@@ -860,7 +860,7 @@ $row = mysql_fetch_object($erg);
     while ($row2 = mysql_fetch_object($erg2))
     {
         ?>
-    
+
       <tr>
         <td><label>
           <input type="radio" name="level" value="<?php echo $row2->level?>" <?php if ($row->level == $row2->level) { echo " checked=\"true\"";} ?>>
@@ -868,13 +868,13 @@ $row = mysql_fetch_object($erg);
       </tr>
      <?php
     }
-     ?> 
+     ?>
     </table>
       <p>Notiz: Jeder Benutzer eines höheren Levels kann dieses Forum trotzdem lesen!</p></td>
   </tr>
-  
+
  <input type="hidden" name="type" value="0">
- 
+
   <tr>
     <td>Passwort</td>
     <td><p>
@@ -885,7 +885,7 @@ $row = mysql_fetch_object($erg);
   <tr>
     <td>Sichtbar:</td>
     <td><p>
-        <input type="checkbox" name="visible" id="visible"  <?php if ($row->visible == "1") { echo " checked=\"true\"";} ?>> 
+        <input type="checkbox" name="visible" id="visible"  <?php if ($row->visible == "1") { echo " checked=\"true\"";} ?>>
       Ja</p>
       <p>Notiz: Das Thema ist für Benutzer eines geringeren Levels Sichtbar, Sie können aber nicht Antworten.</p></td>
   </tr>
@@ -1072,13 +1072,13 @@ $fp = $hp->fp;
     $erg = $hp->mysqlquery($sql);
     while ($row = mysql_fetch_object($erg))
     {
-    
+
     ?>
     <option value="<?php echo $row->ID?>"><?php echo $row->titel?></option>
     <?php
     }
     ?>
-    
+
     </select>    </td>
   </tr>
   <tr>
@@ -1108,17 +1108,17 @@ $fp = $hp->fp;
     $fp = $hp->fp;
     $config = $hp->getconfig();
     $forum = $hp->forum;
-    
+
     $ID = mysql_real_escape_string($ID);
-   
+
     if ($config["xajax_workaround"])
-    { 
+    {
       // Workaround for older PHP-Versions
-      
+
       $data = array(
         "ID", "vote"
       );
-    
+
       foreach ($data as $k => $name)
       {
         $v = $$name;
@@ -1129,25 +1129,25 @@ $fp = $hp->fp;
       }
       // Workaround End
     }
-    
+
     $sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = $ID";
     $erg = $hp->mysqlquery($sql);
     $row = mysql_fetch_object($erg);
-    
-    
-    
+
+
+
     $erg = explode("<!--!>", $row->ergebnisse);
     $erg[] = $vote;
-    
+
     $user =  explode("<!--!>", $row->voted);
-    
+
     if ((!in_array($_SESSION['ID'], $user)) and isset($_SESSION['ID']))
     {
-      
+
       $user[] = $_SESSION['ID'];
-      
+
       $ergebnisse = "";
-      foreach ($erg as $key=>$value) 
+      foreach ($erg as $key=>$value)
       {
       	if ($ergebnisse != "")
       	{
@@ -1157,9 +1157,9 @@ $fp = $hp->fp;
           $ergebnisse = $value;
         }
       }
-      
+
       $users = "";
-      foreach ($user as $key=>$value) 
+      foreach ($user as $key=>$value)
       {
       	if ($users != "")
       	{
@@ -1169,15 +1169,15 @@ $fp = $hp->fp;
           $users = $value;
         }
       }
-      
+
       $okn = "<img src=images/ok.gif height=12 width=12>";
       $response->assign("voteok", "innerHTML", $okn);
-      
+
       $sql = "UPDATE `$dbprefix"."threads` SET `ergebnisse` = '$ergebnisse', `voted` = '$users' WHERE `ID` = $ID";
       $erg = $hp->mysqlquery($sql);
-      
+
       $response->assign("vote", "innerHTML", $forum->getvote($ID));
-      
+
     }
     return $response;
   }

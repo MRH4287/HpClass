@@ -11,7 +11,7 @@ $error = $hp->geterror();
 $info = $hp->getinfo();
 
 
-if (isset($post['changelevel'])) 
+if (isset($post['changelevel']))
 {
   $leveltemp=$post['level'];
   $eingabe = "UPDATE `".$dbprefix."user` SET `level` = '$leveltemp' WHERE `user` = '".$get['change']."';";
@@ -25,7 +25,7 @@ if (isset ($get['delet']))
 
 if (isset ($get['delet2']))
 {
-  if (!$right[$level]['userdelet']) 
+  if (!$right[$level]['userdelet'])
   {
    $error->error($lang->word('noright'),"1");
   } else
@@ -34,11 +34,11 @@ if (isset ($get['delet2']))
     $ergebnis = $hp->mysqlquery($eingabe);
     if ($ergebnis==true) {
       $info->okn($lang->word('delok'));
-    } 
+    }
   }
 }
 
-if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"]) 
+if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
 {
 
   $abfrage = "SELECT * FROM ".$dbprefix."user ORDER BY `level` DESC ";
@@ -47,7 +47,7 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
   $site = new siteTemplate($hp);
   $site->load("user_list");
   $site->right("see_userPage");
-   
+
   $content = "";
   while($row = mysql_fetch_object($ergebnis))
   {
@@ -55,15 +55,15 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
       "user" => $row->user,
       "datum" => $row->datum,
       "name" => $row->name,
-      "nachname" => $row->nachname    
+      "nachname" => $row->nachname
     );
-    
+
     $content .= $site->getNode("Users", $data);
 
   }
 
   $site->set("Users", $content);
-  
+
   $site->display();
 
 } else if ($right[$_SESSION['level']]["see_userPage"])
@@ -75,16 +75,16 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
 
   $ranks = $hp->right->getLevelNames();
 
-  
+
   $abfrage = "SELECT * FROM ".$dbprefix."user WHERE `user` = '".$get['show']."'";
 
   $ergebnis = $hp->mysqlquery($abfrage);
   $row = mysql_fetch_object($ergebnis);
-  
+
   if ((mysql_num_rows($ergebnis) > 0) && ($row->user == $get['show']))
   {
-     
-    
+
+
      $data = array(
         "ID" => $row->ID,
         "user" => $row->user,
@@ -101,51 +101,51 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
         "lastlogin" => $row->lastlogin,
         "user" => $row->user
       );
-  
-    
+
+
      $site->setArray($data);
-                  
+
       $EMData = array(
       "email" => $row->email
      );
      $site->set("EMail", $site->getNode("EMail", $EMData));
-    
+
      $DLData = array
      (
       "ID" => $row->ID
      );
-     
+
      $site->set("Deluser", $site->getNode("Deluser", $DLData));
-     
+
      // Changelevel:
-     
+
     $levels = $hp->right->getlevels();
     $content = "";
     foreach ($levels as $k=>$levelD)
     {
        $name = isset($ranks[$levelD]) ? $ranks[$levelD] : $levelD;
-            
+
        $data = array(
          "selected" => ($row->level == $levelD) ? "selected" : "",
          "ID" => $levelD,
-         "name" => $name    
+         "name" => $name
        );
-     
-       $content .= $site->getNode("Options", $data);  
-     
+
+       $content .= $site->getNode("Options", $data);
+
      }
-     
+
      $data = array(
-       
+
        "user" => $row->user,
        "count" => count($levels),
-       "Options" => $content 
-     
+       "Options" => $content
+
      );
-     
+
      $site->set("changelevel", $site->getNode("LevelChange", $data));
-    
-    
+
+
      $site->display();
   } else
   {

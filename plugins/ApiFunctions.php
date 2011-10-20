@@ -8,22 +8,22 @@ function __construct($hp, $loader)
   // Laden der Daten
   // Nicht Editieren!
   parent::__construct($hp, $loader);
-  
+
   // Plugin Config:
   // -----------------------------------------------
-  
+
   // Der Name des Plugins:
   $this->name = "ApiFunctions";
-  
+
   // Die Version des Plugins:
   $this->version = "Beta 1";
-  
+
   // Der Autor des Plugins:
   $this->autor = "MRH";
-  
+
   //Die Homepage des Autors:
   $this->homepage = "http://mrh-development.de";
-  
+
   //Notizen zu dem Plugin:
   $this->notes = "<b>Beta</b><br />Erweitert das System um Api Funktionen";
 }
@@ -38,7 +38,7 @@ z.B. Datenbank Aufrufe, Datei Aufrufe, etc.
 */
 function onEnable()
 {
-  $this->loader->registerApiFunctions($this); 
+  $this->loader->registerApiFunctions($this);
 
 }
 
@@ -62,35 +62,35 @@ function api_write($arguments)
     // - Dateiname
     // - Part
     // - Daten
-    
+
     if (count($arguments) == 3)
     {
         $filename = $arguments[0];
         $part = $arguments[1];
-        $data = $arguments[2];    
-    
+        $data = $arguments[2];
+
 
         $fp = fopen('./plugins/ApiTest/'.$filename, "a");
 
-      
+
         foreach (explode("-", $data) as $k=>$value)
         {
-         
+
             if ($value != "")
             {
               fwrite($fp, pack("c*", $value));
             }
-         
+
         }
-        
-        fclose($fp);  
-      
+
+        fclose($fp);
+
         return json_encode(array("status" => "OK", "error" => "none", "part" => $part));
-      
+
     }
-    
-    return json_encode(array("status" => "Not OK", "error" => "Not all Arguments"));  
-  
+
+    return json_encode(array("status" => "Not OK", "error" => "Not all Arguments"));
+
 }
 
 

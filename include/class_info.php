@@ -7,9 +7,9 @@ class infoclass
   var $hp;
   var $infoarray = array();
   var $okmarray = array();
-  
+
   var $firephp;
-  
+
   function init($lang, $error, $hp)
   {
     $this->lang = $lang;
@@ -18,7 +18,7 @@ class infoclass
     $this->firephp = $hp->getfirephp();
     $this->outputdiv();
   }
-  
+
   function info($info)
   {
    if (!in_array($info, $this->infoarray))
@@ -30,7 +30,7 @@ class infoclass
       }
     }
   }
-  
+
   function okm($okm)
   {
    if (!in_array($okm, $this->okmarray))
@@ -42,30 +42,30 @@ class infoclass
       }
     }
   }
-  
+
   function okn($okm)
   {
     // Löst das Problem, dass ich mich beim Programmieren verschreib :-D
     $this->okm($okm);
   }
-  
-  
+
+
   function outputdiv()
   {
     $site = new siteTemplate($this->hp);
     $site->load("messages");
-    
-    $this->hp->template->append("messages", $site->get("Info")); 
-    $this->hp->template->append("messages", $site->get("Ok")); 
+
+    $this->hp->template->append("messages", $site->get("Info"));
+    $this->hp->template->append("messages", $site->get("Ok"));
   }
-  
+
   function getmessages()
   {
     $string="";
     $infoarray = $this->infoarray;
-    
-    
-    
+
+
+
     foreach ($infoarray as $key=>$value)
     {
       if ($string <> "")
@@ -83,16 +83,16 @@ class infoclass
       $site->load("messages");
       $site->set("message", $string);
       $site->display("Info-Set");
-    
+
     }
-    
-    
+
+
     $string="";
     $okmarray = $this->okmarray;
-    
-    
-    
-    foreach ($okmarray as $key=>$value) 
+
+
+
+    foreach ($okmarray as $key=>$value)
     {
       if ($string <> "")
       {
@@ -109,9 +109,9 @@ class infoclass
       $site->load("messages");
       $site->set("message", $string);
       $site->display("Ok-Set");
-    
+
     }
- 
+
   }
 
 }

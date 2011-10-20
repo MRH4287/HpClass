@@ -1,5 +1,5 @@
 <?php
-// Config System 
+// Config System
 // 4.1
 if ($config['titel'] != "")
 {
@@ -32,9 +32,9 @@ $template['titel']=$titel;
 //<script src="js/scriptaculous/scriptaculous.js"></script>
 $template['jsu']='
 <script src="js/jQuery.js"></script>
-<script src="js/functions.js"></script> 
-<script src="js/drag&drop.js"></script> 
-<script src="js/widgetconfig.js"></script> 
+<script src="js/functions.js"></script>
+<script src="js/drag&drop.js"></script>
+<script src="js/widgetconfig.js"></script>
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="include/usedpics/js/picturelist.js"></script>
 <script src="js/autorun.js"></script>

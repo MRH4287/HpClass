@@ -21,7 +21,7 @@ $site->load("news");
  {
 
 
-  if (isset($post['newsedit'])) 
+  if (isset($post['newsedit']))
     {
     $newsidchange=$post['newsid'];
     $newsdatum=$post['newsdate'];
@@ -38,10 +38,10 @@ $site->load("news");
     if ($ergebnis == true)
     {
       $info->okm("Newsmeldung erfolgreich geändert!");
-    } 
+    }
     $get['delet'] = true;
     }
- 
+
  }
 // ----
 
@@ -68,7 +68,7 @@ $site->load("news");
       $error->error(mysql_error(), "2");
     }
   }
- 
+
   if ($eintragen == true and $eintragen2 == true)
   {
     $info->okn($lang->word('delok'));
@@ -129,7 +129,7 @@ $site->load("news");
 // --------
 
 
- if (!isset ($get['limit'])) 
+ if (!isset ($get['limit']))
  {
   $limit = 5;
  } else
@@ -137,13 +137,13 @@ $site->load("news");
   $limit = intval($get['limit']);
  }
  $limit = $hp->escapestring($limit);
- 
- $abfrage = "SELECT * FROM ".$dbprefix."news ORDER BY `ID` DESC LIMIT ".$limit;
- $ergebnis = $hp->mysqlquery($abfrage);  
 
- 
+ $abfrage = "SELECT * FROM ".$dbprefix."news ORDER BY `ID` DESC LIMIT ".$limit;
+ $ergebnis = $hp->mysqlquery($abfrage);
+
+
  $Content = "";
-  
+
  while($row = mysql_fetch_object($ergebnis))
  {
   $ok = false;
@@ -151,19 +151,19 @@ $site->load("news");
     {
      $ok = true;
     } elseif (("$row->level" == "2") and ($right[$level]['readl2'] == true ))
-    { 
-      $ok = true; 
+    {
+      $ok = true;
     } elseif (("$row->level" == "3") and ($right[$level]['readl3'] == true ))
-    { 
-      $ok = true; 
-    } elseif ("$row->level" == "0") 
-    { 
-      $ok = true; 
+    {
+      $ok = true;
+    } elseif ("$row->level" == "0")
+    {
+      $ok = true;
     }
 
   if ($ok == true)
   {
-  
+
     $data = array(
       "titel" => $row->titel,
       "level" => ($row->level <> "0") ? " --Level $row->level --" : "",
@@ -171,31 +171,31 @@ $site->load("news");
       "datum" => $row->datum,
       "Content" => $row->text,
       "EditNews" => "",
-      "DeletNews" => ""  
+      "DeletNews" => ""
     );
-  
+
     if (isset($get['delet']))
     {
      if ($right[$level]['newsedit'])
      {
        $data["EditNews"] = '<a href="index.php?lbsite=newschange&vars='.$row->ID.'" class="lbOn">Bearbeiten</a> ';
-     } 
-       
+     }
+
      if ($right[$level]['newsdel'])
      {
        $data["DeletNews"] = '<a href="index.php?lbsite=delnews&vars='.$row->ID.'" class="lbOn">Löschen</a> ';
-     }    
+     }
     }
-    
-    $Content .= $site->getNode("News", $data);        
-  }  
- }   
+
+    $Content .= $site->getNode("News", $data);
+  }
+ }
 
  $site->set("News", $Content);
 
 
- $site->set("WriteNews", "  -  ".$lbsites->link("newnews","<b>Neue Newsmeldung verfassen</b>")); 
- $site->set("StartEditNews", "  -  <a href=\"index.php?site=news&delet=true\"><b>Newsmeldungen Bearbeiten</b></a>"); 
+ $site->set("WriteNews", "  -  ".$lbsites->link("newnews","<b>Neue Newsmeldung verfassen</b>"));
+ $site->set("StartEditNews", "  -  <a href=\"index.php?site=news&delet=true\"><b>Newsmeldungen Bearbeiten</b></a>");
 
- $site->display(); 
+ $site->display();
 ?>

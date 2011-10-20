@@ -21,7 +21,7 @@ $info = $hp->getinfo();
 
     $abfrage = "SELECT * FROM ".$dbprefix."anwaerter WHERE `user`= '".$get['user']."'";
     $ergebnis = $hp->mysqlquery($abfrage);
-    
+
     $row = mysql_fetch_object($ergebnis);
 
     $user="$row->user";
@@ -29,11 +29,11 @@ $info = $hp->getinfo();
     $name="$row->name";
     $nachname="$row->nachname";
     $email="$row->email";
-    $datum="$row->datum"; 
+    $datum="$row->datum";
     $wohnort = "$row->wohnort";
     $geschlecht = "$row->geschlecht";
     $tel = "$row->tel";
-   
+
     $code = $row->code;
 
     if ($codeg != $code)
@@ -56,13 +56,13 @@ $info = $hp->getinfo();
         {
            $site->set("info", "<br>Vielen Dank,<br>Ihre Registration wurde erfolgreich abgeschlossen!");
 
-          foreach ($hp->superadmin as $key=>$superadmin) 
+          foreach ($hp->superadmin as $key=>$superadmin)
           {
 	           $hp->PM($superadmin, "System", "Neuer User", "Ein neuer User:<br>$user", $datum, $dbprefix);
           }
 
-        } else 
-        { 
+        } else
+        {
         $site->set("info", "Fehler: <br>Melden Sie sich bitte umgehen bei dem zuständigem Administrator! <br>".mysql_error());
         }
 
@@ -72,7 +72,7 @@ $info = $hp->getinfo();
       }
 
     }
-    
+
   }
   $site->display();
 ?>

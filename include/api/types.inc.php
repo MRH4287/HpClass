@@ -5,7 +5,7 @@ class Request
 
   public $user;
   public $key;
-  public $verification; 
+  public $verification;
 
 }
 
@@ -16,10 +16,10 @@ class Command
   public $key;
   public $command;
   public $arguments;
-  
+
 
 }
-        
+
 class Initialize
 {
   public $loginOk;

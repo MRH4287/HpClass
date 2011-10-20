@@ -15,9 +15,9 @@ function __construct($adress)
 
  if (file_exists($adress))
  {
- 
+
  $this->adress = $adress;
- 
+
  } else
  {
  $this->error("Datei wurde nicht gefunden: $adress", __LINE__);
@@ -38,7 +38,7 @@ function check()
 
  $username = $_POST['user'];
  $password = $_POST['pass'];
-  
+
  $this->user_check($username, $password);
  exit();
 
@@ -116,36 +116,36 @@ function user_check($username, $password)
  {
   // User OK
   // Setzte Session
-  
+
   $sesname_user     = $this->session_var["user"];
   $sesname_password = $this->session_var["password"];
-  
+
   $_SESSION[$sesname_user]     = $username;
   $_SESSION[$sesname_password] = md5("pw_".$password);
-  
+
   echo '
   <script>
    window.location="'.$this->adress.'"
   </script>';
-  
-  
+
+
  } else
   {
-  
+
   // Benutzer abgelehnt:
-  
+
   $this->error("Benutzername oder Passwort falsch!<br>".$this->error_message."<br>Seite wird in 3 Sekunden neu geladen.".
   '<script>
   function reload()
   {
   window.location="'.$this->adress.'";
   }
-   
+
    window.setTimeout("reload()",3000);
   </script>', false);
-  
-  
-  
+
+
+
   }
 
 }

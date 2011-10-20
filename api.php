@@ -55,16 +55,16 @@ if ($config["enable_ScriptAccess"])
   if (isset($post["req"]))
   {
     echo $pluginloader->request($post["data"]);
-    
+
   } elseif (isset($post["com"]))
   {
     echo $pluginloader->command($post["data"]);
-    
+
   } else
   {
-  
+
     echo json_encode(array("error" => "Unknown Subset"));
-    
+
   }
 
 } else

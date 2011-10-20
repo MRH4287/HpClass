@@ -34,7 +34,7 @@ $config = $this->hp->getconfig();
   {
    $design = $config['design'];
    $this->temppath= $design;
-  }  
+  }
 
 
 
@@ -53,7 +53,7 @@ function getlang()
   if (isset($this->lang[$this->clang]))
   {
     return $this->lang[$this->clang];
-  } 
+  }
   else
   {
     return array();
@@ -180,7 +180,7 @@ function incfiles ()
 // Include von Sprachdaten aus Datei:
 
 $x=-2;
-$handle = @opendir("./include/lang/"); 
+$handle = @opendir("./include/lang/");
 while (false !== ($file = @readdir($handle))) {
 	$attrib=@fileperms("./include/lang/$file");
 	$filesize=@filesize("./include/lang/$file");
@@ -197,7 +197,7 @@ include ("./include/lang/$file");
 $this->addlang ($lang);
 
 }
-} 
+}
 
 }
 
@@ -220,7 +220,7 @@ if (is_dir("template/".$this->temppath."/lang/"))
 {
 
 $x=-2;
-$handle = @opendir("./template/".$this->temppath."/lang/"); 
+$handle = @opendir("./template/".$this->temppath."/lang/");
 while (false !== ($file = @readdir($handle))) {
 	$attrib=@fileperms("./template/".$this->temppath."/lang/$file");
 	$filesize=@filesize("./template/".$this->temppath."/lang/$file");
@@ -237,7 +237,7 @@ include ("./template/".$this->temppath."/lang/$file");
 $this->addlang($lang);
 
 }
-} 
+}
 
 
 
@@ -250,11 +250,11 @@ $array = explode("tp_", $key);
 	if (count($array) == 2)
 	{
   $this->hp->template->addtemp($array[1], $value);
-  
+
   }
 }
 }
-} 
+}
 }
 
 
@@ -272,7 +272,7 @@ foreach ($lang as $key=>$value) {
 $key = (string) $key;
   if (isset($this->lang[$key]))
   {
-   $mrharray = $this->lang[$key];   
+   $mrharray = $this->lang[$key];
   } else
   {
    $mrharray = null;

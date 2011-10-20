@@ -15,7 +15,7 @@ $config = $hp->config;
 //Abfrage des POST ergebnisses
 if (isset($post['sub']))
 {
-    
+
   $hp->config->apply($post['config']);
   $config->load();
 
@@ -33,15 +33,15 @@ $registed = $config->getregisted();
 foreach ($registed as $k => $name)
 {
   // right, level, description, ok, cat
-  $Tdata[$config->cat($name)][] = $name;     
-} 
+  $Tdata[$config->cat($name)][] = $name;
+}
 
 
 $designs = array();
 if (is_dir("./template"))
 {
-  $handle = opendir("./template"); 
-  while (false != ($file = readdir($handle))) 
+  $handle = opendir("./template");
+  while (false != ($file = readdir($handle)))
   {
     $exp = explode(".",$file);
     if ((count($exp) >= 2) && ($exp[1] == "html"))
@@ -62,26 +62,26 @@ foreach ($Tdata as $cat => $Cdata)
   {
     $type = $config->type($conf);
     $input = "";
-    
+
     switch ($type)
     {
       case "bool":
-       
+
        $data = array(
           "name" => $conf,
-          "checked" => ($currentConfig[$conf]) ? "true" : "false"       
-       ); 
-       
+          "checked" => ($currentConfig[$conf]) ? "true" : "false"
+       );
+
        $input = $site->getNode("Input-Checkbox", $data);
-        
-      
+
+
       break;
-      
-      
+
+
       case "design":
-      
+
         $cont = "";
-        
+
         foreach ($designs as $k => $name)
         {
           $data = array(
@@ -90,50 +90,50 @@ foreach ($Tdata as $cat => $Cdata)
             "selected" => ($currentConfig["design"] == $name) ? "true" : "false"
           );
           $cont .= $site->getNode("Input-Option", $data);
-        
+
         }
-        
+
         $data  = array(
           "name" => $conf,
-          "Options" => $cont       
+          "Options" => $cont
         );
-        
+
         $input = $site->getNode("Input-Combobox", $data);
-        
-      
-      
+
+
+
       break;
-      
+
       default:
-      
+
         $data = array(
           "name" => $conf,
-          "value" => $currentConfig[$conf]        
+          "value" => $currentConfig[$conf]
         );
-        
+
         $input = $site->getNode("Input-Textbox", $data);
-        
-      
+
+
       break;
-    
+
     }
-    
+
     $data = array(
       "name" => $conf,
       "description" => $config->desc($conf),
       "input" => $input
     );
-    
+
     $contentCat .= $site->getNode("Config", $data);
-    
-    
+
+
   }
 
   $data = array(
     "name" => $cat,
     "Config" => $contentCat
   );
-  
+
   $content .= $site->getNode("Categorie", $data);
 
 }

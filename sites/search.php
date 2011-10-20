@@ -19,9 +19,9 @@ if (isset($post["s"]) or isset($get["s"]))
     $s = $get["s"];
   } else
   {
-    $s = $post["s"];  
+    $s = $post["s"];
   }
-  
+
   $s = str_replace("ü", "&uuml;", $s);
   $s = str_replace("Ü", "&Uuml;", $s);
   $s = str_replace("ö", "&ouml;", $s);
@@ -29,7 +29,7 @@ if (isset($post["s"]) or isset($get["s"]))
   $s = str_replace("ä", "&auml;", $s);
   $s = str_replace("Ä", "&Auml;", $s);
   $s = str_replace("ß", "&szlig;", $s);
-  
+
   $resultSub = array();
 
   // Frage alle Einträge im Subpage System ab:
@@ -37,17 +37,17 @@ if (isset($post["s"]) or isset($get["s"]))
   $erg = $hp->mysqlquery($sql);
   while ($row = mysql_fetch_array($erg))
   {
-   $resultSub[] = $row;  
+   $resultSub[] = $row;
   }
-  
+
   $resultNews = array();
-  
+
   //Frage alle Newsmeldungen / Projekte ab
   $sql = "SELECT * FROM `$dbprefix"."news` WHERE `text` LIKE '%$s%' OR `titel` LIKE '%$s%';";
   $erg = $hp->mysqlquery($sql);
   while ($row = mysql_fetch_array($erg))
   {
-   $resultNews[] = $row;  
+   $resultNews[] = $row;
   }
 
   echo "<h2>TestAusgabe</h2>";

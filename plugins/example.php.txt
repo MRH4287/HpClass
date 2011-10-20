@@ -8,25 +8,25 @@ function __construct($hp, $loader)
   // Laden der Daten
   // Nicht Editieren!
   parent::__construct($hp, $loader);
-  
+
   // Plugin Config:
   // -----------------------------------------------
-  
+
   // Der Name des Plugins:
   $this->name = "Test Plugin";
-  
+
   // Die Version des Plugins:
   $this->version = "1.0.0";
-  
+
   // Der Autor des Plugins:
   $this->autor = "MRH";
-  
+
   //Die Homepage des Autors:
   $this->homepage = "mrh.hes-technic.de";
-  
-    
+
+
   //------------------------------------------------
-   
+
 }
 
 

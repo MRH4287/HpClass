@@ -26,7 +26,7 @@ if (isset($_SESSION['username']))
       $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `ID` = '".$id."' ORDER BY `ID`;";
       $ergebnis = $hp->mysqlquery($abfrage);
       $row = mysql_fetch_object($ergebnis);
-    
+
       if (strtolower($_SESSION['username']) == strtolower("$row->zu"))
       {
        $eintrag = "DELETE FROM `".$dbprefix."pm` WHERE `ID`= ".$id;
@@ -36,12 +36,12 @@ if (isset($_SESSION['username']))
        {
         $info->okn($lang->word('delok'));
        }
-      } 
+      }
       else
-      { 
+      {
         $error->error($lang->word('cantdelmessage'),"2", __FILE__.":".__LINE__);
       }
-    } 
+    }
 
 
   } elseif (isset($post['mark']))
@@ -56,7 +56,7 @@ if (isset($_SESSION['username']))
      $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `ID` = '".$id."' ORDER BY `ID`;";
      $ergebnis = $hp->mysqlquery($abfrage);
      $row = mysql_fetch_object($ergebnis);
-    
+
      if (strtolower($_SESSION['username']) == strtolower("$row->zu"))
      {
         $eintrag = "UPDATE `".$dbprefix."pm` SET `gelesen` = 1 WHERE `ID`= ".$id;
@@ -70,14 +70,14 @@ if (isset($_SESSION['username']))
 
       }
     }
-    
+
   } elseif (isset($get['del']))
   {
     $del = $get['del'];
     $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `ID` = '".$del."';";
     $ergebnis = $hp->mysqlquery($abfrage);
     $row = mysql_fetch_object($ergebnis);
-  
+
     if ($_SESSION['username'] == "$row->zu")
     {
       $eintrag = "DELETE FROM `".$dbprefix."pm` WHERE `ID`= ".$del;
@@ -87,7 +87,7 @@ if (isset($_SESSION['username']))
       if ($eintragen == true)
       {
         $info->okn($lang->word('delok'));
-      } 
+      }
     }
     else
     {
@@ -107,7 +107,7 @@ if (isset($_SESSION['username']))
     $abfrage = "SELECT ID FROM ".$dbprefix."pm WHERE `timestamp` = '".$timestamp."'";
     $ergebnis = $hp->mysqlquery($abfrage);
     $number = mysql_num_rows($ergebnis);
-      
+
     if ($number == 0)
     {
       $eintrag = "INSERT INTO `".$dbprefix."pm`
@@ -120,7 +120,7 @@ if (isset($_SESSION['username']))
       {
         $info->okn($lang->word('postok'));
       }
-       
+
     } else
     {
       $error->error($lang->word('doublepost'),"2");
@@ -137,10 +137,10 @@ if (isset($_SESSION['username']))
     {
      $error->error(mysql_error(), "2");
     }
-  
+
     $site = new siteTemplate($hp);
-    $site->load("pm_list");  
-  
+    $site->load("pm_list");
+
 
     $content = "";
     while($row = mysql_fetch_object($ergebnis))
@@ -150,59 +150,59 @@ if (isset($_SESSION['username']))
        "von" => $row->von,
        "Betreff" => ($row->gelesen == 0) ? "<b>$row->Betreff</b>" : $row->Betreff,
        "Datum" => $row->Datum,
-       "gelesen" => ""   
+       "gelesen" => ""
       );
-     
+
       $content .= $site->getNode("Line", $data);
     }
-  
+
     $site->set("gelesen", "");
     $site->set("Line", $content);
-  
+
     $site->display();
-    
+
  } elseif (isset($get['read']))
  {
 
   $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `ID` = '".$get['read']."' ORDER BY `ID`;";
   $ergebnis = $hp->mysqlquery($abfrage);
   $row = mysql_fetch_object($ergebnis);
-  
+
   if ((strtolower($_SESSION['username']) == strtolower("$row->zu")) or strtolower($_SESSION['username']) == strtolower("$row->von"))
   {
-    if ($_SESSION['username'] != "$row->von") 
-    { 
+    if ($_SESSION['username'] != "$row->von")
+    {
        $eingabe2 = "UPDATE `".$dbprefix."pm` SET `gelesen` = '1' WHERE `ID` = $row->ID;";
        $ergebnis2 = $hp->mysqlquery($eingabe2);
-    }   
+    }
 
      $site = new siteTemplate($hp);
-     $site->load("pm_show");  
-     
+     $site->load("pm_show");
+
      $data = array(
        "von" => $row->von,
        "zu" => $row->zu,
        "Datum" => $row->Datum,
        "Betreff" => $row->Betreff,
        "Text" => $row->Text,
-       "Delet" => ""    
+       "Delet" => ""
      );
-     
+
      $site->setArray($data);
-     
-     if ($_SESSION['username'] != "$row->von") 
+
+     if ($_SESSION['username'] != "$row->von")
      {
         $data = array(
           "ID" => $row->ID
         );
-        
+
         $site->set("Delet", $site->getNode("Delet", $data));
-        
+
      }
-     
+
      $site->display();
-  
-  
+
+
   } else
   {
      $error->error($lang->word('messagenotforyou'),"2");
@@ -210,22 +210,22 @@ if (isset($_SESSION['username']))
   }
 
   //POST DEL
- } 
+ }
  elseif (isset($get['new']))
  {
     $site = new siteTemplate($hp);
     $site->load("pm_edit");
-    
+
     $data = array(
       "site" => "new",
       "zu" => (isset($get["zu"])) ? $get["zu"] : "",
       "Betreff" => (isset($get['bet'])) ? "RE: ".$get['bet'] : "",
       "Text" => "",
-      "time" => time()    
+      "time" => time()
     );
-    
+
     $site->setArray($data);
-    
+
     $site->display();
 
 
@@ -237,11 +237,11 @@ if (isset($_SESSION['username']))
   $abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `von` = '".$_SESSION['username']."' ORDER BY `ID`;";
   $ergebnis =$hp->mysqlquery($abfrage);
 
- 
+
 
   $site = new siteTemplate($hp);
-  $site->load("pm_list");  
-  
+  $site->load("pm_list");
+
 
   $content = "";
   while($row = mysql_fetch_object($ergebnis))
@@ -251,15 +251,15 @@ if (isset($_SESSION['username']))
       "von" => $row->von,
       "Betreff" => ($row->gelesen == 0) ? "<b>$row->Betreff</b>" : $row->Betreff,
       "Datum" => $row->Datum,
-      "gelesen" => ($row->gelesen == 1) ? $lang->word("yes") : $lang->word("no")   
+      "gelesen" => ($row->gelesen == 1) ? $lang->word("yes") : $lang->word("no")
      );
-     
+
      $content .= $site->getNode("Line", $data);
    }
-   
+
    $site->set("gelesen", $lang->word("gelesen"));
    $site->set("Line", $content);
-  
+
    $site->display();
  }
 

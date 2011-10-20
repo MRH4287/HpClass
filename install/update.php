@@ -41,7 +41,7 @@ $this->connect();
 function getversion()
 {
 $path = $this->path;
- 
+
  if (file_exists($path))
  {
   $version = file_get_contents($path);
@@ -67,7 +67,7 @@ $path = $this->path;
 
 function versions()
 {
-$handle = @opendir("./update"); 
+$handle = @opendir("./update");
 
 $filearray = array();
 
@@ -132,7 +132,7 @@ return $updates;
 function connect()
 {
 
- if (!isset($this->host) or !isset($this->user) or !isset($this->password)) 
+ if (!isset($this->host) or !isset($this->user) or !isset($this->password))
  {
 
  $this->error[] = "No Database Data set!";
@@ -148,7 +148,7 @@ $myerror = mysql_error();
  {
  $this->error[] = "$myerror";
  }
- 
+
 mysql_select_db($this->db, $this->connection)
 or print "Konnte die Datenbank nicht finden!";
 $myerror = mysql_error();
@@ -163,7 +163,7 @@ $myerror = mysql_error();
 $this->host = "";
 $this->user = "";
 $this->password = "";
-$this->db = ""; 
+$this->db = "";
 
 
 }
@@ -237,15 +237,15 @@ $update = new update;
 
  if (count($update->error) != 0)
  {
- 
+
  print_r($update->error);
  $update->error = array();
-  
+
  } else
   {
 
   $updates = $update->listupdates();
-  
+
    if (count($updates) >= 1)
    {
 
@@ -258,13 +258,13 @@ $update = new update;
 	
 	     $sql = str_replace("#!-PRÄFIX-!#", $update->getprefix(), $sql);
 	     $sql = str_replace("#!-PREFIX-!#", $update->getprefix(), $sql);
-  	  
+  	
         if (($sql != "") and ($sql != "<br>"))
  	      {
 	      $update->query($sql);
 	      }
       }
-      
+
     if (count($update->error) != 0)
      {
 
@@ -274,7 +274,7 @@ $update = new update;
       echo "</pre><br>Ein Rollback wird ausgeführt!";
       $update->rollback();
       exit;
-      
+
      }	else
        {
         $update->ok();

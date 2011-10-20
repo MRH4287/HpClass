@@ -13,8 +13,8 @@ $error = $hp->geterror();
     $site = new siteTemplate($hp);
     $site->right("adminsite");
     $site->load("admin");
-    $site->display(); 
-    
+    $site->display();
 
-  
+
+
 ?>

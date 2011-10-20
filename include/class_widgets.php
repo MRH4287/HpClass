@@ -31,7 +31,7 @@ Droppables.add('<!--ID-->',{onDrop: function(drag, base) {
 widgetDropEvent(base.id, drag.id, getinfo(drag), getinfo(base));
 
  }, hoverclass: 'hclass'});
- 
+
 
 </script>
 */
@@ -66,7 +66,7 @@ $sql = "SELECT * FROM `$dbprefix"."widget`";
 $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
-  
+
  if (isset($this->widgets[$row->source]))
  {
   //$temp->addtemp($row->ID, $this->widgets[$row->source]);
@@ -168,15 +168,15 @@ foreach ($widgets_replace as $key=>$value) {
 	 if (!in_array($key, $this->placed) or $placed)
    {
    $widgets[$key] = $value;
-   
-   
+
+
    if (array_key_exists($key, $this->tempconfig) and $config)
    {
    $widgets[$key] .= "<center>".$lbs->link($this->tempconfig[$key], "<img src=\"images/edit.gif\">")."</center>";
-   
+
    }
-   
-   
+
+
    }
 }
 
@@ -233,9 +233,9 @@ $this->placeholder[] = $name;
 
 
 }
- 
- 
- 
+
+
+
  function incwidgetfiles()
 {
 $hp = $this->hp;
@@ -251,11 +251,11 @@ $design = $config['design'];
   {
 
 
-  $handle = @opendir("./template/".$design."/widgets/"); 
+  $handle = @opendir("./template/".$design."/widgets/");
     while ($file = @readdir($handle)) {
 
-      
-      
+
+
 	     $n= @explode(".",$file);
        $art = @strtolower($n[1]);
 
@@ -266,7 +266,7 @@ $design = $config['design'];
         $placeholder = array();
         if (file_exists("./template/".$design."/widgets/$file"))
         include ("./template/".$design."/widgets/$file");
-        
+
         foreach ($widget as $key=>$value) {
         	
         	if (($key != "") and ($value != ""))
@@ -275,7 +275,7 @@ $design = $config['design'];
           }
         	
         }
-        
+
           foreach ($placeholder as $key=>$value) {
         	
         	if ($value != "")
@@ -284,22 +284,22 @@ $design = $config['design'];
           }
         	
         }
-        
+
       if (isset($tempconfig) && is_array($tempconfig))
       {
         $this->tempconfig = array_merge($this->tempconfig, $tempconfig);
       //  print_r($this->tempconfig);
-      }  
-        
+      }
+
 
     }
-  } 
+  }
 
 
- } 
+ }
 }
 
- 
+
 function getConfig($widget)
 {
 $hp = $this->hp;
@@ -331,7 +331,7 @@ $sql = "REPLACE INTO `$dbprefix"."widgetconfig` (`widget`, `config`) VALUES ('$w
 $erg = $hp->mysqlquery($sql);
 
 }
- 
- 
+
+
  }
 ?>

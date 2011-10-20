@@ -38,7 +38,7 @@ switch (strtolower($file_ext))
  case 'jpeg':
  $image = @imagecreatefromjpeg($bild);
  break;
- 
+
 }
 } else
 {
@@ -54,28 +54,28 @@ $green= imagecolorallocate($image, 0, 255, 0);
 $blue= imagecolorallocate($image, 0, 0, 255);
 $yellow= imagecolorallocate($image, 255, 255, 0);
 
-$farbe = $black; 
+$farbe = $black;
 switch (strtolower($farbe1))
 {
  case 'black' :
-$farbe = $black; 
+$farbe = $black;
  break;
  case 'white' :
-$farbe = $white;  
+$farbe = $white;
  break;
   case 'red' :
-$farbe = $red; 
+$farbe = $red;
  break;
   case 'green' :
- $farbe = $green; 
+ $farbe = $green;
  break;
   case 'yellow' :
-$farbe = $yellow;  
+$farbe = $yellow;
  break;
   case 'blue' :
- $farbe = $blue; 
+ $farbe = $blue;
  break;
- 
+
 }
 
 

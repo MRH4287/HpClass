@@ -18,7 +18,7 @@ $o_right = $hp->right;
 //Abfrage des POST ergebnisses
 if (isset($post['sub']))
 {
-  foreach ($right as $key=>$value) 
+  foreach ($right as $key=>$value)
   {
     foreach ($value as $key2=>$value2)
     {
@@ -26,18 +26,18 @@ if (isset($post['sub']))
     }	
   }
   $fp = $hp->fp;
-  
 
-    
+
+
   $levels = $post['levelcount'];
   $levels = explode("&-&", $levels);
 
-  
-  foreach ($levels as $keyh=>$valueh) 
+
+  foreach ($levels as $keyh=>$valueh)
   {
   	
-     
-  
+
+
     if (isset($post['right'.$valueh]))
     {
       $temp = $post['right'.$valueh];
@@ -45,9 +45,9 @@ if (isset($post['sub']))
     {
       $temp = array();
     }
-           
-    
-    foreach ($temp as $key=>$value) 
+
+
+    foreach ($temp as $key=>$value)
     {
 
         //echo "set r1 $value to true!!<br>";
@@ -58,11 +58,11 @@ if (isset($post['sub']))
   }
 
 
-  $o_right->save($right); 
+  $o_right->save($right);
   $o_right->load();
   //Endsaverights
-  
-  
+
+
 }
 // Ende auswertung Post
 // Abfrage des aktuellen zustandes...
@@ -87,18 +87,18 @@ $registedRights = $o_right->getregisted();
 foreach ($registedRights as $k => $name)
 {
   // right, level, description, ok, cat
-  $data[$o_right->cat($name)][] = $name;     
-} 
-  
+  $data[$o_right->cat($name)][] = $name;
+}
+
 
 $content = "";
-foreach ($levels as $egal=>$aktlevel) 
+foreach ($levels as $egal=>$aktlevel)
 {
-   
+
   $content_c = "";
   foreach ($data as $cat=>$array)
   {
-  
+
     $content_r = "";
     foreach ($array as $k=>$name)
     {
@@ -106,33 +106,33 @@ foreach ($levels as $egal=>$aktlevel)
         "name" => $name,
         "level" => $aktlevel,
         "description" => $o_right->desc($name),
-        "checked" => $o_right->is($name, $aktlevel) ? "true" : "false"      
+        "checked" => $o_right->is($name, $aktlevel) ? "true" : "false"
       );
-    
+
       $content_r .= $site->getNode("Right", $tdata);
     }
 
-    
+
      $tdata = array(
       "name" => $cat,
-      "Rights" => $content_r    
-    );    
-    
+      "Rights" => $content_r
+    );
+
     $content_c .= $site->getNode("Categorie", $tdata);
-  
+
   }
-  
+
   $tdata = array(
    "level" => $aktlevel,
    "Categories" => $content_c
   );
-  
 
-  
+
+
   $content .= $site->getNode("LevelBox", $tdata);
 
 
-}   
+}
 
 $data = array(
   "Levels" => $content,
@@ -144,5 +144,5 @@ $site->setArray($data);
 
 
 $site->display();
-    
+
 ?>
