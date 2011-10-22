@@ -109,7 +109,7 @@ while ($row = mysql_fetch_object($erg))
         $neueHoehe=100;
         $neueBreite=intval($breite*$neueHoehe/$hoehe);
         
-        $img = '<img src="include/image.php?id='.$row->ID.'&source=usedpic" width="'.$neueBreite.'" height="'.$neueHoehe.'" onclick="del_a_pic('.$row->ID.')"> ';
+        $img = '<img src="include/image.php?id='.$row->ID.'&source=usedpic" width="'.$neueBreite.'" height="'.$neueHoehe.'" onclick="del_a_pic('.$row->ID.')" id="pic'.$row->ID.'"> ';
         
         
         if ($data == "")
@@ -127,16 +127,19 @@ while ($row = mysql_fetch_object($erg))
 
         function del_a_pic(id)
         {
-                $("#question").html("Möchten Sie das eben gewähle Element löschen?<br>"+
+                $(".picturelist img").css('border', '0px');
+                $("#pic"+id).css('border', '1px solid red');
+                $("#question").fadeOut().html("Möchten Sie das eben gewähle Element löschen?<br>"+
                 "<a href=\"#\" onclick=\" del_click("+id+"); return false;\">Ja</a>  "+
-                "<a href=\"#\" onclick=\" document.getElementById('question').innerHTML=''; return false;\">Nein</a>");
-        
+                "<a href=\"#\" onclick=\" document.getElementById('question').innerHTML=''; return false;\">Nein</a>").fadeIn();
+
+
         }
         
         function del_click(id)
         {
                 xajax_picturelist_delElement(id);
-                $("#question").html("");
+                $("#question").fadeOut().html("");
         
         
         }

@@ -751,7 +751,7 @@ class Xajax_Funktions
 		$neueHoehe=100;
 		$neueBreite=intval($breite*$neueHoehe/$hoehe);
 		
-		$img = '<img src="include/image.php?id='.$row->ID.'&source=usedpic" width="'.$neueBreite.'" height="'.$neueHoehe.'" onclick="del_a_pic('.$row->ID.')"> ';
+		$img = '<img src="include/image.php?id='.$row->ID.'&source=usedpic" width="'.$neueBreite.'" height="'.$neueHoehe.'" onclick="del_a_pic('.$row->ID.')" id="pic'.$row->ID.'"> ';
 		
 		
 		if ($data == "")
