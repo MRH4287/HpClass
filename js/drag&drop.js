@@ -1,21 +1,20 @@
 function getinfo(element)
 {
-var info = "";
+  var info = "";
 
-info += "id:="+element.attr('id');
-info += "<!--!>";
-info += "innerHTML:="+element.html();
-info += "<!--!>";
-info += "className:="+element.attr('class');
+  info += "id:="+element.attr('id');
+  info += "<!--!>";
+  info += "innerHTML:="+element.html();
+  info += "<!--!>";
+  info += "className:="+element.attr('class');
 
-return info;
+  return info;
 
 }
 
 
 function createWidgetBox(holderT, key, value)
 {
-//alert("Widget erstellen: "+key+" "+holderT+" "+value);
 
   var holder = document.getElementById(holderT);
 
@@ -74,30 +73,25 @@ function setAsDropBox(id)
 
 function widgetDropEvent(dropper, drag, infon, info_droppable)
 {
-killElement(drag);
+  killElement(drag);
 
 
-xajax_dragevent(dropper, drag, infon, info_droppable);
-//xajax_reloadWidgets();
+  xajax_dragevent(dropper, drag, infon, info_droppable);
+  //xajax_reloadWidgets();
 
 }
 
 
 function widgetDeletDropEvent(dropper, drag, infon, info_droppable)
 {
-killElement(drag);
-xajax_widget_del(dropper, drag, infon, info_droppable);
-xajax_reloadWidgets();
+  killElement(drag);
+  xajax_widget_del(dropper, drag, infon, info_droppable);
+  xajax_reloadWidgets();
 
 }
 
 
 function killElement(key)
 {
-var element = document.getElementById(key);
- 	 if (element != null)
- 	 {
- 	 var papa = element.parentNode;
-   if (papa) papa.removeChild(element);
-   }
+  $('#'+key).remove();
 }
