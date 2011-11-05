@@ -45,6 +45,7 @@
   <input type="hidden" name="levelcount" value="#!levelcount#">
   <input type="submit" value="Abschicken" name="sub">
 </form>
+
 [!/Main!]
 
 
@@ -86,10 +87,10 @@
 
 [!=Right!]
 
-	<tr class="pluginLine" onclick="$('#!level#-#!name#').checked = ! $('#!level#-#!name#').checked;">
+	<tr class="pluginLine">
 	
 		<td>#!name#</td>
-		<td>#!description#</td>
+		<td><label for="#!level#-#!name#">#!description#</label></td>
 		<td><input type="checkbox" id="#!level#-#!name#" name="right#!level#[]" value="#!name#" #?:checked : "checked=checked" : ""# /></td>
 	
 	</tr>
