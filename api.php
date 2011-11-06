@@ -17,6 +17,7 @@ require_once 'include/class_subpages.php';
 require_once 'include/class_pluginloader.php';
 require_once "include/base/SiteTemplate.php";
 require_once "include/base/subpageTemplate.php";
+require_once "include/base/pluginTemplate.php";
 
 require 'include/api/key.php';
 
