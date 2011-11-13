@@ -13,7 +13,7 @@ function __construct($hp, $loader)
   // -----------------------------------------------
 
   // Der Name des Plugins:
-  $this->name = "Forum";
+  $this->name = "Forum - Old";
 
   // Die Version des Plugins:
   $this->version = "1.0.0";
@@ -24,7 +24,7 @@ function __construct($hp, $loader)
   //Die Homepage des Autors:
   $this->homepage = "mrh.hes-technic.de";
 
-
+  $this->notes = "<b>DEPRECATED -</b> Unsupported since V2.5.0";
 
   //------------------------------------------------
 
@@ -40,6 +40,11 @@ z.B. Datenbank Aufrufe, Datei Aufrufe, etc.
 */
 function onEnable()
 {
+
+  // Disabled
+  return false;
+
+
    $right = $this->hp->right;
 
    $rights = array(

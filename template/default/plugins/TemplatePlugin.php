@@ -54,6 +54,16 @@ $hp = $this->hp;
 
 }
 
+/*
+
+Wird aufgerufen, wenn die Seite komplette aufgebaut wurde.
+
+*/
+function OnSiteCreated()
+{
+
+}
+
 
 /*
 

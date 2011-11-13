@@ -58,6 +58,17 @@ abstract class Plugin
 
 
   }
+  
+  function OnSiteCreated()
+  {
+
+    // Leerer Funktionsrumpf
+    // Warnen, sollte diese Funktion nicht überschrieben worden sein:
+    echo "<b>Warning:</b> Die Funktion 'OnSiteCreated' wurde im Plugin '".$this->name."' nicht überschrieben! <br />";
+
+
+
+  }
 
   public function setConfig($config)
   {

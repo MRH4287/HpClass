@@ -123,6 +123,9 @@ $temp->settemplate($template);
 //--------------------------------Xajax Request--------------------------------
 $xajaxF->processRequest();
 
+// ---------------------------- Plugin System ---------------------------------
+$pluginloader->OnSiteCreated();
+
 
 // 4. Ausgeben des Headers
 echo $temp->gettemp('header');

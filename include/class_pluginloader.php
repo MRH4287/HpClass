@@ -58,6 +58,24 @@ class PluginLoader  extends Api
 
   }
 
+  /*
+  
+  Führt OnSiteCreated aus
+  
+  */
+  function OnSiteCreated()
+  {
+  
+    foreach ($this->plugins as $name=>$data)
+    {
+      if ($data["enabled"] == true)
+      {
+        $data["o"]->OnSiteCreated();
+      }
+    }
+
+  }
+
 
   /*
 
@@ -192,7 +210,10 @@ class PluginLoader  extends Api
           $config = array();
         }
         $data["o"]->setConfig($config);
-        $data["o"]->OnEnable();
+        if ($data["o"]->OnEnable() === false)
+        {
+          $this->disablePlugin($name);
+        }
       }
     }
 

@@ -36,7 +36,7 @@ Lade alle für das System relevanten Daten.
 z.B. Datenbank Aufrufe, Datei Aufrufe, etc.
 
 */
-function onEnable()
+function OnEnable()
 {
   $this->loader->registerApiFunctions($this);
 
@@ -49,7 +49,12 @@ Hier werden die eigentlichen Aufgaben des Plugins erledigt.
 Wie zum Beispiel das hinzufügen von Weiterleitungen.
 
 */
-function onLoad()
+function OnLoad()
+{
+
+}
+
+function OnSiteCreated()
 {
 
 }
