@@ -25,15 +25,24 @@ var $error = array();
 
 function __construct()
 {
-include "../include/config.php";
+  include "../include/config.php";
 
-$this->host =  $dbserver;
-$this->user = $dbuser;
-$this->password = $dbpass;
-$this->db = $dbdatenbank;
-$this->prefix = $dbprefix;
+  $this->host =  $dbserver;
+  $this->user = $dbuser;
+  $this->password = $dbpass;
+  $this->db = $dbdatenbank;
 
-$this->connect();
+  if (isset($dbprefix))
+  {
+    $this->prefix = $dbprefix;
+    
+  } elseif (isset($dbpräfix))
+  {
+    $this->prefix = $dbpräfix;
+  }
+
+
+  $this->connect();
 }
 
 //------------------------------------------------------------------
