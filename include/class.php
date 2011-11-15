@@ -662,11 +662,11 @@ class HP
   {
 
     $reg = "(<[\s]*[sS][cC][rR][iI][pP][tT][^>]*>)";
-    $reg2 = "/[oO][nN][lL][oO][aA][dD]=\"[^\"]*\"/";
-    $reg3 = "/[oO][nN][cC][lL][iI][cC][kK]=\"[^\"]*\"/";
-    $reg4 = "/[oO][nN][mM][oO][uU][sS][eE][oO][vV][eE][rR]=\"[^\"]*\"/";
-    $reg4 = "/[oO][nN][mM][oO][uU][sS][eE][dD][oO][wW][nN]=\"[^\"]*\"/";
-    $reg5 = "/\s[hH][rR][eE][fF]\=([^\s^\"^\>]+)[\s|>]/";
+    $reg2 = "/[oO][nN][lL][oO][aA][dD]=\\\"[^\\\"]*\\\"/";
+    $reg3 = "/[oO][nN][cC][lL][iI][cC][kK]=\\\"[^\\\"]*\\\"/";
+    $reg4 = "/[oO][nN][mM][oO][uU][sS][eE][oO][vV][eE][rR]=\\\"[^\\\"]*\\\"/";
+    $reg4 = "/[oO][nN][mM][oO][uU][sS][eE][dD][oO][wW][nN]=\\\"[^\\\"]*\\\"/";
+    $reg5 = "/\s[hH][rR][eE][fF]=([^\s^\\\"^\>]+)[\s|>]/";
     $reg6 = "/\\\"[\w]*[jJ][aA][vV][aA][sS][cC][rR][iI][pP][tT]\\:[^\\\"]*\\\"/";
 
 
