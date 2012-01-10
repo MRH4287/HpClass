@@ -161,7 +161,7 @@ $lang['eng'] = array(
     "kberechdeanwae" => "You do not have the necessary authority to reject members!",
 
     // user-eng
-    "lastlogin" => "LAst Login",
+    "lastlogin" => "Last Login",
 
     // de-eng-default
     // download-de

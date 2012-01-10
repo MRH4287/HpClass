@@ -224,7 +224,7 @@ class lang implements arrayaccess
             while (false !== ($file = @readdir($handle))) 
             {
                 $n= explode(".", $file);
-                $art = strtolower($n[$n[count($n) -1]]);
+                $art = strtolower($n[count($n) -1]);
 
                 if ($art == "php")
                 {
@@ -237,7 +237,7 @@ class lang implements arrayaccess
                 }
             }
 
-            if (is_array($this->lang[$this->clang]))
+            if (isset($this->lang[$this->clang]) && is_array($this->lang[$this->clang]))
             {
                 foreach ($this->lang[$this->clang] as $key=>$value) 
                 {

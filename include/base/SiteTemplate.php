@@ -105,8 +105,8 @@ class siteTemplate
     if (!file_exists($path))
     {
       $error->error("Template not found! ($path)");
-	  $this->error = true;
-	  return;
+      $this->error = true;
+      return;
 
     }
     // Laden der Datei
@@ -122,12 +122,12 @@ class siteTemplate
 
       if (preg_match("/\#\!\!NAME=(.*)/", $line, $m))
        {
-    	   $this->name = $m[1];
+           $this->name = $m[1];
        }
 
        if (preg_match("/\#\!\!AUTOR=(.*)/", $line, $m))
        {
-    	   $this->autor = $m[1];
+           $this->autor = $m[1];
        }
 
     }
@@ -187,8 +187,8 @@ class siteTemplate
     $result = array();
 
       // Herausfiltern der Platzhalter:
-    	if (preg_match_all("/#".((!$trust) ? "\\" : "").$key."[^\#]*#/", $content, $m2))
-    	{
+        if (preg_match_all("/#".((!$trust) ? "\\" : "").$key."[^\#]*#/", $content, $m2))
+        {
         foreach ($m2 as $k=>$data)
         {
           foreach ($data as $key2 => $placeholder)
@@ -318,12 +318,12 @@ class siteTemplate
       if (preg_match('/(?<![: @a-zA-Z0-9])([^\(^\)^:]*)\((.*)\)/', $word, $m))
       {
         $split = explode(", ", $m[2]);
-		$sp = array($m[1]);
-		foreach($split as $k=>$v)
-		{
-		  $sp[] = $v;
-		}
-		$split = $sp;
+        $sp = array($m[1]);
+        foreach($split as $k=>$v)
+        {
+          $sp[] = $v;
+        }
+        $split = $sp;
 
       } else
       {
@@ -847,10 +847,10 @@ class siteTemplate
   public function get($node = null)
   {
 
-	if ($this->error)
-	{
-	  return "<b>Error Occured</b>";
-	}
+    if ($this->error)
+    {
+      return "<b>Error Occured</b>";
+    }
 
     $ok = false;
     $nr = $this->neededRight;
@@ -924,7 +924,7 @@ class siteTemplate
         {
           $name = $split[1];
 
-        	$array = array(
+            $array = array(
            "name" => $name,
            "func" => $value,
            "obj" => $ext
@@ -948,7 +948,7 @@ class siteTemplate
 
     foreach($args as $k=>$v)
     {
-      $value .= (is_string($v)) ? $v : (is_array($v) ? "[Array]" : (is_bool($v) ? $v : (is_object($v) ? "[Object]" : "[Unknown]")));
+        $value .= (is_string($v)) ? $v : (is_array($v) ? "[Array]" : (is_bool($v) ? $v : (is_object($v) ? "[Object]" : $v)));
     }
     return $value;
  }
