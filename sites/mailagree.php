@@ -13,7 +13,7 @@ $info = $hp->getinfo();
 
   $site = new siteTemplate($hp);
   $site->load("info");
-  $site->set("info", "Diese Seite wird aufgerufen, wenn sich ein neuer Benutzer anmeldet.<br>Normalerweiße enthält diese Seite keine Informationen.");
+  $site->set("info", $lang['Sie haben nicht die benötigte Berechtigung!']);
 
   if (isset($get['user']) and isset($get['code']))
   {
@@ -38,7 +38,7 @@ $info = $hp->getinfo();
 
     if ($codeg != $code)
     {
-      $site->set("info", "<br>Der angegebene Sicherheitscode stimmt nicht überein!<br>Falls dies ein Systemfehler ist, wenden Sie sich bitte an einen der Administratoren!");
+      $site->set("info", $lang['Der angegebene Sicherheitscode stimmt nicht überein!']);
     } else
     {
       if (isset($user) and ($user != ""))
@@ -54,7 +54,7 @@ $info = $hp->getinfo();
 
         if (($eintragen1 == true) and ($eintragen2 == true))
         {
-           $site->set("info", "<br>Vielen Dank,<br>Ihre Registration wurde erfolgreich abgeschlossen!");
+           $site->set("info", "<br>".$lang['Vielen Dank'].",<br>".$lang['Ihre Registration wurde erfolgreich abgeschlossen']."!");
 
           foreach ($hp->superadmin as $key=>$superadmin)
           {
@@ -63,12 +63,12 @@ $info = $hp->getinfo();
 
         } else
         {
-        $site->set("info", "Fehler: <br>Melden Sie sich bitte umgehen bei dem zuständigem Administrator! <br>".mysql_error());
+        $site->set("info", $lang['error'].": <br>Melden Sie sich bitte umgehen bei dem zuständigem Administrator! <br>".mysql_error());
         }
 
       } else
       {
-       $site->set("info", "Ihre E-Mailadresse wurde bereits verifiziert!");
+       $site->set("info", $lang["Ihre E-Mailadresse wurde bereits verifiziert!"]);
       }
 
     }

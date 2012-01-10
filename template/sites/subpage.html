@@ -21,14 +21,14 @@ border:thin black inset;
 #@include("utilities", "TinyMCEInit")#
 
 <div class="subpage_container">
-<h3 style="text-align:center">Unterseiten Editor</h3>
+<h3 style="text-align:center">#%Unterseiten Verwalten#</h3>
 
 <form action="?site=subpage" method="POST">
 
-<p>Unterseiten Name:</p>
+<p>#%name#:</p>
 <p> <input name="subpage_name" type="text" value="#!subpage_name#"  #?:edit : "DISABLED"#  pattern="[^ä^ö^ü^ß]*" title="Name ohne die Zeichen &uuml; &ouml; &auml; und &szlig;" /></p>
 
-<p>Template Name:</p>
+<p>#%Template Name#:</p>
 <p>
 
 #!TemplateSelector#
@@ -67,9 +67,9 @@ border:thin black inset;
 #/ Für die Zuweisung zu den Unterseiten (wegen Navigation) #
 [!=SubpageSelector!]
 
-<p>Zugewiesene Unterseite:</p>
+<p>#%Zugewiesene Unterseite#:</p>
 <p><select name="subpage">#!SubpageOptions#</select></p>
-<p>Kategorie:</p>
+<p>#%Kategorie#:</p>
 <p><input type="text" name="subpageKat" value="#!SubpageKat#"/></p>
 [!/SubpageSelector!]
 
@@ -79,8 +79,8 @@ border:thin black inset;
 <!--       Unterseiten          -->
 [!=Menu!]
 
-<a href="?site=subpage&new">Eine neue Unterseite erstellen</a><br>
-<a href="?site=subpage&list">Liste der Vorhandenen Unterseiten</a>
+<a href="?site=subpage&new">#%Eine neue Unterseite erstellen#</a><br>
+<a href="?site=subpage&list">#%Liste der Vorhandenen Unterseiten#</a>
 
 [!/Menu!]
 
@@ -92,8 +92,8 @@ border:thin black inset;
     <table border="0" width="100%">
 
 	<tr class="pluginHeadline">
-		<td>Name</td>
-		<td>Template</td>
+		<td>#%name#</td>
+		<td>#%Template#</td>
 		<td width="20%" align="center"></td>
 	</tr>
 	
@@ -106,20 +106,20 @@ border:thin black inset;
 [!/List!]
 
 [!=List-Subpage-Edit!]
-<a href=?site=subpage&new&sub&subID=#!subID#>Neue Unterseite hinzufügen</a>
+<a href=?site=subpage&new&sub&subID=#!subID#>#%Eine neue Unterseite erstellen#</a>
 [!/List-Subpage-Edit!]
 
 [!=List_Element!]
 	<tr class="pluginLine">
 		<td>#!name#</td>
 		<td>#!template#</td>
-		<td width="10%" align="center">#?:hasChilds : !List-Element-Subpage#<a href="?site=subpage&edit=#!name#"><img src="images/edit.gif" alt="Edit"></a><a href="?site=subpage&del=#!ID#"><img src="images/abort.gif" alt="Löschen"></a></td>
+		<td width="10%" align="center">#?:hasChilds : !List-Element-Subpage#<a href="?site=subpage&edit=#!name#"><img src="images/edit.gif" alt="#%edit#"></a><a href="?site=subpage&del=#!ID#"><img src="images/abort.gif" alt="#%delet#"></a></td>
 	</tr>
 
 [!/List_Element!]
 
 [!=List-Element-Subpage!]
- <a href="?site=subpage&list&sub=#!ID#" title="Unterseiten bearbeiten"><img src="images/info.gif" alt="Unterseiten bearbeiten"></a>
+ <a href="?site=subpage&list&sub=#!ID#" title="#%Unterseiten bearbeiten#"><img src="images/info.gif" alt="#%Unterseiten bearbeiten#"></a>
 
 [!/List-Element-Subpage!]
 

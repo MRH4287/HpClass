@@ -82,6 +82,10 @@ class lang implements arrayaccess
                 return "<-$word->";
             } else
             {
+                //echo "<pre>";
+                //print_r($this->lang[$clang]);
+                //echo "</pre>";
+                
                 return "<-!->";
             }
         }

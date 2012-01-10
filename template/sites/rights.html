@@ -36,14 +36,14 @@
 <form method="POST" action="index.php?site=rights">
 
 <div class="ConfigContainer">
-<div class="ConfigHeader"><h1>Rechte-Verwaltung</h1></div>
+<div class="ConfigHeader"><h1>#%Rechte-Verwaltung#</h1></div>
 
 #!Levels#
 
 </div>
 
   <input type="hidden" name="levelcount" value="#!levelcount#">
-  <input type="submit" value="Abschicken" name="sub">
+  <input type="submit" value="#%send#" name="sub">
 </form>
 
 [!/Main!]
@@ -53,7 +53,7 @@
 
 
 <div class="ConfigLevelBox">
-<h2>Level #!level#:</h2>
+<h2>#%Level# #!level#:</h2>
 <hr>
  
  #!Categories#
@@ -67,17 +67,14 @@
 
 [!=Categorie!]
 
-<b>Kategorie: #!name#</b>  <br /><br />
+<b>#%Kategorie#: #!name#</b>  <br /><br />
 <table border="0" width="80%">
 	<tr>
-		<th class="auto-style1" width=200>Name</th>
-		<th class="auto-style1">Beschreibung</th>
-		<th class="auto-style1" width=50>Berechtigung</th>	
+		<th class="auto-style1" width=200>#%name#</th>
+		<th class="auto-style1">#%description#</th>
+		<th class="auto-style1" width=50>#%Aktiviert#</th>	
 	</tr>
 
-
-	
-	
 	#!Rights#
 
  </table>

@@ -4,9 +4,9 @@
 
 [!=Main!]
 
-<h1>Umfragen</h1>
+<h1>#%Umfragen#</h1>
 <br />
-<a href=index.php?site=vote&addvote>Neue Umfrage</a><br />
+<a href=index.php?site=vote&addvote>#%Neue Umfrage#</a><br />
 <hr />
 #!Votes#
 
@@ -29,16 +29,16 @@
 <table width="100%" border="0">
   <tr>
     <td width="5%">&nbsp;</td>
-    <td width="14%"><strong>#?:update : "Umfrage bearbeiten:" : "Neue Umfrage starten:"#</strong></td>
+    <td width="14%"><strong>#?:update : @echo(%Umfrage bearbeiten, ":") : @echo(%Neue Umfrage starten, ":")#</strong></td>
     <td width="15%"></td>
   </tr>
   <tr>
-    <td>Titel</td>
+    <td>#%titel#</td>
     <td><input type="text" name="titel" id="titel"  size="50" value="#!titel#"  onchange="checkvote(#?:update : "true" : "false"#)"/></td>
-    <td><div id="titelwarn">Bitte Geben Sie einen Titel ein.</div></td>
+    <td><div id="titelwarn">#%Bitte Geben Sie einen Titel ein#.</div></td>
   </tr>
   <tr>
-    <td>Antworten:</td>
+    <td>#%antworten#:</td>
     <td>
     <table width="100%" border="0" id="answers">
       #!Answers#
@@ -50,10 +50,10 @@
     #?:update : "" : !Edit-MehrAntworten#
     
     <img src="images/add.gif"  onClick="addanswer()"><hr /></td>
-    <td><div id="answerwarn">Bitte Geben Sie mindestens 2 Antworten an.</div></td>
+    <td><div id="answerwarn">#%Bitte Geben Sie mindestens 2 Antworten an#.</div></td>
   </tr>
   <tr>
-    <td>Gültig bis:</td>
+    <td>#%Gültig bis#:</td>
     <td>
   
     <input type="hidden" name="day" id="day" size="2" maxlength="2" value="#!tag#" onchange="checkvote(#?:update : "true" : "false"#)"  />
@@ -62,15 +62,15 @@
        <input type="hidden" name="hour" id="hour" size="2" maxlength="2" value="00"  onchange="checkvote(#?:update : "true" : "false"#)"/>
         <input type="hidden" name="min" id="min" size="2" maxlength="2" value="00"  onchange="checkvote(#?:update : "true" : "false"#)"/>
         <div id="kalender_vote" align="center"></div></td>
-      <td><div id="datewarn">Überprüfen Sie die Eingaben</div>
-      <br>Aktuelle Auswahl: <div id="aktdate">#!tag#.#!monat#.#!year#</div></td>
+      <td><div id="datewarn">#%Überprüfen Sie die Eingaben#</div>
+      <br>#%Aktuelle Auswahl#: <div id="aktdate">#!tag#.#!monat#.#!year#</div></td>
   
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td><div id="post">Bitte beachten Sie die Meldungen</div>
+    <td><div id="post">#%Bitte beachten Sie die Meldungen#</div>
     <input type="hidden" value="#!ID#" name="ID">
-    <noscript><br>Überprüfung deaktiviert:<br><input type="submit" name="addvote" id="post" value="Senden" /></noscript></td> <!--<input type="submit" name="button" id="button" value="Senden" />-->
+    <noscript><br>#%Überprüfung deaktiviert#:<br><input type="submit" name="addvote" id="post" value="#%send#" /></noscript></td>
     <td></td>
   </tr>
 </table>
@@ -150,8 +150,8 @@
         #!content#
       
       
-      <p>Bereits <strong> #!votes# </strong>Stimmen abgegeben.<br />
-       <input type="button" onclick="xajax_vote_result(#!ID#)" value="Ergebnisse"></p>
+      <p>#@printf : %Bereits %s Stimmen abgegeben : @echo("<strong>", votes, "</strong>")#.<br />
+       <input type="button" onclick="xajax_vote_result(#!ID#)" value="#%Ergebnisse#"></p>
       </div>  
       </td>
     </tr>
@@ -167,7 +167,7 @@
         #!votes#
         </table>      
         <p>
-          #?login : !Vote-DoVote : "<b>Zum Abstimmen müssen Sie sich einloggen!</b>"#
+          #?login : !Vote-DoVote : "<b>#%Zum Abstimmen müssen Sie sich einloggen#!</b>"#
         </p>
 </div>
 
@@ -182,8 +182,8 @@
      <table width="160">
       <tr>
        <td>
-       <a href="index.php?site=vote&editvote=#!ID#">Bearbeiten</a> \ 
-        <a href="index.php?lbsite=delvote&vars=#!ID#" class="lbOn">Löschen</a>
+       <a href="index.php?site=vote&editvote=#!ID#">#%edit#</a> \ 
+        <a href="index.php?lbsite=delvote&vars=#!ID#" class="lbOn">#%delet#</a>
        </td> 
       </tr>
       </table> 
@@ -200,17 +200,17 @@
 
 
 [!=Vote-DoVote!]
-          <input type="submit" name="button" id="button" value="Senden" onclick="postvote('#!ID#');" />
+          <input type="submit" name="button" id="button" value="#%send#" onclick="postvote('#!ID#');" />
           <input type="hidden" name="vote" id="vote#!ID#" />
 
 [!/Vote-DoVote!]
 
 [!=Vote-Out!]
- <br><center><img src=images/alert.gif><br>Abstimmung abgelaufen</center><br>
+ <br><center><img src=images/alert.gif><br>#%Abstimmung abgelaufen#</center><br>
 [!/Vote-Out!]
 
 [!=Vote-Voted!]
- <br><center><img src=images/alert.gif><br>Bereits abgestimmt</center><br>
+ <br><center><img src=images/alert.gif><br>#%Bereits abgestimmt#</center><br>
 [!/Vote-Voted!]
 
 
@@ -226,7 +226,8 @@
         </table>
         <br />
         <center>
-  Basierend auf #!count# Stimmen</center>
+            #@printf : %Basierend auf %s Stimmen : count#
+        </center>
         
 [!/Vote-Erg-View!]
 
@@ -245,19 +246,19 @@
 
 [!=LbSite-Del!]
 
-  <p id="highlight">Möchten Sie die Umfrage wirklich entfernen?</p>
+  <p id="highlight">#%Möchten Sie die Umfrage wirklich entfernen?#</p>
   <table width="100%">
   <tr valign="bottom">
   <td>
   <form method="POST" action="index.php?site=vote">
-    <p align="center"><input type="hidden" name="voteiddel" size="3" value="#!vars#"><input type="submit" value="Löschen" name="votedel"></form>
+    <p align="center"><input type="hidden" name="voteiddel" size="3" value="#!vars#"><input type="submit" value="#%delet#" name="votedel"></form>
   </td>
   <td>
   </td>
   </tr>
   </table>
-  <b>ID:</b> #!ID#<br>
-  <b>Titel:</b> #!name#<br>
+  <b>#%ID#:</b> #!ID#<br>
+  <b>#%titel#:</b> #!name#<br>
   <b>
   
 

@@ -217,10 +217,6 @@ $lang['de'] = array(
     // profil-eng
     'newpw' => 'Neues Passwort',
 
-    // user-de
-    // user-eng
-    'nick' => 'Nickname',
-
     // de-eng-default
     'no' => 'Nein',
 
@@ -404,6 +400,7 @@ $lang['de'] = array(
     'Benutzte Bilder' => 'Benutzte Bilder',
     'Unterseiten Verwalten' => 'Unterseiten Verwalten',
     'Rechte' => 'Rechte',
+    'Rechte-Verwaltung' => 'Rechte-Verwaltung',
     'Konfiguration' => 'Konfiguration',
     'Plugin System' => 'Plugin System',
     'Widget System' => 'Widget System',
@@ -449,6 +446,95 @@ $lang['de'] = array(
     'Dieser Kalender-Eintrag exsistiert nicht!' => 'Dieser Kalender-Eintrag exsistiert nicht!',
     'Erfolgreich aktualisiert' => 'Erfolgreich aktualisiert',
     'Event erfolgreich gelöscht' => 'Event erfolgreich gelöscht', 
+    'Kategorie' => 'Kategorie',
+    'Einstellung' => 'Einstellung',
+    'Download-Bereich' => 'Download-Bereich',
+    'Page not found' => 'Page not found',
+    'Bitte Geben Sie zur überprüfung folgende Daten ein' => 'Bitte Geben Sie zur überprüfung folgende Daten ein',
+    'Bitte geben Sie ihr Passwort ein' => 'Bitte geben Sie ihr Passwort ein',
+    'Passwort bestätigung' => 'Passwort bestätigung',
+    // l10n:    %s -> date | geschrieben am 15.02.12
+    'geschrieben am %s' => 'geschrieben am %s',
+    'Überschrift' => 'Überschrift',
+    'Level' => 'Level',
+    'Die Berechtigungen können in der Seite "Rechte" geändert werden' => 'Die Berechtigungen können in der Seite "Rechte" geändert werden',
+    'Level 0 bedeutet öffentlich' => 'Level 0 bedeutet öffentlich',
+    'Picture List öffnen' => 'Picture List öffnen',
+    'Picture List' => 'Picture List',
+    'Möchten Sie die Newsmeldung wirklich löschen?' => 'Möchten Sie die Newsmeldung wirklich löschen?',
+    'Ersteller' => 'Ersteller',
+    'Version' => 'Version',
+    // l10n:    Information: Test
+    'Information' => 'Information',
+    // l10n:    <img src="./images/lock.gif" alt="lock" width="12" height="12">
+    'Plugins, die mit einem %s makiert sind, können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template, eingebunden wurde.' => 'Plugins, die mit einem %s makiert sind, können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template, eingebunden wurde.',
+    'Check all' => 'Check all',
+    'Uncheck all' => 'Uncheck all',
+    'Als gelesen makieren' => 'Als gelesen makieren',
+    'Registrierung' => 'Registrierung',
+    'Geschlecht' => 'Geschlecht',
+    'Männlich' => 'Männlich',
+    'Weiblich' => 'Weiblich',
+    'Pflichtfeld' => 'Pflichtfeld',
+    'Maximal 20 Zeichen' => 'Maximal 20 Zeichen',
+    'Mindestens 4 Zeichen' => 'Mindestens 4 Zeichen',
+    'Template Name' => 'Template Name',
+    'Zugewiesene Unterseite' => 'Zugewiesene Unterseite',
+    'Eine neue Unterseite erstellen' => 'Eine neue Unterseite erstellen',
+    'Liste der Vorhandenen Unterseiten' => 'Liste der Vorhandenen Unterseiten',
+    'Template' => 'Template',
+    'Unterseiten bearbeiten' => 'Unterseiten bearbeiten',
+    'Datei-Manager' => 'Datei-Manager',
+    'Dateien bearbeiten' => 'Dateien bearbeiten',
+    'Datei hochladen' => 'Datei hochladen',
+    'Kategorie erstellen' => 'Kategorie erstellen',
+    'Kategorien bearbeiten' => 'Kategorien bearbeiten',
+    // l10n:    Hochladen als: Admin
+    'Hochladen als' => 'Hochladen als',
+    'Verändern von Dateien nicht möglich!' => 'Verändern von Dateien nicht möglich!',
+    'Benutzer' => 'Benutzer',
+    // l10n:    %s -> Username | Profil von Admin
+    'Profil von %s' => 'Profil von %s',
+    'Benutzerinformation' => 'Benutzerinformation',
+    'System' => 'System',
+    'Neue Umfrage' => 'Neue Umfrage',
+    'Umfrage bearbeiten' => 'Umfrage bearbeiten',
+    'Neue Umfrage starten' => 'Neue Umfrage starten',
+    'Bitte Geben Sie einen Titel ein' => 'Bitte Geben Sie einen Titel ein',
+    'Bitte Geben Sie mindestens 2 Antworten an' => 'Bitte Geben Sie mindestens 2 Antworten an',
+    'Überprüfen Sie die Eingaben' => 'Überprüfen Sie die Eingaben',
+    // l10n:    Aktuelle Auswahl: 15.02.2012
+    'Aktuelle Auswahl' => 'Aktuelle Auswahl',
+    'Bitte beachten Sie die Meldungen' => 'Bitte beachten Sie die Meldungen',
+    // l10n:    vote - noscript
+    'Überprüfung deaktiviert' => 'Überprüfung deaktiviert',
+    // l10n:    %s -> Number of Votes
+    'Bereits %s Stimmen abgegeben' => 'Bereits %s Stimmen abgegeben',
+    'Ergebnisse' => 'Ergebnisse',
+    'Zum Abstimmen müssen Sie sich einloggen' => 'Zum Abstimmen müssen Sie sich einloggen',
+    'Abstimmung abgelaufen' => 'Abstimmung abgelaufen',
+    'Bereits abgestimmt' => 'Bereits abgestimmt',
+    // l10n:    %s -> Count of Votes
+    'Basierend auf %s Stimmen' => 'Basierend auf %s Stimmen',
+    'Möchten Sie die Umfrage wirklich entfernen?' => 'Möchten Sie die Umfrage wirklich entfernen?',
+    'Gültig bis' => 'Gültig bis',
+    'Möchten Sie die Datei wirklick löschen?' => 'Möchten Sie die Datei wirklick löschen?',
+    'Die gewünschte Datei exsistiert nicht!' => 'Die gewünschte Datei exsistiert nicht!',
+    'Diese Seite kann nur direkt aufgerufen werden!' => 'Diese Seite kann nur direkt aufgerufen werden!',
+    'Der angegebene Code scheint schon benutzt worden sein oder ist abgelaufen!' => 'Der angegebene Code scheint schon benutzt worden sein oder ist abgelaufen!',
+    'Die angegebenen Passwörter stimmen nicht überein!' => 'Die angegebenen Passwörter stimmen nicht überein!',
+    'Passwort erfolgreich geändert!' => 'Passwort erfolgreich geändert!',
+    'Benutzername nicht vorhanden' => 'Benutzername nicht vorhanden',
+    'Die Kontaktemail Adresse ist falsch' => 'Die Kontaktemail Adresse ist falsch',
+    'Der angegebene Sicherheitscode stimmt nicht überein!' => 'Der angegebene Sicherheitscode stimmt nicht überein!',
+    'Ihre Registration wurde erfolgreich abgeschlossen' => 'Ihre Registration wurde erfolgreich abgeschlossen',
+    'Vielen Dank' => 'Vielen Dank',
+    'Ihre E-Mailadresse wurde bereits verifiziert!' => 'Ihre E-Mailadresse wurde bereits verifiziert!',
+    
+    
+    
+    
+    
     
     '' => ''
 

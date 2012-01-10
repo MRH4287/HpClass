@@ -40,7 +40,7 @@ if (isset($get['change']))
 
   } else
   {
-    $error->error("Der angegebene Code schon benutzt worden oder ist bereits abgelaufen!", "1");
+    $error->error($lang["Der angegebene Code scheint schon benutzt worden sein oder ist abgelaufen!"], "1");
   }
 
 } else if (isset($post['change']))
@@ -52,12 +52,12 @@ if (isset($get['change']))
   $erg = $hp->mysqlquery($sql);
   $row = mysql_fetch_object($erg);
 
-  $pw = $post['pw'];
+  $pw = 'pw_'.$post['pw'];
   $pw2 = $post['pw2'];
 
   if ($pw != $pw2)
   {
-    $error->error("Die angegebenen Passwörter stimmen nicht überein!", "1");
+    $error->error($lang["Die angegebenen Passwörter stimmen nicht überein!"], "1");
 
   } else
   {
@@ -70,7 +70,7 @@ if (isset($get['change']))
 
      $site = new siteTemplate($hp);
      $site->load("info");
-     $site->set("info", "Passwort erfolgreich geändert!");
+     $site->set("info", $lang["Passwort erfolgreich geändert!"]);
      $site->display();
 
    }
@@ -91,8 +91,8 @@ if (isset($get['change']))
     $site = new siteTemplate($hp);
     $site->load("info");
 
-    $site->set("info", "Fehler: Benutzername nicht vorhanden!<br><a href=?site=lostpw>zurück</a>");
-    $error->error("Benutzername nicht vorhanden!");
+    $site->set("info", $lang['error'].": ".$lang['Benutzername nicht vorhanden']."!<br><a href=?site=lostpw>".$lang['back']."</a>");
+    $error->error($lang['Benutzername nicht vorhanden'].'!');
     $site->display();
 
   } elseif ($mail != $row->email)
@@ -100,8 +100,8 @@ if (isset($get['change']))
     $site = new siteTemplate($hp);
     $site->load("info");
 
-    $site->set("info", "Fehler: Die Kontaktemail Adresse ist falsch!<br><a href=?site=lostpw>zurück</a>");
-    $error->error("Die Kontaktemail Adresse ist falsch!");
+    $site->set("info", $lang['error'].": ".$lang['Die Kontaktemail Adresse ist falsch']."!<br><a href=?site=lostpw>".$lang['back']."</a>");
+    $error->error($lang['Die Kontaktemail Adresse ist falsch']."!");
     $site->display();
 
   } else

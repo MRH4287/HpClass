@@ -57,7 +57,7 @@ if (!$right[$level]["see_downloadPage"])
 } elseif (isset ($get['del']) and $right[$level]['upload_del'])
 {
   $del = $get['del'];
-$info->info("Möchten Sie die Datei wirklick löschen? <a href=index.php?site=download&del2=$del>Ja</a> <a href=index.php>Nein</a>");
+$info->info($lang["Möchten Sie die Datei wirklick löschen?"]." <a href=index.php?site=download&del2=$del>".$lang['yes']."</a> <a href=index.php>".$lang['no']."</a>");
 } else
 {
   if (!isset($get['id']))
@@ -151,10 +151,10 @@ $info->info("Möchten Sie die Datei wirklick löschen? <a href=index.php?site=down
     {
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", "Die gewünschte Datei exsistiert nicht!<br><a href=?site=download>Download</a>");
+      $site->set("info", $lang["Die gewünschte Datei exsistiert nicht!"]."<br><a href=?site=download>".$lang['Download-Bereich']."</a>");
       $site->display();
 
-      $error->error("Die gewünschte Datei exsistiert nicht!");
+      $error->error($lang["Die gewünschte Datei exsistiert nicht!"]);
 
     }
   }

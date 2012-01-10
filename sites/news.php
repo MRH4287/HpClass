@@ -178,12 +178,12 @@ $site->load("news");
     {
      if ($right[$level]['newsedit'])
      {
-       $data["EditNews"] = '<a href="index.php?lbsite=newschange&vars='.$row->ID.'" class="lbOn">Bearbeiten</a> ';
+       $data["EditNews"] = '<a href="index.php?lbsite=newschange&vars='.$row->ID.'" class="lbOn">'.$lang['edit'].'</a> ';
      }
 
      if ($right[$level]['newsdel'])
      {
-       $data["DeletNews"] = '<a href="index.php?lbsite=delnews&vars='.$row->ID.'" class="lbOn">Löschen</a> ';
+       $data["DeletNews"] = '<a href="index.php?lbsite=delnews&vars='.$row->ID.'" class="lbOn">'.$lang['delet'].'</a> ';
      }
     }
 

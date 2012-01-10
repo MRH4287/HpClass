@@ -309,15 +309,13 @@ class siteTemplate
   private function replaceFunctions($data)
   {
     $hp = $this->hp;
-
-
     $tempData = $this->getPlaceholder($data, "@");
 
     foreach ($tempData as $k=> $word)
     {
 
       // Check for newer Syntax
-      if (preg_match('/([^\(^\)]*)\((.*)\)/', $word, $m))
+      if (preg_match('/(?<![: @a-zA-Z0-9])([^\(^\)^:]*)\((.*)\)/', $word, $m))
       {
         $split = explode(", ", $m[2]);
 		$sp = array($m[1]);
@@ -329,6 +327,7 @@ class siteTemplate
 
       } else
       {
+
         $split = explode(" : ", $word);
       }
 
