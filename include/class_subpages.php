@@ -742,7 +742,7 @@ class subpages
 
         } else
         {
-         $content->set($pl,"<img src=\"images/alert2.gif\"> Fehler: Dyanmisches Template exsistiert nicht <img src=\"images/alert2.gif\">");
+         $content->set($pl,"<img src=\"images/alert2.gif\"> Fehler: Dyanmisches Template existiert nicht <img src=\"images/alert2.gif\">");
         }
            	
     }

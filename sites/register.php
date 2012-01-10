@@ -34,7 +34,7 @@ if (!isset($post['register']))
       !isset($post['nachname']) or (strlen($post['nachname']) < 1) or !isset($post['wohnort'])
        or !isset($post['geschlecht']) or !isset($post['tel']))
        {
-          $error->error("Geben die alle Werte an!<br><a href=index.php?site=register>zurück</a><br>", "1");
+          $error->error("Geben die alle Werte an!<br><a href=index.php?site=register>".$lang['back']."</a><br>", "1");
           $ok=false;
        }
 
@@ -65,11 +65,11 @@ if (!isset($post['register']))
 
     if (strlen($user) <= 3)
     {
-      $error->error("Der Benutzername muss mindestens 4 Zeichen haben!<br>", "1");
+      $error->error($lang['Der Benutzername muss mindestens 4 Zeichen haben']."!<br>", "2");
       $ok = false;
     } elseif (strlen($passwort12) <= 3)
     {
-      $error->error("Das Passwort muss mindestens 4 Zeichen haben!<br>", "1");
+      $error->error($lang['Das Passwort muss mindestens 4 Zeichen haben']."!<br>", "2");
       $ok = false;
     }
 
@@ -95,7 +95,7 @@ if (!isset($post['register']))
        {
         if ((strtolower($user) == strtolower("$row->user")) or (strtolower($email) == strtolower("$row->email")))
         {
-          $error->error("Benutzername oder Email bereits vorhanden!<br>","1");
+          $error->error($lang['Benutzername oder Email bereits vorhanden']."!<br>","1");
           $ok=false;
         }
        }
@@ -107,7 +107,7 @@ if (!isset($post['register']))
        {
         if (strtolower($user) == strtolower("$row->user")  or (strtolower($email) == strtolower("$row->email")))
         {
-          $error->error("Benutzername bereits vorhanden!<br>","1");
+          $error->error($lang['Benutzername bereits vorhanden']."!<br>","1");
           $ok=false;
         }
        }
@@ -151,10 +151,10 @@ if (!isset($post['register']))
 
       if ($useMail)
       {
-        $msg = "Antrag erfolgreich gestellt!<br>Eine Bestätigungs E-Mail ist zu Ihnen Unterwegs!<br><a href=index.php>zurück</a>";
+        $msg = $lang['Antrag erfolgreich gestellt']."!<br>".$lang['Eine Bestätigungs E-Mail ist zu Ihnen Unterwegs']."!<br><a href=index.php>".$lang['back']."</a>";
       } else
       {
-        $msg = "Antrag erfolgreich gestellt!<br>Bitte warten Sie, bis Sie freigeschaltet werden.<br><a href=index.php>zurück</a>";
+        $msg = $lang['Antrag erfolgreich gestellt']."!<br>".$lang['Bitte warten Sie, bis Sie freigeschaltet werden'].".<br><a href=index.php>".$lang['back']."</a>";
       }
 
       if ($useMail)
@@ -191,7 +191,7 @@ if (!isset($post['register']))
     }
   } else
   {
-    $error->error("Die Passwörter sind nicht identisch!<br><a href=index.php?site=register>zurück</a>","1");
+    $error->error($lang['Die angegebenen Passwörter stimmen nicht überein!']."<br><a href=index.php?site=register>".$lang['back']."</a>","2");
   }
 }
 

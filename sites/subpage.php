@@ -17,7 +17,7 @@ $fp = $hp->fp;
 
 if (!$right[$level]["manage_subpage"])
 {
-  $error->error("Sie haben nicht die benötigte Berechtigung!", "1");
+  $error->error($lang['Sie haben nicht die benötigte Berechtigung!'], "1");
 
 } elseif (isset($get["new"]))
 {
@@ -171,23 +171,23 @@ if (!$right[$level]["manage_subpage"])
        $sql = "INSERT INTO `$dbprefix"."subpages` (`name`, `content`, `template`, `created`, `parent`, `parent_kat`) VALUES ('$subpageName', '$data', '$templateName', NOW(), '$subpage', '$subpageKat');";
        $erg = $hp->mysqlquery($sql);
 
-       $site->set("info", "Unterseite erfolgreich erstellt!<br><a href=?site=subpage>zurück</a>");
+       $site->set("info", $lang['Unterseite erfolgreich erstellt']."!<br><a href=?site=subpage>".$lang['back']."</a>");
 
 
 
       } else
       {
-        $site->set("info", "Das gewählte Template ist nicht verfügbar!<br><a href=?site=subpage>zurück</a>");
+        $site->set("info", $lang['Das gewählte Template ist nicht verfügbar']."!<br><a href=?site=subpage>".$lang['back']."</a>");
       }
 
     } else
     {
-      $site->set("info", "Es exsistiert bereits eine Seite mit diesen Namen!<br><a href=?site=subpage>zurück</a>");
+      $site->set("info", $lang['Es existiert bereits eine Seite mit diesen Namen']."!<br><a href=?site=subpage>".$lang['back']."</a>");
     }
 
   } else
   {
-    $site->set("info", "Die Zeichen &uuml; &ouml; &auml; und &szlig; sind im Namen nicht erlaubt!<br><a href=?site=subpage>zurück</a>");
+    $site->set("info", $lang['Die Zeichen &uuml; &ouml; &auml; und &szlig; sind im Namen nicht erlaubt']."!<br><a href=?site=subpage>".$lang['back']."</a>");
   }
 
   $site->display();
@@ -377,7 +377,7 @@ if (!$right[$level]["manage_subpage"])
   {
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", "Die gewünschte Unterseite ist nicht verfügbar!<br><a href=?site=subpage>zurück</a>");
+      $site->set("info", $lang['Die gewünschte Unterseite ist nicht verfügbar']."!<br><a href=?site=subpage>".$lang['back']."</a>");
       $site->display();
   }
 
@@ -425,18 +425,18 @@ if (!$right[$level]["manage_subpage"])
      $sql = "UPDATE `$dbprefix"."subpages` SET `content` = '$data', `parent` = '$subpage', `parent_kat` = '$subpageKat' WHERE `ID` = '$ID';";
      $erg = $hp->mysqlquery($sql);
 
-     $site->set("info", "Unterseite erfolgreich modifiziert!<br><a href=?site=subpage>zurück</a>");
+     $site->set("info", $lang['Unterseite erfolgreich modifiziert']."!<br><a href=?site=subpage>".$lang['back']."</a>");
 
 
 
     } else
     {
-      $site->set("info", "Das gewählte Template ist nicht verfügbar!<br><a href=?site=subpage>zurück</a>");
+      $site->set("info", $lang['Das gewählte Template ist nicht verfügbar']."!<br><a href=?site=subpage>".$lang['back']."</a>");
     }
 
   } else
   {
-    $site->set("info", "Diese Seite exsistiert nicht!<br><a href=?site=subpage>zurück</a>");
+    $site->set("info", $lang['Die gewünschte Unterseite ist nicht verfügbar']."!<br><a href=?site=subpage>".$lang['back']."</a>");
   }
 
   $site->display();
@@ -480,7 +480,7 @@ if (!$right[$level]["manage_subpage"])
   }
 
   $site->set("Elements", $elements);
-  $site->set("headline", ($subpage) ? "Liste der zugeordneten Unterseiten" : "Liste der Vorhandenen Unterseiten");
+  $site->set("headline", ($subpage) ? $lang["Liste der zugeordneten Unterseiten"] : $lang["Liste der Vorhandenen Unterseiten"]);
   $site->set("subpage", ($subpage) ? "true" : "false");
 
   if ($subpage)
@@ -488,10 +488,7 @@ if (!$right[$level]["manage_subpage"])
     $site->set("subID", $get["sub"]);
   }
 
-
   $site->display("List");
-
-
 
 
 } elseif (isset($get["del"]))
@@ -504,16 +501,15 @@ if (!$right[$level]["manage_subpage"])
 
     $site = new siteTemplate($hp);
     $site->load("info");
-    $site->set("info", "Unterseite \"".$get["del"]."\" erfolgreich gelöscht!<br><a href=?site=subpage&list>zurück</a>");
+    $site->set("info", sprintf($lang['Unterseite %s erfolgreich gelöscht'], '"'.$get["del"].'"')."!<br><a href=?site=subpage&list>".$lang['back']."</a>");
     $site->display();
 
   } else
   {
     $site = new siteTemplate($hp);
     $site->load("info");
-    $site->set("info", "Möchten Sie die Unterseite \"".$get["del"]."\" wirklich löschen?<br><a href=?site=subpage&del=".$get["del"]."&ok>Ja</a><br><a href=?site=subpage&list>zurück</a>");
+    $site->set("info", sprintf($lang['Möchten Sie die Unterseite %s wirklich löschen?'], '"'.$get["del"].'"')."<br><a href=?site=subpage&del=".$get["del"]."&ok>".$lang['yes']."</a><br><a href=?site=subpage&list>".$lang['back']."</a>");
     $site->display();
-
 
   }
 

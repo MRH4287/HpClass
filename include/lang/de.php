@@ -443,7 +443,7 @@ $lang['de'] = array(
     'Keine Seite zum Anzeigen gewählt' => 'Keine Seite zum Anzeigen gewählt',
     // l10n:    diese (Unterseite) ...
     'Sie können diese über den Unterseiten-Editor erstellen' => 'Sie können diese über den Unterseiten-Editor erstellen',
-    'Dieser Kalender-Eintrag exsistiert nicht!' => 'Dieser Kalender-Eintrag exsistiert nicht!',
+    'Dieser Kalender-Eintrag existiert nicht!' => 'Dieser Kalender-Eintrag existiert nicht!',
     'Erfolgreich aktualisiert' => 'Erfolgreich aktualisiert',
     'Event erfolgreich gelöscht' => 'Event erfolgreich gelöscht', 
     'Kategorie' => 'Kategorie',
@@ -519,7 +519,7 @@ $lang['de'] = array(
     'Möchten Sie die Umfrage wirklich entfernen?' => 'Möchten Sie die Umfrage wirklich entfernen?',
     'Gültig bis' => 'Gültig bis',
     'Möchten Sie die Datei wirklick löschen?' => 'Möchten Sie die Datei wirklick löschen?',
-    'Die gewünschte Datei exsistiert nicht!' => 'Die gewünschte Datei exsistiert nicht!',
+    'Die gewünschte Datei existiert nicht!' => 'Die gewünschte Datei existiert nicht!',
     'Diese Seite kann nur direkt aufgerufen werden!' => 'Diese Seite kann nur direkt aufgerufen werden!',
     'Der angegebene Code scheint schon benutzt worden sein oder ist abgelaufen!' => 'Der angegebene Code scheint schon benutzt worden sein oder ist abgelaufen!',
     'Die angegebenen Passwörter stimmen nicht überein!' => 'Die angegebenen Passwörter stimmen nicht überein!',
@@ -530,11 +530,39 @@ $lang['de'] = array(
     'Ihre Registration wurde erfolgreich abgeschlossen' => 'Ihre Registration wurde erfolgreich abgeschlossen',
     'Vielen Dank' => 'Vielen Dank',
     'Ihre E-Mailadresse wurde bereits verifiziert!' => 'Ihre E-Mailadresse wurde bereits verifiziert!',
-    
-    
-    
-    
-    
+    'Gesperrt' => 'Gesperrt',
+    'Als gelesen makiert' => 'Als gelesen makiert',
+    'Kein Betreff angegeben' => 'Kein Betreff angegeben',
+    'Der Benutzername muss mindestens 4 Zeichen haben' => 'Der Benutzername muss mindestens 4 Zeichen haben',
+    'Das Passwort muss mindestens 4 Zeichen haben' => 'Das Passwort muss mindestens 4 Zeichen haben',
+    'Benutzername oder Email bereits vorhanden' => 'Benutzername oder Email bereits vorhanden',
+    'Benutzername bereits vorhanden' => 'Benutzername bereits vorhanden',
+    'Antrag erfolgreich gestellt' => 'Antrag erfolgreich gestellt',
+    'Eine Bestätigungs E-Mail ist zu Ihnen Unterwegs' => 'Eine Bestätigungs E-Mail ist zu Ihnen Unterwegs',
+    'Bitte warten Sie, bis Sie freigeschaltet werden' => 'Bitte warten Sie, bis Sie freigeschaltet werden',
+    'Unterseite erfolgreich erstellt' => 'Unterseite erfolgreich erstellt',
+    'Das gewählte Template ist nicht verfügbar' => 'Das gewählte Template ist nicht verfügbar',
+    'Es existiert bereits eine Seite mit diesen Namen' => 'Es existiert bereits eine Seite mit diesen Namen',
+    'Die Zeichen &uuml; &ouml; &auml; und &szlig; sind im Namen nicht erlaubt' => 'Die Zeichen &uuml; &ouml; &auml; und &szlig; sind im Namen nicht erlaubt',
+    'Die gewünschte Unterseite ist nicht verfügbar' => 'Die gewünschte Unterseite ist nicht verfügbar',
+    'Unterseite erfolgreich modifiziert' => 'Unterseite erfolgreich modifiziert',
+    'Liste der zugeordneten Unterseiten' => 'Liste der zugeordneten Unterseiten',
+    'Liste der Vorhandenen Unterseiten' => 'Liste der Vorhandenen Unterseiten',
+    // l10n:    %s -> Subpage name
+    'Unterseite %s erfolgreich gelöscht' => 'Unterseite %s erfolgreich gelöscht',
+    // l10n:    %s -> Subpage name
+    'Möchten Sie die Unterseite %s wirklich löschen?' => 'Möchten Sie die Unterseite %s wirklich löschen?',
+    'Sie haben keine Berechtigung, Daten hoch zu laden' => 'Sie haben keine Berechtigung, Daten hoch zu laden',
+    // l10n:    %s -> File Size in MB
+    'Die gesendete Datei war zu groß! (Maximalgröße: %sMB)' => 'Die gesendete Datei war zu groß! (Maximalgröße: %sMB)',
+    'Dieser Datei-Typ ist nicht erlaubt' => 'Dieser Datei-Typ ist nicht erlaubt',
+    'Fehler beim Schreiben der Daten in die Datenbank' => 'Fehler beim Schreiben der Daten in die Datenbank',
+    'Sie können keine Katigorien löschen, in denen sich Dateien befinden' => 'Sie können keine Katigorien löschen, in denen sich Dateien befinden',
+    'Möchten Sie die Katigorie wirklick löschen?' => 'Möchten Sie die Katigorie wirklick löschen?',
+    'Der Benutzer existiert nicht' => 'Der Benutzer existiert nicht',
+    'Bitte benutzen sie eines der folgenden Formate' => 'Bitte benutzen sie eines der folgenden Formate',
+    'Neue Newsmeldung verfassen' => 'Neue Newsmeldung verfassen',
+    'Newsmeldungen Bearbeiten' => 'Newsmeldungen Bearbeiten',   
     
     '' => ''
 

@@ -32,7 +32,7 @@ $numsendfiles = count($_FILES);
       $ext= $testarray[$index];
       if (($ext != "gif") and ($ext != "jpg") and($ext != "png"))
       {
-      echo "Bitte benutzen sie eines der Folgenden Formaten:<br><b>gif, jpg, png</b><br>";
+      echo $lang['Bitte benutzen sie eines der folgenden Formate'].":<br><b>gif, jpg, png</b><br>";
 
       } else {
 
@@ -58,7 +58,7 @@ $numsendfiles = count($_FILES);
     $result=$hp->mysqlquery($sql);
         if(!$result)
         {
-            print "Fehler beim Schreiben der Daten in die Datenbank.<br/>\n";
+            print $lang['Fehler beim Schreiben der Daten in die Datenbank'].".<br/>\n";
             print mysql_error()."<br/>\n";
             exit;
         }
@@ -71,10 +71,10 @@ $numsendfiles = count($_FILES);
 
 if ($result== true)
 {
-echo "Erfolgreich modifiziert!<br><a href=index.php?site=profil>Zurueck</a>";
+echo $lang['Erfolgreich aktualisiert']."!<br><a href=index.php?site=profil>".$lang['back']."</a>";
 } else
 {
-echo "Fehler beim eintragen!<br>".mysql_error();
+echo $lang['Fehler beim Schreiben der Daten in die Datenbank']."!<br>".mysql_error();
 }
 
 }

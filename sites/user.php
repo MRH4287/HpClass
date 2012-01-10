@@ -149,13 +149,13 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
      $site->display();
   } else
   {
-    $error->error("Der Benutzer exsistiert nicht!", "1");
+    $error->error($lang['Der Benutzer existiert nicht']."!", "1");
   }
 } else
 {
     $site = new siteTemplate($hp);
     $site->load("info");
-    $site->set("info", "Sie haben kein Recht diese Seite zu betreten!");
+    $site->set("info", $lang['Sie haben nicht die benötigte Berechtigung!']);
     $site->display();
 }
 

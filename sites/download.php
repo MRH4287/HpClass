@@ -151,10 +151,10 @@ $info->info($lang["Möchten Sie die Datei wirklick löschen?"]." <a href=index.php
     {
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", $lang["Die gewünschte Datei exsistiert nicht!"]."<br><a href=?site=download>".$lang['Download-Bereich']."</a>");
+      $site->set("info", $lang["Die gewünschte Datei existiert nicht!"]."<br><a href=?site=download>".$lang['Download-Bereich']."</a>");
       $site->display();
 
-      $error->error($lang["Die gewünschte Datei exsistiert nicht!"]);
+      $error->error($lang["Die gewünschte Datei existiert nicht!"]);
 
     }
   }

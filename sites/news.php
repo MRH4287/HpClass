@@ -194,8 +194,8 @@ $site->load("news");
  $site->set("News", $Content);
 
 
- $site->set("WriteNews", "  -  ".$lbsites->link("newnews","<b>Neue Newsmeldung verfassen</b>"));
- $site->set("StartEditNews", "  -  <a href=\"index.php?site=news&delet=true\"><b>Newsmeldungen Bearbeiten</b></a>");
+ $site->set("WriteNews", "  -  ".$lbsites->link("newnews","<b>".$lang['Neue Newsmeldung verfassen']."</b>"));
+ $site->set("StartEditNews", "  -  <a href=\"index.php?site=news&delet=true\"><b>".$lang['Newsmeldungen Bearbeiten']."</b></a>");
 
  $site->display();
 ?>

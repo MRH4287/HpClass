@@ -255,7 +255,7 @@
 
             } else
             {
-                $error->error($["Dieser Kalender-Eintrag exsistiert nicht!"]);
+                $error->error($["Dieser Kalender-Eintrag existiert nicht!"]);
                 $content = $lang['error'];
             }
 
