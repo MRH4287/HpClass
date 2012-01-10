@@ -119,7 +119,7 @@ class siteTemplate
     $lines = preg_split("/[\n|\r]/", $input);
     foreach ($lines as $lineNr=>$line)
     {
-    	
+
       if (preg_match("/\#\!\!NAME=(.*)/", $line, $m))
        {
     	   $this->name = $m[1];
@@ -315,7 +315,7 @@ class siteTemplate
 
     foreach ($tempData as $k=> $word)
     {
-	
+
       // Check for newer Syntax
       if (preg_match('/([^\(^\)]*)\((.*)\)/', $word, $m))
       {
@@ -326,14 +326,14 @@ class siteTemplate
 		  $sp[] = $v;
 		}
 		$split = $sp;
-		
+
       } else
       {
         $split = explode(" : ", $word);
       }
 
 
-	
+
       $out = "";
       if (isset(self::$functions[$split[0]]))
       {
@@ -653,7 +653,6 @@ class siteTemplate
 
       $content = "";
 
-
       if (preg_match("/@([^\"]*)\((.*)\)/", $input, $m))
       {
          if (isset(self::$functions[$m[1]]))
@@ -680,20 +679,19 @@ class siteTemplate
            $content = "[#-Func?]";
          }
 
-      } elseif (preg_match("/\"(.*)\"/", $input))
+      } elseif (preg_match("/\"(.*)\"/", $input, $m))
       {
-          $tmp = $this->replaceLangBlocks($this->replaceDefault($input));
-          $content =  str_replace("\"", "", $tmp);
+          $content = $this->replaceLangBlocks($this->replaceDefault($m[1]));
 
       }
-      elseif (preg_match("/%(.*)/", $input))
+      elseif (preg_match("/%(.*)/", $input, $m))
       {
-          $content = $hp->getlangclass()->word(str_replace("%", "", $input));
+          $content = $hp->getlangclass()->word($m[1]);
 
       }
-      elseif (preg_match("/!!(.*)/", $input))
+      elseif (preg_match("/!!(.*)/", $input, $m))
       {
-          $name = str_replace("!!", "", $input);
+          $name = $m[1];
 
           if (isset($this->blocks[$name]))
           {
@@ -706,9 +704,9 @@ class siteTemplate
 
 
       }
-      elseif (preg_match("/!(.*)/", $input))
+      elseif (preg_match("/!(.*)/", $input, $m))
       {
-          $name = str_replace("!", "", $input);
+          $name = $m[1];
 
           if (isset($this->blocks[$name]))
           {
@@ -721,9 +719,9 @@ class siteTemplate
 
 
       }
-      elseif (preg_match("/l\:(.*)/", $input))
+      elseif (preg_match("/l\:(.*)/", $input, $m))
       {
-        $input = str_replace("l:", "", $input);
+        $input = $m[1];
 
         if ($this->aktArray != null)
         {
@@ -852,9 +850,9 @@ class siteTemplate
 
 	if ($this->error)
 	{
-	  return "<b>Error Occured</b>";	
+	  return "<b>Error Occured</b>";
 	}
-	
+
     $ok = false;
     $nr = $this->neededRight;
 
@@ -970,6 +968,27 @@ class siteTemplate
     }
 
  }
+
+ /*
+  * Executes printf
+  *
+  * Parameter:
+  * - Text
+  * * Arguments
+  */
+ public function temp_printf($args)
+ {
+    if (count($args) < 2)
+    {
+        return "[printf: Need at least 2 Arguments]";
+    } else
+    {
+        $format = array_shift($args);
+        return vsprintf($format, $args);
+    }
+
+ }
+
 
  /*
 
