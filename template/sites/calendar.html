@@ -1,5 +1,5 @@
-!!NAME=Calendar
-!!AUTOR=MRH
+#!!NAME=Calendar
+#!!AUTOR=MRH
 
 
 [!=List!]
@@ -10,7 +10,7 @@
         </tbody>
 </table>
  <br />
-#?manage_subpage : "<a href=index.php?site=calendar>Termin hinzufügen oder ändern</a>"#
+#?manage_subpage : @echo("<a href=index.php?site=calendar>", %Termin hinzufügen oder ändern, "</a>")#
 
 [!/List!]
 
@@ -124,37 +124,38 @@
 [!/Edit-Container!]
 
 
+[!=Edit!]
   #@include("utilities", "TinyMCEInit")#
   <form action="?site=calendar" method="post">
   
-          <h1>Termin hinzufügen</h1>
-        <h2>am #!date#</h2>
+        <h1>#%Termin hinzufügen#</h1>
+        <h2>#@printf : %am %s : date#</h2>
 
         <input type="hidden" name="date" value="#!date#">
         <input type="hidden" name="ID" value="#!ID#">
          <center> <table width="100%" border="0">
             <tr>
-              <td height="36"><p>Name <br />
+              <td height="36"><p>#%Name# <br />
               </p>
               </td>
               <td><input type="text" name="name" value="#!name#" required /></td>
             </tr>
             <tr>
-              <td height="39"><label>Start-Zeit </label></td>
+              <td height="39"><label>#%Start-Zeit# </label></td>
               <td><input type="text" name="time" value="#!time#" required  />
             </tr>
             <tr>
-              <td height="39"><label>End-Zeit </label></td>
+              <td height="39"><label>#%End-Zeit# </label></td>
               <td><input type="text" name="endtime" value="#!endtime#" required  />
             </tr>
             <tr>
-              <td height="37">Anzeigen auf
+              <td height="37">#%Anzeigen auf#
                </td>
               <td style="border: 1px solid #000000;">#!display#</td>
             </tr>
    
             <tr>
-              <td  height="37">Benötigtes Level</td>
+              <td  height="37">#%Benötigtes Level#</td>
               <td>
                	<select name="level">
  	                #!levels#
@@ -164,7 +165,7 @@
             </tr>
    
             <tr>
-            <td height="97">End-Datum</td>
+            <td height="97">#%End-Datum#</td>
               <td><div align="left">
               <input type="text" name="enddate" value="#!enddate#" required pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" placeholder="DD.MM.YYYY" />
               </div>
@@ -173,7 +174,7 @@
             </tr>
             
             <tr>
-              <td height="97">Beschreibung</td>
+              <td height="97">#%description#</td>
               <td><div align="left">
 
               
@@ -184,7 +185,7 @@
           
               <td > 
                 <div align="left">
-                  <input type="submit" name="#?:update : "edit" : "new"#" id="submit" value="OK" />
+                  <input type="submit" name="#?:update : "edit" : "new"#" id="submit" value="#%ok#" />
                 </div>
               </td>
 
@@ -211,7 +212,7 @@
 
 [!=Error-Select!]
 
-<b>Bitte wählen Sie einen Tag auf der linken Seite aus</b>
+<b>#%Bitte wählen Sie einen Tag auf der linken Seite aus#</b>
 
 [!/Error-Select!]
 
@@ -263,7 +264,7 @@
 
 [!=LbSite-Del!]
 
-<p id="highlight">Möchten Sie das Event wirklich löschen?</p>
+<p id="highlight">#%Möchten Sie das Event wirklich löschen?#</p>
 <table width="100%">
   <tr valign="bottom">
     <td>
@@ -274,9 +275,9 @@
     </td>
   </tr>
 </table>
-<b>ID:</b> #!ID#<br>
-<b>Titel:</b> #!name#<br>
-<b>Beschreibung:</b><br> #!description#<br>
+<b>#%ID#:</b> #!ID#<br>
+<b>#%Titel#:</b> #!name#<br>
+<b>#%description#:</b><br> #!description#<br>
 <b>
 
 
@@ -320,7 +321,8 @@
 				#!name#
 			</div>
 			<div class="date_time">
-				Vom #!date# (#!start#) bis zum #!enddate# (#!end#)
+                #@printf(%Vom %s (%s) bis zum %s (%s), date, start, enddate, end)#
+				#/ Vom #!date# (#!start#) bis zum #!enddate# (#!end#)#
 			</div>
 			<div class="date_description">
 				#!description#
