@@ -23,5 +23,5 @@
 -- INSERT INTO `#!-PREFIX-!#right` (`level`, `right`, `ok`, `description`) VALUES('0', 'see_email', 'false', 'Das Recht die E-Mail Adresse in der user Seite einzusehen');
 -- INSERT INTO `#!-PREFIX-!#right` (`level`, `right`, `ok`, `description`) VALUES('0', 'upload_del', 'false', 'Erlaubnis um eine Datei aus dem DL-Bereich löschen');
 -- System no longer in use (use config Files)
-ALTER TABLE `#!-PREFIX-!#subpages` ADD FULLTEXT (`content`);
+-- ALTER TABLE `#!-PREFIX-!#subpages` ADD FULLTEXT (`content`);
 ALTER TABLE `#!-PREFIX-!#news` ADD FULLTEXT (`text`);
