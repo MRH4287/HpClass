@@ -461,7 +461,7 @@ $lang['de'] = array(
     // l10n:    Information: Test
     'Information' => 'Information',
     // l10n:    <img src="./images/lock.gif" alt="lock" width="12" height="12">
-    'Plugins, die mit einem %s makiert sind, können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template, eingebunden wurde.' => 'Plugins, die mit einem %s makiert sind, können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template, eingebunden wurde.',
+    'Plugins, die mit einem %s markiert sind, können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template, eingebunden wurde.' => 'Plugins, die mit einem %s markiert sind, können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template, eingebunden wurde.',
     'Check all' => 'Check all',
     'Uncheck all' => 'Uncheck all',
     'Als gelesen makieren' => 'Als gelesen makieren',
@@ -525,7 +525,7 @@ $lang['de'] = array(
     'Vielen Dank' => 'Vielen Dank',
     'Ihre E-Mailadresse wurde bereits verifiziert!' => 'Ihre E-Mailadresse wurde bereits verifiziert!',
     'Gesperrt' => 'Gesperrt',
-    'Als gelesen makiert' => 'Als gelesen makiert',
+    'Als gelesen markiert' => 'Als gelesen markiert',
     'Kein Betreff angegeben' => 'Kein Betreff angegeben',
     'Der Benutzername muss mindestens 4 Zeichen haben' => 'Der Benutzername muss mindestens 4 Zeichen haben',
     'Das Passwort muss mindestens 4 Zeichen haben' => 'Das Passwort muss mindestens 4 Zeichen haben',
@@ -556,7 +556,9 @@ $lang['de'] = array(
     'Der Benutzer existiert nicht' => 'Der Benutzer existiert nicht',
     'Bitte benutzen sie eines der folgenden Formate' => 'Bitte benutzen sie eines der folgenden Formate',
     'Neue Newsmeldung verfassen' => 'Neue Newsmeldung verfassen',
-    'Newsmeldungen Bearbeiten' => 'Newsmeldungen Bearbeiten',   
+    'Newsmeldungen Bearbeiten' => 'Newsmeldungen Bearbeiten',
+    'News' => 'News',
+    'Forum' => 'Forum',
     
     '' => ''
 

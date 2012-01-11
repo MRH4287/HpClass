@@ -65,7 +65,7 @@ if (isset($_SESSION['username']))
 
         if ($eintragen == true)
         {
-          $info->okn($lang["Als gelesen makiert"]);
+          $info->okn($lang["Als gelesen markiert"]);
         }
 
       }

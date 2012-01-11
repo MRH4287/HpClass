@@ -467,7 +467,7 @@ $lang['eng'] = array(
     // l10n:    Information: Test
     'Information' => 'Information',
     // l10n:    <img src="./images/lock.gif" alt="lock" width="12" height="12">
-    'Plugins, die mit einem %s makiert sind, können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template, eingebunden wurde.' => 'Plugins that are makiert with a %s can not be changed. The (E) means that this plugin is externally, eg was implemented by using a template.',
+    'Plugins, die mit einem %s markiert sind, können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template, eingebunden wurde.' => 'Plugins that are marked with a %s can not be changed. The (E) means that this plugin is externally, eg was implemented by using a template.',
     'Check all' => 'Check all',
     'Uncheck all' => 'Uncheck all',
     'Als gelesen makieren' => 'Mark as read',
@@ -531,7 +531,7 @@ $lang['eng'] = array(
     'Vielen Dank' => 'Thank you',
     'Ihre E-Mailadresse wurde bereits verifiziert!' => 'Your e-mail address has allready been verified!',
     'Gesperrt' => 'Closed',
-    'Als gelesen makiert' => 'Mark as read',
+    'Als gelesen markiert' => 'Mark as read',
     'Kein Betreff angegeben' => 'No subject given',
     'Der Benutzername muss mindestens 4 Zeichen haben' => 'The user name must have at least 4 characters',
     'Das Passwort muss mindestens 4 Zeichen haben' => 'Your password must be at least 4 characters long',
@@ -562,7 +562,9 @@ $lang['eng'] = array(
     'Der Benutzer existiert nicht' => 'The user does not exist',
     'Bitte benutzen sie eines der folgenden Formate' => 'Please use one of the following formats',
     'Neue Newsmeldung verfassen' => 'Create a new News-Message',
-    'Newsmeldungen Bearbeiten' => 'Edit News-Messages',   
+    'Newsmeldungen Bearbeiten' => 'Edit News-Messages',
+    'News' => 'News', 
+    'Forum' => 'Board',
     
     '' => ''
 
