@@ -148,7 +148,7 @@
                             ('$name', '$date', '$enddate', '$time', '$endtime', '$level', '".implode(",",$display)."', '$options', '".$_SESSION["username"]."', NOW(), '$description');";
                             $erg = $hp->mysqlquery($sql);
 
-                            $content = $["Erfolgreich erstellt"];
+                            $content = $lang["Erfolgreich erstellt"];
                             $info->okn($content);
 
                         } else
@@ -255,7 +255,7 @@
 
             } else
             {
-                $error->error($["Dieser Kalender-Eintrag existiert nicht!"]);
+                $error->error($lang["Dieser Kalender-Eintrag existiert nicht!"]);
                 $content = $lang['error'];
             }
 
