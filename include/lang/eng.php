@@ -12,6 +12,8 @@ $lang['eng'] = array(
     // profil-de
     "antworten" => "Reply",
 
+    "Antworten" => "Replys",
+    
     // admin-eng
     // anwaerter-de
     "anwerter" => "	Awaiting Activation",
@@ -83,7 +85,7 @@ $lang['eng'] = array(
 
     // de-eng-default
     // download-de
-    "delet" => "delet",
+    "delet" => "Delet",
 
     // admin-eng
     // anwaerter-de
@@ -100,7 +102,7 @@ $lang['eng'] = array(
 
     // de-eng-default
     // download-de
-    "edit" => "edit",
+    "edit" => "Edit",
 
     // admin-eng
     // anwaerter-de
@@ -116,7 +118,7 @@ $lang['eng'] = array(
 
     // pm-eng
     // profil-de
-    "empfänger" => "addressee",
+    "empfänger" => "Receiver",
 
     // de-eng-default
     // download-de
@@ -136,7 +138,7 @@ $lang['eng'] = array(
 
     // pm-eng
     // profil-de
-    "für" => "For",
+    "Für" => "For",
 
     // pm-eng
     // profil-de
@@ -173,7 +175,7 @@ $lang['eng'] = array(
 
     // de-eng-default
     // download-de
-    "loginbutt" => "login",
+    "loginbutt" => "Login",
 
     // de-eng-default
     // download-de
@@ -186,19 +188,15 @@ $lang['eng'] = array(
     // profil-de
     "messagenotforyou" => "This message is not intended for you!",
 
-    // admin-eng
-    // anwaerter-de
-    "modulman" => "Modul Manager",
-
     // de-eng-default
     // download-de
     "morenews" => "More Articels",
 
     // user-eng
-    "nachname" => "family name",
+    "nachname" => "Family name",
 
     // user-eng
-    "name" => "name",
+    "name" => "Name",
 
     // user-eng
     "never" => "Never",
@@ -209,18 +207,15 @@ $lang['eng'] = array(
 
     // pm-eng
     // profil-de
-    "newpm" => "write new pm",
+    "newpm" => "Write new pm",
 
     // profil-eng
     // user-de
     "newpw" => "New Password",
 
-    // user-eng
-    "nick" => "Nickname",
-
     // de-eng-default
     // download-de
-    "no" => "no",
+    "no" => "No",
 
     // de-eng-default
     // download-de
@@ -244,7 +239,7 @@ $lang['eng'] = array(
 
     // profil-eng
     // user-de
-    "notallfields" => "There were not filled in all mandatory fields",
+    "notallfields" => "You have to fill out all mandatory fields",
 
     // de-eng-default
     // download-de
@@ -326,7 +321,7 @@ $lang['eng'] = array(
 
     // de-eng-default
     // download-de
-    "send" => "send",
+    "send" => "Send",
 
     // user-eng
     "since" => "Since",
@@ -337,7 +332,7 @@ $lang['eng'] = array(
 
     // profil-eng
     // user-de
-    "start" => "start",
+    "start" => "Start",
 
     // profil-eng
     // user-de
@@ -373,11 +368,11 @@ $lang['eng'] = array(
 
     // de-eng-default
     // download-de
-    "userorpasswordwrong" => "no connection possible! Username or Password wrong!",
+    "userorpasswordwrong" => "No connection possible! Username or Password wrong!",
 
     // pm-eng
     // profil-de
-    "von" => "By",
+    "Von" => "By",
 
     // profil-eng
     // user-de
@@ -394,7 +389,182 @@ $lang['eng'] = array(
 
     // de-eng-default
     // download-de
-    "yes" => "yes"
+    "yes" => "Yes",
+    
+    'Login' => 'Login',
+    'Logout' => 'Logout',
+    'Passwort vergessen' => 'Forgot password',
+    'Administration' => 'Administration',
+    'PM-Menu' => 'PM-Menu',
+    'Umfragen' => 'Votes',
+    'Benutzte Bilder' => 'Used Pictures',
+    'Unterseiten Verwalten' => 'Manage Subpages',
+    'Rechte' => 'Rights',
+    'Rechte-Verwaltung' => 'Right-Management',
+    'Konfiguration' => 'Configuration',
+    'Plugin System' => 'Plugin System',
+    'Widget System' => 'Widget System',
+    'Api-Schnittstelle' => 'Api-Interface',
+    'Hier stehen Informationen zu der Api-Schnittstelle.' => 'All Informations about the API-Interface.',
+    'Diese Seite zeigt nur Informationen und dient nicht zur Konfiguration.' => 'You can not modify settings on this page.',
+    'Um die Einstellungen zu verändern, gehen Sie in das Konfigurations bzw. in das Rechte System.' => 'To change this settings, you have to do this on the Config- or the Right-Management page.',
+    'Status der Api Schnittstelle' => 'Status of the API-Interface',
+    'Level, die über die Schnittstelle zugreifen können' => 'Level, that are allowed to access the Interface',
+    'Benutzer, die über die Schnittstelle zugreifen können' => 'User, that are allowed to access the Interface',
+    'Shared Secret' => 'Shared Secret',
+    'Warnung' => 'Warning',
+    'Diesen Text nicht an dritte weitergeben. Sollte es zu einer unberechtigten Verbindung kommen, dann die key.php im Ordner include/api löschen!' => 'Keep this text secret. If you notice any unallowed access, delete key.php in include/api!',
+    'Aktiviert' => 'Activated',
+    'Deaktiviert' => 'Deactivated',
+    'Termin hinzufügen oder ändern' => 'Add or change Event',
+    'Termin hinzufügen' => 'Add Event',
+    // l10n: %s -> Date | am 15.12.2012
+    'am %s' => 'on %s',
+    'Name' => 'Name',
+    'Start-Zeit' => 'Start time',
+    'End-Zeit' => 'End time',
+    'Anzeigen auf' => 'Display on',
+    'Benötigtes Level' => 'Necessary Level',
+    'End-Datum' => 'End date',
+    'Bitte wählen Sie einen Tag auf der linken Seite aus' => 'Please select a date on the left side',
+    'Möchten Sie das Event wirklich löschen?' => 'Do you realy want to delete this Event?',
+    'ID' => 'ID',
+    'Titel' => 'Titel',
+    // l10n:    %s -> Start-Date
+    //          %s -> Start-Time
+    //          %s -> End-Date
+    //          %s -> End-Time
+    'Vom %s (%s) bis zum %s (%s)' => 'From %s (%s) until %s (%s)',
+    'Sie haben nicht die benötigte Berechtigung!' => 'You do not have the required permission!',
+    'Das angegebene Datum ist nicht valid' => 'The specified date is not valid',
+    'Fehlerhafte Daten' => 'Corrupted data',
+    'Erfolgreich erstellt' => 'Successfully created',
+    'Das End-Datum muss nach dem Start-Datum liegen' => 'The end date must be after the start date',
+    'Keine Seite zum Anzeigen gewählt' => 'No pages selected for viewing',
+    // l10n:    diese (Unterseite) ...
+    'Sie können diese über den Unterseiten-Editor erstellen' => 'You can create these over the undersides Editor',
+    'Dieser Kalender-Eintrag existiert nicht!' => 'This calendar entry does not exist!',
+    'Erfolgreich aktualisiert' => 'Successfully updated',
+    'Event erfolgreich gelöscht' => 'Event deleted successfully', 
+    'Kategorie' => 'Category',
+    'Einstellung' => 'Setting',
+    'Download-Bereich' => 'Download area',
+    'Page not found' => 'Page not found',
+    'Bitte Geben Sie zur überprüfung folgende Daten ein' => 'Please enter the following data for verification',
+    'Bitte geben Sie ihr Passwort ein' => 'Please enter your password',
+    'Passwort bestätigung' => 'Password confirmation',
+    // l10n:    %s -> date | geschrieben am 15.02.12
+    'geschrieben am %s' => 'written on %s',
+    'Überschrift' => 'Headline',
+    'Level' => 'Level',
+    'Die Berechtigungen können in der Seite "Rechte" geändert werden' => 'The permissions can be changed in the page "rights"',
+    'Level 0 bedeutet öffentlich' => 'Level 0 means public',
+    'Picture List öffnen' => 'open Picture List',
+    'Picture List' => 'Picture List',
+    'Möchten Sie die Newsmeldung wirklich löschen?' => 'Do you realy want to delet this News?',
+    'Ersteller' => 'Author',
+    'Version' => 'Version',
+    // l10n:    Information: Test
+    'Information' => 'Information',
+    // l10n:    <img src="./images/lock.gif" alt="lock" width="12" height="12">
+    'Plugins, die mit einem %s makiert sind, können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template, eingebunden wurde.' => 'Plugins that are makiert with a %s can not be changed. The (E) means that this plugin is externally, eg was implemented by using a template.',
+    'Check all' => 'Check all',
+    'Uncheck all' => 'Uncheck all',
+    'Als gelesen makieren' => 'Mark as read',
+    'Registrierung' => 'Registration',
+    'Geschlecht' => 'Gender',
+    'Männlich' => 'Male',
+    'Weiblich' => 'Female',
+    'Pflichtfeld' => 'Eequired',
+    'Maximal 20 Zeichen' => 'Maximum of 20 characters',
+    'Mindestens 4 Zeichen' => 'At least 4 characters',
+    'Template Name' => 'Template Name',
+    'Zugewiesene Unterseite' => 'Assigned sub-page',
+    'Eine neue Unterseite erstellen' => 'Create a new sub-page',
+    'Liste der Vorhandenen Unterseiten' => 'List of existing sub-pages',
+    'Template' => 'Template',
+    'Unterseiten bearbeiten' => 'Edit sub-page',
+    'Datei-Manager' => 'File Manager',
+    'Dateien bearbeiten' => 'Edit file',
+    'Datei hochladen' => 'Upload files',
+    'Kategorie erstellen' => 'Create category',
+    'Kategorien bearbeiten' => 'Edit category',
+    // l10n:    Hochladen als: Admin
+    'Hochladen als' => 'Upload as',
+    'Verändern von Dateien nicht möglich!' => 'Files can not changed!',
+    'Benutzer' => 'User',
+    // l10n:    %s -> Username | Profil von Admin
+    'Profil von %s' => 'Profile of %s',
+    'Benutzerinformation' => 'User Information',
+    'System' => 'System',
+    'Neue Umfrage' => 'New Poll',
+    'Umfrage bearbeiten' => 'Edit Poll',
+    'Neue Umfrage starten' => 'Start new voting',
+    'Bitte Geben Sie einen Titel ein' => 'Please enter a title',
+    'Bitte Geben Sie mindestens 2 Antworten an' => 'Please enter at least 2 answers',
+    'Überprüfen Sie die Eingaben' => 'Check the input',
+    // l10n:    Aktuelle Auswahl: 15.02.2012
+    'Aktuelle Auswahl' => 'current Selection',
+    'Bitte beachten Sie die Meldungen' => 'Please note the messages',
+    // l10n:    vote - noscript
+    'Überprüfung deaktiviert' => 'verification disabled',
+    // l10n:    %s -> Number of Votes
+    'Bereits %s Stimmen abgegeben' => 'Already %s votes cast',
+    'Ergebnisse' => 'Results',
+    'Zum Abstimmen müssen Sie sich einloggen' => 'You have to login, to be able to vote',
+    'Abstimmung abgelaufen' => 'Voting ended',
+    'Bereits abgestimmt' => 'already voted',
+    // l10n:    %s -> Count of Votes
+    'Basierend auf %s Stimmen' => 'Based on %s votes',
+    'Möchten Sie die Umfrage wirklich entfernen?' => 'Do you want to remove the Poll?',
+    'Gültig bis' => 'Valid to',
+    'Möchten Sie die Datei wirklich löschen?' => 'Do you want to delete this file?',
+    'Die gewünschte Datei existiert nicht!' => 'The requested file does not exist!',
+    'Diese Seite kann nur direkt aufgerufen werden!' => 'This page can only be accessed directly!',
+    'Der angegebene Code scheint schon benutzt worden sein oder ist abgelaufen!' => 'The specified code seems to invalid or expired!',
+    'Die angegebenen Passwörter stimmen nicht überein!' => 'The specified passwords do not match!',
+    'Passwort erfolgreich geändert!' => 'Password changed successfully!',
+    'Benutzername nicht vorhanden' => 'Username does not exist',
+    'Die Kontaktemail Adresse ist falsch' => 'The contact email address is incorrect',
+    'Der angegebene Sicherheitscode stimmt nicht überein!' => 'The specified security code does not match!',
+    'Ihre Registration wurde erfolgreich abgeschlossen' => 'Your registration was successfully completed',
+    'Vielen Dank' => 'Thank you',
+    'Ihre E-Mailadresse wurde bereits verifiziert!' => 'Your e-mail address has allready been verified!',
+    'Gesperrt' => 'Closed',
+    'Als gelesen makiert' => 'Mark as read',
+    'Kein Betreff angegeben' => 'No subject given',
+    'Der Benutzername muss mindestens 4 Zeichen haben' => 'The user name must have at least 4 characters',
+    'Das Passwort muss mindestens 4 Zeichen haben' => 'Your password must be at least 4 characters long',
+    'Benutzername oder Email bereits vorhanden' => 'Username or Email already exists',
+    'Benutzername bereits vorhanden' => 'Username already exists',
+    'Antrag erfolgreich gestellt' => 'Application is submitted successfully',
+    'Eine Bestätigungs E-Mail ist zu Ihnen Unterwegs' => 'A confirmation e-mail is on the way',
+    'Bitte warten Sie, bis Sie freigeschaltet werden' => 'Please wait until you are unlocked',
+    'Unterseite erfolgreich erstellt' => 'Sub-page successfully created',
+    'Das gewählte Template ist nicht verfügbar' => 'The chosen template is not available',
+    'Es existiert bereits eine Seite mit diesen Namen' => 'There already exists a page with this name',
+    'Die Zeichen &uuml; &ouml; &auml; und &szlig; sind im Namen nicht erlaubt' => 'The characters &uuml; &ouml; &auml; und &szlig; are not allowed in the name',
+    'Die gewünschte Unterseite ist nicht verfügbar' => 'The requested sub-page is not available',
+    'Unterseite erfolgreich modifiziert' => 'Sub-page successfully modified',
+    'Liste der zugeordneten Unterseiten' => 'List of allocated sub-pages',
+    'Liste der Vorhandenen Unterseiten' => 'List of existing sub-pages',
+    // l10n:    %s -> Subpage name
+    'Unterseite %s erfolgreich gelöscht' => 'Sub-page %s successfully deleted',
+    // l10n:    %s -> Subpage name
+    'Möchten Sie die Unterseite %s wirklich löschen?' => 'Do you realy want to delete the sub-page %s?',
+    'Sie haben keine Berechtigung, Daten hoch zu laden' => 'You do not have permission to upload files',
+    // l10n:    %s -> File Size in MB
+    'Die gesendete Datei war zu groß! (Maximalgröße: %sMB)' => 'The uploaded file was too big! (maximum size: %sMB)',
+    'Dieser Datei-Typ ist nicht erlaubt' => 'This file type is not allowed',
+    'Fehler beim Schreiben der Daten in die Datenbank' => 'Error writing data to the database',
+    'Sie können keine Kategorien löschen, in denen sich Dateien befinden' => 'You can not delete a category, in which there are files',
+    'Möchten Sie die Kategorie wirklich löschen?' => 'Do you really want to delete this category?',
+    'Der Benutzer existiert nicht' => 'The user does not exist',
+    'Bitte benutzen sie eines der folgenden Formate' => 'Please use one of the following formats',
+    'Neue Newsmeldung verfassen' => 'Create a new News-Message',
+    'Newsmeldungen Bearbeiten' => 'Edit News-Messages',   
+    
+    '' => ''
 
 );
 

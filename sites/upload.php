@@ -515,10 +515,10 @@ if (!$right[$level]['upload'])
 
     if ($x != 0)
     {
-      $error->error($lang["Sie können keine Katigorien löschen, in denen sich Dateien befinden"]."!","2");
+      $error->error($lang["Sie können keine Kategorien löschen, in denen sich Dateien befinden"]."!","2");
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", $lang["Sie können keine Katigorien löschen, in denen sich Dateien befinden"]."!<br><a href=\"index.php?site=upload\">".$lang['back']."</a>");
+      $site->set("info", $lang["Sie können keine Kategorien löschen, in denen sich Dateien befinden"]."!<br><a href=\"index.php?site=upload\">".$lang['back']."</a>");
       $site->display();
 
     } else
@@ -526,7 +526,7 @@ if (!$right[$level]['upload'])
       $del = $get['katdel'];
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", $lang["Möchten Sie die Katigorie wirklick löschen?"]." <a href=index.php?site=upload&katdel2=$del>".$lang['yes']."</a> <a href=index.php>".$lang['no']."</a>");
+      $site->set("info", $lang["Möchten Sie die Kategorie wirklich löschen?"]." <a href=index.php?site=upload&katdel2=$del>".$lang['yes']."</a> <a href=index.php>".$lang['no']."</a>");
       $site->display();
     }
 

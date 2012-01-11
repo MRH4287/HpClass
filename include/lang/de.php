@@ -6,12 +6,13 @@ $lang['de'] = array(
     'absender' => 'Absender',
 
     // user-de
-    // user-eng
     'alter' => 'Alter',
 
     // pm-de
     // pm-eng
     'antworten' => 'Antworten',
+    
+    "Antworten" => "Antworten",
 
     // admin-de
     // admin-eng
@@ -31,14 +32,11 @@ $lang['de'] = array(
     'betreff' => 'Betreff',
 
     // anwaerter-de
-    // anwaerter-eng
     'bewebungstext' => 'Bewebungstext',
 
     // anwaerter-de
-    // anwaerter-eng
     'bewerbungen' => 'Bewerbungen',
 
-    // user-de
     // user-eng
     'birthday' => 'Geburtstag',
 
@@ -136,7 +134,7 @@ $lang['de'] = array(
 
     // pm-de
     // pm-eng
-    'für' => 'Für',
+    'Für' => 'Für',
 
     // pm-de
     // pm-eng
@@ -185,10 +183,6 @@ $lang['de'] = array(
     // pm-de
     // pm-eng
     'messagenotforyou' => 'Diese Nachricht ist nicht für Sie bestimmt!',
-
-    // admin-de
-    // admin-eng
-    'modulman' => 'Modul Manager',
 
     // de-eng-default
     'morenews' => 'Weitere Nachrichten',
@@ -311,7 +305,7 @@ $lang['de'] = array(
 
     // user-de
     // user-eng
-    'rank' => 'Rang',
+    'rank' => 'Level',
 
     // de-eng-default
     'register' => 'Registrieren',
@@ -372,7 +366,7 @@ $lang['de'] = array(
 
     // pm-de
     // pm-eng
-    'von' => 'Von',
+    'Von' => 'Von',
 
     // profil-de
     // profil-eng
@@ -518,7 +512,7 @@ $lang['de'] = array(
     'Basierend auf %s Stimmen' => 'Basierend auf %s Stimmen',
     'Möchten Sie die Umfrage wirklich entfernen?' => 'Möchten Sie die Umfrage wirklich entfernen?',
     'Gültig bis' => 'Gültig bis',
-    'Möchten Sie die Datei wirklick löschen?' => 'Möchten Sie die Datei wirklick löschen?',
+    'Möchten Sie die Datei wirklich löschen?' => 'Möchten Sie die Datei wirklich löschen?',
     'Die gewünschte Datei existiert nicht!' => 'Die gewünschte Datei existiert nicht!',
     'Diese Seite kann nur direkt aufgerufen werden!' => 'Diese Seite kann nur direkt aufgerufen werden!',
     'Der angegebene Code scheint schon benutzt worden sein oder ist abgelaufen!' => 'Der angegebene Code scheint schon benutzt worden sein oder ist abgelaufen!',
@@ -557,8 +551,8 @@ $lang['de'] = array(
     'Die gesendete Datei war zu groß! (Maximalgröße: %sMB)' => 'Die gesendete Datei war zu groß! (Maximalgröße: %sMB)',
     'Dieser Datei-Typ ist nicht erlaubt' => 'Dieser Datei-Typ ist nicht erlaubt',
     'Fehler beim Schreiben der Daten in die Datenbank' => 'Fehler beim Schreiben der Daten in die Datenbank',
-    'Sie können keine Katigorien löschen, in denen sich Dateien befinden' => 'Sie können keine Katigorien löschen, in denen sich Dateien befinden',
-    'Möchten Sie die Katigorie wirklick löschen?' => 'Möchten Sie die Katigorie wirklick löschen?',
+    'Sie können keine Kategorien löschen, in denen sich Dateien befinden' => 'Sie können keine Kategorien löschen, in denen sich Dateien befinden',
+    'Möchten Sie die Kategorie wirklich löschen?' => 'Möchten Sie die Kategorie wirklich löschen?',
     'Der Benutzer existiert nicht' => 'Der Benutzer existiert nicht',
     'Bitte benutzen sie eines der folgenden Formate' => 'Bitte benutzen sie eines der folgenden Formate',
     'Neue Newsmeldung verfassen' => 'Neue Newsmeldung verfassen',

@@ -57,7 +57,7 @@ if (!$right[$level]["see_downloadPage"])
 } elseif (isset ($get['del']) and $right[$level]['upload_del'])
 {
   $del = $get['del'];
-$info->info($lang["Möchten Sie die Datei wirklick löschen?"]." <a href=index.php?site=download&del2=$del>".$lang['yes']."</a> <a href=index.php>".$lang['no']."</a>");
+$info->info($lang["Möchten Sie die Datei wirklich löschen?"]." <a href=index.php?site=download&del2=$del>".$lang['yes']."</a> <a href=index.php>".$lang['no']."</a>");
 } else
 {
   if (!isset($get['id']))
