@@ -32,10 +32,7 @@ class siteTemplate
   // if this value is true, then a error Message will be displayed to the user
   protected $error = false;
 
-
   public static $functions = array();
-
-
   public function __construct($hp, $copy = null)
   {
     $this->hp = $hp;
@@ -55,13 +52,7 @@ class siteTemplate
         $hp->error->error("siteTemplate: supplied Object is no siteTemplate");
       }
     }
-
-
   }
-
-
-
-
 
   /*!
 
@@ -101,7 +92,6 @@ class siteTemplate
 
     $this->path = $path;
 
-
     if (!file_exists($path))
     {
       $error->error("Template not found! ($path)");
@@ -111,8 +101,6 @@ class siteTemplate
     }
     // Laden der Datei
     $input =  file_get_contents($path);
-
-
 
     //Pasen der Datei:
 
@@ -143,21 +131,12 @@ class siteTemplate
       }
     }
 
-
-
-    //echo "Name: $this->name<br>";
-   //echo "Autor: $this->autor<br>";
-
-
-
-
     $data = preg_split("/(\[\!=([^!]*)!])/", $input);
 
     foreach ($data as $key=>$value)
     {
-
       $blockname = "None";
-      $lines = preg_split("/[\n|\r]/", $value);
+      $lines = preg_split("/[\n\r]/", $value);
       $content = "";
       foreach ($lines as $lineNr=>$line)
       {
@@ -166,21 +145,14 @@ class siteTemplate
           $blockname = $m[1];
          } elseif (($line != "") && ($blockname == "None"))
          {
-          $content .= $line."\n\r";
+          $content .= $line."\n";
          }
-
 
       }
       $this->blocks[$blockname] = $content;
-
-     // echo  $this->blocks[$blockname];
-
     }
 
-
-
   }
-
 
   private function getPlaceholder($content, $key = "!", $trust = false)
   {
@@ -202,7 +174,6 @@ class siteTemplate
 
     return $result;
   }
-
 
   public function replace($data)
   {
@@ -230,7 +201,6 @@ class siteTemplate
 
     return $data;
   }
-
 
   private function replaceDefault($data)
   {
@@ -332,8 +302,6 @@ class siteTemplate
         $split = explode(" : ", $word);
       }
 
-
-	
       $out = "";
       if (isset(self::$functions[$split[0]]))
       {
@@ -378,43 +346,26 @@ class siteTemplate
 
     foreach ($Data as $k => $word)
     {
-
       $values = explode(" = ", $word);
-
-
       $content = "";
-
-
       $content = $this->replaceExtendedInput($values[1]);
-
 
       $vars = "";
       if (count($values) > 2)
       {
-
         $vars = $this->replaceExtendedInput($values[2]);
-
       }
 
       $type = "lbOn";
       if (count($values) > 3)
       {
         $type = $this->replaceExtendedInput($values[3]);
-
       }
-
       $data = str_replace("#+$word#", $hp->lbsites->link($values[0], $content, $vars, $type), $data);
 
-
-
     }
-
-
     return $data;
-
-
   }
-
 
   private function replaceEquals($data)
   {
@@ -439,30 +390,21 @@ class siteTemplate
         $data = str_replace("#=$word#", "[Args?]", $data);
         return $data;
       }
-
+      
       // A
-
       $compareA = $this->replaceExtendedInput($con[0]);
-
 
       // B
       $compareB = $this->replaceExtendedInput($con[1]);
 
-
       // Values:
-
       $iftrue = $this->replaceExtendedInput($values[1], "[T]");
-
       $iffalse = $this->replaceExtendedInput($values[2], "[F]");
 
-
       $data = str_replace("#=$word#", ($compareA == $compareB)? $iftrue : $iffalse, $data);
-
     }
-
     return $data;
   }
-
 
   private function replaceCondit($data)
   {
@@ -485,8 +427,6 @@ class siteTemplate
       $rightN = $con[0];
 
       $iftrue = $this->replaceExtendedInput($con[1], "[T]");
-
-
       $iffalse = "";
 
       if (isset($con[2]))
@@ -494,16 +434,12 @@ class siteTemplate
         $iffalse = $this->replaceExtendedInput($con[2], "[F]");
       }
 
-
       if (preg_match("/\:(.*)/", $rightN))
       {
         $name = str_replace(":", "", $rightN);
-
         $in = $this->replaceExtendedInput($name, "false");
-
         $output = ((($in === "true") || ($in === true)) ? $iftrue : $iffalse);
-
-
+        
       } elseif (preg_match("/\=(.*)/", $rightN))
       {
         $name = str_replace("=", "", $rightN);
@@ -514,7 +450,6 @@ class siteTemplate
         {
           $output = "[config?]";
         }
-
       } elseif (isset($right[$level][$rightN]))
       {
         $output = ($right[$level][$rightN] ? $iftrue : $iffalse);
@@ -522,7 +457,6 @@ class siteTemplate
       } elseif (($rightN == "superadmin"))
       {
          $output = (isset($_SESSION['username']) && in_array($_SESSION['username'], $hp->getsuperadmin())) ? $iftrue : $iffalse;
-
       } elseif (($rightN == "login"))
       {
          $output = (isset($_SESSION['username'])) ? $iftrue : $iffalse;
@@ -537,7 +471,6 @@ class siteTemplate
 
   return $data;
   }
-
 
   private function replaceLoop($data)
   {
@@ -554,14 +487,10 @@ class siteTemplate
 
       if (count($split) >= 2)
       {
-
         $array = $this->replaceExtendedInput($split[0]);
         if (is_array($array))
         {
-
           $text = "";
-
-
           foreach ($array as $key => $value)
           {
              $this->aktArray = $value;
@@ -569,7 +498,6 @@ class siteTemplate
              $text .= $this->replaceLoopContent($myBase, $key, $value);
              $this->aktArray = null;
           }
-
           $content = $text;
 
         } else
@@ -582,22 +510,17 @@ class siteTemplate
       }
       $data = str_replace("#L:$word#", $content, $data);
     }
-
     return $data;
   }
-
 
   private function replaceLoopContent($data, $key, $value)
   {
     $hp = $this->hp;
-
-
     if (is_array($value))
     {
       $this->aktArray = $value;
 
       $PData = $this->getPlaceholder($data, "l:", true);
-
       foreach ($PData as $k=> $word)
       {
         $word = str_replace("l:", "", $word);
@@ -615,14 +538,12 @@ class siteTemplate
           {
             $content = "[Unknown Array Index!]";
           }
-
         }
         elseif ((count($split) == 2) && ($split[0] === "V"))
         {
           if (isset($value[$split[1]]))
           {
              $content = $value[$split[1]];
-
           } else
           {
             $content = "[Unknown Array Index!]";
@@ -635,24 +556,20 @@ class siteTemplate
 
         $data = str_replace("#l:$word#", $content, $data);
       }
-
     } else
     {
       $data = "[Second Array?]";
     }
-
     $this->aktArray = null;
 
     return $data;
   }
-
 
   private function replaceExtendedInput($input, $fallback = "")
   {
       $hp = $this->hp;
 
       $content = "";
-
 
       if (preg_match("/@([^\"]*)\((.*)\)/", $input, $m))
       {
@@ -672,9 +589,7 @@ class siteTemplate
                  $content = $this->replaceExtendedInput($el);
                  $args[] = $content;
              }
-
              $content = $obj->$func($args, $this);
-
          } else
          {
            $content = "[#-Func?]";
@@ -689,7 +604,6 @@ class siteTemplate
       elseif (preg_match("/%(.*)/", $input))
       {
           $content = $hp->getlangclass()->word(str_replace("%", "", $input));
-
       }
       elseif (preg_match("/!!(.*)/", $input))
       {
@@ -698,13 +612,10 @@ class siteTemplate
           if (isset($this->blocks[$name]))
           {
             $content = $this->blocks[$name];
-
           } else
           {
             $content = "[Block?]";
           }
-
-
       }
       elseif (preg_match("/!(.*)/", $input))
       {
@@ -718,8 +629,6 @@ class siteTemplate
           {
             $content = "[Block?]";
           }
-
-
       }
       elseif (preg_match("/l\:(.*)/", $input))
       {
@@ -742,8 +651,6 @@ class siteTemplate
           $content = "[l: Array?]";
         }
 
-
-
       } elseif (isset($this->data[$input]))
       {
         $content = $this->data[$input];
@@ -760,8 +667,6 @@ class siteTemplate
       return $content;
 
   }
-
-
 
 
   public function set($key, $value)
@@ -786,9 +691,7 @@ class siteTemplate
     {
     $this->set($key, $value);
     }
-
   }
-
 
   public function getNode($name, $data = null)
   {
@@ -805,7 +708,6 @@ class siteTemplate
 
       $this->data = $tmp;
 
-
       return $result;
     } else
     {
@@ -821,27 +723,19 @@ class siteTemplate
     } else
     {
       $content = "";
-
       foreach ($data as $k=>$value)
       {
         $content .= $this->getNode($nodeName, $value);
       }
-
       return $content;
-
-
     }
-
-
   }
-
 
   public function right($right = "login")
   {
     $this->neededRight = $right;
   }
-
-
+  
   public function display($node = null)
   {
     echo $this->get($node);
@@ -849,7 +743,6 @@ class siteTemplate
 
   public function get($node = null)
   {
-
 	if ($this->error)
 	{
 	  return "<b>Error Occured</b>";	
@@ -876,7 +769,6 @@ class siteTemplate
 
     }
 
-
     if ($ok)
     {
       if ($node == null)
@@ -886,13 +778,10 @@ class siteTemplate
 
       if (isset($this->blocks[$node]))
       {
-
         return $this->replace($this->blocks[$node]);
-
       } else
       {
         return "<b>Node '$node' not found!</b>";
-
       }
 
     } else
@@ -908,7 +797,6 @@ class siteTemplate
   {
     return $this->vars;
   }
-
 
   // ------------------------ Static Functions ---------------------------------
   public static function extend($ext)
@@ -937,11 +825,8 @@ class siteTemplate
 
         }
       }
-
     }
-
   }
-
 
  // ----------------------------- Template Functions ---------------------------
 
@@ -955,7 +840,6 @@ class siteTemplate
     }
     return $value;
  }
-
 
  public function temp_inArray($args)
  {
@@ -1014,8 +898,5 @@ class siteTemplate
       return $content;
     }
  }
-
-
-
 }
 ?>
