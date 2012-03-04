@@ -810,7 +810,7 @@ class siteTemplate
 
       foreach ($funktions as $key=>$value)
       {
-        $split = explode("_", $value);
+        $split = explode("_", $value, 2);
         if ((count($split) > 1) && ($split[0] == "temp") && ($split[1] != "") && !in_array($split[1],  self::$functions))
         {
           $name = $split[1];
