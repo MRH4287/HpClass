@@ -40,6 +40,8 @@ $template['jsu']='
 <script src="js/widgetconfig.js"></script>
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/votes.js"></script>
+<script src="js/l10n.js"></script>
+<script src="js/templateSystem.js"></script>
 <script src="js/autorun.js"></script>
 <link rel="stylesheet" href="css/lightboxX2.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/tipTip.css" type="text/css"/>

@@ -100,18 +100,18 @@ class Standalone extends Hp
     $this->error        = new ErrorStandalone;
     $this->info         = new InfoStandalone($firephp);
 
-    $this->lang       = new lang;
+    lang::$PATH = $path.'/../';
+    
+    $this->setlang(new lang());
     $this->setfirephp($firephp);
     $this->right->sethp($this);
-    //$this->error->sethp($this);
-    $this->lang->sethp($this);
-    //$this->info->init($this->lang, $this->error, $this);
-
+    $this->langclass->sethp($this);
+    $this->langclass->seterror($this->error);
     //Config
     $this->handelinput($_GET, $_POST);
     $this->handelconfig();
-
-
+    
+    $this->langclass->init("de");
   }
 
   function outputdivs()

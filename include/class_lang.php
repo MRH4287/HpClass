@@ -1,6 +1,8 @@
 <?php
 class lang implements arrayaccess
 {
+    public static $PATH = './';
+
     var $lang = array();
 
     var $clang;
@@ -185,7 +187,7 @@ class lang implements arrayaccess
     function incfiles()
     {
         // Include from the language-files:
-        $handle = @opendir("./include/lang/");
+        $handle = @opendir(self::$PATH."include/lang/");
         while (false !== ($file = @readdir($handle))) 
         {
             $n= explode(".", $file);
@@ -193,9 +195,9 @@ class lang implements arrayaccess
 
             if ($art == "php")
             {
-                if (file_exists("./include/lang/$file"))
+                if (file_exists(self::$PATH."include/lang/$file"))
                 {
-                    include ("./include/lang/$file");
+                    include (self::$PATH."include/lang/$file");
                 }
                 
                 $this->addlang($lang);
@@ -217,10 +219,10 @@ class lang implements arrayaccess
         }
 
 
-        if (is_dir("template/".$this->temppath."/lang/"))
+        if (is_dir(self::$PATH."template/".$this->temppath."/lang/"))
         {
 
-            $handle = @opendir("./template/".$this->temppath."/lang/");
+            $handle = @opendir(self::$PATH."template/".$this->temppath."/lang/");
             while (false !== ($file = @readdir($handle))) 
             {
                 $n= explode(".", $file);
@@ -228,9 +230,9 @@ class lang implements arrayaccess
 
                 if ($art == "php")
                 {
-                    if (file_exists("./template/".$this->temppath."/lang/$file"))
+                    if (file_exists(self::$PATH."template/".$this->temppath."/lang/$file"))
                     {
-                        include ("./template/".$this->temppath."/lang/$file");
+                        include (self::$PATH."template/".$this->temppath."/lang/$file");
                     }
                     
                     $this->addlang($lang);

@@ -1,3 +1,5 @@
+var l10n = new Localization();
+
 $(document).ready(function() {
   
   // Lightbox

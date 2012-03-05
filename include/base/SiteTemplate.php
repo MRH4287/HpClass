@@ -13,7 +13,7 @@ class siteTemplate
   public $autor;
 
 
-  private $blocks = array();
+  protected $blocks = array();
   protected $data = array();
   protected $vars = array();
 
