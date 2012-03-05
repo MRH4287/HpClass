@@ -95,8 +95,8 @@ class siteTemplate
     if (!file_exists($path))
     {
       $error->error("Template not found! ($path)");
-	  $this->error = true;
-	  return;
+      $this->error = true;
+      return;
 
     }
     // Laden der Datei
@@ -107,15 +107,15 @@ class siteTemplate
     $lines = preg_split("/[\n|\r]/", $input);
     foreach ($lines as $lineNr=>$line)
     {
-    	
+
       if (preg_match("/\#\!\!NAME=(.*)/", $line, $m))
        {
-    	   $this->name = $m[1];
+           $this->name = $m[1];
        }
 
        if (preg_match("/\#\!\!AUTOR=(.*)/", $line, $m))
        {
-    	   $this->autor = $m[1];
+           $this->autor = $m[1];
        }
 
     }
@@ -159,8 +159,8 @@ class siteTemplate
     $result = array();
 
       // Herausfiltern der Platzhalter:
-    	if (preg_match_all("/#".((!$trust) ? "\\" : "").$key."[^\#]*#/", $content, $m2))
-    	{
+        if (preg_match_all("/#".((!$trust) ? "\\" : "").$key."[^\#]*#/", $content, $m2))
+        {
         foreach ($m2 as $k=>$data)
         {
           foreach ($data as $key2 => $placeholder)
@@ -279,26 +279,25 @@ class siteTemplate
   private function replaceFunctions($data)
   {
     $hp = $this->hp;
-
-
     $tempData = $this->getPlaceholder($data, "@");
 
     foreach ($tempData as $k=> $word)
     {
-	
+
       // Check for newer Syntax
-      if (preg_match('/([^\(^\)]*)\((.*)\)/', $word, $m))
+      if (preg_match('/(?<![: @a-zA-Z0-9])([^\(^\)^:]*)\((.*)\)/', $word, $m))
       {
         $split = explode(", ", $m[2]);
-		$sp = array($m[1]);
-		foreach($split as $k=>$v)
-		{
-		  $sp[] = $v;
-		}
-		$split = $sp;
-		
+        $sp = array($m[1]);
+        foreach($split as $k=>$v)
+        {
+          $sp[] = $v;
+        }
+        $split = $sp;
+
       } else
       {
+
         $split = explode(" : ", $word);
       }
 
@@ -595,19 +594,19 @@ class siteTemplate
            $content = "[#-Func?]";
          }
 
-      } elseif (preg_match("/\"(.*)\"/", $input))
+      } elseif (preg_match("/\"(.*)\"/", $input, $m))
       {
-          $tmp = $this->replaceLangBlocks($this->replaceDefault($input));
-          $content =  str_replace("\"", "", $tmp);
+          $content = $this->replaceLangBlocks($this->replaceDefault($m[1]));
 
       }
-      elseif (preg_match("/%(.*)/", $input))
+      elseif (preg_match("/%(.*)/", $input, $m))
       {
-          $content = $hp->getlangclass()->word(str_replace("%", "", $input));
+
+          $content = $hp->getlangclass()->word($m[1]);
       }
-      elseif (preg_match("/!!(.*)/", $input))
+      elseif (preg_match("/!!(.*)/", $input, $m))
       {
-          $name = str_replace("!!", "", $input);
+          $name = $m[1];
 
           if (isset($this->blocks[$name]))
           {
@@ -617,9 +616,9 @@ class siteTemplate
             $content = "[Block?]";
           }
       }
-      elseif (preg_match("/!(.*)/", $input))
+      elseif (preg_match("/!(.*)/", $input, $m))
       {
-          $name = str_replace("!", "", $input);
+          $name = $m[1];
 
           if (isset($this->blocks[$name]))
           {
@@ -630,9 +629,9 @@ class siteTemplate
             $content = "[Block?]";
           }
       }
-      elseif (preg_match("/l\:(.*)/", $input))
+      elseif (preg_match("/l\:(.*)/", $input, $m))
       {
-        $input = str_replace("l:", "", $input);
+        $input = $m[1];
 
         if ($this->aktArray != null)
         {
@@ -743,11 +742,12 @@ class siteTemplate
 
   public function get($node = null)
   {
-	if ($this->error)
-	{
-	  return "<b>Error Occured</b>";	
-	}
-	
+
+    if ($this->error)
+    {
+      return "<b>Error Occured</b>";
+    }
+
     $ok = false;
     $nr = $this->neededRight;
 
@@ -815,7 +815,7 @@ class siteTemplate
         {
           $name = $split[1];
 
-        	$array = array(
+            $array = array(
            "name" => $name,
            "func" => $value,
            "obj" => $ext
@@ -836,7 +836,7 @@ class siteTemplate
 
     foreach($args as $k=>$v)
     {
-      $value .= (is_string($v)) ? $v : (is_array($v) ? "[Array]" : (is_bool($v) ? $v : (is_object($v) ? "[Object]" : "[Unknown]")));
+        $value .= (is_string($v)) ? $v : (is_array($v) ? "[Array]" : (is_bool($v) ? $v : (is_object($v) ? "[Object]" : $v)));
     }
     return $value;
  }
@@ -854,6 +854,27 @@ class siteTemplate
     }
 
  }
+
+ /*
+  * Executes printf
+  *
+  * Parameter:
+  * - Text
+  * * Arguments
+  */
+ public function temp_printf($args)
+ {
+    if (count($args) < 2)
+    {
+        return "[printf: Need at least 2 Arguments]";
+    } else
+    {
+        $format = array_shift($args);
+        return vsprintf($format, $args);
+    }
+
+ }
+
 
  /*
 

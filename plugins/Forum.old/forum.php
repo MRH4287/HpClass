@@ -51,8 +51,8 @@ if (!$loader->isEnabled("ForumPlugin"))
   if (!$visible)
   {
   
-  $error->error("Das gewünschte Forum exsistiert nicht!");
-  echo "Das gewünschte Forum exsistiert nicht oder Sie haben keine Bereichtigung diesen einzusehen!";
+  $error->error("Das gewünschte Forum existiert nicht!");
+  echo "Das gewünschte Forum existiert nicht oder Sie haben keine Bereichtigung diesen einzusehen!";
   } else
   {
   
@@ -216,7 +216,7 @@ if (!$loader->isEnabled("ForumPlugin"))
   {
   $this->fp->log($posts);
   $page = 1;
-  $error->error("Diese Seite exsistiert nicht!");
+  $error->error("Diese Seite existiert nicht!");
   }
    
    if (isset($posts[$page]) and (count($posts[$page]) != 0))
@@ -408,8 +408,8 @@ if (!$loader->isEnabled("ForumPlugin"))
   }
   } else
   {
-  $error->error("Das gewünschte Forum exsistiert nicht!");
-  echo "Das gewünschte Forum exsistiert nicht oder Sie haben keine Bereichtigung diesen einzusehen!";
+  $error->error("Das gewünschte Forum existiert nicht!");
+  echo "Das gewünschte Forum existiert nicht oder Sie haben keine Bereichtigung diesen einzusehen!";
   
   }
   
@@ -431,8 +431,8 @@ if (!$loader->isEnabled("ForumPlugin"))
   
   if ($row->ID == "")
   {
-  $error->error("Der gewünschte Thread exsistiert nicht!");
-  echo "Der gewünschte Thread exsistiert nicht oder Sie haben keine Bereichtigung diesen einzusehen!";
+  $error->error("Der gewünschte Thread existiert nicht!");
+  echo "Der gewünschte Thread existiert nicht oder Sie haben keine Bereichtigung diesen einzusehen!";
   } else
   {
   
@@ -459,8 +459,8 @@ if (!$loader->isEnabled("ForumPlugin"))
   if (!$visible)
   {
   
-  $error->error("Der gewünschte Thread exsistiert nicht!");
-  echo "Der gewünschte Thread exsistiert nicht oder Sie haben keine Bereichtigung diesen einzusehen!";
+  $error->error("Der gewünschte Thread existiert nicht!");
+  echo "Der gewünschte Thread existiert nicht oder Sie haben keine Bereichtigung diesen einzusehen!";
   } else
   {
   
@@ -537,7 +537,7 @@ if (!$loader->isEnabled("ForumPlugin"))
   if (count($posts[$page]) == 0)
   {
   $page = 1;
-  $error->error("Diese Seite exsistiert nicht!");
+  $error->error("Diese Seite existiert nicht!");
   }
   
   foreach ($posts[$page] as $tmp=>$ID) {

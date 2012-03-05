@@ -95,10 +95,10 @@
       $erg = $hp->mysqlquery($sql);
       //$this->fp->log($sql);
 
-      $info->okn("Umfrage erfolgreich eingetragen!");
+      $info->okn($lang['Erfolgreich erstellt']);
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", "Erfolreich eingetragen<br><a href=index.php?site=vote>Zurück</a>");
+      $site->set("info", $lang['Erfolgreich erstellt']."<br><a href=index.php?site=vote>".$lang['back']."</a>");
       $site->display();
 
 
@@ -194,10 +194,10 @@
       $erg = $hp->mysqlquery($sql);
 
 
-      $info->okn("Umfrage erfolgreich aktualisiert!");
+      $info->okn($lang['Erfolgreich aktualisiert']);
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", "Erfolreich aktualisiert<br><a href=index.php?site=vote>Zurück</a>");
+      $site->set("info", $lang['Erfolgreich aktualisiert']."<br><a href=index.php?site=vote>".$lang['back']."</a>");
       $site->display();
 
 
@@ -210,7 +210,7 @@
       $info->okm("Umfrage erfolgreich gelöscht!");
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", "Umfrage erfolgreich gelöscht.<br><a href=index.php?site=vote>Zurück</a>");
+      $site->set("info", $lang['delok'].".<br><a href=index.php?site=vote>".$lang['back']."</a>");
       $site->display();
 
 

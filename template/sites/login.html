@@ -9,7 +9,7 @@
   #%password# <br />
   <input type="password" name="passwort" size="15" required><input type="submit" value="#%loginbutt#" name="login"> <br />
   <a href=index.php?site=register>&raquo;&nbsp;#%register#</a> 
-  <a href=index.php?site=lostpw>&raquo;&nbsp;Passwort vergessen?</a>   
+  <a href=index.php?site=lostpw>&raquo;&nbsp;#%Passwort vergessen#?</a>   
   </form>
   
 [!/Login!]
@@ -28,17 +28,17 @@
 
 [!=Links!]
 
-   <a href="sites/login.php?logout">&raquo;&nbsp;Logout</a>                     
-   #?adminsite : "<a href="index.php?site=admin">&raquo;&nbsp;Administration</a>"#    
-   <a href="index.php?site=pm">&raquo;&nbsp;PM-Menu</a>                         
+   <a href="sites/login.php?logout">&raquo;&nbsp;#%Logout#</a>                     
+   #?adminsite : "<a href="index.php?site=admin">&raquo;&nbsp;#%Administration#</a>"#    
+   <a href="index.php?site=pm">&raquo;&nbsp;#%PM-Menu#</a>                         
    <a href="index.php?site=profil">&raquo;&nbsp;#%editprofile#</a>                 
-   #?manage_vote : "<a href="index.php?site=vote">&raquo;&nbsp;Umfragen</a>"#          
+   #?manage_vote : "<a href="index.php?site=vote">&raquo;&nbsp;#%Umfragen#</a>"#          
    #@include : "login-temp"#                                                                 
-   #?usedpics : "<a href="index.php?site=usedpics">&raquo;&nbsp;Benutzte Bilder</a>"#  
-   #?manage_subpage : "<a href="index.php?site=subpage">&raquo;&nbsp;Unterseiten Verwalten</a>"# 
-   #?superadmin : "<a href="index.php?site=rights">&raquo;&nbsp;Rechte</a>"#            
-   #?superadmin : "<a href="index.php?site=config">&raquo;&nbsp;Konfiguration</a>"#    
-   #?superadmin : "<a href="index.php?site=plugins">&raquo;&nbsp;Plugin System</a>"#    
-   #?superadmin : "<a href="index.php?site=dragdrop">&raquo;&nbsp;Widget System</a>"#    
+   #?usedpics : "<a href="index.php?site=usedpics">&raquo;&nbsp;#%Benutzte Bilder#</a>"#  
+   #?manage_subpage : @echo("<a href="index.php?site=subpage">&raquo;&nbsp;", %Unterseiten Verwalten, "</a>")# 
+   #?superadmin : "<a href="index.php?site=rights">&raquo;&nbsp;#%Rechte#</a>"#            
+   #?superadmin : "<a href="index.php?site=config">&raquo;&nbsp;#%Konfiguration#</a>"#    
+   #?superadmin : "<a href="index.php?site=plugins">&raquo;&nbsp;#%Plugin System#</a>"#    
+   #?superadmin : "<a href="index.php?site=dragdrop">&raquo;&nbsp;#%Widget System#</a>"#    
 [!/Links!]
 

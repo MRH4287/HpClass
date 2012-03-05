@@ -159,7 +159,6 @@ class Xajax_Funktions
 
       $events = $subpages->getEvents("$d.$monat.$jahr");
 
-
       $content = "";
 
       foreach ($events as $k=>$row)
@@ -173,9 +172,6 @@ class Xajax_Funktions
         $content .= $site->getNode("Event-Day-Event", $data);
         	
       }
-
-
-
 
       $data = array(
 
@@ -196,11 +192,7 @@ class Xajax_Funktions
 
 
     return $response;
-
   }
-
-
-
 
   function ax_calender_vote($month = "X", $jahr = "X")
   {
@@ -212,7 +204,6 @@ class Xajax_Funktions
     $lb = $hp->lbsites;
     $config = $hp->getconfig();
     $response = new xajaxResponse();
-
 
     $arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
     $date = getdate();
@@ -804,8 +795,6 @@ class Xajax_Funktions
   // ----------------------------------< DRAG & DROP >------------------------------------------------
 
 
-
-
   function decodeinfo($info)
   {
     $infos = array();
@@ -821,10 +810,6 @@ class Xajax_Funktions
 
     return $infos;
   }
-
-
-
-
 
   function ax_dragevent($dropper, $drag, $infon = "", $info_droppable = "")
   {
@@ -863,7 +848,6 @@ class Xajax_Funktions
 
     //$fp->group("Dragevent:");
 
-
     $superadmin = in_array($_SESSION['username'], $hp->getsuperadmin());
     if ($superadmin)
     {
@@ -874,11 +858,6 @@ class Xajax_Funktions
       //$fp->log($infos, "Infos");
 
       $infos_droppable = $this->decodeinfo($info_droppable);
-
-
-
-
-
 
       if ($infos_droppable['innerHTML'] == "")
       {
@@ -904,7 +883,6 @@ class Xajax_Funktions
       }
 
     }
-
 
     return $response;
   }
@@ -955,8 +933,6 @@ class Xajax_Funktions
     return $response;
   }
 
-
-
   function ax_reloadWidgets()
   {
     $response = new xajaxResponse();
@@ -986,10 +962,8 @@ class Xajax_Funktions
     //Ersetzten der Platzhalter:
     $widgets = $hp->template->spezialsigs($widgets);
 
-
       foreach ($widgets as $widget=>$content)
       {
-
         $content = str_replace("\\", "\\\\", $content);
         $content = str_replace("'", "\'", $content);
 
@@ -1001,7 +975,6 @@ class Xajax_Funktions
         $content = str_replace("ä", "&auml;", $content);
         $content = str_replace("Ä", "&Auml;", $content);
         $content = str_replace("ß", "&szlig;", $content);
-
 
         //$fp->log($content);
 
@@ -1035,8 +1008,6 @@ class Xajax_Funktions
              //$fp->log("Widget $widget nicht gesetzt, füge ein in WidgetContainer");
 
             $code[] =  "createWidgetBox('widgetContainer', '$widget', '$content');";
-
-
           }
 
         }
@@ -1072,12 +1043,9 @@ class Xajax_Funktions
 
         $code[] = $script;
 
-
       }
 
-
      }
-
 
     // Gebe die somit gesammelten Java Script aus:
     //$fp->log($code);
@@ -1097,8 +1065,6 @@ class Xajax_Funktions
 
     return $response;
   }
-
-
 
   function open($funktion)
   {
@@ -1268,7 +1234,6 @@ class Xajax_Funktions
 
   // ------------------------------------- Subpage - Editor ----------------------------------------------
 
-
   function ax_subpageTemplateChange($tempname)
   {
     $response = new xajaxResponse();
@@ -1303,7 +1268,6 @@ class Xajax_Funktions
       // Workaround End
    }
 
-
     // Seitenüberprüfung:
     $tpC = $subpages->getTemplateConfig($tempname);
 
@@ -1327,10 +1291,7 @@ class Xajax_Funktions
           );
 
           $content .= $site->getNode("TextBox", $data);
-
-
          break;
-
 
          case "textarea":
 
@@ -1341,8 +1302,6 @@ class Xajax_Funktions
           );
 
           $content .= $site->getNode("TextArea", $data);
-
-
           break;
 
 
@@ -1355,13 +1314,9 @@ class Xajax_Funktions
           );
 
            $content .= $site->getNode("CheckBox", $data);
-
-
          break;
 
          case "combobox":
-
-
 
           $options = "";
           if (isset($tpC["data"][$ID]) and is_array($tpC["data"][$ID]))
@@ -1386,8 +1341,6 @@ class Xajax_Funktions
           );
 
           $content .= $site->getNode("ComboBox", $data);
-
-
          break;
 
          case "level":
@@ -1416,16 +1369,9 @@ class Xajax_Funktions
           );
 
           $content .= $site->getNode("ComboBox", $data);
-
-
         break;
-
         }
-
-
       }
-
-
 
       $response->assign("SubpageData", "innerHTML", $content);
       $response->script('	tinyMCE.init({
@@ -1478,8 +1424,6 @@ class Xajax_Funktions
 
   // ---------------------------------------- Erweiterungen ----------------------------------------------
 
-
-
   function extend($path)
   {
     if (is_file("template/$path/xajax.php"))
@@ -1498,20 +1442,14 @@ class Xajax_Funktions
         $object = null;
       }
 
-
-
       if (is_object($object))
       {
 
         $this->registerFunctions($object);
 
-
       }
     }
   }
-
-
-
 
 }
 ?>

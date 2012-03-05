@@ -3,7 +3,7 @@
         Subpage Konfiguration:
 
         In dieser Datei stehen alle Informationen, die Später durch das System ausgelesen werden um die Daten entsprechend anzuzeigen.
-        Nur die Dateien, bei denen eine Konfigurations-Datei exsistiert, werden im System angezeigt.
+        Nur die Dateien, bei denen eine Konfigurations-Datei existiert, werden im System angezeigt.
 
 */
 

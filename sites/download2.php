@@ -18,6 +18,7 @@ if (!isset($site))
   $get = $hp->get();
   $post = $hp->post();
   $dbprefix = $hp->getprefix();
+  $lang = $hp->getlangclass();
 
 
 	$sql = "SELECT * FROM `".$dbprefix."download` WHERE `id` = '$dateiid'";
@@ -70,12 +71,12 @@ if (!isset($site))
 
   } else
   {
-    echo "Sie haben nicht die nötige berechtigung, diese Datei herunter zu laden!";
+    echo $lang['Sie haben nicht die benötigte Berechtigung!'];
   }
 
 	
 } else
 {
-  echo "Diese Seite kann nur direkt aufgerufen werden!";
+  echo $lang['Diese Seite kann nur direkt aufgerufen werden!'];
 }
 ?>

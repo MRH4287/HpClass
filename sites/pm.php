@@ -65,7 +65,7 @@ if (isset($_SESSION['username']))
 
         if ($eintragen == true)
         {
-          $info->okn("Als gelesen makiert");
+          $info->okn($lang["Als gelesen markiert"]);
         }
 
       }
@@ -86,7 +86,7 @@ if (isset($_SESSION['username']))
 
       if ($eintragen == true)
       {
-        $info->okn($lang->word('delok'));
+        $info->okn($lang['delok']);
       }
     }
     else
@@ -102,7 +102,7 @@ if (isset($_SESSION['username']))
     $Betreff = $post['Betreff'];
     if (!isset($Betreff) or $Betreff == "")
     {
-      $Betreff = "Kein Betreff angegeben";
+      $Betreff = $lang["Kein Betreff angegeben"];
     }
     $abfrage = "SELECT ID FROM ".$dbprefix."pm WHERE `timestamp` = '".$timestamp."'";
     $ergebnis = $hp->mysqlquery($abfrage);
@@ -206,7 +206,7 @@ if (isset($_SESSION['username']))
   } else
   {
      $error->error($lang->word('messagenotforyou'),"2");
-     $error->error($lang->word('messagenotforyou'),"1");
+     
   }
 
   //POST DEL

@@ -13,18 +13,18 @@
 </style>
 
 <div align="center" class="Stil1">
-  <p>Datei Manager</p>
+  <p>#%Datei-Manager#</p>
   <p>&nbsp;</p>
 </div>
 <center><table width="731" height="148" border="0">
   <tr>
-    <th height="26"><div align="center"><a href="index.php?site=download&change">Dateien bearbeiten</a></div></th>
-    <td><div align="center"><strong><a href="index.php?site=upload&upload">Datei hochladen</a></strong></div></td>
+    <th height="26"><div align="center"><a href="index.php?site=download&change">#%Dateien bearbeiten#</a></div></th>
+    <td><div align="center"><strong><a href="index.php?site=upload&upload">#%Datei hochladen#</a></strong></div></td>
   </tr>
 
   <tr>
-    <th height="21"><div align="center"><a href="index.php?site=upload&katnew">Kategorie erstellen</a></div></th>
-    <td><div align="center"><strong><a href="index.php?site=download&katchange">Kategorien bearbeiten</a></strong></div></td>
+    <th height="21"><div align="center"><a href="index.php?site=upload&katnew">#%Kategorie erstellen#</a></div></th>
+    <td><div align="center"><strong><a href="index.php?site=download&katchange">#%Kategorien bearbeiten#</a></strong></div></td>
   </tr>
 </table></center>
 
@@ -38,20 +38,20 @@
 
   <table border="1" width="433" align="center" bordercolor="#9999FF">
     <tr>
-      <td width="423">#?:update : "" : "<b>Hochladen als: #!username#</b>"#
+      <td width="423">#?:update : "" : "<b>#%Hochladen als#: #!username#</b>"#
       
       <form enctype="multipart/form-data" action="index.php?site=upload" method=post>
             
         <table border="0" width="333" align="center">
           <tr>
-            <td width="95">Titel:</td>
+            <td width="95">#%titel#:</td>
             <td width="222">
                 <input type="text" name="titel" size="20" maxlength="100" value="#!titel#" required />
               
             </td>
           </tr>
                   <tr>
-            <td width="95">Level:</td>
+            <td width="95">#%Level#:</td>
             <td width="222">
                 <select name="level">
  	              #!levels#
@@ -63,10 +63,10 @@
           
             <td width="95">Datei: </td>
             <td width="222">
-             #?:update : "Verändern von Dateien nicht möglich!" : "<input name=userfile type=file required />"#</td>
+             #?:update : %Verändern von Dateien nicht möglich! : "<input name=userfile type=file required />"#</td>
           </tr>
           <tr>
-            <td width="95">Beschreibung:</td>
+            <td width="95">#%description#:</td>
             <td width="222">
   
             <textarea rows="3" name="S1" cols="24" >#!beschreibung#</textarea>
@@ -78,7 +78,7 @@
             
             <select name="kat">
               #!kats#
-             </select> <a href="index.php?site=upload&katnew">Kategorien erstellen</a>
+             </select> <a href="index.php?site=upload&katnew">#%Kategorie erstellen#</a>
                  </td>
           </tr>
           <tr>
@@ -89,7 +89,7 @@
           </tr>
           <tr>
             <td colspan="2" width="261">
-              <p align="center"><input type="submit" value="Daten Abschicken" name="#?:update : "changefile" : "sendfiles"#" />      
+              <p align="center"><input type="submit" value="#%send#" name="#?:update : "changefile" : "sendfiles"#" />      
               <input type="hidden" value="#!ID#" name="ID" />
         
         
@@ -122,14 +122,14 @@
         <p>&nbsp;
         <table border="0" width="333" align="center">
           <tr>
-            <td width="95">Titel:</td>
+            <td width="95">#%titel#:</td>
             <td width="222">
                 <input type="text" name="titel" size="20" maxlength="20" value="#!titel#">
               
             </td>
           </tr>
                   <tr>
-            <td width="95">Level:</td>
+            <td width="95">#%Level#:</td>
             <td width="222">
                <select name="level">
  	              #!levels#
@@ -139,7 +139,7 @@
           </tr>
   
           <tr>
-            <td width="95">Beschreibung:</td>
+            <td width="95">#%description#:</td>
             <td width="222">
   
               <textarea rows="3" name="S1" cols="24" >#!beschreibung#</textarea>

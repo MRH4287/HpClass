@@ -35,33 +35,33 @@
 
 <form method="POST" action="index.php?site=config">
 
-<div class="ConfigContainer">
-<div class="ConfigHeader"><h1>Config-Verwaltung</h1></div>
+    <div class="ConfigContainer">
+        <div class="ConfigHeader"><h1>#%Konfiguration#</h1></div>
 
-#!Config#
+        #!Config#
 
-</div>
+    </div>
 
-  <input type="submit" value="Abschicken" name="sub">
+    <input type="submit" value="Abschicken" name="sub">
 </form>
 [!/Main!]
 
 
 [!=Categorie!]
 
-<b>Kategorie: #!name#</b>  <br /><br />
+<b>#%Kategorie#: #!name#</b>  <br /><br />
 <table border="0" width="80%">
 	<tr>
-		<th class="auto-style1" width=200>Name</th>
-		<th class="auto-style1">Beschreibung</th>
-		<th class="auto-style1" width=200>Einstellung</th>	
+		<th class="auto-style1" width="200">#%name#</th>
+		<th class="auto-style1">#%description#</th>
+		<th class="auto-style1" width="200">#%Einstellung#</th>	
 	</tr>
 	
 	
 	#!Config#
 
- </table>
-	<br />
+</table>
+<br />
 
 [!/Categorie!]
 

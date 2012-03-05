@@ -22,7 +22,7 @@ if (!$right[$level]['upload'])
 {
   $site = new siteTemplate($hp);
   $site->load("info");
-  $site->set("info", "Sie haben keine Berechtigung, Daten hoch zu laden!</br><a href=?site=upload>Upload</a>");
+  $site->set("info", $lang['Sie haben keine Berechtigung, Daten hoch zu laden']."!</br><a href=?site=upload>".$lang['upload']."</a>");
   $site->display();
 
 } else
@@ -72,7 +72,7 @@ if (!$right[$level]['upload'])
           {
              $site = new siteTemplate($hp);
              $site->load("info");
-             $site->set("info", "Die gesendete Datei war zu groß! (Maximalgröße: 3MB)<br /><a href=?site=upload>Zurück</a>");
+             $site->set("info", sprintf($lang['Die gesendete Datei war zu groß! (Maximalgröße: %sMB)'], '3')."<br /><a href=?site=upload>".$lang['back']."</a>");
              $site->display();
 
           } else
@@ -83,11 +83,11 @@ if (!$right[$level]['upload'])
             $ext = strtolower($ext);
             if (in_array($ext, $restExt))
             {
-              $error->error("Dieser Datei-Typ ist nicht erlaubt!");
+              $error->error($lang['Dieser Datei-Typ ist nicht erlaubt']."!");
 
               $site = new siteTemplate($hp);
               $site->load("info");
-              $site->set("info", "Fehler: Dieser Datei-Typ ist nicht erlaubt!<br><a href=\"index.php?site=upload\">Zurück</a>");
+              $site->set("info", $lang['error'].": ".$lang['Dieser Datei-Typ ist nicht erlaubt']."!<br><a href=\"index.php?site=upload\">".$lang['back']."</a>");
               $site->display();
 
             } else
@@ -98,16 +98,16 @@ if (!$right[$level]['upload'])
               $result=$hp->mysqlquery($sql);
           		if($result)
           		{
-                $info->okn("Erfolgeich eingetragen!");
+                $info->okn($lang['Erfolgreich erstellt']."!");
                 $site = new siteTemplate($hp);
                 $site->load("info");
-                $site->set("info", "Erfolgeich eingetragen!<br><a href=\"index.php?site=upload\">Zurück</a>");
+                $site->set("info", $lang['Erfolgreich erstellt']."!<br><a href=\"index.php?site=upload\">".$lang['back']."</a>");
                 $site->display();
 
 
               } else
           		{
-          			$error->error("Fehler beim Schreiben der Daten in die Datenbank.","2");
+          			$error->error($lang["Fehler beim Schreiben der Daten in die Datenbank"],"2");
           			
           		}
         		}
@@ -135,11 +135,11 @@ if (!$right[$level]['upload'])
               $ext = strtolower($ext);
               if (in_array($ext, $restExt))
               {
-                $error->error("Dieser Datei-Typ ist nicht erlaubt!");
+                $error->error($lang['Dieser Datei-Typ ist nicht erlaubt']."!");
 
                 $site = new siteTemplate($hp);
                 $site->load("info");
-                $site->set("info", "Fehler: Dieser Datei-Typ ist nicht erlaubt!<br><a href=\"index.php?site=upload\">Zurück</a>");
+                $site->set("info", $lang['error'].": ".$lang['Dieser Datei-Typ ist nicht erlaubt']."!<br><a href=\"index.php?site=upload\">".$lang['back']."</a>");
                 $site->display();
 
               } else
@@ -155,7 +155,7 @@ if (!$right[$level]['upload'])
                   $info->okn("Erfolgeich eingetragen!");
                   $site = new siteTemplate($hp);
                   $site->load("info");
-                  $site->set("info", "Erfolgeich eingetragen!<br><a href=\"index.php?site=upload\">Zurück</a>");
+                  $site->set("info", $lang['Erfolgreich erstellt']."!<br><a href=\"index.php?site=upload\">".$lang['back']."</a>");
                   $site->display();
                 }
               }
@@ -334,7 +334,7 @@ if (!$right[$level]['upload'])
 
     if ($res)
     {
-      $info->okm("Datei erfolgreich Modifiziert!");
+      $info->okm($lang['Erfolgreich aktualisiert']."!");
     }
 
   } elseif (isset($get['katnew']))
@@ -407,10 +407,10 @@ if (!$right[$level]['upload'])
     echo mysql_error();
     if ($eintragen== true)
     {
-      $info->okn("Erfolgeich erstellt!");
+      $info->okn($lang['Erfolgreich erstellt']."!");
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", "Erfolgeich erstellt!<br><a href=\"index.php?site=upload\">Zurück</a>");
+      $site->set("info", $lang['Erfolgreich erstellt']."!<br><a href=\"index.php?site=upload\">".$lang['back']."</a>");
       $site->display();
     }
 
@@ -500,7 +500,7 @@ if (!$right[$level]['upload'])
       $info->okn("Erfolgeich bearbeitet!");
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", "Erfolgeich bearbeitet!<br><a href=\"index.php?site=upload\">Zurück</a>");
+      $site->set("info", $lang['Erfolgreich aktualisiert']."!<br><a href=\"index.php?site=upload\">".$lang['back']."</a>");
       $site->display();
     }
 
@@ -515,10 +515,10 @@ if (!$right[$level]['upload'])
 
     if ($x != 0)
     {
-      $error->error("Sie können keine Katigorien löschen, in denen sich Dateien befinden!","2");
+      $error->error($lang["Sie können keine Kategorien löschen, in denen sich Dateien befinden"]."!","2");
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", "Sie können keine Katigorien löschen, in denen sich Dateien befinden!<br><a href=\"index.php?site=upload\">Zurück</a>");
+      $site->set("info", $lang["Sie können keine Kategorien löschen, in denen sich Dateien befinden"]."!<br><a href=\"index.php?site=upload\">".$lang['back']."</a>");
       $site->display();
 
     } else
@@ -526,7 +526,7 @@ if (!$right[$level]['upload'])
       $del = $get['katdel'];
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", "Möchten Sie die Katigorie wirklick löschen? <a href=index.php?site=upload&katdel2=$del>Ja</a> <a href=index.php>Nein</a>");
+      $site->set("info", $lang["Möchten Sie die Kategorie wirklich löschen?"]." <a href=index.php?site=upload&katdel2=$del>".$lang['yes']."</a> <a href=index.php>".$lang['no']."</a>");
       $site->display();
     }
 
@@ -539,10 +539,10 @@ if (!$right[$level]['upload'])
 
     if ($ergebnis == true)
     {
-      $info->okn("Erfolgreich gelöscht!");
+      $info->okn($lang['delok']);
       $site = new siteTemplate($hp);
       $site->load("info");
-      $site->set("info", "Erfolgreich gelöscht!<br><a href=\"index.php?site=upload\">Zurück</a>");
+      $site->set("info", $lang['delok']."<br><a href=\"index.php?site=upload\">".$lang['back']."</a>");
       $site->display();
 
     }

@@ -35,7 +35,7 @@ $pluginloader = $hp->pluginloader;
 
       if ($data["o"]->lock)
       {
-        $tempData["PluginData"] = ' <img src="./images/lock.gif" alt="Gesperrt"></div> ';
+        $tempData["PluginData"] = ' <img src="./images/lock.gif" alt="#%Gesperrt#"></div> ';
 
       } elseif ($data["enabled"])
       {
@@ -68,7 +68,7 @@ $pluginloader = $hp->pluginloader;
     // Da diese Seite jedoch Kritisch ist, kann das nicht erlaubt werden!
     $site->load("info");
 
-    $site->set("info","<b>Fehler:<b /> Um diese Seite zu betreten, müssen Sie SuperAdmin sein!");
+    $site->set("info","<b>".$lang['error'].":<b /> ".$lang['Sie haben nicht die benötigte Berechtigung!']);
   }
 
 
