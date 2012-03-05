@@ -25,9 +25,11 @@ class TemplateExtensionsPlugin extends Plugin
     $this->homepage = "http://mrh-development.de";
 
     //Notizen zu dem Plugin:
-    $this->notes = "Erweitert die Templates um mathematische und logische Funtionen";
+    $this->notes = "Erweitert die Templates um mathematische und logische Funktionen";
 
-
+	$this->lock = true;
+	$this->isEnabled = true;
+	
     //------------------------------------------------
 
   }

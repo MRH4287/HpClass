@@ -28,12 +28,11 @@ $template['titel']=$titel;
 
 
 // JS
-//<script src="js/scriptaculous/prototype.js"></script>
-//<script src="js/scriptaculous/scriptaculous.js"></script>
 $template['jsu']='
 <script src="js/jQuery.js"></script>
 <script src="js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery.tipTip.js"></script>
+<script type="text/javascript" src="js/jquery.filedrop.js"></script>
 <script type="text/javascript" src="js/lightboxX2.js"></script>
 <script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
 <script src="js/functions.js"></script>

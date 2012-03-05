@@ -14,6 +14,55 @@
 			return !($this->temp_bool($args));
 		}
 		
+		public function temp_implode($args)
+		{
+			$sep = ', ';
+			if (count($args) < 1)
+			{
+				return "[Args?]";
+			
+			} elseif (count($args) > 1)
+			{
+				$sep = $args[1];
+			}
+			
+			if (!is_array($args[0]))
+			{
+				return "[Array?]";
+			}
+			
+			//var_dump($args);
+			return implode($sep, $args[0]);
+		}
+		
+		
+		public function temp_array($args)
+		{
+			return $args;
+		}
+		
+		public function temp_push($args)
+		{
+			if (count($args) < 2)
+			{
+				return "[Args?]";
+			} 
+			
+			if (!is_array($args[0]))
+			{
+				return "[Array?]";
+			}
+			
+			$a = $args[0];
+			
+			for ($i = 1; $i < count($args); $i++)
+			{
+				$a[] = $args[$i];
+			}			
+			return $a;
+		}
+		
+		
 		// Typecasting:
 		
 		public function temp_bool($args)
@@ -173,6 +222,13 @@
 			}
 			
 			return $value;
+		}
+		
+		
+		public function temp_dump($args)
+		{
+			var_dump($args);
+			return "";
 		}
 
 	}	
