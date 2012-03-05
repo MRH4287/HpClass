@@ -119,9 +119,9 @@
 		$(".usedpics-container img").css('border', '1px solid black');
 		var pic = $("#pic"+id).css('border', '1px solid red');
 		
-		var data = $('<div></div>').append("Möchten Sie dieses Element löschen?<br>")
+		var data = $('<div></div>').append("#%Möchten Sie dieses Element löschen?#<br>")
 			.append(
-				$("<a href=\"#\">Ja</a>")
+				$("<a href=\"#\">#%yes#</a>")
 				.click(function(e)
 				{
 					del_click(id);
@@ -130,7 +130,7 @@
 				})
 			).append(' ')
 			.append(
-				$("<a href=\"#\">Nein</a>")
+				$("<a href=\"#\">#%no#</a>")
 				.click(function(e)
 				{
 					$(".usedpics-container img").css('border', '1px solid black');

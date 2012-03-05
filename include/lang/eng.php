@@ -565,6 +565,7 @@ $lang['eng'] = array(
     'Newsmeldungen Bearbeiten' => 'Edit News-Messages',
     'News' => 'News', 
     'Forum' => 'Board',
+	'Möchten Sie dieses Element löschen?' => 'Do you want to delete this entry?',
     
     '' => ''
 

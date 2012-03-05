@@ -559,6 +559,7 @@ $lang['de'] = array(
     'Newsmeldungen Bearbeiten' => 'Newsmeldungen Bearbeiten',
     'News' => 'News',
     'Forum' => 'Forum',
+	'Möchten Sie dieses Element löschen?' => 'Möchten Sie dieses Element löschen?',
     
     '' => ''
 
