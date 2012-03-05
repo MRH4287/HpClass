@@ -196,8 +196,7 @@ class lbsites
 
       $siteT->setArray($data);
 
-      $data = "";
-
+	  $pics = array();
       $sql = "SELECT * FROM `$dbprefix"."usedpics`";
       $erg = $hp->mysqlquery($sql);
       while ($row = mysql_fetch_object($erg))
@@ -209,20 +208,17 @@ class lbsites
          $neueHoehe=100;
          $neueBreite=intval($breite*$neueHoehe/$hoehe);
 
-         $img = "<img src=\"include/image.php?id=$row->ID&source=usedpic\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
-
-         if ($data == "")
-         {
-            $data = "'".$img."'";
-
-         } else
-         {
-            $data .= ", '".$img."'";
-         }
+		 $data = array(
+			'ID' => $row->ID,
+			'width' => $neueBreite,
+			'height' => $neueHoehe
+		 );
+		 
+		 $pics[] = $data;
 
       }
 
-      $siteT->set("picturelist", $data);
+	  $siteT->set('pics', $pics);
 
       return $siteT->get("LbSite-Edit");
 
@@ -263,8 +259,7 @@ class lbsites
 
       $siteT->setArray($data);
 
-      $data = "";
-
+	  $pics = array();
       $sql = "SELECT * FROM `$dbprefix"."usedpics`";
       $erg = $hp->mysqlquery($sql);
       while ($row = mysql_fetch_object($erg))
@@ -276,20 +271,17 @@ class lbsites
          $neueHoehe=100;
          $neueBreite=intval($breite*$neueHoehe/$hoehe);
 
-         $img = "<img src=\"include/image.php?id=$row->ID&source=usedpic\" width=\"$neueBreite\" height=\"$neueHoehe\"\> ";
-
-         if ($data == "")
-         {
-            $data = "'".$img."'";
-
-         } else
-         {
-            $data .= ", '".$img."'";
-         }
+		 $data = array(
+			'ID' => $row->ID,
+			'width' => $neueBreite,
+			'height' => $neueHoehe
+		 );
+		 
+		 $pics[] = $data;
 
       }
 
-      $siteT->set("picturelist", $data);
+	  $siteT->set('pics', $pics);
 
       return $siteT->get("LbSite-Edit");
 

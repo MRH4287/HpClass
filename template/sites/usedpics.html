@@ -116,7 +116,7 @@
 	
 	function del_a_pic(id)
 	{
-		$(".images img").css('border', '1px solid black');
+		$(".usedpics-container img").css('border', '1px solid black');
 		var pic = $("#pic"+id).css('border', '1px solid red');
 		
 		var data = $('<div></div>').append("Möchten Sie dieses Element löschen?<br>")
@@ -133,7 +133,7 @@
 				$("<a href=\"#\">Nein</a>")
 				.click(function(e)
 				{
-					$(".images img").css('border', '1px solid black');
+					$(".usedpics-container img").css('border', '1px solid black');
 					hide_container();
 					e.preventDefault();
 				})
@@ -169,7 +169,7 @@
 	
 	$(document).ready(function()
 	{
-		$('.images').click(function(e)
+		$('.usedpics-container').click(function(e)
 		{
 			var ignore = $(this).find('img');
 			var trigger = true;
@@ -185,46 +185,26 @@
 			if (trigger)
 			{
 				hide_container();
-				$(".images img").css('border', '1px solid black');
+				$(".usedpics-container img").css('border', '1px solid black');
 			}
 		});
 	});
 	
 </script>
 [!/Script!]
-
-
-[!=Style!]
-<style>
-	.images
-	{
-		border: 1px dashed gray;
-		text-align: center;
-	}
-	
-	.images img
-	{
-		margin: 3px;
-		border: 1px solid black;
-	}
-	
-
-
-</style>
-[!/Style!]
+]
 
 [!=Main!]
 
 #/ Outputs the Script: #
 #@echo(!!Script)#
-#@echo(!!Style)#
 
 
 	<div id="dropbox" class="pic-dropbox">
 		<span class="message">Drop images here to upload. <br /><i>(they will only be visible to you)</i></span>
 	</div>
 
-	<div class="images">
+	<div class="usedpics-container">
 		#L:pics : !Image#
 	</div>
 	

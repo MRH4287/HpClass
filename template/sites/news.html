@@ -41,15 +41,15 @@
     <p align="left">Datum:<br>
     <input type="text" name="newsdate" size="20" value="#!datum#" #?:datDisabled : "DISABLED" : ""#></p>
     <input type="hidden" name="newstyp" value="Info" />
-      <p align="left">
-     Level 
-     <select name="newslevel">
-	     <option #="0" == level : "selected=selected" : ""#>0</option>
-       <option #="1" == level : "selected=selected" : ""#>1</option>
-	     <option #="2" == level : "selected=selected" : ""#>2</option>
-	     <option #="3" == level : "selected=selected" : ""#>3</option>
-	   </select>
-     <br>Die Berechtigungen können in der Seite "Rechte" geändert werden. Level 0 bedeutet öffentlich.</p>
+	<p align="left">
+	Level 
+	<select name="newslevel">
+		<option #="0" == level : "selected=selected" : ""#>0</option>
+		<option #="1" == level : "selected=selected" : ""#>1</option>
+		<option #="2" == level : "selected=selected" : ""#>2</option>
+		<option #="3" == level : "selected=selected" : ""#>3</option>
+	</select>
+	<br>Die Berechtigungen können in der Seite "Rechte" geändert werden. Level 0 bedeutet öffentlich.</p>
     <p align="left">
     <textarea rows="15" name="newstext" cols="74" id="t1">#!newstext#</textarea>
     <button type="submit" name="#!sitename#"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
@@ -58,11 +58,9 @@
 
   <a href="#" id="PL_link" onclick="$('#picturelist').dialog('open'); return false;"> Picture List öffnen</a>
 
-  <div class="picturelist" id="picturelist" title="Picture List">
-		<div style="width:600px; text-align:center">
-			<div class="picturelist_left" OnMouseOver="picturelist_on = true; picturelist_goleft();" OnMouseOut="picturelist_on = false;" onclick="picturelist_left()"></div>
-			<div class="picturelist_holder" id="picturelist_holder"></div>
-			<div class="picturelist_right"  OnMouseOver="picturelist_on = true; picturelist_goright();" OnMouseOut="picturelist_on = false;" onclick="picturelist_right()"></div>
+	<div class="picturelist" id="picturelist" title="Picture List">  
+		<div class="usedpics-container" style="height:100%; overflow:auto">
+			#L:pics : !Image#
 		</div>
 	</div>
   
@@ -70,17 +68,19 @@
   <script>
 		$('#picturelist').dialog({
 			autoOpen: false,
-			width:650
+			width:650,
+			height:300
 			
-			})
-		picturelist_setdata(new Array (#!picturelist#));
-		
-		picturelist_print();
-  
+			});
+
   </script>
 
 
 [!/LbSite-Edit!]
+
+[!=Image!]
+<img src="include/image.php?id=#l:ID#&source=usedpic" width="#l:width#" height="#l:height#"> 
+[!/Image!]
 
 [!=LbSite-Del!]
 

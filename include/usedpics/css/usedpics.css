@@ -33,6 +33,19 @@ margin:auto;
 }
 
 
+.usedpics-container
+{
+	border: 1px dashed gray;
+	text-align: center;
+}
+
+.usedpics-container img
+{
+	margin: 3px;
+	border: 1px solid black;
+}
+
+
 .pic-dropbox{
 	/*background:url('../img/background_tile_3.jpg');*/
 	

@@ -39,7 +39,6 @@ $template['jsu']='
 <script src="js/drag&drop.js"></script>
 <script src="js/widgetconfig.js"></script>
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" src="include/usedpics/js/picturelist.js"></script>
 <script type="text/javascript" src="js/votes.js"></script>
 <script src="js/autorun.js"></script>
 <link rel="stylesheet" href="css/lightboxX2.css" type="text/css" media="screen" />
