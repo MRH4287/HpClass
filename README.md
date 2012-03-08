@@ -7,4 +7,4 @@ This System is written by Manuel Holzhauser
 
 **License:**
 This Project is licensed under the MIT-License.
-See LICENSE for futher information
+See LICENSE for further information
