@@ -836,7 +836,20 @@ class siteTemplate
 
     foreach($args as $k=>$v)
     {
-        $value .= (is_string($v)) ? $v : (is_array($v) ? "[Array]" : (is_bool($v) ? $v : (is_object($v) ? "[Object]" : $v)));
+        if (is_array($v) || is_object($v))
+        {
+            $value .= "<pre>";
+            $value .= print_r($v, true);
+            $value .= "</pre>";
+        
+        } elseif (is_bool($v))
+        {
+            $value .= $v;
+        } else
+        {
+            $value .= $v;
+        }
+
     }
     return $value;
  }
