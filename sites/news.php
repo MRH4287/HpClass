@@ -142,18 +142,18 @@ $abfrage = "SELECT * FROM ".$dbprefix."news ORDER BY `ID` DESC LIMIT ".$limit;
 $ergebnis = $hp->mysqlquery($abfrage);
 
 
-$Content = "";
+$Content = array();
 
 while($row = mysql_fetch_object($ergebnis))
 {
 	$ok = false;
-	if (("$row->level" == "1") and ($right[$level]['readl1'] == true ))
+	if (("$row->level" == "1") && ($right[$level]['readl1']))
 	{
 		$ok = true;
-	} elseif (("$row->level" == "2") and ($right[$level]['readl2'] == true ))
+	} elseif (("$row->level" == "2") && ($right[$level]['readl2']))
 	{
 		$ok = true;
-	} elseif (("$row->level" == "3") and ($right[$level]['readl3'] == true ))
+	} elseif (("$row->level" == "3") && ($right[$level]['readl3']))
 	{
 		$ok = true;
 	} elseif ("$row->level" == "0")
@@ -166,28 +166,15 @@ while($row = mysql_fetch_object($ergebnis))
 
 		$data = array(
 			"titel" => $row->titel,
-			"level" => ($row->level <> "0") ? " --Level $row->level --" : "",
+			"level" => $row->level,
 			"ersteller" => $row->ersteller,
 			"datum" => $row->datum,
 			"Content" => $row->text,
-			"EditNews" => "",
-			"DeletNews" => ""
+			"ID" => $row->ID,
+			"edit" => isset($get['delet'])
 			);
 
-		if (isset($get['delet']))
-		{
-			if ($right[$level]['newsedit'])
-			{
-				$data["EditNews"] = '<a href="index.php?lbsite=newschange&vars='.$row->ID.'" class="lbOn">'.$lang['edit'].'</a> ';
-			}
-
-			if ($right[$level]['newsdel'])
-			{
-				$data["DeletNews"] = '<a href="index.php?lbsite=delnews&vars='.$row->ID.'" class="lbOn">'.$lang['delet'].'</a> ';
-			}
-		}
-
-		$Content .= $site->getNode("News", $data);
+		$Content[] = $data;
 	}
 }
 

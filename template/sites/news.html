@@ -3,7 +3,7 @@
 
 [!=Main!]
 
-  #!News#
+  #L:News : !News#
   
   <p align="center"><a href="index.php?site=news&limit=20"><b>#%morenews#</b></a>
 
@@ -15,20 +15,25 @@
 [!=News!]
 
 <div class="newsbox">
-<div class="newsbox_info"><b>#!titel# #!level# #%by# <a href=index.php?site=user&show=#!ersteller#>#!ersteller#</a></b></div>
-<div class="newsbox_info_date"><b>  #@printf : %geschrieben am %s : @echo("<i>", datum, "</i>")#</b></div>
+<div class="newsbox_info"><b>#l:titel# #=l:level == "0" : "" : @echo("--- Level ", l:level, " ---")# #%by# <a href=index.php?site=user&show=#l:ersteller#>#l:ersteller#</a></b></div>
+<div class="newsbox_info_date"><b>  #@printf : %geschrieben am %s : @echo("<i>", l:datum, "</i>")#</b></div>
 <div class="newsbox_inhalt">
-#!Content#
+#l:Content#
 
 <br>
- 
-#!EditNews# #!DeletNews# 
- 
+
+#?:l:edit : !News-Edit#
+
 </div> 
 </div>
 
 
 [!/News!]
+
+[!=News-Edit!]
+	#?newsedit : @echo("<a href="index.php?lbsite=newschange&vars=", l:ID, "" class="lbOn">", %edit, "</a>")#
+	#?newsdel : @echo("<a href="index.php?lbsite=delnews&vars=", l:ID, "" class="lbOn">", %delet, "</a>")#
+[!/News-Edit!]
 
 
 [!=LbSite-Edit!]
