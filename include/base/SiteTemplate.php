@@ -33,24 +33,33 @@ class siteTemplate
 	protected $error = false;
 
 	public static $functions = array();
+	
 	public function __construct($hp, $copy = null)
 	{
 		$this->hp = $hp;
 		$this->searchpath = "template/sites";
 		$this->searchpathT = "template/#!Design#/sites";
 
-		self::extend($this);
-
 		if ($copy != null)
 		{
 			if (is_a($copy, "siteTemplate"))
 			{
-				$this->data = array_merge($this->data, $copy->data);
-				$this->vars = array_merge($this->vars, $copy->vars);
+				foreach($copy->data as $k=>$v)
+				{
+					$this->data[$k] = $v;
+				}
+				
+				foreach($copy->vars as $k=>$v)
+				{
+					$this->vars[$k] = $v;
+				}
 			} else
 			{
 				$hp->error->error("siteTemplate: supplied Object is no siteTemplate");
 			}
+		} else
+		{
+			self::extend($this);
 		}
 	}
 
@@ -811,7 +820,7 @@ class siteTemplate
 			foreach ($funktions as $key=>$value)
 			{
 				$split = explode("_", $value, 2);
-				if ((count($split) > 1) && ($split[0] == "temp") && ($split[1] != "") && !in_array($split[1],  self::$functions))
+				if ((count($split) > 1) && ($split[0] == "temp") && ($split[1] != "") && !in_array($split[1], self::$functions))
 				{
 					$name = $split[1];
 
@@ -913,7 +922,6 @@ class siteTemplate
 
 			$site->append('traceback', $path);
 
-
 			$content = '';
 
 			switch ($argCount)
@@ -928,7 +936,7 @@ class siteTemplate
 					break;
 			}
 			$this->vars = array_merge($this->vars, $site->getVars());
-
+			
 			return $content;
 		}
 	}
