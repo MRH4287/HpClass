@@ -983,7 +983,7 @@ class siteTemplate
 				$this->hp->template->append($args[0], $args[1]);
 			}
 		}
-		return true;
+
 	}
 	
 	/*
@@ -1002,8 +1002,7 @@ class siteTemplate
 		{
 			$this->append($args[0], $args[1]);
 		}
-		
-		return true;
+
 	}
 	
 }
