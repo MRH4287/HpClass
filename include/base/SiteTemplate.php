@@ -919,5 +919,30 @@ class siteTemplate
       return $content;
     }
  }
+ 
+ 
+ public function temp_child($args)
+ {
+    if (count($args) < 2)
+    {
+        return "[Args?]";
+    } else
+    {
+        if (is_array($args[0]) && isset($args[0][$args[1]]))
+        {
+            return $args[0][$args[1]];
+        
+        } elseif (is_object($args[0]) && isset($args[0]->$args[1]))
+        {
+            return $args[0]->$args[1];
+        
+        } else
+        {
+            return null;
+        }
+    }
+ 
+ }
+ 
 }
 ?>

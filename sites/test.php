@@ -15,10 +15,17 @@ $right = $hp->right;
 $subpages = $hp->subpages;
 
 
+$temp = new siteTemplate($hp);
+
+$data = (object)array("bla" => array(1,2,3)); 
+
+
+$temp->set("data", $data);
+
+$temp->load("test");
+$temp->display();
+
 ?>
-
-
-<a class="lbOn" href="?lbsite=Test22">Test</a>
 
 
 
