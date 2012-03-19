@@ -70,26 +70,24 @@ $subpages->sethp($hp);
 $hp->setsubpages($subpages);
 $pluginloader->sethp($hp);
 $hp->setpluginloader($pluginloader);
-// ----------------------------------------------------------------------------
 
 //------------------------------Plugin System----------------------------------
 $pluginloader->Init();
 
-
 //-----------------------------lang Config-------------------------------------
 $lang->init("de");
-//-----------------------------------------------------------------------------
+
 
 
 //-----------------------------Input / Config Handling-------------------------
 $hp->handelinput($_GET, $_POST);
 $hp->handelconfig();
-//-----------------------------------------------------------------------------
 
-//-----------------------------right / config----------------------------------
-$right = $hp->getright();
-$config = $hp->getconfig();
-//-----------------------------------------------------------------------------
+
+//------------------------------Template Steuerung-----------------------------
+include 'include/template.php';
+include 'include/login.php';
+$temp->settemplate($template);
 
 
 //------------------------------Plugin System----------------------------------
@@ -105,14 +103,6 @@ $widgets->replace();
 
 
 //------------------------------Template Steuerung-----------------------------
-// 1. Inportieren der Template Dateien
-include 'include/template.php';
-include 'include/login.php';
-
-
-// 2. Übergeben des Template Arrays am die Funktion
-$temp->settemplate($template);
-
 
 //-----------Widgets----------
 $widgets->addtotemp();

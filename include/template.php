@@ -1,6 +1,7 @@
 <?php
-// Config System
-// 4.1
+$right = $hp->getright();
+$config = $hp->getconfig();
+
 if ($config['titel'] != "")
 {
 	$titel = $config['titel'];
