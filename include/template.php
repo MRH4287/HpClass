@@ -28,7 +28,7 @@ if (isset($_SESSION['username']))
 
 
 // JS
-$template['jsu']='
+$template['head']='
 <script src="js/jQuery.js"></script>
 <script src="js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery.tipTip.js"></script>
@@ -55,8 +55,5 @@ $template['jsu']='
 <link rel="stylesheet" href="css/jquery.lightbox-0.5.css" type="text/css" media="screen" />
 ';
 
-$template['js']='
-
-';
 
 ?>
