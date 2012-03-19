@@ -103,11 +103,7 @@ $widgets->replace();
 
 
 //------------------------------Template Steuerung-----------------------------
-
-//-----------Widgets----------
 $widgets->addtotemp();
-
-// 3. Laden der HTML Datei
 $temp->load($design);
 
 //--------------------------------Xajax Request--------------------------------
@@ -117,16 +113,8 @@ $xajaxF->processRequest();
 $pluginloader->OnSiteCreated();
 
 
-// 4. Ausgeben des Headers
-echo $temp->gettemp('header');
-// 5. Einbinden der PHP Datei
 $hp->inc();
-// 6. Ausgeben des Footers
-echo $temp->gettemp('footer');
-//-----------------------------------------------------------------------------
-
-
-//------------------------------------------------------------------------------
+$temp->display();
 
 
 //----------------------------------XAJAX---------------------------------------

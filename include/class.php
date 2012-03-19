@@ -584,6 +584,8 @@ class HP
 
 	function inc()
 	{
+		ob_start();
+		
 		$site = $this->site;
 
 		$site= $this->checksite($site);
@@ -624,6 +626,13 @@ class HP
 				}
 			}
 		}
+		
+		$content = ob_get_contents();
+		ob_end_clean();
+		
+		$this->template->append("Content", $content);
+		
+		ob_start();
 	}
 
 
