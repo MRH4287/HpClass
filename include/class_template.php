@@ -4,230 +4,230 @@ require_once "include/base/SiteTemplate.php";
 class template extends siteTemplate
 {
 
-  var $template = array();
-  var $path;
+	var $template = array();
+	var $path;
 
 
 
-  function __construct($hp)
-  {
-    parent::__construct($hp);
-  }
+	function __construct($hp)
+	{
+		parent::__construct($hp);
+	}
 
 
-  function seterror($error)
-  {
-    $this->error=$error;
-  }
+	function seterror($error)
+	{
+		$this->error=$error;
+	}
 
-  function gettemp($part)
-  {
-    return $this->template[$part];
-  }
+	function gettemp($part)
+	{
+		return $this->template[$part];
+	}
 
-  function settemplate($temp)
-  {
-    $this->setArray($temp);
-  }
+	function settemplate($temp)
+	{
+		$this->setArray($temp);
+	}
 
 
-  function load($path, $v2 = "")
-  {
-    $this->path = $path;
+	function load($path, $v2 = "")
+	{
+		$this->path = $path;
 
-    if (!file_exists("template/$path.html"))
-    {
+		if (!file_exists("template/$path.html"))
+		{
 
-      $this->template=array();
-      $this->hp->error->error("Template $path not found!", "2");
-      if (file_exists("template/default.html"))
-      {
-        $path = "default";
-      } else
-      {
-       $this->error->error("Standard Template wurde nicht gefunden!","3");
-      }
-    }
+			$this->template=array();
+			$this->hp->error->error("Template $path not found!", "2");
+			if (file_exists("template/default.html"))
+			{
+				$path = "default";
+			} else
+			{
+				$this->error->error("Standard Template wurde nicht gefunden!","3");
+			}
+		}
 
-    parent::load("template/$path.html", true);
+		parent::load("template/$path.html", true);
 
-    //$temp = file_get_contents("template/$path.html");
+		//$temp = file_get_contents("template/$path.html");
 
 
 
 
-    $temp = $this->loadtemplatefile($path);
-    if (is_array($temp))
-    {
-      $this->setArray($temp);
-    }
+		$temp = $this->loadtemplatefile($path);
+		if (is_array($temp))
+		{
+			$this->setArray($temp);
+		}
 
-    $this->addVote();
+		$this->addVote();
 
-    //$this->data = $this->spezialsigs($data);
+		//$this->data = $this->spezialsigs($data);
 
-    $this->hp->subpages->loadTemplateFile($path);
+		$this->hp->subpages->loadTemplateFile($path);
 
 
-    $data = explode("<!--next-->", $this->get());
+		$data = explode("<!--next-->", $this->get());
 
-    if (count($data) > 1)
-    {
+		if (count($data) > 1)
+		{
 
-      $this->template['header'] = $data[0];
-      $this->template['footer'] = $data[1];
+			$this->template['header'] = $data[0];
+			$this->template['footer'] = $data[1];
 
-    } else
-    {
-      $this->template['header'] = $data[0];
-      $this->template['footer'] = "";
-    }
+		} else
+		{
+			$this->template['header'] = $data[0];
+			$this->template['footer'] = "";
+		}
 
-  }
+	}
 
-  function addtemp($temp, $wort)
-  {
+	function addtemp($temp, $wort)
+	{
 
-    $this->set($temp, $wort);
+		$this->set($temp, $wort);
 
-  }
+	}
 
-  function spezialsigs($data)
-  {
+	function spezialsigs($data)
+	{
 
-    foreach ($data as $key=>$value)
-    {
+		foreach ($data as $key=>$value)
+		{
 
-      $data[$key] = $this->replace($value);
-    	
-    }
-    return $data;
-  }
+			$data[$key] = $this->replace($value);
+			
+		}
+		return $data;
+	}
 
-  function getloginconfig($path)
-  {
+	function getloginconfig($path)
+	{
 
-    if (is_file("template/$path/login.php"))
-    {
+		if (is_file("template/$path/login.php"))
+		{
 
-      include "template/$path/login.php";
+			include "template/$path/login.php";
 
-      return $config;
-    } else
-    {
-      return null;
-    }
+			return $config;
+		} else
+		{
+			return null;
+		}
 
-  }
+	}
 
-  function loadtemplatefile($path)
-  {
+	function loadtemplatefile($path)
+	{
 
-    if (file_exists("template/$path/template.php"))
-    {
+		if (file_exists("template/$path/template.php"))
+		{
 
-      include "template/$path/template.php";
-      return $template;
-    }
+			include "template/$path/template.php";
+			return $template;
+		}
 
-    return array();
+		return array();
 
-  }
+	}
 
-  function getHeader()
-  {
+	function getHeader()
+	{
 
-    return $this->data['header'];
+		return $this->data['header'];
 
-  }
+	}
 
 
-  function addVote()
-  {
-  $hp = $this->hp;
-  $dbprefix = $hp->getprefix();
-  $info = $hp->info;
-  $error = $hp->error;
-  $fp = $hp->fp;
-  $right = $hp->getright();
-  $lbs = $hp->lbsites;
+	function addVote()
+	{
+		$hp = $this->hp;
+		$dbprefix = $hp->getprefix();
+		$info = $hp->info;
+		$error = $hp->error;
+		$fp = $hp->fp;
+		$right = $hp->getright();
+		$lbs = $hp->lbsites;
 
-  $level = $_SESSION["level"];
+		$level = $_SESSION["level"];
 
 
 
-  $sql = "SELECT `ID`, `userid`, `antworten`, `name`, `ergebnisse`, `voted`, UNIX_TIMESTAMP(`timestamp`) AS `timestamp`, UNIX_TIMESTAMP(`upto`) AS `upto` FROM `$dbprefix"."vote`";
-  $erg = $hp->mysqlquery($sql);
+		$sql = "SELECT `ID`, `userid`, `antworten`, `name`, `ergebnisse`, `voted`, UNIX_TIMESTAMP(`timestamp`) AS `timestamp`, UNIX_TIMESTAMP(`upto`) AS `upto` FROM `$dbprefix"."vote`";
+		$erg = $hp->mysqlquery($sql);
 
 
-  while ($row = mysql_fetch_object($erg))
-  {
+		while ($row = mysql_fetch_object($erg))
+		{
 
-    $site = new siteTemplate($hp);
-    $site->load("vote");
+			$site = new siteTemplate($hp);
+			$site->load("vote");
 
-    $ergebniss = explode("<!--!>", $row->ergebnisse);
-    $voted = count($ergebniss);
-    if ($ergebniss[0] == "")
-    {
-      $voted--;
-    }
-    $whov = explode("<!--!>", $row->voted);
+			$ergebniss = explode("<!--!>", $row->ergebnisse);
+			$voted = count($ergebniss);
+			if ($ergebniss[0] == "")
+			{
+				$voted--;
+			}
+			$whov = explode("<!--!>", $row->voted);
 
-    $data = array(
-      "name" => $row->name,
-      "ID" => $row->ID
-    );
+			$data = array(
+				"name" => $row->name,
+				"ID" => $row->ID
+				);
 
-    $site->setArray($data);
+			$site->setArray($data);
 
-    $content = "";
-    if ($row->upto > time())
-    {
+			$content = "";
+			if ($row->upto > time())
+			{
 
-       if (isset($_SESSION['ID']) && !in_array($_SESSION['ID'], $whov))
-       {
+				if (isset($_SESSION['ID']) && !in_array($_SESSION['ID'], $whov))
+				{
 
-          $answers = explode("<!--!>", $row->antworten);
+					$answers = explode("<!--!>", $row->antworten);
 
-          $votes = "";
-          foreach ($answers as $key=>$value)
-          {
+					$votes = "";
+					foreach ($answers as $key=>$value)
+					{
 
-              $data2 = array(
-              "ID" => $data["ID"],
-              "key" => $key,
-              "value" => $value
-              );
+						$data2 = array(
+							"ID" => $data["ID"],
+							"key" => $key,
+							"value" => $value
+							);
 
-              $votes .= $site->getNode("Vote-Element", $data2);
+						$votes .= $site->getNode("Vote-Element", $data2);
 
-          }
+					}
 
-          $data2 = array_merge(array(), $data);
-          $data2["votes"] = $votes;
+					$data2 = array_merge(array(), $data);
+					$data2["votes"] = $votes;
 
-          $content = $site->getNode("Vote-List", $data2);
+					$content = $site->getNode("Vote-List", $data2);
 
-        } else
-        {
-          $content = $site->getNode("Vote-Voted", $data);
-        }
+				} else
+				{
+					$content = $site->getNode("Vote-Voted", $data);
+				}
 
-      } else
-      {
-        $content = $site->getNode("Vote-Out", $data);
-      }
+			} else
+			{
+				$content = $site->getNode("Vote-Out", $data);
+			}
 
-      $site->set("content", $content);
-      $site->set("votes", $voted);
+			$site->set("content", $content);
+			$site->set("votes", $voted);
 
-      $this->set('vote-'.$row->ID, $site->get("Vote"));
+			$this->set('vote-'.$row->ID, $site->get("Vote"));
 
 
-    }
+		}
 
-  }
+	}
 
 
 }

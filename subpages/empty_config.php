@@ -8,19 +8,19 @@
 */
 
 
-    // Nicht ändern
-    $subpageconfig = array();
+// Nicht ändern
+$subpageconfig = array();
 
-  // Ab hier können Änderungen vorgenommen werden
-    // Der Name dieses Templates:
-    $subpageconfig["name"]        = "Leer";
-    // Die Liste aller statischen Inhalte:
-    $subpageconfig["template"]    = array(
-                                          "main" => "textarea",
-                                          "MinLevel" => "level"
-                                          );
-    // Die Liste alles dynamischen Inhalte:
-    $subpageconfig["dyncontent"]  = array();
+// Ab hier können Änderungen vorgenommen werden
+// Der Name dieses Templates:
+$subpageconfig["name"]        = "Leer";
+// Die Liste aller statischen Inhalte:
+$subpageconfig["template"]    = array(
+	"main" => "textarea",
+	"MinLevel" => "level"
+	);
+// Die Liste alles dynamischen Inhalte:
+$subpageconfig["dyncontent"]  = array();
 
 
 

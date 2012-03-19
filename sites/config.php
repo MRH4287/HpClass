@@ -16,8 +16,8 @@ $config = $hp->config;
 if (isset($post['sub']))
 {
 
-  $hp->config->apply($post['config']);
-  $config->load();
+	$hp->config->apply($post['config']);
+	$config->load();
 
 }
 // Ende auswertung Post
@@ -32,23 +32,23 @@ $Tdata = array();
 $registed = $config->getregisted();
 foreach ($registed as $k => $name)
 {
-  // right, level, description, ok, cat
-  $Tdata[$config->cat($name)][] = $name;
+	// right, level, description, ok, cat
+	$Tdata[$config->cat($name)][] = $name;
 }
 
 
 $designs = array();
 if (is_dir("./template"))
 {
-  $handle = opendir("./template");
-  while (false != ($file = readdir($handle)))
-  {
-    $exp = explode(".",$file);
-    if ((count($exp) >= 2) && ($exp[1] == "html"))
-    {
-      $designs[]=$exp[0];
-    }
-  }
+	$handle = opendir("./template");
+	while (false != ($file = readdir($handle)))
+	{
+		$exp = explode(".",$file);
+		if ((count($exp) >= 2) && ($exp[1] == "html"))
+		{
+			$designs[]=$exp[0];
+		}
+	}
 }
 
 $currentConfig = $config->getconfig();
@@ -57,91 +57,91 @@ $content = "";
 
 foreach ($Tdata as $cat => $Cdata)
 {
-  $contentCat = "";
-  foreach ($Cdata as $k => $conf)
-  {
-    $type = $config->type($conf);
-    $input = "";
+	$contentCat = "";
+	foreach ($Cdata as $k => $conf)
+	{
+		$type = $config->type($conf);
+		$input = "";
 
-    switch ($type)
-    {
-      case "bool":
+		switch ($type)
+		{
+			case "bool":
 
-       $data = array(
-          "name" => $conf,
-          "checked" => ($currentConfig[$conf]) ? "true" : "false"
-       );
+				$data = array(
+					"name" => $conf,
+					"checked" => ($currentConfig[$conf]) ? "true" : "false"
+					);
 
-       $input = $site->getNode("Input-Checkbox", $data);
-
-
-      break;
+				$input = $site->getNode("Input-Checkbox", $data);
 
 
-      case "design":
-
-        $cont = "";
-
-        foreach ($designs as $k => $name)
-        {
-          $data = array(
-            "value" => $name,
-            "ID" => $name,
-            "selected" => ($currentConfig["design"] == $name) ? "true" : "false"
-          );
-          $cont .= $site->getNode("Input-Option", $data);
-
-        }
-
-        $data  = array(
-          "name" => $conf,
-          "Options" => $cont
-        );
-
-        $input = $site->getNode("Input-Combobox", $data);
+				break;
 
 
+			case "design":
 
-      break;
+				$cont = "";
 
-      default:
+				foreach ($designs as $k => $name)
+				{
+					$data = array(
+						"value" => $name,
+						"ID" => $name,
+						"selected" => ($currentConfig["design"] == $name) ? "true" : "false"
+						);
+					$cont .= $site->getNode("Input-Option", $data);
 
-        $data = array(
-          "name" => $conf,
-          "value" => $currentConfig[$conf]
-        );
+				}
 
-        $input = $site->getNode("Input-Textbox", $data);
+				$data  = array(
+					"name" => $conf,
+					"Options" => $cont
+					);
 
-
-      break;
-
-    }
-
-    $data = array(
-      "name" => $conf,
-      "description" => $config->desc($conf),
-      "input" => $input
-    );
-
-    $contentCat .= $site->getNode("Config", $data);
+				$input = $site->getNode("Input-Combobox", $data);
 
 
-  }
 
-  $data = array(
-    "name" => $cat,
-    "Config" => $contentCat
-  );
+				break;
 
-  $content .= $site->getNode("Categorie", $data);
+			default:
+
+				$data = array(
+					"name" => $conf,
+					"value" => $currentConfig[$conf]
+					);
+
+				$input = $site->getNode("Input-Textbox", $data);
+
+
+				break;
+
+		}
+
+		$data = array(
+			"name" => $conf,
+			"description" => $config->desc($conf),
+			"input" => $input
+			);
+
+		$contentCat .= $site->getNode("Config", $data);
+
+
+	}
+
+	$data = array(
+		"name" => $cat,
+		"Config" => $contentCat
+		);
+
+	$content .= $site->getNode("Categorie", $data);
 
 }
 
 $data = array(
-  "Config" => $content
+	"Config" => $content
 
-);
+	);
 
 $site->setArray($data);
 

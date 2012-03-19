@@ -21,7 +21,7 @@ if ($right[$level]["usedpics"])
 	$erg = $hp->mysqlquery($sql);
 	while ($row = mysql_fetch_object($erg))
 	{
-			
+		
 		$breite=$row->width;
 		$hoehe=$row->height;
 		
@@ -32,7 +32,7 @@ if ($right[$level]["usedpics"])
 			'ID' => $row->ID,
 			'width' => $neueBreite,
 			'height' => $neueHoehe
-		);
+			);
 		
 		$pics[] = $data;
 		
@@ -45,8 +45,8 @@ if ($right[$level]["usedpics"])
 } else
 {
 	$site = new siteTemplate($hp);
-    $site->right("usedpics");
-    $site->display();
+	$site->right("usedpics");
+	$site->display();
 }
 
 ?>

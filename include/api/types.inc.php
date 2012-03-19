@@ -3,27 +3,27 @@
 class Request
 {
 
-  public $user;
-  public $key;
-  public $verification;
+	public $user;
+	public $key;
+	public $verification;
 
 }
 
 class Command
 {
 
-  public $token;
-  public $key;
-  public $command;
-  public $arguments;
+	public $token;
+	public $key;
+	public $command;
+	public $arguments;
 
 
 }
 
 class Initialize
 {
-  public $loginOk;
-  public $token;
+	public $loginOk;
+	public $token;
 
 }
 
@@ -31,9 +31,9 @@ class Initialize
 class Response
 {
 
-  public $token;
-  public $result;
-  public $key;
+	public $token;
+	public $result;
+	public $key;
 
 }
 

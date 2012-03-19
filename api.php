@@ -2,8 +2,8 @@
 
 if (!file_exists('include/api/key.php'))
 {
-  echo json_encode(array("error" => "No Shared Secret Definied"));
-  exit();
+	echo json_encode(array("error" => "No Shared Secret Definied"));
+	exit();
 
 }
 
@@ -53,24 +53,24 @@ $pluginloader->Load();
 
 if ($config["enable_ScriptAccess"])
 {
-  if (isset($post["req"]))
-  {
-    echo $pluginloader->request($post["data"]);
+	if (isset($post["req"]))
+	{
+		echo $pluginloader->request($post["data"]);
 
-  } elseif (isset($post["com"]))
-  {
-    echo $pluginloader->command($post["data"]);
+	} elseif (isset($post["com"]))
+	{
+		echo $pluginloader->command($post["data"]);
 
-  } else
-  {
+	} else
+	{
 
-    echo json_encode(array("error" => "Unknown Subset"));
+		echo json_encode(array("error" => "Unknown Subset"));
 
-  }
+	}
 
 } else
 {
-  echo json_encode(array("error" => "Not Allowed"));
+	echo json_encode(array("error" => "Not Allowed"));
 }
 
 

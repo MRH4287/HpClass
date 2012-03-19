@@ -8,20 +8,20 @@
 */
 
 
-    // Nicht ändern
-    $subpageconfig = array();
+// Nicht ändern
+$subpageconfig = array();
 
-  // Ab hier können Änderungen vorgenommen werden
-    // Der Name dieses Templates:
-    $subpageconfig["name"]        = "Kalender";
-    // Die Liste aller statischen Inhalte:
-    $subpageconfig["template"]    = array(
-      "headline" => "textbox",
-      "main"     => "textarea",
-      "MinLevel" => "level"
-    );
-    // Die Liste alles dynamischen Inhalte:
-    $subpageconfig["dyncontent"]  = array("calendar" => "calendar");
+// Ab hier können Änderungen vorgenommen werden
+// Der Name dieses Templates:
+$subpageconfig["name"]        = "Kalender";
+// Die Liste aller statischen Inhalte:
+$subpageconfig["template"]    = array(
+	"headline" => "textbox",
+	"main"     => "textarea",
+	"MinLevel" => "level"
+	);
+// Die Liste alles dynamischen Inhalte:
+$subpageconfig["dyncontent"]  = array("calendar" => "calendar");
 
 
 

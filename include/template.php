@@ -3,7 +3,7 @@
 // 4.1
 if ($config['titel'] != "")
 {
-$titel = $config['titel'];
+	$titel = $config['titel'];
 }
 
 
@@ -11,20 +11,20 @@ $titel = $config['titel'];
 
 if ($config['design'] != "")
 {
-$design = $config['design'];
+	$design = $config['design'];
 }
 
 // Template
 
 
 $template['titel']=$titel;
-  if (isset($_SESSION['username']))
-  {
-   $template['username']=$_SESSION['username'];
-  } else
-  {
-   $template['username'] = "NONE";
-  }
+if (isset($_SESSION['username']))
+{
+	$template['username']=$_SESSION['username'];
+} else
+{
+	$template['username'] = "NONE";
+}
 
 
 // JS

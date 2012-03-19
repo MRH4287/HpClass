@@ -3,100 +3,100 @@ class ApiFunctions extends Plugin
 {
 
 
-function __construct($hp, $loader)
-{
-  // Laden der Daten
-  // Nicht Editieren!
-  parent::__construct($hp, $loader);
+	function __construct($hp, $loader)
+	{
+		// Laden der Daten
+		// Nicht Editieren!
+		parent::__construct($hp, $loader);
 
-  // Plugin Config:
-  // -----------------------------------------------
+		// Plugin Config:
+		// -----------------------------------------------
 
-  // Der Name des Plugins:
-  $this->name = "ApiFunctions";
+		// Der Name des Plugins:
+		$this->name = "ApiFunctions";
 
-  // Die Version des Plugins:
-  $this->version = "Beta 1";
+		// Die Version des Plugins:
+		$this->version = "Beta 1";
 
-  // Der Autor des Plugins:
-  $this->autor = "MRH";
+		// Der Autor des Plugins:
+		$this->autor = "MRH";
 
-  //Die Homepage des Autors:
-  $this->homepage = "http://mrh-development.de";
+		//Die Homepage des Autors:
+		$this->homepage = "http://mrh-development.de";
 
-  //Notizen zu dem Plugin:
-  $this->notes = "<b>Beta</b><br />Erweitert das System um Api Funktionen";
-}
-
-
-/*
-
-Lade alle für das System relevanten Daten.
-
-z.B. Datenbank Aufrufe, Datei Aufrufe, etc.
-
-*/
-function OnEnable()
-{
-  $this->loader->registerApiFunctions($this);
-
-}
+		//Notizen zu dem Plugin:
+		$this->notes = "<b>Beta</b><br />Erweitert das System um Api Funktionen";
+	}
 
 
-/*
+	/*
 
-Hier werden die eigentlichen Aufgaben des Plugins erledigt.
-Wie zum Beispiel das hinzufügen von Weiterleitungen.
+	Lade alle für das System relevanten Daten.
 
-*/
-function OnLoad()
-{
+	z.B. Datenbank Aufrufe, Datei Aufrufe, etc.
 
-}
+	*/
+	function OnEnable()
+	{
+		$this->loader->registerApiFunctions($this);
 
-function OnSiteCreated()
-{
-
-}
+	}
 
 
-function api_write($arguments)
-{
-    // Versuche Dateien zu schreiben:
-    // Argumente:
-    // - Dateiname
-    // - Part
-    // - Daten
+	/*
 
-    if (count($arguments) == 3)
-    {
-        $filename = $arguments[0];
-        $part = $arguments[1];
-        $data = $arguments[2];
+	Hier werden die eigentlichen Aufgaben des Plugins erledigt.
+	Wie zum Beispiel das hinzufügen von Weiterleitungen.
+
+	*/
+	function OnLoad()
+	{
+
+	}
+
+	function OnSiteCreated()
+	{
+
+	}
 
 
-        $fp = fopen('./plugins/ApiTest/'.$filename, "a");
+	function api_write($arguments)
+	{
+		// Versuche Dateien zu schreiben:
+		// Argumente:
+		// - Dateiname
+		// - Part
+		// - Daten
+
+		if (count($arguments) == 3)
+		{
+			$filename = $arguments[0];
+			$part = $arguments[1];
+			$data = $arguments[2];
 
 
-        foreach (explode("-", $data) as $k=>$value)
-        {
+			$fp = fopen('./plugins/ApiTest/'.$filename, "a");
 
-            if ($value != "")
-            {
-              fwrite($fp, pack("c*", $value));
-            }
 
-        }
+			foreach (explode("-", $data) as $k=>$value)
+			{
 
-        fclose($fp);
+				if ($value != "")
+				{
+					fwrite($fp, pack("c*", $value));
+				}
 
-        return json_encode(array("status" => "OK", "error" => "none", "part" => $part));
+			}
 
-    }
+			fclose($fp);
 
-    return json_encode(array("status" => "Not OK", "error" => "Not all Arguments"));
+			return json_encode(array("status" => "OK", "error" => "none", "part" => $part));
 
-}
+		}
+
+		return json_encode(array("status" => "Not OK", "error" => "Not all Arguments"));
+
+	}
 
 
 }

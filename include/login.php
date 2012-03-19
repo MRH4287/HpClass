@@ -2,26 +2,26 @@
 $dbprefix = $hp->getprefix();
 
 
- if (!isset($_SESSION['username']))
- {
-    $site = new siteTemplate($hp);
-    $site->load("login");
-    $template['login'] = $site->get("Login");
+if (!isset($_SESSION['username']))
+{
+	$site = new siteTemplate($hp);
+	$site->load("login");
+	$template['login'] = $site->get("Login");
 
- } else {
+} else {
 
-    $site = new siteTemplate($hp);
-    $site->load("login");
+	$site = new siteTemplate($hp);
+	$site->load("login");
 
-    $data = array(
-      'username' => $_SESSION['username'],
-      'level' =>    $_SESSION['level'],
-      'Links' =>    $site->get("Links")
+	$data = array(
+		'username' => $_SESSION['username'],
+		'level' =>    $_SESSION['level'],
+		'Links' =>    $site->get("Links")
 
-    );
+		);
 
 
-   $template['login'] = $site->getNode('List', $data);
+	$template['login'] = $site->getNode('List', $data);
 
 
 }

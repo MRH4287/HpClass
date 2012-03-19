@@ -12,292 +12,292 @@ $login_class->check();
 
 class update
 {
-var $path = "../version/mysql.php";
-var $host;
-var $user;
-var $connection;
-var $password;
-var $db;
-var $prefix;
-var $error = array();
+	var $path = "../version/mysql.php";
+	var $host;
+	var $user;
+	var $connection;
+	var $password;
+	var $db;
+	var $prefix;
+	var $error = array();
 
-//------------------------------------------------------------------
+	//------------------------------------------------------------------
 
-function __construct()
-{
-  include "../include/config.php";
-
-  $this->host =  $dbserver;
-  $this->user = $dbuser;
-  $this->password = $dbpass;
-  $this->db = $dbdatenbank;
-
-  if (isset($dbprefix))
-  {
-    $this->prefix = $dbprefix;
-    
-  } elseif (isset($dbpräfix))
-  {
-    $this->prefix = $dbpräfix;
-  }
-
-
-  $this->connect();
-}
-
-//------------------------------------------------------------------
-
-function getversion()
-{
-$path = $this->path;
-
- if (file_exists($path))
- {
-  $version = file_get_contents($path);
-
-   if ($version == "")
-   {
-   return false;
-   } else
-    {
-    return $version;
-    }
-  } else
-   {
-   echo "Versionsdatei nicht gefunden, erstellen.";
-   $date = fopen($path, "a");
-
-   return false;
-   }
-}
-
-//------------------------------------------------------------------
-
-
-function versions()
-{
-$handle = @opendir("./update");
-
-$filearray = array();
-
- while (false !== ($file = readdir($handle))) {
-
- $exp = explode(".",$file);
-  if ($exp[1] == "php")
-   {
-   $filearray[]=$exp[0];
-
-   }
-  }
-
-return $filearray;
-
-}
-
-//------------------------------------------------------------------
-
-
-function getnewversion()
-{
-$filearray = $this->versions();
-
-$last = 1;
-foreach ($filearray as $key=>$value) {
-	if ($value > $last )
+	function __construct()
 	{
-  $last = $value;
-  }
-}
+		include "../include/config.php";
 
-return $last;
-}
+		$this->host =  $dbserver;
+		$this->user = $dbuser;
+		$this->password = $dbpass;
+		$this->db = $dbdatenbank;
 
-//------------------------------------------------------------------
-
-function listupdates()
-{
-$akt = $this->getversion();
-$files = $this->versions();
-$updates = array();
-
-sort($files);
-
-
-foreach ($files as $key=>$value) {
+		if (isset($dbprefix))
+		{
+			$this->prefix = $dbprefix;
+			
+		} elseif (isset($dbpräfix))
+		{
+			$this->prefix = $dbpräfix;
+		}
 
 
-	if ($value > $akt)
+		$this->connect();
+	}
+
+	//------------------------------------------------------------------
+
+	function getversion()
 	{
-  $updates[] = $value;
-  }
-}
+		$path = $this->path;
 
-return $updates;
+		if (file_exists($path))
+		{
+			$version = file_get_contents($path);
 
-}
+			if ($version == "")
+			{
+				return false;
+			} else
+			{
+				return $version;
+			}
+		} else
+		{
+			echo "Versionsdatei nicht gefunden, erstellen.";
+			$date = fopen($path, "a");
 
-//------------------------------------------------------------------
+			return false;
+		}
+	}
 
-function connect()
-{
-
- if (!isset($this->host) or !isset($this->user) or !isset($this->password))
- {
-
- $this->error[] = "No Database Data set!";
- echo "No Database Data Set! ($this->host, $this->user, $this->password)";
- exit;
- }
-
-$this->connection = mysql_connect($this->host,$this->user,$this->password);
-
-$myerror = mysql_error();
-
- if ($myerror <> "")
- {
- $this->error[] = "$myerror";
- }
-
-mysql_select_db($this->db, $this->connection)
-or print "Konnte die Datenbank nicht finden!";
-$myerror = mysql_error();
-
- if ($myerror <> "")
- {
- $this->error[] = "$myerror";
- }
-// Löschen alller DB Variablen
-// Berhindert späteres auslesen!
-
-$this->host = "";
-$this->user = "";
-$this->password = "";
-$this->db = "";
+	//------------------------------------------------------------------
 
 
-}
+	function versions()
+	{
+		$handle = @opendir("./update");
 
-//------------------------------------------------------------------
+		$filearray = array();
+
+		while (false !== ($file = readdir($handle))) {
+
+			$exp = explode(".",$file);
+			if ($exp[1] == "php")
+			{
+				$filearray[]=$exp[0];
+
+			}
+		}
+
+		return $filearray;
+
+	}
+
+	//------------------------------------------------------------------
 
 
-function query($query)
-{
-$sql = $query;
-$query = mysql_query($query);
+	function getnewversion()
+	{
+		$filearray = $this->versions();
 
-$myerror = mysql_error();
+		$last = 1;
+		foreach ($filearray as $key=>$value) {
+			if ($value > $last )
+			{
+				$last = $value;
+			}
+		}
 
- if ($myerror <> "")
- {
- $this->error[] = "$myerror ($sql)";
- }
+		return $last;
+	}
 
-return $query;
-}
+	//------------------------------------------------------------------
 
-//------------------------------------------------------------------
+	function listupdates()
+	{
+		$akt = $this->getversion();
+		$files = $this->versions();
+		$updates = array();
 
-function getprefix()
-{
-return $this->prefix;
-}
+		sort($files);
 
-//------------------------------------------------------------------
 
-function st_t()
-{
-$sql = "START TRANSACTION;";
-$this->query($sql);
-}
+		foreach ($files as $key=>$value) {
 
-//------------------------------------------------------------------
 
-function ok()
-{
-$sql = "COMMIT;";
-$this->query($sql);
-}
+			if ($value > $akt)
+			{
+				$updates[] = $value;
+			}
+		}
 
-//------------------------------------------------------------------
+		return $updates;
 
-function rollback()
-{
-$sql = "ROLLBACK;";
-$this->query($sql);
-}
+	}
 
-//------------------------------------------------------------------
+	//------------------------------------------------------------------
 
-function writeversion($version)
-{
-unlink($this->path);
-$data = fopen($this->path, "a");
-fwrite($data, $version);
-fclose($data);
+	function connect()
+	{
 
-}
-//Class Ende
+		if (!isset($this->host) or !isset($this->user) or !isset($this->password))
+		{
 
-################################################################################
+			$this->error[] = "No Database Data set!";
+			echo "No Database Data Set! ($this->host, $this->user, $this->password)";
+			exit;
+		}
+
+		$this->connection = mysql_connect($this->host,$this->user,$this->password);
+
+		$myerror = mysql_error();
+
+		if ($myerror <> "")
+		{
+			$this->error[] = "$myerror";
+		}
+
+		mysql_select_db($this->db, $this->connection)
+			or print "Konnte die Datenbank nicht finden!";
+		$myerror = mysql_error();
+
+		if ($myerror <> "")
+		{
+			$this->error[] = "$myerror";
+		}
+		// Löschen alller DB Variablen
+		// Berhindert späteres auslesen!
+
+		$this->host = "";
+		$this->user = "";
+		$this->password = "";
+		$this->db = "";
+
+
+	}
+
+	//------------------------------------------------------------------
+
+
+	function query($query)
+	{
+		$sql = $query;
+		$query = mysql_query($query);
+
+		$myerror = mysql_error();
+
+		if ($myerror <> "")
+		{
+			$this->error[] = "$myerror ($sql)";
+		}
+
+		return $query;
+	}
+
+	//------------------------------------------------------------------
+
+	function getprefix()
+	{
+		return $this->prefix;
+	}
+
+	//------------------------------------------------------------------
+
+	function st_t()
+	{
+		$sql = "START TRANSACTION;";
+		$this->query($sql);
+	}
+
+	//------------------------------------------------------------------
+
+	function ok()
+	{
+		$sql = "COMMIT;";
+		$this->query($sql);
+	}
+
+	//------------------------------------------------------------------
+
+	function rollback()
+	{
+		$sql = "ROLLBACK;";
+		$this->query($sql);
+	}
+
+	//------------------------------------------------------------------
+
+	function writeversion($version)
+	{
+		unlink($this->path);
+		$data = fopen($this->path, "a");
+		fwrite($data, $version);
+		fclose($data);
+
+	}
+	//Class Ende
+
+	################################################################################
 }
 
 
 $update = new update;
 
- if (count($update->error) != 0)
- {
+if (count($update->error) != 0)
+{
 
- print_r($update->error);
- $update->error = array();
+	print_r($update->error);
+	$update->error = array();
 
- } else
-  {
+} else
+{
 
-  $updates = $update->listupdates();
+	$updates = $update->listupdates();
 
-   if (count($updates) >= 1)
-   {
+	if (count($updates) >= 1)
+	{
 
-    foreach ($updates as $key=>$value) {
-	   $update->st_t();
-	   $file = file("./update/$value.php");
-	
-	    foreach ($file as $a=>$v) {	
-       $sql = $v;
-	
-	     $sql = str_replace("#!-PRÄFIX-!#", $update->getprefix(), $sql);
-	     $sql = str_replace("#!-PREFIX-!#", $update->getprefix(), $sql);
-  	
-        if (($sql != "") and ($sql != "<br>"))
- 	      {
-	      $update->query($sql);
-	      }
-      }
+		foreach ($updates as $key=>$value) {
+			$update->st_t();
+			$file = file("./update/$value.php");
+			
+			foreach ($file as $a=>$v) {	
+				$sql = $v;
+				
+				$sql = str_replace("#!-PRÄFIX-!#", $update->getprefix(), $sql);
+				$sql = str_replace("#!-PREFIX-!#", $update->getprefix(), $sql);
+				
+				if (($sql != "") and ($sql != "<br>"))
+				{
+					$update->query($sql);
+				}
+			}
 
-    if (count($update->error) != 0)
-     {
+			if (count($update->error) != 0)
+			{
 
-      echo "Ein Fehler ist Aufgetreten!<br>Fehlerlog:<br><pre>";
-      print_r($update->error);
+				echo "Ein Fehler ist Aufgetreten!<br>Fehlerlog:<br><pre>";
+				print_r($update->error);
 
-      echo "</pre><br>Ein Rollback wird ausgeführt!";
-      $update->rollback();
-      exit;
+				echo "</pre><br>Ein Rollback wird ausgeführt!";
+				$update->rollback();
+				exit;
 
-     }	else
-       {
-        $update->ok();
-        $update->writeversion($value);
-        echo "<br> Update zur Mysql-Version $value Komplett!<br>";
-       }
-	
-    }
+			}	else
+			{
+				$update->ok();
+				$update->writeversion($value);
+				echo "<br> Update zur Mysql-Version $value Komplett!<br>";
+			}
+			
+		}
 
 
-    } else
-       {
-       echo "Keine neuen Patch Dateien gefunden!";
-       }
+	} else
+	{
+		echo "Keine neuen Patch Dateien gefunden!";
+	}
 }
 
 

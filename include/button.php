@@ -2,49 +2,49 @@
 $font = 10;
 if (isset($_GET['p']))
 {
-$bild = $_GET['p'];
+	$bild = $_GET['p'];
 }
 
 if (isset($_GET['f']))
 {
-$farbe1 = $_GET['f'];
+	$farbe1 = $_GET['f'];
 } else
 {
-$farbe1 = "black";
+	$farbe1 = "black";
 }
 
 if (isset($_GET['t']))
 {
-$text = $_GET['t'];
+	$text = $_GET['t'];
 } else
 {
-$text = "";
+	$text = "";
 }
 
 
 
 if (isset($bild) and ($bild !== '')){
 
-$bild= "../images/button/button$bild.png";
+	$bild= "../images/button/button$bild.png";
 
-$pos = strrpos($bild, '.') +1;
-$file_ext= substr($bild,$pos);
-switch (strtolower($file_ext))
-{
- case 'png' :
- $image = @imagecreatefrompng($bild);
- break;
- case 'jpg':
- case 'jpeg':
- $image = @imagecreatefromjpeg($bild);
- break;
+	$pos = strrpos($bild, '.') +1;
+	$file_ext= substr($bild,$pos);
+	switch (strtolower($file_ext))
+	{
+		case 'png' :
+			$image = @imagecreatefrompng($bild);
+			break;
+		case 'jpg':
+		case 'jpeg':
+			$image = @imagecreatefromjpeg($bild);
+			break;
 
-}
+	}
 } else
 {
-$image= imagecreate(30,30);
-$text="Error";
-$farbe1 = "red";
+	$image= imagecreate(30,30);
+	$text="Error";
+	$farbe1 = "red";
 }
 
 $white= imagecolorallocate($image, 255, 255, 255);
@@ -57,24 +57,24 @@ $yellow= imagecolorallocate($image, 255, 255, 0);
 $farbe = $black;
 switch (strtolower($farbe1))
 {
- case 'black' :
-$farbe = $black;
- break;
- case 'white' :
-$farbe = $white;
- break;
-  case 'red' :
-$farbe = $red;
- break;
-  case 'green' :
- $farbe = $green;
- break;
-  case 'yellow' :
-$farbe = $yellow;
- break;
-  case 'blue' :
- $farbe = $blue;
- break;
+	case 'black' :
+		$farbe = $black;
+		break;
+	case 'white' :
+		$farbe = $white;
+		break;
+	case 'red' :
+		$farbe = $red;
+		break;
+	case 'green' :
+		$farbe = $green;
+		break;
+	case 'yellow' :
+		$farbe = $yellow;
+		break;
+	case 'blue' :
+		$farbe = $blue;
+		break;
 
 }
 
@@ -91,9 +91,9 @@ $str_width = imagefontwidth($font) * strLen($text);
 $str_width = $str_width;
 while ($str_width > $breite and $font > 1)
 {
-$font = $font -1;
-$str_height = imagefontheight($font);
-$str_width = imagefontwidth($font) * strLen($text);
+	$font = $font -1;
+	$str_height = imagefontheight($font);
+	$str_width = imagefontwidth($font) * strLen($text);
 }
 $str_width = imagefontwidth($font) * strLen($text);
 $str_x = (int) ($breite - $str_width) / 2;

@@ -638,7 +638,7 @@ $row = mysql_fetch_object($erg);
 <button type="submit" name="forum_editpost"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
 </form>
 </td>
-  </tr>
+</tr>
 </table>
 <?php
 
@@ -646,19 +646,19 @@ $row = mysql_fetch_object($erg);
 
 function site_forum_editthread($vars)
 {
-$hp = $this->hp;
-$dbprefix = $hp->getprefix();
-$game = $hp->game;
-$info = $hp->info;
-$error = $hp->error;
-$fp = $hp->fp;
-$get = $hp->get();
-$right = $hp->getright();
-$level = $_SESSION['level'];
+	$hp = $this->hp;
+	$dbprefix = $hp->getprefix();
+	$game = $hp->game;
+	$info = $hp->info;
+	$error = $hp->error;
+	$fp = $hp->fp;
+	$get = $hp->get();
+	$right = $hp->getright();
+	$level = $_SESSION['level'];
 
-$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = '$vars'";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
+	$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = '$vars'";
+	$erg = $hp->mysqlquery($sql);
+	$row = mysql_fetch_object($erg);
 
 
 
@@ -681,48 +681,48 @@ $row = mysql_fetch_object($erg);
 <tr>
 <td>
 <table width="100%" border="0">
-  <tr>
-    <td width="80">&nbsp;</td>
-    <td colspan="2">Bearbeiten</td>
-  </tr>
-  <tr>
-    <td>Thema:</td>
-    <td width="80"> &nbsp;
-    <table border="0" width="100%" height="5">
-    <tr>
-    <td width="90%">
-    <input type="text" name="titel" id="titel" value="<?php echo $row->titel?>"></td>
-    </td>
-    <td width="10%">
-    <a href="#" onclick="document.getElementById('more').style.display = '';">Erweitert</a>
-    </td>
-    </tr>
-    </table>
-  </tr>
+<tr>
+<td width="80">&nbsp;</td>
+<td colspan="2">Bearbeiten</td>
+</tr>
+<tr>
+<td>Thema:</td>
+<td width="80"> &nbsp;
+<table border="0" width="100%" height="5">
+<tr>
+<td width="90%">
+<input type="text" name="titel" id="titel" value="<?php echo $row->titel?>"></td>
+</td>
+<td width="10%">
+<a href="#" onclick="document.getElementById('more').style.display = '';">Erweitert</a>
+</td>
+</tr>
+</table>
+</tr>
 
- <tr>
-  <td colspan="3">
-  <div id="more" style="display:none;">
-  <table border="0" width="100%">
-  <tr>
-    <td width="80">Level:</td>
+<tr>
+<td colspan="3">
+<div id="more" style="display:none;">
+<table border="0" width="100%">
+<tr>
+<td width="80">Level:</td>
 
-    <td width="85%"><table width="100%">
-    <?php
-    $sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` <= '$level';";
-    $erg2 = $hp->mysqlquery($sql);
-    while ($row2 = mysql_fetch_object($erg2))
-    {
-        ?>
+<td width="85%"><table width="100%">
+<?php
+$sql = "SELECT * FROM `$dbprefix"."ranks` WHERE `level` <= '$level';";
+$erg2 = $hp->mysqlquery($sql);
+while ($row2 = mysql_fetch_object($erg2))
+{
+?>
 
       <tr>
         <td><label>
           <input type="radio" name="level" value="<?php echo $row2->level?>" <?php if ($row->level == $row2->level) { echo " checked=\"true\"";} ?>>
           <?php echo $row2->name?></label></td>
-      </tr>
-     <?php
-    }
-     ?>
+          </tr>
+          <?php
+         }
+         ?>
     </table>
       <p>Notiz: Jeder Benutzer eines höheren Levels kann dieses Forum trotzdem lesen!</p></td>
   </tr>
@@ -753,8 +753,8 @@ $row = mysql_fetch_object($erg);
    </td>
   </tr>
  <?php } else
- {
- ?>
+{
+?>
  <input type="hidden" name="type" value="0">
  <?php
  } ?>
@@ -778,43 +778,43 @@ $row = mysql_fetch_object($erg);
  <tr>
     <td>Text:</td>
     <td colspan="2"><textarea name="text" id="text" cols="100" rows="15"><?php echo $row->text?></textarea></td>
-  </tr>
- <tr>
-   <td>&nbsp;</td>
-   <td colspan="2"><button type="submit" name="forum_editthread"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button></td>
- </tr>
-</table>
-</td>
-</tr>
-</table>
-</center>
-<input type="hidden" name="postid" value="<?php echo $vars?>">
-</form>
+    </tr>
+    <tr>
+    <td>&nbsp;</td>
+    <td colspan="2"><button type="submit" name="forum_editthread"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button></td>
+    </tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+    </center>
+    <input type="hidden" name="postid" value="<?php echo $vars?>">
+    </form>
 
-<?php
+    <?php
 
-}
+   }
 
-function site_forum_editforum($vars)
-{
-$hp = $this->hp;
-$dbprefix = $hp->getprefix();
-$game = $hp->game;
-$info = $hp->info;
-$error = $hp->error;
-$fp = $hp->fp;
-$get = $hp->get();
-$right = $hp->getright();
-$level = $_SESSION['level'];
+   function site_forum_editforum($vars)
+   {
+   	$hp = $this->hp;
+   	$dbprefix = $hp->getprefix();
+   	$game = $hp->game;
+   	$info = $hp->info;
+   	$error = $hp->error;
+   	$fp = $hp->fp;
+   	$get = $hp->get();
+   	$right = $hp->getright();
+   	$level = $_SESSION['level'];
 
-$sql = "SELECT * FROM `$dbprefix"."forums` WHERE `ID` = '$vars'";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
-
-
+   	$sql = "SELECT * FROM `$dbprefix"."forums` WHERE `ID` = '$vars'";
+   	$erg = $hp->mysqlquery($sql);
+   	$row = mysql_fetch_object($erg);
 
 
-?>
+
+
+   ?>
 <table width="60%" border="0" align="center">
   <tr>
     <td><script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
@@ -849,13 +849,13 @@ $row = mysql_fetch_object($erg);
     </td>
     </tr>
     </table>
-  </tr>
+    </tr>
 
- <tr>
-  <td colspan="3">
-  <div id="more" style="display:none;">
-  <table border="0" width="100%">
-  <tr>
+    <tr>
+    <td colspan="3">
+    <div id="more" style="display:none;">
+    <table border="0" width="100%">
+    <tr>
     <td width="80">Level:</td>
 
     <td width="85%"><table width="100%">
@@ -864,16 +864,16 @@ $row = mysql_fetch_object($erg);
     $erg2 = $hp->mysqlquery($sql);
     while ($row2 = mysql_fetch_object($erg2))
     {
-        ?>
+    ?>
 
       <tr>
         <td><label>
           <input type="radio" name="level" value="<?php echo $row2->level?>" <?php if ($row->level == $row2->level) { echo " checked=\"true\"";} ?>>
           <?php echo $row2->name?></label></td>
-      </tr>
-     <?php
-    }
-     ?>
+          </tr>
+          <?php
+         }
+         ?>
     </table>
       <p>Notiz: Jeder Benutzer eines höheren Levels kann dieses Forum trotzdem lesen!</p></td>
   </tr>
@@ -900,81 +900,81 @@ $row = mysql_fetch_object($erg);
  <tr>
     <td>Beschreibung:</td>
     <td colspan="2"><textarea name="text" id="text" cols="100" rows="15"><?php echo $row->description?></textarea></td>
-  </tr>
- <tr>
-   <td>&nbsp;</td>
-   <td colspan="2"><button type="submit" name="forum_editforum"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button></td>
- </tr>
-</table>
-</td>
-</tr>
-</table>
-</center>
-<input type="hidden" name="postid" value="<?php echo $vars?>">
-</form>
+    </tr>
+    <tr>
+    <td>&nbsp;</td>
+    <td colspan="2"><button type="submit" name="forum_editforum"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button></td>
+    </tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+    </center>
+    <input type="hidden" name="postid" value="<?php echo $vars?>">
+    </form>
 
-<?php
+    <?php
 
-}
+   }
 
-function site_forum_delthread($vars)
-{
-$hp = $this->hp;
-$dbprefix = $hp->getprefix();
-$info = $hp->info;
-$error = $hp->error;
-$lang=$hp->langclass;
-$fp = $hp->fp;
-$right = $hp->getright();
-$level = $_SESSION['level'];
+   function site_forum_delthread($vars)
+   {
+   	$hp = $this->hp;
+   	$dbprefix = $hp->getprefix();
+   	$info = $hp->info;
+   	$error = $hp->error;
+   	$lang=$hp->langclass;
+   	$fp = $hp->fp;
+   	$right = $hp->getright();
+   	$level = $_SESSION['level'];
 
-if($right[$level]['forum_edit_post'])
-{
+   	if($right[$level]['forum_edit_post'])
+   	{
 
-$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = '$vars';";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
+   		$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = '$vars';";
+   		$erg = $hp->mysqlquery($sql);
+   		$row = mysql_fetch_object($erg);
 
-?>
+   ?>
 <p id="highlight">Möchten Sie das Thema und alle Beträge wirklich endgültig löschen?</p>
 <table width="100%">
 <tr valign="bottom">
 <td>
 <form method="POST" action="index.php?site=forum">
   <p align="center"><input type="hidden" name="postid" size="3" value="<?php echo $vars?>"><input type="submit" value="Löschen" name="delthread"></form>
-</td>
-<td>
-</td>
-</tr>
-</table>
-<b>ID:</b> <?php echo $row->ID?><br>
-<b>Titel:</b> <?php echo $row->titel?><br>
-<b>
+  </td>
+  <td>
+  </td>
+  </tr>
+  </table>
+  <b>ID:</b> <?php echo $row->ID?><br>
+  <b>Titel:</b> <?php echo $row->titel?><br>
+  <b>
 
-<?php
-} else
-{
-echo $lang->word('noright');
-}
+  <?php
+ } else
+ {
+ 	echo $lang->word('noright');
+ }
 }
 
 function site_forum_delpost($vars)
 {
-$hp = $this->hp;
-$dbprefix = $hp->getprefix();
-$info = $hp->info;
-$error = $hp->error;
-$lang=$hp->langclass;
-$fp = $hp->fp;
-$right = $hp->getright();
-$level = $_SESSION['level'];
+	$hp = $this->hp;
+	$dbprefix = $hp->getprefix();
+	$info = $hp->info;
+	$error = $hp->error;
+	$lang=$hp->langclass;
+	$fp = $hp->fp;
+	$right = $hp->getright();
+	$level = $_SESSION['level'];
 
-if($right[$level]['forum_edit_post'])
-{
+	if($right[$level]['forum_edit_post'])
+	{
 
-$sql = "SELECT * FROM `$dbprefix"."posts` WHERE `ID` = '$vars';";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
+		$sql = "SELECT * FROM `$dbprefix"."posts` WHERE `ID` = '$vars';";
+		$erg = $hp->mysqlquery($sql);
+		$row = mysql_fetch_object($erg);
 
 ?>
 <p id="highlight">Möchten Sie den Beitrag endgültig löschen?</p>
@@ -983,38 +983,38 @@ $row = mysql_fetch_object($erg);
 <td>
 <form method="POST" action="index.php?site=forum">
   <p align="center"><input type="hidden" name="postid" size="3" value="<?php echo $vars?>"><input type="submit" value="Löschen" name="delpost"></form>
-</td>
-<td>
-</td>
-</tr>
-</table>
-<b>ID:</b> <?php echo $row->ID?><br>
-<b>
+  </td>
+  <td>
+  </td>
+  </tr>
+  </table>
+  <b>ID:</b> <?php echo $row->ID?><br>
+  <b>
 
-<?php
-} else
-{
-echo $lang->word('noright');
-}
+  <?php
+ } else
+ {
+ 	echo $lang->word('noright');
+ }
 }
 
 function site_forum_delforum($vars)
 {
-$hp = $this->hp;
-$dbprefix = $hp->getprefix();
-$info = $hp->info;
-$error = $hp->error;
-$lang=$hp->langclass;
-$fp = $hp->fp;
-$right = $hp->getright();
-$level = $_SESSION['level'];
+	$hp = $this->hp;
+	$dbprefix = $hp->getprefix();
+	$info = $hp->info;
+	$error = $hp->error;
+	$lang=$hp->langclass;
+	$fp = $hp->fp;
+	$right = $hp->getright();
+	$level = $_SESSION['level'];
 
-if($right[$level]['forum_del_forum'])
-{
+	if($right[$level]['forum_del_forum'])
+	{
 
-$sql = "SELECT * FROM `$dbprefix"."forums` WHERE `ID` = '$vars';";
-$erg = $hp->mysqlquery($sql);
-$row = mysql_fetch_object($erg);
+		$sql = "SELECT * FROM `$dbprefix"."forums` WHERE `ID` = '$vars';";
+		$erg = $hp->mysqlquery($sql);
+		$row = mysql_fetch_object($erg);
 
 ?>
 <p id="highlight">Möchten Sie das <b>Komplette Forum</b> wirklich endgültig löschen?</p>
@@ -1023,41 +1023,41 @@ $row = mysql_fetch_object($erg);
 <td>
 <form method="POST" action="index.php?site=forum">
   <p align="center"><input type="hidden" name="postid" size="3" value="<?php echo $vars?>"><input type="submit" value="Löschen" name="delforum"></form>
-</td>
-<td>
-</td>
-</tr>
-</table>
-<b>Themen:</b> <br>
-<ul>
-<?php
-$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `forumid` = '$vars'";
-$erg = $hp->mysqlquery($sql);
-while ($row = mysql_fetch_object($erg))
-{
-echo "<li>$row->titel</li>";
-}
+  </td>
+  <td>
+  </td>
+  </tr>
+  </table>
+  <b>Themen:</b> <br>
+  <ul>
+  <?php
+  $sql = "SELECT * FROM `$dbprefix"."threads` WHERE `forumid` = '$vars'";
+  $erg = $hp->mysqlquery($sql);
+  while ($row = mysql_fetch_object($erg))
+  {
+  	echo "<li>$row->titel</li>";
+  }
 
-?>
+  ?>
 </ul>
 <b>
 
 <?php
 } else
 {
-echo $lang->word('noright');
+	echo $lang->word('noright');
 }
 }
 
 
 function site_forum_movethread($vars)
 {
-$hp = $this->hp;
-$dbprefix = $hp->getprefix();
-$game = $hp->game;
-$info = $hp->info;
-$error = $hp->error;
-$fp = $hp->fp;
+	$hp = $this->hp;
+	$dbprefix = $hp->getprefix();
+	$game = $hp->game;
+	$info = $hp->info;
+	$error = $hp->error;
+	$fp = $hp->fp;
 
 
 
@@ -1065,24 +1065,24 @@ $fp = $hp->fp;
 <br>
 <form action="index.php?site=forum&show=<?php echo $vars?>" method="post">
 <table width="200" border="0">
-  <tr>
-    <td>&nbsp;</td>
-    <td>Verschieben</td>
-  </tr>
-  <tr>
-    <td>Wohin:</td>
-    <td><select name="moveto" id="moveto">
-    <?php
-    $sql = "SELECT * FROM `$dbprefix"."forums`";
-    $erg = $hp->mysqlquery($sql);
-    while ($row = mysql_fetch_object($erg))
-    {
+<tr>
+<td>&nbsp;</td>
+<td>Verschieben</td>
+</tr>
+<tr>
+<td>Wohin:</td>
+<td><select name="moveto" id="moveto">
+<?php
+$sql = "SELECT * FROM `$dbprefix"."forums`";
+$erg = $hp->mysqlquery($sql);
+while ($row = mysql_fetch_object($erg))
+{
 
-    ?>
+?>
     <option value="<?php echo $row->ID?>"><?php echo $row->titel?></option>
     <?php
-    }
-    ?>
+   }
+   ?>
 
     </select>    </td>
   </tr>
@@ -1103,89 +1103,89 @@ $fp = $hp->fp;
 }
 
 
- function ax_forum_vote($ID, $vote)
-  {
-    $response = new xajaxResponse();
-    $hp = $this->hp;
-    $dbprefix = $hp->getprefix();
-    $info = $hp->info;
-    $error = $hp->error;
-    $fp = $hp->fp;
-    $config = $hp->getconfig();
-    $forum = $hp->forum;
+function ax_forum_vote($ID, $vote)
+{
+	$response = new xajaxResponse();
+	$hp = $this->hp;
+	$dbprefix = $hp->getprefix();
+	$info = $hp->info;
+	$error = $hp->error;
+	$fp = $hp->fp;
+	$config = $hp->getconfig();
+	$forum = $hp->forum;
 
-    $ID = mysql_real_escape_string($ID);
+	$ID = mysql_real_escape_string($ID);
 
-    if ($config["xajax_workaround"])
-    {
-      // Workaround for older PHP-Versions
+	if ($config["xajax_workaround"])
+	{
+		// Workaround for older PHP-Versions
 
-      $data = array(
-        "ID", "vote"
-      );
+		$data = array(
+			"ID", "vote"
+			);
 
-      foreach ($data as $k => $name)
-      {
-        $v = $$name;
-        if (preg_match("/[S|N](.*)/", $v, $m))
-        {
-          $$name = substr($v, 1, strlen($v));
-        }
-      }
-      // Workaround End
-    }
+		foreach ($data as $k => $name)
+		{
+			$v = $$name;
+			if (preg_match("/[S|N](.*)/", $v, $m))
+			{
+				$$name = substr($v, 1, strlen($v));
+			}
+		}
+		// Workaround End
+	}
 
-    $sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = $ID";
-    $erg = $hp->mysqlquery($sql);
-    $row = mysql_fetch_object($erg);
+	$sql = "SELECT * FROM `$dbprefix"."threads` WHERE `ID` = $ID";
+	$erg = $hp->mysqlquery($sql);
+	$row = mysql_fetch_object($erg);
 
 
 
-    $erg = explode("<!--!>", $row->ergebnisse);
-    $erg[] = $vote;
+	$erg = explode("<!--!>", $row->ergebnisse);
+	$erg[] = $vote;
 
-    $user =  explode("<!--!>", $row->voted);
+	$user =  explode("<!--!>", $row->voted);
 
-    if ((!in_array($_SESSION['ID'], $user)) and isset($_SESSION['ID']))
-    {
+	if ((!in_array($_SESSION['ID'], $user)) and isset($_SESSION['ID']))
+	{
 
-      $user[] = $_SESSION['ID'];
+		$user[] = $_SESSION['ID'];
 
-      $ergebnisse = "";
-      foreach ($erg as $key=>$value)
-      {
-      	if ($ergebnisse != "")
-      	{
-          $ergebnisse .= "<!--!>".$value;
-        } else
-        {
-          $ergebnisse = $value;
-        }
-      }
+		$ergebnisse = "";
+		foreach ($erg as $key=>$value)
+		{
+			if ($ergebnisse != "")
+			{
+				$ergebnisse .= "<!--!>".$value;
+			} else
+			{
+				$ergebnisse = $value;
+			}
+		}
 
-      $users = "";
-      foreach ($user as $key=>$value)
-      {
-      	if ($users != "")
-      	{
-          $users .= "<!--!>".$value;
-        } else
-        {
-          $users = $value;
-        }
-      }
+		$users = "";
+		foreach ($user as $key=>$value)
+		{
+			if ($users != "")
+			{
+				$users .= "<!--!>".$value;
+			} else
+			{
+				$users = $value;
+			}
+		}
 
-      $okn = "<img src=images/ok.gif height=12 width=12>";
-      $response->assign("voteok", "innerHTML", $okn);
+		$okn = "<img src=images/ok.gif height=12 width=12>";
+		$response->assign("voteok", "innerHTML", $okn);
 
-      $sql = "UPDATE `$dbprefix"."threads` SET `ergebnisse` = '$ergebnisse', `voted` = '$users' WHERE `ID` = $ID";
-      $erg = $hp->mysqlquery($sql);
+		$sql = "UPDATE `$dbprefix"."threads` SET `ergebnisse` = '$ergebnisse', `voted` = '$users' WHERE `ID` = $ID";
+		$erg = $hp->mysqlquery($sql);
 
-      $response->assign("vote", "innerHTML", $forum->getvote($ID));
+		$response->assign("vote", "innerHTML", $forum->getvote($ID));
 
-    }
-    return $response;
-  }
+	}
+	return $response;
+}
 
 
 ?>

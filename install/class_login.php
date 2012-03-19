@@ -97,13 +97,13 @@ function print_formular($adress)
 function user_add($username, $password)
 {
 
- if (!array_key_exists($username, $this->user))
- {
- $this->user[$username] = $password;
- } else
-  {
-   $this->error("Benutzername bereits vergeben", __LINE__);
-  }
+	if (!array_key_exists($username, $this->user))
+	{
+		$this->user[$username] = $password;
+	} else
+	{
+		$this->error("Benutzername bereits vergeben", __LINE__);
+	}
 
 }
 
@@ -112,30 +112,30 @@ function user_add($username, $password)
 function user_check($username, $password)
 {
 
- if (array_key_exists($username, $this->user) and ($this->user[$username] == $password))
- {
-  // User OK
-  // Setzte Session
+	if (array_key_exists($username, $this->user) and ($this->user[$username] == $password))
+	{
+		// User OK
+		// Setzte Session
 
-  $sesname_user     = $this->session_var["user"];
-  $sesname_password = $this->session_var["password"];
+		$sesname_user     = $this->session_var["user"];
+		$sesname_password = $this->session_var["password"];
 
-  $_SESSION[$sesname_user]     = $username;
-  $_SESSION[$sesname_password] = md5("pw_".$password);
+		$_SESSION[$sesname_user]     = $username;
+		$_SESSION[$sesname_password] = md5("pw_".$password);
 
-  echo '
+		echo '
   <script>
    window.location="'.$this->adress.'"
   </script>';
 
 
- } else
-  {
+	} else
+	{
 
-  // Benutzer abgelehnt:
+		// Benutzer abgelehnt:
 
-  $this->error("Benutzername oder Passwort falsch!<br>".$this->error_message."<br>Seite wird in 3 Sekunden neu geladen.".
-  '<script>
+		$this->error("Benutzername oder Passwort falsch!<br>".$this->error_message."<br>Seite wird in 3 Sekunden neu geladen.".
+			'<script>
   function reload()
   {
   window.location="'.$this->adress.'";
@@ -146,7 +146,7 @@ function user_check($username, $password)
 
 
 
-  }
+	}
 
 }
 
@@ -155,13 +155,13 @@ function user_check($username, $password)
 function set_var($array)
 {
 
- if ((array_key_exists("user", $array)) and (array_key_exists("password", $array)))
- {
-  $this->session_var = $array;
- } else
- {
- $this->error("Das Array hat nicht alle benötigten Werte, um als Config-Array verwendet werden zu können!", __LINE__);
- }
+	if ((array_key_exists("user", $array)) and (array_key_exists("password", $array)))
+	{
+		$this->session_var = $array;
+	} else
+	{
+		$this->error("Das Array hat nicht alle benötigten Werte, um als Config-Array verwendet werden zu können!", __LINE__);
+	}
 
 }
 
@@ -170,7 +170,7 @@ function set_var($array)
 function set_message($message)
 {
 
-$this->error_message = $message;
+	$this->error_message = $message;
 
 }
 
@@ -180,16 +180,16 @@ $this->error_message = $message;
 function error($message, $line)
 {
 
-echo "<br><b>Systemfehler: $message";
+	echo "<br><b>Systemfehler: $message";
 
-if ($line != false)
-{
-echo " in Zeile: $line";
-}
+	if ($line != false)
+	{
+		echo " in Zeile: $line";
+	}
 
-echo "<br>";
+	echo "<br>";
 
-exit();
+	exit();
 
 }
 

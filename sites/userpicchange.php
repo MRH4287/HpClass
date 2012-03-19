@@ -11,71 +11,71 @@ $error = $hp->geterror();
 
 if (isset($post['sendfiles']))
 {
-$numsendfiles = count($_FILES);
-//echo $numsendfiles ."<br>";
+	$numsendfiles = count($_FILES);
+	//echo $numsendfiles ."<br>";
 
 
-    foreach($_FILES as $dateiinformationen)
-    {
-        if($dateiinformationen['error']!=0)
-        {
-            print "Fehler {$dateiinformationen['error']}.<br/>\n";
-            continue;
-        }
+	foreach($_FILES as $dateiinformationen)
+	{
+		if($dateiinformationen['error']!=0)
+		{
+			print "Fehler {$dateiinformationen['error']}.<br/>\n";
+			continue;
+		}
 
-        if($dateiinformationen['name']=='') continue;
-        //        echo $dateiinformationen['name']."<br>";
+		if($dateiinformationen['name']=='') continue;
+		//        echo $dateiinformationen['name']."<br>";
 
-                $name=$dateiinformationen['name'];
-      $testarray = explode(".", ($name));
-      $index = count($testarray)-1;
-      $ext= $testarray[$index];
-      if (($ext != "gif") and ($ext != "jpg") and($ext != "png"))
-      {
-      echo $lang['Bitte benutzen sie eines der folgenden Formate'].":<br><b>gif, jpg, png</b><br>";
+		$name=$dateiinformationen['name'];
+		$testarray = explode(".", ($name));
+		$index = count($testarray)-1;
+		$ext= $testarray[$index];
+		if (($ext != "gif") and ($ext != "jpg") and($ext != "png"))
+		{
+			echo $lang['Bitte benutzen sie eines der folgenden Formate'].":<br><b>gif, jpg, png</b><br>";
 
-      } else {
-
-
-        $speicherort=$dateiinformationen['tmp_name'];
-    //    echo $dateiinformationen['tmp_name']."<br>";
-        $datei=fopen($speicherort,'r');
-        $daten=fread($datei,filesize($speicherort));
-        fclose($datei);
-
-        $aSize = getimagesize($speicherort);
-
-    $Width = $aSize[0];
-    $Height = $aSize[1];
+		} else {
 
 
-        $dateiname=mysql_real_escape_string( $dateiinformationen['name']);
-        $dateityp=mysql_real_escape_string($dateiinformationen['type']);
-        $daten=mysql_real_escape_string($daten);
+			$speicherort=$dateiinformationen['tmp_name'];
+			//    echo $dateiinformationen['tmp_name']."<br>";
+			$datei=fopen($speicherort,'r');
+			$daten=fread($datei,filesize($speicherort));
+			fclose($datei);
 
-    $sql = "UPDATE `".$dbprefix."user` SET `bild` = '$daten', `width` = '$Width', `height` = '$Height'  WHERE `user` = '".$_SESSION['username']."';";
-    //    echo $sql."<br>";
-    $result=$hp->mysqlquery($sql);
-        if(!$result)
-        {
-            print $lang['Fehler beim Schreiben der Daten in die Datenbank'].".<br/>\n";
-            print mysql_error()."<br/>\n";
-            exit;
-        }
+			$aSize = getimagesize($speicherort);
+
+			$Width = $aSize[0];
+			$Height = $aSize[1];
 
 
-    }
-}
+			$dateiname=mysql_real_escape_string( $dateiinformationen['name']);
+			$dateityp=mysql_real_escape_string($dateiinformationen['type']);
+			$daten=mysql_real_escape_string($daten);
+
+			$sql = "UPDATE `".$dbprefix."user` SET `bild` = '$daten', `width` = '$Width', `height` = '$Height'  WHERE `user` = '".$_SESSION['username']."';";
+			//    echo $sql."<br>";
+			$result=$hp->mysqlquery($sql);
+			if(!$result)
+			{
+				print $lang['Fehler beim Schreiben der Daten in die Datenbank'].".<br/>\n";
+				print mysql_error()."<br/>\n";
+				exit;
+			}
+
+
+		}
+	}
 
 
 
-if ($result== true)
-{
-echo $lang['Erfolgreich aktualisiert']."!<br><a href=index.php?site=profil>".$lang['back']."</a>";
-} else
-{
-echo $lang['Fehler beim Schreiben der Daten in die Datenbank']."!<br>".mysql_error();
-}
+	if ($result== true)
+	{
+		echo $lang['Erfolgreich aktualisiert']."!<br><a href=index.php?site=profil>".$lang['back']."</a>";
+	} else
+	{
+		echo $lang['Fehler beim Schreiben der Daten in die Datenbank']."!<br>".mysql_error();
+	}
 
 }
 ?>

@@ -115,10 +115,10 @@ $temp->settemplate($template);
 
 
 //-----------Widgets----------
- $widgets->addtotemp();
+$widgets->addtotemp();
 
- // 3. Laden der HTML Datei
- $temp->load($design);
+// 3. Laden der HTML Datei
+$temp->load($design);
 
 //--------------------------------Xajax Request--------------------------------
 $xajaxF->processRequest();

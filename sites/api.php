@@ -24,10 +24,10 @@ $levels = $Oright->getlevels();
 
 foreach ($levels as $k => $level)
 {
-  if ($Oright->is("allow_ScriptAccess", $level))
-  {
-    $al[] = $level;
-  }
+	if ($Oright->is("allow_ScriptAccess", $level))
+	{
+		$al[] = $level;
+	}
 }
 
 $site->set("level", implode(", ", $al));
@@ -40,10 +40,10 @@ $erg = $hp->mysqlquery($sql);
 while ($row = mysql_fetch_object($erg))
 {
 
-  if (in_array($row->level, $al))
-  {
-    $user[] = $row->user;
-  }
+	if (in_array($row->level, $al))
+	{
+		$user[] = $row->user;
+	}
 
 }
 
