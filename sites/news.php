@@ -138,7 +138,7 @@ if (!isset ($get['limit']))
 }
 $limit = $hp->escapestring($limit);
 
-$abfrage = "SELECT * FROM ".$dbprefix."news ORDER BY `ID` DESC LIMIT ".$limit;
+$abfrage = "SELECT n.*, u.ID AS userid FROM ".$dbprefix."news n LEFT JOIN ".$dbprefix."user u ON n.ersteller = u.user ORDER BY `ID` DESC LIMIT ".$limit;
 $ergebnis = $hp->mysqlquery($abfrage);
 
 
@@ -168,6 +168,7 @@ while($row = mysql_fetch_object($ergebnis))
 			"titel" => $row->titel,
 			"level" => $row->level,
 			"ersteller" => $row->ersteller,
+			"userid" => $row->userid,
 			"datum" => $row->datum,
 			"Content" => $row->text,
 			"ID" => $row->ID,
