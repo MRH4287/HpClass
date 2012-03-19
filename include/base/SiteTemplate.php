@@ -433,15 +433,15 @@ class siteTemplate
 				$iffalse = $this->replaceExtendedInput($con[2], "[F]");
 			}
 
-			if (preg_match("/\:(.*)/", $rightN))
+			if (preg_match("/\:(.*)/", $rightN, $m))
 			{
-				$name = str_replace(":", "", $rightN);
+				$name = $m[1];
 				$in = $this->replaceExtendedInput($name, "false");
 				$output = ((($in === "true") || ($in === true)) ? $iftrue : $iffalse);
 				
-			} elseif (preg_match("/\=(.*)/", $rightN))
+			} elseif (preg_match("/\=(.*)/", $rightN, $m))
 			{
-				$name = str_replace("=", "", $rightN);
+				$name = $m[1];
 				if (isset($config[$name]))
 				{
 					$output = (($config[$name]) ? $iftrue : $iffalse);
