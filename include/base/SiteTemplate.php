@@ -934,6 +934,13 @@ class siteTemplate
  }
  
  
+ /*
+    Accsess the Child Element of a Array or Object
+    Parameter:
+        - Array/Object
+        - Key
+        
+ */
  public function temp_child($args)
  {
     if (count($args) < 2)
@@ -956,6 +963,48 @@ class siteTemplate
     }
  
  }
+ 
+    /*
+        Appends a Element to the base Template
+        Parameter:
+            - Key
+            - Value
+
+    */
+    public function temp_appendBase($args)
+    {
+        if (count($args) < 2)
+        {
+            return "[Args?]";
+        } else
+        {
+            if (isset($this->hp->template))
+            {
+                $this->hp->template->append($args[0], $args[1]);
+            }
+        }
+        return true;
+    }
+ 
+    /*
+        Appends a Element to the Template
+        Parameter:
+            - Key
+            - Value
+
+    */
+    public function temp_append($args)
+    {
+        if (count($args) < 2)
+        {
+            return "[Args?]";
+        } else
+        {
+            $this->append($args[0], $args[1]);
+        }
+        
+        return true;
+    }
  
 }
 ?>
