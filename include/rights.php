@@ -85,7 +85,7 @@ $registed = array(
 
 			"name" => "see_email",
 			"desc" => "Das Recht die E-Mail Adresse in der user Seite einzusehen",
-			"cat"  => "System"
+			"cat"  => "Sichtbarkeit"
 			),
 		array(
 
