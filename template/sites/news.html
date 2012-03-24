@@ -62,9 +62,9 @@
   </form>
   
 
-  <a href="#" id="PL_link" onclick="$('#picturelist').dialog('open'); return false;"> #%Picture List öffnen#</a>
+  <a href="#" id="PL_link" onclick="$('#picturelist-#!site#').dialog('open'); return false;"> #%Picture List öffnen#</a>
 
-	<div class="picturelist" id="picturelist" title="#%Picture List#">  
+	<div class="picturelist" id="picturelist-#!site#" title="#%Picture List#">  
 		<div class="usedpics-container" style="height:100%; overflow:auto">
 			#L:pics : !Image#
 		</div>
@@ -72,7 +72,7 @@
   
   
   <script>
-		$('#picturelist').dialog({
+		$('#picturelist-#!site#').dialog({
 			autoOpen: false,
 			width:650,
 			height:300
@@ -85,8 +85,15 @@
 [!/LbSite-Edit!]
 
 [!=Image!]
-<img src="include/image.php?id=#l:ID#&source=usedpic" width="#l:width#" height="#l:height#"> 
+	#V:image : @echo(!Image-Content)#
+	<span onclick="$('#t1').tinymce().execCommand('mceInsertContent',false,$(this).html());" style="cursor: pointer;">
+		#!image#
+	</span>
 [!/Image!]
+
+[!=Image-Content!]
+	<img src="include/image.php?id=#l:ID#&source=usedpic" width="#l:width#" height="#l:height#">
+[!/Image-Content!]
 
 [!=LbSite-Del!]
 

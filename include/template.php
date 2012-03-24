@@ -40,6 +40,7 @@ $template['head']='
 <script src="js/drag&drop.js"></script>
 <script src="js/widgetconfig.js"></script>
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script>
 <script type="text/javascript" src="js/votes.js"></script>
 <script src="js/l10n.js"></script>
 <script src="js/templateSystem.js"></script>
