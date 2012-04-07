@@ -6,7 +6,10 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
     require "../include/class.php";
     require_once "../include/standalone.php";
 	require_once '../include/class_pluginloader.php';
-
+	require_once "../include/base/siteTemplate.php";
+    require_once "../include/base/javascriptTemplate.php";
+	require_once "../include/base/pluginTemplate.php";
+	
     class ErrorStandaloneMod
     {
 
@@ -33,8 +36,6 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 
 	$pluginloader->Load();
 
-    require "../include/base/siteTemplate.php";
-    require "../include/base/javascriptTemplate.php";
 
     $temp = new javascriptTemplate($hp, '../');
 
