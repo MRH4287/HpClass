@@ -8,7 +8,7 @@
     var $ = jQuery;
 
     var _config = {
-        backend: 'ajax/l10n.php',
+        backend: './ajax/action.php',
         storage_key: 'Localization-Cache',
         use_storage: true
     }
@@ -98,6 +98,7 @@
         var erg = null;
 
         _request({
+			action: 'l10n',
             request: name
 
         }, function(result) {

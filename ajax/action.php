@@ -11,10 +11,27 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 	require_once "../include/base/subpageTemplate.php";
 	require_once "../include/base/pluginTemplate.php";
 
+	
+	class ErrorStandaloneMod
+    {
+
+      function error($text, $level = "2", $function = "")
+      {
+        header("HTTP/1.0 500 Internal Server Error");
+        echo json_encode(array('error' => $text));
+        exit;
+      }
+    }
+    
+	
 	//Standalone:
 	$hp             = new Standalone("../include");
 	$pluginloader   = new PluginLoader;
+	$lang = $hp->langclass;
 
+	$hp->error = new ErrorStandaloneMod();
+    $lang->seterror($hp->error);
+	
 	PluginLoader::$PATH = '../';
 
 	$pluginloader->sethp($hp);

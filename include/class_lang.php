@@ -32,6 +32,8 @@ class lang implements arrayaccess
 			$this->temppath= $design;
 		}
 		$this->inctempfiles();
+		
+		AjaxFunctions::extend($this);
 	}
 
 	/*
@@ -296,6 +298,30 @@ class lang implements arrayaccess
 	}
 
 
+	public function ajax_l10n($args)
+	{
+		if (isset($args['request']))
+		{
+			$req = $args['request'];
+		
+			if (!is_array($req))
+			{
+				$req = array( $req );
+			}
+					
+			$result = array();
+			foreach($req as $key => $name)
+			{
+				$result[$name] = $this->word($name);
+			}
+			
+			return $result;
+		} else
+		{
+			header("HTTP/1.0 400 Bad Request");
+			exit();
+		}
+	}
 }
 
 ?>
