@@ -32,8 +32,6 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 	$hp->error = new ErrorStandaloneMod();
     $lang->seterror($hp->error);
 	
-	PluginLoader::$PATH = '../';
-
 	$pluginloader->sethp($hp);
 	$hp->setpluginloader($pluginloader);
 
