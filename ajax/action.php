@@ -40,8 +40,6 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 	$pluginloader->Init();
 
 	$pluginloader->Load();
-
-	require_once '../include/class_ajax.php';
 	
 	if (isset($_POST['action']))
 	{

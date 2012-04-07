@@ -46,6 +46,7 @@ class Standalone extends Hp
 		// Einbinden der Resourcen;
 		//require_once $path.'/class_error.php';
 		//require_once $path.'/class_info.php';
+		require_once $path.'/class_ajax.php';
 		require_once $path.'/class_lang.php';
 		require_once $path.'/class_right.php';
 		require_once $path.'/class_config.php';
