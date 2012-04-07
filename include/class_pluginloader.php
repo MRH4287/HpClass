@@ -8,6 +8,8 @@ class PluginLoader  extends Api
 	protected $hp;
 	public $plugins = array();
 
+	public static $PATH = './';
+	
 	private $apiCommands = array();
 	private $apiContentPrefix = "api_";
 
@@ -33,7 +35,7 @@ class PluginLoader  extends Api
 		$this->registerApiFunctions($this);
 
 		// Bindet die BasisKlasse der Plugins ein
-		include_once './include/base/plugin.php';
+		include_once self::$PATH.'include/base/plugin.php';
 		$this->updatePluginList();
 		$this->enablePlugins();
 
@@ -152,10 +154,10 @@ class PluginLoader  extends Api
 		$config = $hp->getconfig();
 
 		// Alle vorhandenen Plugins laden.
-		$this->addFolder("./plugins");
+		$this->addFolder(self::$PATH."plugins");
 
 		//Binde alle durch Templates gegebene Plugins ein:
-		$this->addFolder("./template/".$config["design"]."/plugins", true);
+		$this->addFolder(self::$PATH."template/".$config["design"]."/plugins", true);
 
 
 

@@ -6,6 +6,7 @@ ob_start();
 require_once 'include/checkinstall.php';
 require_once 'include/config.php';
 require_once 'include/class.php';
+require_once 'include/class_ajax.php';
 require_once 'include/class_lang.php';
 require_once 'include/class_template.php';
 require_once 'include/class_error.php';
