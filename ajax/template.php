@@ -5,6 +5,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
     
     require "../include/class.php";
     require_once "../include/standalone.php";
+	require_once '../include/class_pluginloader.php';
 
     class ErrorStandaloneMod
     {
@@ -16,13 +17,21 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         exit;
       }
     }
-    
+    	
     //Standalone:
-    $hp   = new Standalone("../");
-    $lang = $hp->langclass;
-    
-    $hp->error = new ErrorStandaloneMod();
+	$hp             = new Standalone("../");
+	$pluginloader   = new PluginLoader;
+	$lang = $hp->langclass;
+
+	$hp->error = new ErrorStandaloneMod();
     $lang->seterror($hp->error);
+	
+	$pluginloader->sethp($hp);
+	$hp->setpluginloader($pluginloader);
+
+	$pluginloader->Init();
+
+	$pluginloader->Load();
 
     require "../include/base/siteTemplate.php";
     require "../include/base/javascriptTemplate.php";
