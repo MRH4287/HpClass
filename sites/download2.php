@@ -8,7 +8,7 @@ if (!isset($site))
 	require_once "../include/base/picture.php";
 
 	//Standalone:
-	$hp = new Standalone("../include");
+	$hp = new Standalone("../");
 
 	$dateiid=(int)$_GET['id'];
 

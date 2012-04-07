@@ -25,7 +25,7 @@ require 'include/api/key.php';
 
 
 //Standalone:
-$hp             = new Standalone("include");
+$hp             = new Standalone("../");
 $pluginloader   = new PluginLoader;
 $widgets        = new widgets;
 $subpages       = new subpages;

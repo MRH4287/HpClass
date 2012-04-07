@@ -20,7 +20,7 @@ function get_extension($file_name)
 }
 
 //Standalone:
-$hp = new Standalone("..");
+$hp = new Standalone("../../");
 //$hp->outputdivs();
 
 // Site Config:

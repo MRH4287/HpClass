@@ -1,8 +1,6 @@
 <?php
 class lang implements arrayaccess
 {
-	public static $PATH = './';
-
 	var $lang = array();
 
 	var $clang;
@@ -189,7 +187,7 @@ class lang implements arrayaccess
 	function incfiles()
 	{
 		// Include from the language-files:
-		$handle = @opendir(self::$PATH."include/lang/");
+		$handle = @opendir(HP::$ROOT_PATH."include/lang/");
 		while (false !== ($file = @readdir($handle))) 
 		{
 			$n= explode(".", $file);
@@ -197,9 +195,9 @@ class lang implements arrayaccess
 
 			if ($art == "php")
 			{
-				if (file_exists(self::$PATH."include/lang/$file"))
+				if (file_exists(HP::$ROOT_PATH."include/lang/$file"))
 				{
-					include (self::$PATH."include/lang/$file");
+					include (HP::$ROOT_PATH."include/lang/$file");
 				}
 				
 				$this->addlang($lang);
@@ -221,10 +219,10 @@ class lang implements arrayaccess
 		}
 
 
-		if (is_dir(self::$PATH."template/".$this->temppath."/lang/"))
+		if (is_dir(HP::$ROOT_PATH."template/".$this->temppath."/lang/"))
 		{
 
-			$handle = @opendir(self::$PATH."template/".$this->temppath."/lang/");
+			$handle = @opendir(HP::$ROOT_PATH."template/".$this->temppath."/lang/");
 			while (false !== ($file = @readdir($handle))) 
 			{
 				$n= explode(".", $file);
@@ -232,9 +230,9 @@ class lang implements arrayaccess
 
 				if ($art == "php")
 				{
-					if (file_exists(self::$PATH."template/".$this->temppath."/lang/$file"))
+					if (file_exists(HP::$ROOT_PATH."template/".$this->temppath."/lang/$file"))
 					{
-						include (self::$PATH."template/".$this->temppath."/lang/$file");
+						include (HP::$ROOT_PATH."template/".$this->temppath."/lang/$file");
 					}
 					
 					$this->addlang($lang);

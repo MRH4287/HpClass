@@ -42,18 +42,19 @@ class Standalone extends Hp
 
 	function __construct($path)
 	{
-
+		self::$ROOT_PATH = $path;
+	
 		// Einbinden der Resourcen;
-		//require_once $path.'/class_error.php';
-		//require_once $path.'/class_info.php';
-		require_once $path.'/class_ajax.php';
-		require_once $path.'/class_lang.php';
-		require_once $path.'/class_right.php';
-		require_once $path.'/class_config.php';
-		require_once $path.'/FirePHP.class.php';
+		//require_once $path.'include/class_error.php';
+		//require_once $path.'include/class_info.php';
+		require_once $path.'include/class_ajax.php';
+		require_once $path.'include/class_lang.php';
+		require_once $path.'include/class_right.php';
+		require_once $path.'include/class_config.php';
+		require_once $path.'include/FirePHP.class.php';
 
 
-		$config = $path."/config.php";
+		$config = $path."include/config.php";
 		// Config einlesen
 		if (is_file($config))
 		{
@@ -78,9 +79,9 @@ class Standalone extends Hp
 
 		// Initialisieren der Resourcen:
 		$this->config     = new config;
-		if (file_exists($path."/config-default.php"))
+		if (file_exists($path."include/config-default.php"))
 		{
-			include $path."/config-default.php";
+			include $path."include/config-default.php";
 			$this->config->registerArray($configData);
 
 		}
@@ -88,9 +89,9 @@ class Standalone extends Hp
 
 		$this->right      = new right;
 
-		if (file_exists($path."/rights.php"))
+		if (file_exists($path."include/rights.php"))
 		{
-			include $path."/rights.php";
+			include $path."include/rights.php";
 			$this->right->registerArray($registed);
 			$this->right->registerLevel($levels);
 
@@ -100,8 +101,6 @@ class Standalone extends Hp
 		//$this->info       = new infoclass;
 		$this->error        = new ErrorStandalone;
 		$this->info         = new InfoStandalone($firephp);
-
-		lang::$PATH = $path.'/../';
 		
 		$this->setlang(new lang());
 		$this->setfirephp($firephp);

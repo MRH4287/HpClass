@@ -106,7 +106,7 @@ if (!isset($site) && isset($_GET['id']) && isset($_GET['source']))
 	require_once "./base/picture.php";
 
 	//Standalone:
-	$hp = new Standalone(".");
+	$hp = new Standalone("../");
 
 
 	// Site Config:

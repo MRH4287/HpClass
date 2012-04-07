@@ -20,6 +20,7 @@ class HP
 	public    $right;
 	public    $config;
 
+	public static $ROOT_PATH = './';
 
 	//Wegen Makro Fehlern:
 	public    $game = null;
