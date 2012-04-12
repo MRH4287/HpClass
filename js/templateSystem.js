@@ -336,7 +336,7 @@ function templateSystem(__config, __l10n)
 
             $.each(replace, function(key, value)
             {
-                input = input.replace('#J!' + key + '#', value);
+                input = input.replace('#J!' + key + '#', value, 'g');
             });
 
         } catch (ex)
