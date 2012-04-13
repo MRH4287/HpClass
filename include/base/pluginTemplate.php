@@ -9,10 +9,10 @@ class pluginTemplate extends siteTemplate
 	{
 		parent::__construct($hp, $copy);
 
-		$this->searchpath = "template/sites/plugins/$folder";
-		$this->searchpathT = "template/#!Design#/sites/plugins/$folder";
+		$this->searchpath = HP::$ROOT_PATH."template/sites/plugins/$folder";
+		$this->searchpathT = HP::$ROOT_PATH."template/#!Design#/sites/plugins/$folder";
 
-		if (!is_dir("./template/sites/plugins/"))
+		if (!is_dir(HP::$ROOT_PATH."template/sites/plugins/"))
 		{
 			$hp->error->error("Plugin Template Direcory does not exist! (./template/sites/plugins/)");
 		}

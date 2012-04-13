@@ -37,8 +37,8 @@ class siteTemplate
 	public function __construct($hp, $copy = null)
 	{
 		$this->hp = $hp;
-		$this->searchpath = "template/sites";
-		$this->searchpathT = "template/#!Design#/sites";
+		$this->searchpath = HP::$ROOT_PATH."template/sites";
+		$this->searchpathT = HP::$ROOT_PATH."template/#!Design#/sites";
 
 		if ($copy != null)
 		{
