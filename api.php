@@ -25,7 +25,7 @@ require 'include/api/key.php';
 
 
 //Standalone:
-$hp             = new Standalone("../");
+$hp             = new Standalone("./");
 $pluginloader   = new PluginLoader;
 $widgets        = new widgets;
 $subpages       = new subpages;
@@ -51,15 +51,27 @@ $config = $hp->getconfig();
 
 $pluginloader->Load();
 
+if (!is_array($get))
+{
+	$get = array();
+}
+
+if (!is_array($post))
+{
+	$post = array();
+}
+
+$req = array_merge($get, $post);
+
 if ($config["enable_ScriptAccess"])
 {
-	if (isset($post["req"]))
+	if (isset($req["req"]))
 	{
-		echo $pluginloader->request($post["data"]);
+		echo $pluginloader->request($req["data"]);
 
-	} elseif (isset($post["com"]))
+	} elseif (isset($req["com"]))
 	{
-		echo $pluginloader->command($post["data"]);
+		echo $pluginloader->command($req["data"]);
 
 	} else
 	{
