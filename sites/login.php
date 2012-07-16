@@ -28,18 +28,19 @@ if (isset($_POST['login']))
 	while($row = mysql_fetch_object($ergebnis))
 	{
 
-		$passwortCH = md5("pw_".$passwort.$row->ID);
+		$passwortCH = sha1("pw_".$passwort.$row->ID);
 
 		if ($user == "$row->user" and $passwortCH == "$row->pass")
 		{
 			$_SESSION['username']="$user";
 			$ok=true;
-		} elseif ($user == "$row->user" and $passwortCH != $row->pass) // Kein Md5
+		} elseif ($user == "$row->user" and $passwortCH != $row->pass) // Kein SH1
 		{
-			if (($passwort == md5("pw_".$row->pass)) or (md5("pw_".$passwort) == $row->pass))
+			if (($passwort == md5("pw_".$row->pass)) or (md5("pw_".$passwort) == $row->pass)
+				or (md5("pw_".$passwort.$row->ID) == $row->pass))
 			{
-				// KEin MD5 ...
-				$sql = "UPDATE `".$dbprefix."user` SET `pass` = '".md5("pw_".$_POST['passwort'].$row->ID)."' WHERE `user` = '".$user."'";
+				// Kein SHA1 ...
+				$sql = "UPDATE `".$dbprefix."user` SET `pass` = '".sha1("pw_".$_POST['passwort'].$row->ID)."' WHERE `user` = '".$user."'";
 				mysql_query($sql);
 				echo mysql_error();
 				$_SESSION['username']="$user";

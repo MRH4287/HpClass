@@ -121,7 +121,7 @@ function user_check($username, $password)
 		$sesname_password = $this->session_var["password"];
 
 		$_SESSION[$sesname_user]     = $username;
-		$_SESSION[$sesname_password] = md5("pw_".$password);
+		$_SESSION[$sesname_password] = sha1("pw_".$password);
 
 		echo '
   <script>

@@ -26,10 +26,10 @@ abstract class Api
 		if (mysql_num_rows($erg) > 0)
 		{
 			$row = mysql_fetch_object($erg);
+			
+			$key = sha1(SHARED_SECRET.$row->user.$row->pass.SHARED_SECRET);
 
-			$key = md5(SHARED_SECRET.$row->user.$row->pass.SHARED_SECRET);
-
-			$verification = md5(SHARED_SECRET.$data->key.SHARED_SECRET);
+			$verification = sha1(SHARED_SECRET.$data->key.SHARED_SECRET);
 
 			$level = $row->level;
 
@@ -112,7 +112,7 @@ abstract class Api
 			{
 				$row = mysql_fetch_object($erg);
 
-				$key = md5(SHARED_SECRET.$row->token.$row->user.SHARED_SECRET.$row->counter.SHARED_SECRET);
+				$key = sha1(SHARED_SECRET.$row->token.$row->user.SHARED_SECRET.$row->counter.SHARED_SECRET);
 
 				$level = $row->level;
 
@@ -143,7 +143,7 @@ abstract class Api
 
 
 
-					$key = md5(SHARED_SECRET.$row->token.$row->user.SHARED_SECRET.($row->counter +1 ).SHARED_SECRET);
+					$key = sha1(SHARED_SECRET.$row->token.$row->user.SHARED_SECRET.($row->counter +1 ).SHARED_SECRET);
 
 					$response = new Response();
 					$response->token = $data->token;
