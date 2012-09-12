@@ -134,8 +134,7 @@ abstract class Api
 				{
 
 					// Kommando ausführen:
-
-					$result = $this->executeCommand($data->command, $data->arguments);
+					$result = $this->executeCommand($data, $data->command, $data->arguments);
 
 
 					$sql = "UPDATE `$dbprefix"."user` SET `counter` = `counter` + 1, `lastaction` = NOW() WHERE `token` = '$data->token';";
@@ -188,7 +187,7 @@ abstract class Api
 	}
 
 
-	abstract protected function executeCommand($command, $arguments);
+	abstract protected function executeCommand($event, $command, $arguments);
 
 
 	protected function getRandomToken()

@@ -39,7 +39,7 @@ class ApiFunctions extends Plugin
 	function OnEnable()
 	{
 		$this->loader->registerApiFunctions($this);
-
+		
 	}
 
 
@@ -59,8 +59,34 @@ class ApiFunctions extends Plugin
 
 	}
 
+	function api_getRights($event, $arguments)
+	{
+		$hp = $this->hp;
+		$dbprefix = $hp->getprefix();
+		$info = $hp->info;
+		$error = $hp->error;
+		$fp = $hp->fp;
+		$config = $hp->getconfig();
+		$right = $hp->right;
+		
+		$data = $right->getright();
+		
+		$sql = "SELECT `level` FROM `$dbprefix"."user` WHERE `token` = '".$event->token."';";
+		$erg = $hp->mysqlquery($sql);
+		$row = mysql_fetch_object($erg);
 
-	function api_write($arguments)
+		$level = $row->level;
+		
+		return json_encode($data[$level]);
+		
+	;	
+		
+		
+	
+	}
+	
+
+	function api_write($event, $arguments)
 	{
 		// Versuche Dateien zu schreiben:
 		// Argumente:

@@ -423,7 +423,7 @@ class PluginLoader  extends Api
 	  API Funktionen ausführen
 
 	*/
-	protected function executeCommand($command, $arguments)
+	protected function executeCommand($event, $command, $arguments)
 	{
 		$hp = $this->hp;
 
@@ -433,7 +433,7 @@ class PluginLoader  extends Api
 			$o = $this->apiCommands[$command]["object"];
 			$f = $this->apiCommands[$command]["function"];
 
-			return json_encode($o->$f($arguments));
+			return json_encode($o->$f($event, $arguments));
 
 		} else
 		{
@@ -447,13 +447,13 @@ class PluginLoader  extends Api
 	// --------------------------  API - Funktionen ----------------------------------------
 
 
-	function api_ping($arguments)
+	function api_ping($event, $arguments)
 	{
 		return "pong";
 	}
 
 
-	function api_echo($arguments)
+	function api_echo($event, $arguments)
 	{
 		return implode(", ", $arguments);
 	}
