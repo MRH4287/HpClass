@@ -320,7 +320,7 @@ class HP
 			if (!is_array($post[$key]))
 			{
 
-				$post[$key] = $this->stripScript(mysql_escape_string($value));
+				$post[$key] = $this->stripScript(mysql_real_escape_string($value));
 				
 			} else
 			{
