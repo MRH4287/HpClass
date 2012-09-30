@@ -11,15 +11,17 @@ mysql_select_db($dbdatenbank, $db)
 	or print "Die Datenbank existiert nicht.";
 
 
-$user=$_POST['user'];
-$passwort=$_POST['passwort'];
 
-$user = mysql_real_escape_string($user);
 
 
 $ok = false;
 if (isset($_POST['login']))
 {
+	$user=$_POST['user'];
+	$passwort=$_POST['passwort'];
+
+	$user = mysql_real_escape_string($user);
+
 
 	$abfrage = "SELECT * FROM ".$dbprefix."user";
 	$ergebnis = mysql_query($abfrage);
@@ -64,14 +66,14 @@ if (isset($_POST['login']))
 		$ergebnis2 = mysql_query($eingabe2);
 		echo mysql_error();
 	}
-}
-if (isset($_GET['logout']))
+} 
+elseif (isset($_GET['logout']))
 {
 	$user = $_SESSION['username'];
-	session_unregister("username");
-	session_unregister("level");
-	setcookie ("username", "", time() -1);
-	setcookie ("level", "", time() -1);
+	//session_unregister("username");
+	//session_unregister("level");
+	//setcookie ("username", "", time() -1);
+	//setcookie ("level", "", time() -1);
 	session_destroy();
 }
 if ($ok == true)
