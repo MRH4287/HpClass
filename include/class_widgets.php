@@ -69,6 +69,9 @@ class widgets
 
 			if (isset($this->widgets[$row->source]))
 			{
+				// Replaces White Space
+				//$row->ID = str_replace(" ", "_", $row->ID);
+			
 				//$temp->addtemp($row->ID, $this->widgets[$row->source]);
 				$value = $this->widgets[$row->source];
 				$this->template[$row->ID] = "<div id='widget_".$row->ID."'>$value</div>";

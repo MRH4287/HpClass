@@ -870,6 +870,9 @@ class Xajax_Funktions
 				$value = str_replace("\r", "", $value);
 
 
+				// Fix for jQuery:
+				$dropper = str_replace("+", " ", $dropper);
+				
 
 				$sql = "DELETE FROM `$dbprefix"."widget` WHERE `source` = '$drag'";
 				$erg = $hp->mysqlquery($sql);
@@ -924,6 +927,9 @@ class Xajax_Funktions
 			// Workaround End
 		}
 
+		// Replace ID:
+		$drag = str_replace("-", " ", $drag);
+		
 		if (in_array($_SESSION['username'], $hp->getsuperadmin()))
 		{
 			$sql = "DELETE FROM `$dbprefix"."widget` WHERE `source` = '$drag'";
@@ -976,6 +982,10 @@ class Xajax_Funktions
 			$content = str_replace("Ä", "&Auml;", $content);
 			$content = str_replace("ß", "&szlig;", $content);
 
+			// Replace White Space
+			$widgetID = str_replace(" ", "-", $widget);
+			$widgetID = preg_replace("/[^a-zA-Z0-9]/", "", $widgetID);
+			
 			//$fp->log($content);
 
 			// Löschen falls schon vorhanden:
@@ -996,7 +1006,7 @@ class Xajax_Funktions
 
 
 				// Erstelle die Widget Daten:
-				$code[] = "createWidgetBox('widget_$parent', '$widget', '$content');";
+				$code[] = "createWidgetBox('widget_$parent', '$widgetID', '$content');";
 
 			} else
 			{
@@ -1007,7 +1017,7 @@ class Xajax_Funktions
 				{
 					//$fp->log("Widget $widget nicht gesetzt, füge ein in WidgetContainer");
 
-					$code[] =  "createWidgetBox('widgetContainer', '$widget', '$content');";
+					$code[] =  "createWidgetBox('widgetContainer', '$widgetID', '$content');";
 				}
 
 			}
@@ -1022,7 +1032,9 @@ class Xajax_Funktions
 
 			foreach ($placeholder as $key=>$name)
 			{
-
+				// Replace White Space
+				$name = str_replace(" ", "-", $name);
+			
 				// Lösche den Platzhalter
 				$response->script("killElement('$name');");
 				//$fp->log("Lösche Platzhalter $name");
