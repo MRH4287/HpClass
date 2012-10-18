@@ -46,7 +46,7 @@ border:thin black inset;
 </div>
 
 <hr />
-<p><input type="submit" name="#!site#" value="#%send#" onClick=" if ($('templateSelector').value == '') { alert('Bitte ein Template wählen'); return false; }" /></p>
+<p><input type="submit" name="#!site#" value="#%send#" onClick=" if ($('#templateSelector').find(':selected').attr('value') == '') { alert('Bitte ein Template wählen'); return false; }" /></p>
 
 <input type="hidden" name="ID" value="#!ID#">
 </form>
@@ -57,7 +57,7 @@ border:thin black inset;
 
 [!=TemplateSelector!]
 
-<select name="template_name" id="templateSelector" onChange="xajax_subpageTemplateChange($('templateSelector').value);" required>
+<select name="template_name" id="templateSelector" onChange="xajax_subpageTemplateChange($('#templateSelector').find(':selected').attr('value'));" required>
 #!Templates# 
 </select>
 
