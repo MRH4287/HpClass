@@ -62,8 +62,10 @@
   </form>
   
 
-  <a href="#" id="PL_link" onclick="$('#picturelist-#!site#').dialog('open'); return false;"> #%Picture List öffnen#</a>
+   <a href="#" id="PL_link" onclick="$('#picturelist-#!site#').dialog('open'); return false;"> #%Picture List öffnen#</a>
 
+	#V:pics : @getUsedPics()#
+  
 	<div class="picturelist" id="picturelist-#!site#" title="#%Picture List#" style="display:none">  
 		<div class="usedpics-container" style="height:100%; overflow:auto">
 			#L:pics : !Image#

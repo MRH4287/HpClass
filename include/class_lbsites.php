@@ -196,30 +196,6 @@ class lbsites
 
 			$siteT->setArray($data);
 
-			$pics = array();
-			$sql = "SELECT * FROM `$dbprefix"."usedpics`";
-			$erg = $hp->mysqlquery($sql);
-			while ($row = mysql_fetch_object($erg))
-			{
-
-				$breite=$row->width;
-				$hoehe=$row->height;
-
-				$neueHoehe=100;
-				$neueBreite=intval($breite*$neueHoehe/$hoehe);
-
-				$data = array(
-					'ID' => $row->ID,
-					'width' => $neueBreite,
-					'height' => $neueHoehe
-					);
-				
-				$pics[] = $data;
-
-			}
-
-			$siteT->set('pics', $pics);
-
 			return $siteT->get("LbSite-Edit");
 
 		}
@@ -258,30 +234,6 @@ class lbsites
 				);
 
 			$siteT->setArray($data);
-
-			$pics = array();
-			$sql = "SELECT * FROM `$dbprefix"."usedpics`";
-			$erg = $hp->mysqlquery($sql);
-			while ($row = mysql_fetch_object($erg))
-			{
-
-				$breite=$row->width;
-				$hoehe=$row->height;
-
-				$neueHoehe=100;
-				$neueBreite=intval($breite*$neueHoehe/$hoehe);
-
-				$data = array(
-					'ID' => $row->ID,
-					'width' => $neueBreite,
-					'height' => $neueHoehe
-					);
-				
-				$pics[] = $data;
-
-			}
-
-			$siteT->set('pics', $pics);
 
 			return $siteT->get("LbSite-Edit");
 

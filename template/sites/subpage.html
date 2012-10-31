@@ -4,62 +4,94 @@
 
 [!=Main!]
 
-<style type="text/css">
-.subpage_container
-{
-width:600px;
-height:auto;
-margin:auto;	
+	<style type="text/css">
+	.subpage_container
+	{
+	width:600px;
+	height:auto;
+	margin:auto;	
 
-border:thin black inset;		
-}
+	border:thin black inset;		
+	}
 
 
 
-</style>
+	</style>
 
-#@include("utilities", "TinyMCEInit")#
+	#@include("utilities", "TinyMCEInit")#
 
-<div class="subpage_container">
-<h3 style="text-align:center">#%Unterseiten Verwalten#</h3>
+	<div class="subpage_container">
+	<h3 style="text-align:center">#%Unterseiten Verwalten#</h3>
 
-<form action="?site=subpage" method="POST">
+	<form action="?site=subpage" method="POST">
 
-<p>#%name#:</p>
-<p> <input name="subpage_name" type="text" value="#!subpage_name#"  #?:edit : "DISABLED"#  pattern="[^ä^ö^ü^ß]*" title="Name ohne die Zeichen &uuml; &ouml; &auml; und &szlig;" /></p>
+	<p>#%name#:</p>
+	<p> <input name="subpage_name" type="text" value="#!subpage_name#"  #?:edit : "DISABLED"#  pattern="[^ä^ö^ü^ß]*" title="Name ohne die Zeichen &uuml; &ouml; &auml; und &szlig;" /></p>
 
-<p>#%Template Name#:</p>
-<p>
+	<p>#%Template Name#:</p>
+	<p>
 
-#!TemplateSelector#
+	#!TemplateSelector#
 
-</p>
+	</p>
 
-#?:subpage : !SubpageSelector#
+	#?:subpage : !SubpageSelector#
 
-<hr />
+	<hr />
 
-<div id="SubpageData">
+	<div id="SubpageData">
 
-#!Content#
+	#!Content#
 
-</div>
+	</div>
 
-<hr />
-<p><input type="submit" name="#!site#" value="#%send#" onClick=" if ($('#templateSelector').find(':selected').attr('value') == '') { alert('Bitte ein Template wählen'); return false; }" /></p>
+	<a href="#" id="PL_link" onclick="$('#picturelist-#!site#').dialog('open'); return false;"> #%Picture List öffnen#</a>
 
-<input type="hidden" name="ID" value="#!ID#">
-</form>
+	#V:pics : @getUsedPics()#
+	
+	<div class="picturelist" id="picturelist-#!site#" title="#%Picture List#" style="display:none">  
+		<div class="usedpics-container" style="height:100%; overflow:auto">
+			#L:pics : !Image#
+		</div>
+	</div>
+	  
+	<script>
+		$('#picturelist-#!site#').dialog({
+			autoOpen: false,
+			width:650,
+			height:300
+			
+			});
 
-</div>
+	</script>
+	
+	<hr />
+	<p><input type="submit" name="#!site#" value="#%send#" onClick=" if ($('#templateSelector').find(':selected').attr('value') == '') { alert('Bitte ein Template wählen'); return false; }" /></p>
+
+	<input type="hidden" name="ID" value="#!ID#">
+	</form>
+
+	</div>
 
 [!/Main!]
 
+[!=Image!]
+	#V:image : @echo(!Image-Content)#
+	<span>
+		#!image#
+	</span>
+[!/Image!]
+
+[!=Image-Content!]
+	<img src="include/image.php?id=#l:ID#&source=usedpic" width="#l:width#" height="#l:height#">
+[!/Image-Content!]
+
+
 [!=TemplateSelector!]
 
-<select name="template_name" id="templateSelector" onChange="xajax_subpageTemplateChange($('#templateSelector').find(':selected').attr('value'));" required>
-#!Templates# 
-</select>
+	<select name="template_name" id="templateSelector" onChange="xajax_subpageTemplateChange($('#templateSelector').find(':selected').attr('value'));" required>
+	#!Templates# 
+	</select>
 
 [!/TemplateSelector!]
 
@@ -67,10 +99,10 @@ border:thin black inset;
 #/ Für die Zuweisung zu den Unterseiten (wegen Navigation) #
 [!=SubpageSelector!]
 
-<p>#%Zugewiesene Unterseite#:</p>
-<p><select name="subpage">#!SubpageOptions#</select></p>
-<p>#%Kategorie#:</p>
-<p><input type="text" name="subpageKat" value="#!SubpageKat#"/></p>
+	<p>#%Zugewiesene Unterseite#:</p>
+	<p><select name="subpage">#!SubpageOptions#</select></p>
+	<p>#%Kategorie#:</p>
+	<p><input type="text" name="subpageKat" value="#!SubpageKat#"/></p>
 [!/SubpageSelector!]
 
 
@@ -79,8 +111,8 @@ border:thin black inset;
 <!--       Unterseiten          -->
 [!=Menu!]
 
-<a href="?site=subpage&new">#%Eine neue Unterseite erstellen#</a><br>
-<a href="?site=subpage&list">#%Liste der Vorhandenen Unterseiten#</a>
+	<a href="?site=subpage&new">#%Eine neue Unterseite erstellen#</a><br>
+	<a href="?site=subpage&list">#%Liste der Vorhandenen Unterseiten#</a>
 
 [!/Menu!]
 
@@ -106,7 +138,7 @@ border:thin black inset;
 [!/List!]
 
 [!=List-Subpage-Edit!]
-<a href=?site=subpage&new&sub&subID=#!subID#>#%Eine neue Unterseite erstellen#</a>
+	<a href=?site=subpage&new&sub&subID=#!subID#>#%Eine neue Unterseite erstellen#</a>
 [!/List-Subpage-Edit!]
 
 [!=List_Element!]
@@ -128,31 +160,31 @@ border:thin black inset;
 
 
 [!=CheckBox!]
-<p>#!name#:</p>
-<p> <input type="checkbox" #!checked# name="#!ID#"/> </p>
-<p></p>
+	<p>#!name#:</p>
+	<p> <input type="checkbox" #!checked# name="#!ID#"/> </p>
+	<p></p>
 [!/CheckBox!]
 
 [!=TextBox!]
-<p>#!name#:</p>
-<p> <input type="text" value="#!value#" name="#!ID#"/> </p>
-<p></p>
+	<p>#!name#:</p>
+	<p> <input type="text" value="#!value#" name="#!ID#"/> </p>
+	<p></p>
 
 [!/TextBox!]
 
 [!=TextArea!]
-<p>#!name#:</p>
-<p><textarea name="#!ID#" cols="45" rows="8">#!value#</textarea></p>
-<p></p>
+	<p>#!name#:</p>
+	<p><textarea name="#!ID#" cols="45" rows="8">#!value#</textarea></p>
+	<p></p>
 
 [!/TextArea!]
 
 [!=ComboBox!]
-<p>#!name#:</p>
-<p><select name="#!ID#">#!Options#</select></p>
-<p></p>
+	<p>#!name#:</p>
+	<p><select name="#!ID#">#!Options#</select></p>
+	<p></p>
 [!/ComboBox!]
 
 [!=ComboBoxOption!]
-<option value="#!ID#" #!selected#>#!value#</option>
+	<option value="#!ID#" #!selected#>#!value#</option>
 [!/ComboBoxOption!]

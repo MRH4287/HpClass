@@ -1013,5 +1013,40 @@ class siteTemplate
 
 	}
 	
+	/*
+		Returns the Used-Pics
+	
+	*/
+	public function temp_getUsedPics($args)
+	{
+		$hp = $this->hp;
+		$dbprefix = $hp->getprefix();
+	
+		$pics = array();
+		$sql = "SELECT * FROM `$dbprefix"."usedpics`";
+		$erg = $hp->mysqlquery($sql);
+		while ($row = mysql_fetch_object($erg))
+		{
+
+			$breite=$row->width;
+			$hoehe=$row->height;
+
+			$neueHoehe=100;
+			$neueBreite=intval($breite*$neueHoehe/$hoehe);
+
+			$data = array(
+				'ID' => $row->ID,
+				'width' => $neueBreite,
+				'height' => $neueHoehe
+				);
+			
+			$pics[] = $data;
+
+		}
+		
+		return $pics;
+	}
+	
+	
 }
 ?>
