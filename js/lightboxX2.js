@@ -402,7 +402,7 @@
 		{
 			var popup = new LightBoxX2(settings);
 			
-			var url = this.attr("href");
+			var url = $(this).attr("href");
 			
 			popup.show(url);
 			
