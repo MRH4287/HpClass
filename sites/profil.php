@@ -78,8 +78,12 @@ if (!isset($_SESSION['username'])) {
 			$passwortneu2=md5("pw_".$post['passwort2']);
 			$passwortalt = md5("pw_".$passwort);
 			$passwortalt2 = md5("pw_".$passwort.$row->ID);
+			$passwortalt3 = sha1("pw_".$passwort.$row->ID);
 
-			if ((($passwortalt == $row->pass) or ($passwortalt2 == $row->pass)) and ($passwortneu == $passwortneu2))
+			if ((($passwortalt == $row->pass) ||
+				($passwortalt2 == $row->pass) ||
+				($passwortalt3 == $row->pass)
+				) and ($passwortneu == $passwortneu2))
 			{
 				$eingabe = "UPDATE `".$dbprefix."user` SET `pass` = '$passwortneu' WHERE `user` = '".$_SESSION['username']."';";
 				$ergebnis = $hp->mysqlquery($eingabe);
