@@ -22,14 +22,16 @@
         <td width="175">#!username#</td>
       </tr>
       <tr>
-        <td width="125">#%password#:</td>
-        <td width="175"><input type="submit" value="#%changepw#" name="pwändern"></td>
+		<form method="POST" action="index.php?site=profil">
+			<td width="125">#%password#:</td>
+			<td width="175"><input type="submit" value="#%changepw#" name="pwändern"></td>
+		</form>
        </tr>
       <tr>
         <td width="125">#%avatar#:</td>
         <td width="175">
    
-        <img border="0" src="include/userpics.php?id=#!ID#">
+        <img border="0" src="./include/image.php?source=usr&id=#!ID#">
         
         	<form enctype="multipart/form-data" action="index.php?site=userpicchange&id=#!ID#" method="post">
         		<input name="FILE" type="file">
