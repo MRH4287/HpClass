@@ -967,7 +967,6 @@ class subpages
 	{
 		$hp = $this->hp;
 		$dbprefix = $hp->getprefix();
-		$game = $hp->game;
 		$info = $hp->info;
 		$error = $hp->error;
 		$fp = $hp->fp;
@@ -1023,7 +1022,6 @@ class subpages
 	{
 		$hp = $this->hp;
 		$dbprefix = $hp->getprefix();
-		$game = $hp->game;
 		$info = $hp->info;
 		$error = $hp->error;
 		$fp = $hp->fp;
