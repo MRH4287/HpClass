@@ -8,5 +8,19 @@
 #!main#
 <br />
 #!calendar#
- 
+
+#?:@isPluginEnabled("ICalFunction") : !ICalCheck : ""#
+
+
+
 [!/Main!]
+
+
+You need the iCal Plugin to use this!
+[!=ICalCheck!]
+#?=calendar_display_iCalLink : !ICalLink : ""#
+[!/ICalCheck!]
+
+[!=ICalLink!]
+<a href="?iCal&subpage=#!subPageID#" title="Save as iCal"><img src="/images/calendaricon.gif" alt="Save as iCal" /></a>
+[!/ICalLink!]

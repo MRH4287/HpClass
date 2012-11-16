@@ -1048,5 +1048,25 @@ class siteTemplate
 	}
 	
 	
+	/*
+		Is Plugin Enabled
+		
+		0 - Name
+		
+		Returns:
+		true / false
+	
+	*/
+	public function temp_isPluginEnabled($args)
+	{
+		$hp = $this->hp;
+		$plugin = $hp->pluginloader;
+				
+		return ($plugin->isEnabled($args[0]) === true ? true : false); 
+		
+	
+	}
+	
+	
 }
 ?>

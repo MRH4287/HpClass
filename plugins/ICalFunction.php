@@ -38,7 +38,20 @@ class ICalFunction extends Plugin
 	*/
 	function OnEnable()
 	{
-		
+		$hp = $this->hp;
+	
+		$configs = array(
+		  array(
+		    "name"      => "calendar_display_iCalLink",
+		    "desc"      => "Zeige einen Verweiß auf den iCal Kalender innerhalb der Kalender Seiten",
+		    "cat"       => "System",
+		    "type"      => "bool",
+		    "default"   => true
+		  )
+
+		);
+
+		$hp->config->registerArray($configs);
 	}
 
 
