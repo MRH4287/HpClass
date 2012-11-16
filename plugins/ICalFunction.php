@@ -68,7 +68,7 @@ class ICalFunction extends Plugin
 		
 		if (isset($get['iCal']))
 		{
-			//header("Content-Type: text/Calendar");
+			header("Content-Type: text/Calendar");
 		
 			$subpage = null;
 			
@@ -126,8 +126,14 @@ class ICalFunction extends Plugin
 				continue;
 			}
 			
+			$res = $this->getEventData($row);
 		
-			$data[] = $this->getEventData($row);		
+			if ($res === null)
+			{
+				continue;
+			}
+			
+			$data[] = $res;	
 		}
 		
 		return $data;
