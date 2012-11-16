@@ -713,6 +713,9 @@ class subpages
 			}
 			
 		}
+		
+		$template['subPageID'] = $page['ID'];
+		
 		return $template;
 	}
 
