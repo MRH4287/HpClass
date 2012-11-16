@@ -185,7 +185,7 @@ class ICalFunction extends Plugin
 		
 		// Description ---
 		
-		$description = str_replace(array("\n", "\r"), "", $row['description']);
+		$description = str_replace(array("\n", "\r", '"', "'"), "", $row['description']);
 		
 		$data["Description"] = strip_tags($description);
 		$data["HTMLDescription"] = $description;
