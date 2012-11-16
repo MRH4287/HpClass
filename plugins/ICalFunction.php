@@ -68,7 +68,7 @@ class ICalFunction extends Plugin
 		
 		if (isset($get['iCal']))
 		{
-			header("Content-Type: text/Calendar");
+			//header("Content-Type: text/Calendar");
 		
 			$subpage = null;
 			
@@ -203,9 +203,9 @@ class ICalFunction extends Plugin
 	
 	private function makeTwoDigits($in)
 	{
-		if (intval($in) < 10)
+		if (strlen($in) < 2)
 		{
-			$in = "0".$in;
+			$in = "0". $in;
 		}
 		
 		return $in;
