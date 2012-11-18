@@ -16,7 +16,7 @@ $lang['de'] = array(
 
     // admin-de
     // admin-eng
-    'anwerter' => 'Anwerter',
+    'anwerter' => 'Anwärter',
 
     // profil-de
     // profil-eng
