@@ -1,0 +1,36 @@
+#!!NAME=RSS Feed
+#!!AUTOR=MRH
+
+[!=Main!]
+<rss version="2.0">
+	<channel>
+		<title>HPClass Demo News-Feed</title>
+		<link>http://www.mrh-development.de/</link>
+		<description>MRH-Development Demo Template.</description>
+		<language>de-de</language>
+		<pubDate>#@child(lastEntry, "datum")#</pubDate>
+		<lastBuildDate>#!timeNow#</lastBuildDate>
+		<generator>HpClass CMS</generator>
+		#/<image><link>http://localhost/</link><title>HPClass Demo</title><url>http://path/to/image.jpg</url></image>#
+		#L:items : !Item#
+	</channel>
+</rss>
+[!/Main!]
+
+[!=Item!]
+<item>
+<title>#l:title#</title>
+<link>
+	http://#!HTTP_HOST##!PHP_SELF#?site=news&amp;show=#l:ID#
+</link>
+<description>
+<![CDATA[
+	#l:text#
+]]>
+</description>
+<pubDate>#l:datum#</pubDate>
+<guid>
+#l:ID#
+</guid>
+</item>
+[!/Item!]
