@@ -105,12 +105,29 @@ class RSSFunction extends Plugin
 		if (mysql_num_rows($erg) >= 1)
 		{
 			while ($row = mysql_fetch_array($erg))
-			{				
+			{			
+				$row["title"] = $this->replaceChars($row["title"]);
+				$row["text"] = $this->replaceChars($row["text"]);
+				
 				$data[] = $row;	
 			}
 		}	
 
 		return $data;
+	}
+	
+	private function replaceChars($input)
+	{
+		$input = str_replace("ä", "ae", $input);
+		$input = str_replace("ü", "ue", $input);
+		$input = str_replace("ö", "oe", $input);
+		$input = str_replace("ß", "ss", $input);
+		$input = str_replace("Ä", "Ae", $input);
+		$input = str_replace("Ü", "Ue", $input);
+		$input = str_replace("Ö", "Oe", $input);
+	
+	
+		return $input;
 	}
 	
 		
