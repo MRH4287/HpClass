@@ -3,24 +3,59 @@
 
 
 [!=Main!]
+[!&Import!]
+	
+	
+	#V:title : "Test"#
+	#V:name : "User"#
+	
+	<br />
+	Here is your List:<br />
+	#V:array : @child(data, "bla")#
+	#@echo(array)#
+	
+	#!test#
+	
+
+[!/Main!]
+
+
+[!=Import!]
+
+	<h1>#!title#</h1>
+	
+	<b>Hello #!name#, how are you?</b>
+	
+	#V:test : "1234"#
+[!/Import!]
+
+
+
+------------------------------------------
+
+[! =Main!]
+[!&Main2!]
     #@echo(data)#
     #V:array : @child(data, "bla")#
     #@child(array, "1")#
-
+	
+	#!blub#
+	
 [!/Main!]
 
 [!=Main2!]
 
+
 <br />
 
-is a in array? 
-#?:inArray("a", array) : "true" : "false"#  <br />
+is 1 in array? 
+#?:inArray("1", array) : "true" : "false"#  <br />
 
-is x in array? 
-#?:inArray("x", array) : "true" : "false"# <br />
+is 5 in array? 
+#?:inArray("5", array) : "true" : "false"# <br />
 
 #@echo : !Test#
-#@echo : blub#
+#@echo : array#
 
 
  <br />

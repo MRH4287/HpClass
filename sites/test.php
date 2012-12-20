@@ -17,7 +17,7 @@ $subpages = $hp->subpages;
 
 $temp = new siteTemplate($hp);
 
-$data = (object)array("bla" => array(1,2,3)); 
+$data = array("bla" => array(1,2,3)); 
 
 
 $temp->set("data", $data);

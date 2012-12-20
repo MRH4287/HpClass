@@ -14,6 +14,7 @@ class siteTemplate
 
 
 	protected $blocks = array();
+	protected $extending = array();
 	protected $data = array();
 	protected $vars = array();
 
@@ -147,18 +148,35 @@ class siteTemplate
 			$blockname = "None";
 			$lines = preg_split("/[\n\r]/", $value);
 			$content = "";
+			$extend = null;
+			$break = false;
 			foreach ($lines as $lineNr=>$line)
 			{
+				if ($break)
+				{
+					break;
+				}
+			
 				if (preg_match("/\[\!\/([^!]*)\!]/", $line, $m))
 				{
 					$blockname = $m[1];
-				} elseif (($line != "") && ($blockname == "None"))
+					$break = true;
+				} 
+				elseif(preg_match("/\[\!&([^!]*)\!]/", $line, $m))
+				{
+					$extend = $m[1];
+				}
+				elseif (($line != "") && ($blockname == "None"))
 				{
 					$content .= $line."\n";
 				}
 
 			}
 			$this->blocks[$blockname] = $content;
+			if ($extend != null)
+			{
+				$this->extending[$blockname] = $extend;
+			}
 		}
 
 	}
@@ -184,11 +202,13 @@ class siteTemplate
 		return $result;
 	}
 
-	public function replace($data)
+	public function replace($data, $name)
 	{
 		// Ersetzt die Variablen
 		// Diese Zeile muss oben stehen, da Funktionen auf Variablen zugreifen können!
 		$data = $this->replaceVars($data);
+		// Insert Extends:
+		$data = $this->insertExtends($data, $name);
 		// Ersetzt die Funktionen
 		// Diese Zeile muss oben stehen, da über Funktionen Variablen gesetzt werden können!
 		$data = $this->replaceFunctions($data);
@@ -231,7 +251,21 @@ class siteTemplate
 		return $data;
 	}
 
-
+	private function insertExtends($data, $name)
+	{	
+		if (isset($this->extending[$name]))
+		{		
+			$extended = $this->extending[$name];
+			
+			$content = $this->getNode($extended);
+			
+			$data = $content.$data;
+		
+		}
+	
+		return $data;
+	}
+	
 	private function replaceComment($data)
 	{
 		$langData = $this->getPlaceholder($data, "/");
@@ -631,7 +665,7 @@ class siteTemplate
 
 			if (isset($this->blocks[$name]))
 			{
-				$content = $this->replace($this->blocks[$name]);
+				$content = $this->replace($this->blocks[$name], $name);
 
 			} else
 			{
@@ -712,14 +746,14 @@ class siteTemplate
 			}
 
 			$result = $this->blocks[$name];
-			$result = $this->replace($result);
+			$result = $this->replace($result, $name);
 
 			$this->data = $tmp;
 
 			return $result;
 		} else
 		{
-			return "[?]";
+			return "[?Node=$name]";
 		}
 	}
 
@@ -787,7 +821,7 @@ class siteTemplate
 
 			if (isset($this->blocks[$node]))
 			{
-				return $this->replace($this->blocks[$node]);
+				return $this->replace($this->blocks[$node], $node);
 			} else
 			{
 				return "<b>Node '$node' not found!</b>";
