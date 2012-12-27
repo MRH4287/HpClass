@@ -37,6 +37,7 @@ $template['head']='
 <script type="text/javascript" src="js/lightboxX2.js"></script>
 <script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
 <script src="js/functions.js"></script>
+<script src="js/communicator.js"></script>
 <script src="js/drag&drop.js"></script>
 <script src="js/widgetconfig.js"></script>
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>

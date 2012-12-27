@@ -1,0 +1,1 @@
+ALTER TABLE  `#!-PREFIX-!#widget` ADD INDEX (  `source` )

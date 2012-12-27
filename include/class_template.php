@@ -1,6 +1,4 @@
 <?php
-require_once "include/base/SiteTemplate.php";
-
 class template extends siteTemplate
 {
 
@@ -31,16 +29,17 @@ class template extends siteTemplate
 	}
 
 
-	function load($path, $v2 = "")
+	// The second parameter is not used in this overwrite Function
+	function load($path, $direct = null)
 	{
 		$this->path = $path;
 
-		if (!file_exists("template/$path.html"))
+		if (!file_exists(HP::$ROOT_PATH . "template/$path.html"))
 		{
 
 			$this->template=array();
 			$this->hp->error->error("Template $path not found!", "2");
-			if (file_exists("template/default.html"))
+			if (file_exists(HP::$ROOT_PATH . "template/default.html"))
 			{
 				$path = "default";
 			} else
@@ -49,7 +48,7 @@ class template extends siteTemplate
 			}
 		}
 
-		parent::load("template/$path.html", true);
+		parent::load(HP::$ROOT_PATH . "template/$path.html", true);
 
 		//$temp = file_get_contents("template/$path.html");
 
@@ -65,84 +64,27 @@ class template extends siteTemplate
 		$this->addVote();
 
 		//$this->data = $this->spezialsigs($data);
-
-		$this->hp->subpages->loadTemplateFile($path);
-
-
-		$data = explode("<!--next-->", $this->get());
-
-		if (count($data) > 1)
+		
+		if (isset($this->hp->subpages))
 		{
-
-			$this->template['header'] = $data[0];
-			$this->template['footer'] = $data[1];
-
-		} else
-		{
-			$this->template['header'] = $data[0];
-			$this->template['footer'] = "";
+			$this->hp->subpages->loadTemplateFile($path);
 		}
-
 	}
 
-	function addtemp($temp, $wort)
-	{
-
-		$this->set($temp, $wort);
-
-	}
-
-	
-	function spezialsigs($data)
-	{
-
-		foreach ($data as $key=>$value)
-		{
-
-			$data[$key] = $this->replace($value, $key);
-			
-		}
-		return $data;
-	}
-	
-
-	function getloginconfig($path)
-	{
-
-		if (is_file("template/$path/login.php"))
-		{
-
-			include "template/$path/login.php";
-
-			return $config;
-		} else
-		{
-			return null;
-		}
-
-	}
 
 	function loadtemplatefile($path)
 	{
 
-		if (file_exists("template/$path/template.php"))
+		if (file_exists(HP::$ROOT_PATH . "template/$path/template.php"))
 		{
 
-			include "template/$path/template.php";
+			include HP::$ROOT_PATH . "template/$path/template.php";
 			return $template;
 		}
 
 		return array();
 
 	}
-
-	function getHeader()
-	{
-
-		return $this->data['header'];
-
-	}
-
 
 	function addVote()
 	{

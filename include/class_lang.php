@@ -238,20 +238,6 @@ class lang implements arrayaccess
 					$this->addlang($lang);
 				}
 			}
-
-			if (isset($this->lang[$this->clang]) && is_array($this->lang[$this->clang]))
-			{
-				foreach ($this->lang[$this->clang] as $key=>$value) 
-				{
-					$array = explode("tp_", $key);
-
-					if (count($array) == 2)
-					{
-						$this->hp->template->addtemp($array[1], $value);
-
-					}
-				}
-			}
 		}
 	}
 

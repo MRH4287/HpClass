@@ -8,6 +8,7 @@ require_once 'include/config.php';
 require_once 'include/class.php';
 require_once 'include/class_ajax.php';
 require_once 'include/class_lang.php';
+require_once 'include/base/SiteTemplate.php';
 require_once 'include/class_template.php';
 require_once 'include/class_error.php';
 require_once 'include/class_info.php';
@@ -20,7 +21,6 @@ require_once 'include/class_config.php';
 require_once 'include/class_widgets.php';
 require_once 'include/class_subpages.php';
 require_once 'include/class_pluginloader.php';
-require_once 'include/base/SiteTemplate.php';
 require_once 'include/base/subpageTemplate.php';
 require_once 'include/base/pluginTemplate.php';
 
@@ -104,7 +104,7 @@ $widgets->replace();
 
 
 //------------------------------Template Steuerung-----------------------------
-$widgets->addtotemp();
+//$widgets->addtotemp();
 $temp->load($design);
 
 //--------------------------------Xajax Request--------------------------------
@@ -120,8 +120,6 @@ $temp->display();
 
 //----------------------------------XAJAX---------------------------------------
 echo $xajaxF->printjs();
-// Ausführen der JS Funktionen
-include 'js/xajax.php';
 
 //----------------------------Info und Error Handling--------------------------
 $info->getmessages();

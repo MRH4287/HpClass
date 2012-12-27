@@ -1,13 +1,15 @@
 <?php
+session_start();
+
 if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') 
 {
-    session_start();
-	
 	require "../include/class.php";
 	require_once "../include/standalone.php";
+	require_once "../include/base/SiteTemplate.php";
 	require_once '../include/class_ajax.php';
 	require_once '../include/class_pluginloader.php';
-	require_once "../include/base/SiteTemplate.php";
+	require_once '../include/class_template.php';
+	require_once '../include/class_widgets.php';
 	require_once "../include/base/subpageTemplate.php";
 	require_once "../include/base/pluginTemplate.php";
 
@@ -26,26 +28,36 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 	
 	//Standalone:
 	$hp             = new Standalone("../");
+	$temp           = new template($hp);
+	$widgets		= new widgets();
 	$pluginloader   = new PluginLoader;
 	$lang = $hp->langclass;
 
+	$config = $hp->getconfig();
+	
 	$hp->error = new ErrorStandaloneMod();
     $lang->seterror($hp->error);
+	
+	$hp->settemplate($temp);
+	$temp->load($config['design']);
 	
 	$pluginloader->sethp($hp);
 	$hp->setpluginloader($pluginloader);
 
+	$hp->setwidgets($widgets);
+	$widgets->sethp($hp);
+	
 	$pluginloader->Init();
 
 	$pluginloader->Load();
 	
 	if (isset($_POST['action']))
 	{
-		$result = AjaxFunctions::call($_POST['action'], $_POST);
+		$result = AjaxFunctions::call($_POST['action'], $hp->post());
 		
 		if ($result === null)
 		{
-			header("HTTP/1.0 422 Unprocessable Entity");
+			header("HTTP/1.0 501 Not Implemented");
 			echo "Function undefined";
 		} else
 		{

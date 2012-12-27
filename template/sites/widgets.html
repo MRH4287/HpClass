@@ -1,10 +1,15 @@
+#!!NAME=Widget Container
+#!!AUTOR=MRH
+
 [!=Placeholder!]
-    <table width="100%" height="50">
-        <tr>
-            <td>
-                <div id="#!ID#" class="dropp"></div>
-            </td>
-        </tr>
-    </table>
+    <div name="#!ID#" class="widget widgets_drop" placeholder="#!ID#">
+    </div >
 
 [!/Placeholder!]
+
+
+[!=Element!]
+	<div class="widget widgets_movable_element" name="#!name#" placeholder="#!placeholder#">
+		#!Content#
+	</div>
+[!/Element!]

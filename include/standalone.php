@@ -12,26 +12,26 @@ class ErrorStandalone
 
 class InfoStandalone
 {
-	private $fp;
+	//private $fp;
 
 	function __construct($fp)
 	{
-		$this->fp = $fp;
+		//$this->fp = $fp;
 	}
 
 	function info($text, $v2 = "")
 	{
-		$this->fp->info($text, $v2);
+		//$this->fp->info($text, $v2);
 	}
 
 	function okm ($text, $v2 = "")
 	{
-		$this->fp->log($text, $v2);
+		//$this->fp->log($text, $v2);
 	}
 
 	function okn ($text, $v2 = "")
 	{
-		$this->okm($text, $v2);
+	//	$this->okm($text, $v2);
 	}
 
 }
@@ -42,6 +42,8 @@ class Standalone extends Hp
 
 	function __construct($path)
 	{
+		parent::__construct();
+		
 		self::$ROOT_PATH = $path;
 	
 		// Einbinden der Resourcen;

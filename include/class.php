@@ -47,7 +47,7 @@ class HP
 
 	// Config Area;
 	// ----------------------------------------------------------------
-	function HP()
+	function __construct()
 	{
 		//Main
 		$this->standardsite = "news"; // Wenn nicht durch Config verändert!
