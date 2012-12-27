@@ -92,17 +92,19 @@ class template extends siteTemplate
 
 	}
 
+	
 	function spezialsigs($data)
 	{
 
 		foreach ($data as $key=>$value)
 		{
 
-			$data[$key] = $this->replace($value);
+			$data[$key] = $this->replace($value, $key);
 			
 		}
 		return $data;
 	}
+	
 
 	function getloginconfig($path)
 	{

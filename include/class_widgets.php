@@ -122,7 +122,7 @@ class widgets
 
 
 
-	function addtotemp()
+	public function addtotemp()
 	{
 		$hp = $this->hp;
 		$dbprefix = $hp->getprefix();
