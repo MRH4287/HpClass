@@ -354,7 +354,7 @@ if (!$right[$level]["manage_calendar"])
 
 	$site->display("Edit-Container");
 
-	$this->hp->xajaxF->open("xajax_event_list()");
+	$this->hp->template->addScriptToHeader("xajax_event_list();");
 }
 
 ?>

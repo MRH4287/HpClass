@@ -71,6 +71,16 @@ class template extends siteTemplate
 		}
 	}
 
+	public function addScriptToHeader($script)
+	{
+		$hp = $this->hp;
+		$temp = new siteTemplate($hp);
+		$temp->load("utilities");
+		$temp->set("Content", $script);
+		
+		$this->append("head", $temp->get("AutorunScript"));
+	}
+	
 
 	function loadtemplatefile($path)
 	{

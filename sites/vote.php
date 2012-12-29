@@ -46,7 +46,7 @@ if (!$right[$level]['manage_vote'])
 		$site->display("Edit-Vote");
 
 
-		$xajaxF->open("xajax_calender_vote();");
+		$this->hp->template->addScriptToHeader("xajax_calender_vote();");
 
 	} elseif (isset($post['addvote']))
 	{
@@ -152,8 +152,7 @@ if (!$right[$level]['manage_vote'])
 		$site->display("Edit-Vote");
 
 
-		$xajaxF->open("xajax_calender_vote();");
-		$xajaxF->open("checkvote(true);");
+		$this->hp->template->addScriptToHeader("xajax_calender_vote(); checkvote(true);");
 
 
 	} elseif (isset($post['editvote']))

@@ -71,7 +71,7 @@ if (!$right[$level]["manage_subpage"])
 	$site->set("TemplateSelector", $site->getNode("TemplateSelector", $data));
 
 	// Lade die Daten für das erste Template:
-	$xajaxF->open("xajax_subpageTemplateChange('$ft');");
+	$this->hp->template->addScriptToHeader("xajax_subpageTemplateChange('$ft');");
 
 	$site->set("site", "new");
 	$site->set("subpage_name", "");
