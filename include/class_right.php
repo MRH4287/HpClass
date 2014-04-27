@@ -1,6 +1,6 @@
 <?php
 
-class right
+class Right
 {
 
 	public $hp;

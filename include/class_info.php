@@ -1,6 +1,6 @@
 <?php
 
-class infoclass
+class Infoclass
 {
 	var $lang;
 	var $error;
@@ -8,14 +8,12 @@ class infoclass
 	var $infoarray = array();
 	var $okmarray = array();
 
-	var $firephp;
 
 	function init($lang, $error, $hp)
 	{
 		$this->lang = $lang;
 		$this->error = $error;
 		$this->hp = $hp;
-		$this->firephp = $hp->getfirephp();
 		$this->outputdiv();
 	}
 
@@ -24,10 +22,6 @@ class infoclass
 		if (!in_array($info, $this->infoarray))
 		{
 			array_push($this->infoarray, $info);
-			if (is_object($this->firephp))
-			{
-				$this->firephp->info($info);
-			}
 		}
 	}
 
@@ -36,10 +30,6 @@ class infoclass
 		if (!in_array($okm, $this->okmarray))
 		{
 			array_push($this->okmarray, $okm);
-			if (is_object($this->firephp))
-			{
-				$this->firephp->log($okm);
-			}
 		}
 	}
 

@@ -1,4 +1,4 @@
-<?php
+<meta content="text/html; charset=utf-8" http-equiv="content-type" /><?php
 
 $lang['eng'] = array(
     // pm-eng

@@ -1,5 +1,5 @@
 <?php
-class errorclass
+class Errorclass
 {
 	var $errorm;
 	var $errorarray = array();

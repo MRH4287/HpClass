@@ -1,5 +1,5 @@
 <?php
-class lang implements arrayaccess
+class Lang implements arrayaccess
 {
 	var $lang = array();
 
@@ -81,7 +81,7 @@ class lang implements arrayaccess
 			$this->error->error("Language File not Found!", "2");
 			if ($clang == "dev")
 			{
-				return "<-$word->";
+				return "<-".$word."->";
 			} else
 			{
 				//echo "<pre>";
@@ -207,7 +207,6 @@ class lang implements arrayaccess
 
 	function inctempfiles()
 	{
-		$fp = $this->hp->firephp;
 
 		if ($this->temppath == "")
 		{

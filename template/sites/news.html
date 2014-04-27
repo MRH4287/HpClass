@@ -1,14 +1,16 @@
-#!!NAME=news
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />#!!NAME=news
 #!!AUTOR=MRH
 
 [!=Main!]
 
+<h1>#%News#</h1>
+
   #L:News : !News#
   
-  <p align="center"><a href="index.php?site=news&limit=20"><b>#%morenews#</b></a>
-
-  #?newswrite : WriteNews# 
-  #?newsedit : StartEditNews# </p>
+  <div class="btn-group">
+        <a href="index.php?site=news&limit=20">#%morenews#</a>
+        #?newswrite : WriteNews# 
+         #?newsedit : StartEditNews# </div>
                                           
 [!/Main!]
 
@@ -31,8 +33,8 @@
 [!/News!]
 
 [!=News-Edit!]
-	#?newsedit : @echo("<a href="index.php?lbsite=newschange&vars=", l:ID, "" class="lbOn">", %edit, "</a>")#
-	#?newsdel : @echo("<a href="index.php?lbsite=delnews&vars=", l:ID, "" class="lbOn">", %delet, "</a>")#
+	#?newsedit : @echo("<a href="index.php?lbsite=newschange&vars=", l:ID, "" class="lbOn btn btn-default">", %edit, "</a>")#
+	#?newsdel : @echo("<a href="index.php?lbsite=delnews&vars=", l:ID, "" class="lbOn btn btn-danger">", %delet, "</a>")#
 [!/News-Edit!]
 
 
@@ -74,13 +76,14 @@
   
   
   <script>
+      /*
 		$('#picturelist-#!site#').dialog({
 			autoOpen: false,
 			width:650,
 			height:300
 			
 			});
-
+*/
   </script>
 
 

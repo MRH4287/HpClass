@@ -1,5 +1,6 @@
 <?php
-class Xajax_Funktions
+
+class _Xajax_Funktions
 {
 	var $hp;
 

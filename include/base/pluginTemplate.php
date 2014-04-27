@@ -1,5 +1,5 @@
 <?php
-class pluginTemplate extends siteTemplate
+class PluginTemplate extends SiteTemplate
 {
 
 	private $folder = "";

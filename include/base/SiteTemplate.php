@@ -5,7 +5,7 @@
   Das Template einer Unterseite
 
 */
-class siteTemplate
+class SiteTemplate
 {
 	protected $hp;
 

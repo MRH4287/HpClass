@@ -1,6 +1,6 @@
 <?php
 
-class config
+class Config
 {
 	public $hp;
 

@@ -1,5 +1,5 @@
 <?php
-class template extends siteTemplate
+class Template extends SiteTemplate
 {
 
 	var $template = array();

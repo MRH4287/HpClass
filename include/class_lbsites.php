@@ -1,11 +1,10 @@
 <?php
-class lbsites
+class Lbsites
 {
 	var $error;
 	var $hp;
 	var $lang;
 	var $info;
-	var $fp;
 	var $liste = array();
 	var $funkadd = array();
 
@@ -20,7 +19,6 @@ class lbsites
 		$this->error = $hp->geterror();
 		$this->lang = $hp->getlangclass();
 		$this->info = $hp->getinfo();
-		$this->fp = $hp->firephp;
 	}
 
 	function extend($ext)

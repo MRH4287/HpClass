@@ -1,5 +1,5 @@
 <?php
-class subpages
+class Subpages
 {
 	var $hp;
 

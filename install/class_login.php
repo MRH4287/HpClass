@@ -123,10 +123,7 @@ function user_check($username, $password)
 		$_SESSION[$sesname_user]     = $username;
 		$_SESSION[$sesname_password] = sha1("pw_".$password);
 
-		echo '
-  <script>
-   window.location="'.$this->adress.'"
-  </script>';
+		echo '<script> window.location="'.$this->adress.'"; </script>';
 
 
 	} else
@@ -141,7 +138,7 @@ function user_check($username, $password)
   window.location="'.$this->adress.'";
   }
 
-   window.setTimeout("reload()",3000);
+   window.setTimeout(function() { reload(); },3000);
   </script>', false);
 
 

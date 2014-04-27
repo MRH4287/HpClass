@@ -9,11 +9,9 @@ class HP
 	public    $langclass;
 	public    $error;
 	public    $info;
-	public    $firephp;
 	public    $fp;
 	public    $lbsites;
 	public    $template;
-	public    $xajaxF;
 	public    $widgets;
 	public    $subpages;
 	public    $pluginloader;
@@ -104,12 +102,6 @@ class HP
 		$this->template = $template;
 	}
 
-	function setfirephp($firephp)
-	{
-		$this->firephp = $firephp;
-		$this->fp = $firephp;
-	}
-
 	function setlbsites($lbsites)
 	{
 		$this->lbsites=$lbsites;
@@ -195,11 +187,6 @@ class HP
 	function getlangclass()
 	{
 		return $this->langclass;
-	}
-
-	function getfirephp()
-	{
-		return $this->firephp;
 	}
 
 	function getsuperadmin()

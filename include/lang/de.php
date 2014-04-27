@@ -1,4 +1,4 @@
-<?php
+<meta content="text/html; charset=utf-8" http-equiv="content-type" /><?php
 
 $lang['de'] = array(
     // pm-de
@@ -16,7 +16,7 @@ $lang['de'] = array(
 
     // admin-de
     // admin-eng
-    'anwerter' => 'Anwärter',
+    'anwerter' => 'AnwÃ¤rter',
 
     // profil-de
     // profil-eng
@@ -25,7 +25,7 @@ $lang['de'] = array(
     'avatar' => 'Avatar',
 
     // de-eng-default
-    'back' => 'Zurück',
+    'back' => 'ZurÃ¼ck',
 
     // pm-de
     // pm-eng
@@ -45,11 +45,11 @@ $lang['de'] = array(
 
     // pm-de
     // pm-eng
-    'cantdelmessage' => 'Sie können diese Nachricht nicht Löschen!!',
+    'cantdelmessage' => 'Sie kÃ¶nnen diese Nachricht nicht LÃ¶schen!!',
 
     // profil-de
     // profil-eng
-    'changepw' => 'Passwort ändern',
+    'changepw' => 'Passwort Ã¤ndern',
 
     // profil-de
     // profil-eng
@@ -83,13 +83,13 @@ $lang['de'] = array(
     'datum' => 'Datum',
 
     // de-eng-default
-    'delet' => 'Löschen',
+    'delet' => 'LÃ¶schen',
 
     // admin-de
     // admin-eng
     // anwaerter-de
     // anwaerter-eng
-    'delok' => 'Erfolgreich gelöscht!',
+    'delok' => 'Erfolgreich gelÃ¶scht!',
 
     // download-de
     // download-eng
@@ -115,18 +115,18 @@ $lang['de'] = array(
 
     // pm-de
     // pm-eng
-    'empfänger' => 'Empfänger',
+    'empfÃ¤nger' => 'EmpfÃ¤nger',
 
     // de-eng-default
     'error' => 'Fehler',
 
     // admin-de
     // admin-eng
-    'error-del' => 'Fehler beim Löschen:',
+    'error-del' => 'Fehler beim LÃ¶schen:',
 
     // profil-de
     // profil-eng
-    'error-login-profil' => 'Sie müssen sich erst einloggen, bevor sie das Profil änder können!',
+    'error-login-profil' => 'Sie mÃ¼ssen sich erst einloggen, bevor sie das Profil Ã¤nder kÃ¶nnen!',
 
     // admin-de
     // admin-eng
@@ -134,7 +134,7 @@ $lang['de'] = array(
 
     // pm-de
     // pm-eng
-    'Für' => 'Für',
+    'FÃ¼r' => 'FÃ¼r',
 
     // pm-de
     // pm-eng
@@ -150,15 +150,15 @@ $lang['de'] = array(
 
     // admin-de
     // admin-eng
-    'headline' => 'Überschrift:',
+    'headline' => 'Ãœberschrift:',
 
     // anwaerter-de
     // anwaerter-eng
-    'kberechacanwae' => 'Sie haben nicht die nötige Berechtigung, um Anwärter aufzunehmen!',
+    'kberechacanwae' => 'Sie haben nicht die nÃ¶tige Berechtigung, um AnwÃ¤rter aufzunehmen!',
 
     // anwaerter-de
     // anwaerter-eng
-    'kberechdeanwae' => 'Sie haben nicht die nötige Berechtigung, um Anwärter abzulehnen!',
+    'kberechdeanwae' => 'Sie haben nicht die nÃ¶tige Berechtigung, um AnwÃ¤rter abzulehnen!',
 
     // user-de
     // user-eng
@@ -174,7 +174,7 @@ $lang['de'] = array(
     'loginbutt' => 'Login',
 
     // de-eng-default
-    'loginfail' => 'Kein Login möglich. Benutzername oder Passwort sind falsch!',
+    'loginfail' => 'Kein Login mÃ¶glich. Benutzername oder Passwort sind falsch!',
 
     // user-de
     // user-eng
@@ -182,7 +182,7 @@ $lang['de'] = array(
 
     // pm-de
     // pm-eng
-    'messagenotforyou' => 'Diese Nachricht ist nicht für Sie bestimmt!',
+    'messagenotforyou' => 'Diese Nachricht ist nicht fÃ¼r Sie bestimmt!',
 
     // de-eng-default
     'morenews' => 'Weitere Nachrichten',
@@ -219,7 +219,7 @@ $lang['de'] = array(
 
     // admin-de
     // admin-eng
-    'nodelnews' => 'Sie dürfen keine Newsmeldungen löschen!',
+    'nodelnews' => 'Sie dÃ¼rfen keine Newsmeldungen lÃ¶schen!',
 
     // de-eng-default
     'noright' => 'Sie haben nicht das Recht das zu tun!',
@@ -229,22 +229,22 @@ $lang['de'] = array(
 
     // download-de
     // download-eng
-    'norightlookfile' => 'Sie haben nicht das nötige level diese Datei herunter zo laden!',
+    'norightlookfile' => 'Sie haben nicht das nÃ¶tige level diese Datei herunter zo laden!',
 
     // profil-de
     // profil-eng
-    'notallfields' => 'Es wurden nicht alle Pflichfelder ausgefüllt',
+    'notallfields' => 'Es wurden nicht alle Pflichfelder ausgefÃ¼llt',
 
     // de-eng-default
-    'notfound' => '404 Die gewünschte Seite konnte nicht gefunden werden!',
+    'notfound' => '404 Die gewÃ¼nschte Seite konnte nicht gefunden werden!',
 
     // admin-de
     // admin-eng
-    'nowritenews' => 'Sie dürfen keine Newsmeldungen schreiben!',
+    'nowritenews' => 'Sie dÃ¼rfen keine Newsmeldungen schreiben!',
 
     // profil-de
     // profil-eng
-    'ok' => 'Bestätigen',
+    'ok' => 'BestÃ¤tigen',
 
     // profil-de
     // profil-eng
@@ -267,7 +267,7 @@ $lang['de'] = array(
 
     // profil-de
     // profil-eng
-    'persönliches' => 'Persönliches',
+    'persÃ¶nliches' => 'PersÃ¶nliches',
 
     // user-de
     // user-eng
@@ -312,7 +312,7 @@ $lang['de'] = array(
 
     // profil-de
     // profil-eng
-    'repnewpw' => 'Passwort bestätigen',
+    'repnewpw' => 'Passwort bestÃ¤tigen',
 
     // de-eng-default
     'send' => 'Abschicken',
@@ -362,7 +362,7 @@ $lang['de'] = array(
     'username' => 'Benutzername',
 
     // de-eng-default
-    'userorpasswordwrong' => 'keine Verbindung möglich. Benutzername oder Passwort sind falsch',
+    'userorpasswordwrong' => 'keine Verbindung mÃ¶glich. Benutzername oder Passwort sind falsch',
 
     // pm-de
     // pm-eng
@@ -376,11 +376,11 @@ $lang['de'] = array(
 
     // admin-de
     // admin-eng
-    'wrotenews' => 'Sollten Sie gerade eine Newsmeldung geschrieben haben, öffnen Sie in neues Fenster und loggen Sie sich ein.',
+    'wrotenews' => 'Sollten Sie gerade eine Newsmeldung geschrieben haben, Ã¶ffnen Sie in neues Fenster und loggen Sie sich ein.',
 
     // admin-de
     // admin-eng
-    'wrotenews2' => 'Danach gehen Sie auf diese Seite zurück und drücken Aktualisieren!',
+    'wrotenews2' => 'Danach gehen Sie auf diese Seite zurÃ¼ck und drÃ¼cken Aktualisieren!',
 
     // de-eng-default
     'yes' => 'Ja',
@@ -401,27 +401,27 @@ $lang['de'] = array(
     'Api-Schnittstelle' => 'Api-Schnittstelle',
     'Hier stehen Informationen zu der Api-Schnittstelle.' => 'Hier stehen Informationen zu der Api-Schnittstelle.',
     'Diese Seite zeigt nur Informationen und dient nicht zur Konfiguration.' => 'Diese Seite zeigt nur Informationen und dient nicht zur Konfiguration.',
-    'Um die Einstellungen zu verändern, gehen Sie in das Konfigurations bzw. in das Rechte System.' => 'Um die Einstellungen zu verändern, gehen Sie in das Konfigurations bzw. in das Rechte System.',
+    'Um die Einstellungen zu verÃ¤ndern, gehen Sie in das Konfigurations bzw. in das Rechte System.' => 'Um die Einstellungen zu verÃ¤ndern, gehen Sie in das Konfigurations bzw. in das Rechte System.',
     'Status der Api Schnittstelle' => 'Status der Api Schnittstelle',
-    'Level, die über die Schnittstelle zugreifen können' => 'Level, die über die Schnittstelle zugreifen können',
-    'Benutzer, die über die Schnittstelle zugreifen können' => 'Benutzer, die über die Schnittstelle zugreifen können',
+    'Level, die Ã¼ber die Schnittstelle zugreifen kÃ¶nnen' => 'Level, die Ã¼ber die Schnittstelle zugreifen kÃ¶nnen',
+    'Benutzer, die Ã¼ber die Schnittstelle zugreifen kÃ¶nnen' => 'Benutzer, die Ã¼ber die Schnittstelle zugreifen kÃ¶nnen',
     'Shared Secret' => 'Shared Secret',
     'Warnung' => 'Warnung',
-    'Diesen Text nicht an dritte weitergeben. Sollte es zu einer unberechtigten Verbindung kommen, dann die key.php im Ordner include/api löschen!' => 'Diesen Text nicht an dritte weitergeben. Sollte es zu einer unberechtigten Verbindung kommen, dann die key.php im Ordner include/api löschen!',
+    'Diesen Text nicht an dritte weitergeben. Sollte es zu einer unberechtigten Verbindung kommen, dann die key.php im Ordner include/api lÃ¶schen!' => 'Diesen Text nicht an dritte weitergeben. Sollte es zu einer unberechtigten Verbindung kommen, dann die key.php im Ordner include/api lÃ¶schen!',
     'Aktiviert' => 'Aktiviert',
     'Deaktiviert' => 'Deaktiviert',
-    'Termin hinzufügen oder ändern' => 'Termin hinzufügen oder ändern',
-    'Termin hinzufügen' => 'Termin hinzufügen',
+    'Termin hinzufÃ¼gen oder Ã¤ndern' => 'Termin hinzufÃ¼gen oder Ã¤ndern',
+    'Termin hinzufÃ¼gen' => 'Termin hinzufÃ¼gen',
     // l10n: %s -> Date | am 15.12.2012
     'am %s' => 'am %s',
     'Name' => 'Name',
     'Start-Zeit' => 'Start-Zeit',
     'End-Zeit' => 'End-Zeit',
     'Anzeigen auf' => 'Anzeigen auf',
-    'Benötigtes Level' => 'Benötigtes Level',
+    'BenÃ¶tigtes Level' => 'BenÃ¶tigtes Level',
     'End-Datum' => 'End-Datum',
-    'Bitte wählen Sie einen Tag auf der linken Seite aus' => 'Bitte wählen Sie einen Tag auf der linken Seite aus',
-    'Möchten Sie das Event wirklich löschen?' => 'Möchten Sie das Event wirklich löschen?',
+    'Bitte wÃ¤hlen Sie einen Tag auf der linken Seite aus' => 'Bitte wÃ¤hlen Sie einen Tag auf der linken Seite aus',
+    'MÃ¶chten Sie das Event wirklich lÃ¶schen?' => 'MÃ¶chten Sie das Event wirklich lÃ¶schen?',
     'ID' => 'ID',
     'Titel' => 'Titel',
     // l10n:    %s -> Start-Date
@@ -429,45 +429,45 @@ $lang['de'] = array(
     //          %s -> End-Date
     //          %s -> End-Time
     'Vom %s (%s) bis zum %s (%s)' => 'Vom %s (%s) bis zum %s (%s)',
-    'Sie haben nicht die benötigte Berechtigung!' => 'Sie haben nicht die benötigte Berechtigung!',
+    'Sie haben nicht die benÃ¶tigte Berechtigung!' => 'Sie haben nicht die benÃ¶tigte Berechtigung!',
     'Das angegebene Datum ist nicht valid' => 'Das angegebene Datum ist nicht valid',
     'Fehlerhafte Daten' => 'Fehlerhafte Daten',
     'Erfolgreich erstellt' => 'Erfolgreich erstellt',
     'Das End-Datum muss nach dem Start-Datum liegen' => 'Das End-Datum muss nach dem Start-Datum liegen',
-    'Keine Seite zum Anzeigen gewählt' => 'Keine Seite zum Anzeigen gewählt',
+    'Keine Seite zum Anzeigen gewÃ¤hlt' => 'Keine Seite zum Anzeigen gewÃ¤hlt',
     // l10n:    diese (Unterseite) ...
-    'Sie können diese über den Unterseiten-Editor erstellen' => 'Sie können diese über den Unterseiten-Editor erstellen',
+    'Sie kÃ¶nnen diese Ã¼ber den Unterseiten-Editor erstellen' => 'Sie kÃ¶nnen diese Ã¼ber den Unterseiten-Editor erstellen',
     'Dieser Kalender-Eintrag existiert nicht!' => 'Dieser Kalender-Eintrag existiert nicht!',
     'Erfolgreich aktualisiert' => 'Erfolgreich aktualisiert',
-    'Event erfolgreich gelöscht' => 'Event erfolgreich gelöscht', 
+    'Event erfolgreich gelÃ¶scht' => 'Event erfolgreich gelÃ¶scht', 
     'Kategorie' => 'Kategorie',
     'Einstellung' => 'Einstellung',
     'Download-Bereich' => 'Download-Bereich',
     'Page not found' => 'Page not found',
-    'Bitte Geben Sie zur überprüfung folgende Daten ein' => 'Bitte Geben Sie zur überprüfung folgende Daten ein',
+    'Bitte Geben Sie zur Ã¼berprÃ¼fung folgende Daten ein' => 'Bitte Geben Sie zur Ã¼berprÃ¼fung folgende Daten ein',
     'Bitte geben Sie ihr Passwort ein' => 'Bitte geben Sie ihr Passwort ein',
-    'Passwort bestätigung' => 'Passwort bestätigung',
+    'Passwort bestÃ¤tigung' => 'Passwort bestÃ¤tigung',
     // l10n:    %s -> date | geschrieben am 15.02.12
     'geschrieben am %s' => 'geschrieben am %s',
-    'Überschrift' => 'Überschrift',
+    'Ãœberschrift' => 'Ãœberschrift',
     'Level' => 'Level',
-    'Die Berechtigungen können in der Seite "Rechte" geändert werden' => 'Die Berechtigungen können in der Seite "Rechte" geändert werden',
-    'Level 0 bedeutet öffentlich' => 'Level 0 bedeutet öffentlich',
-    'Picture List öffnen' => 'Picture List öffnen',
+    'Die Berechtigungen kÃ¶nnen in der Seite "Rechte" geÃ¤ndert werden' => 'Die Berechtigungen kÃ¶nnen in der Seite "Rechte" geÃ¤ndert werden',
+    'Level 0 bedeutet Ã¶ffentlich' => 'Level 0 bedeutet Ã¶ffentlich',
+    'Picture List Ã¶ffnen' => 'Picture List Ã¶ffnen',
     'Picture List' => 'Picture List',
-    'Möchten Sie die Newsmeldung wirklich löschen?' => 'Möchten Sie die Newsmeldung wirklich löschen?',
+    'MÃ¶chten Sie die Newsmeldung wirklich lÃ¶schen?' => 'MÃ¶chten Sie die Newsmeldung wirklich lÃ¶schen?',
     'Ersteller' => 'Ersteller',
     'Version' => 'Version',
     // l10n:    Information: Test
     'Information' => 'Information',
     // l10n:    <img src="./images/lock.gif" alt="lock" width="12" height="12">
-    'Plugins, die mit einem %s markiert sind, können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template, eingebunden wurde.' => 'Plugins, die mit einem %s markiert sind, können nicht geändert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. über ein Template, eingebunden wurde.',
+    'Plugins, die mit einem %s markiert sind, kÃ¶nnen nicht geÃ¤ndert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. Ã¼ber ein Template, eingebunden wurde.' => 'Plugins, die mit einem %s markiert sind, kÃ¶nnen nicht geÃ¤ndert werden. Das (E) bedeutet, dass dieses Plugin extern, also z.B. Ã¼ber ein Template, eingebunden wurde.',
     'Check all' => 'Check all',
     'Uncheck all' => 'Uncheck all',
     'Als gelesen makieren' => 'Als gelesen makieren',
     'Registrierung' => 'Registrierung',
     'Geschlecht' => 'Geschlecht',
-    'Männlich' => 'Männlich',
+    'MÃ¤nnlich' => 'MÃ¤nnlich',
     'Weiblich' => 'Weiblich',
     'Pflichtfeld' => 'Pflichtfeld',
     'Maximal 20 Zeichen' => 'Maximal 20 Zeichen',
@@ -485,7 +485,7 @@ $lang['de'] = array(
     'Kategorien bearbeiten' => 'Kategorien bearbeiten',
     // l10n:    Hochladen als: Admin
     'Hochladen als' => 'Hochladen als',
-    'Verändern von Dateien nicht möglich!' => 'Verändern von Dateien nicht möglich!',
+    'VerÃ¤ndern von Dateien nicht mÃ¶glich!' => 'VerÃ¤ndern von Dateien nicht mÃ¶glich!',
     'Benutzer' => 'Benutzer',
     // l10n:    %s -> Username | Profil von Admin
     'Profil von %s' => 'Profil von %s',
@@ -496,31 +496,31 @@ $lang['de'] = array(
     'Neue Umfrage starten' => 'Neue Umfrage starten',
     'Bitte Geben Sie einen Titel ein' => 'Bitte Geben Sie einen Titel ein',
     'Bitte Geben Sie mindestens 2 Antworten an' => 'Bitte Geben Sie mindestens 2 Antworten an',
-    'Überprüfen Sie die Eingaben' => 'Überprüfen Sie die Eingaben',
+    'ÃœberprÃ¼fen Sie die Eingaben' => 'ÃœberprÃ¼fen Sie die Eingaben',
     // l10n:    Aktuelle Auswahl: 15.02.2012
     'Aktuelle Auswahl' => 'Aktuelle Auswahl',
     'Bitte beachten Sie die Meldungen' => 'Bitte beachten Sie die Meldungen',
     // l10n:    vote - noscript
-    'Überprüfung deaktiviert' => 'Überprüfung deaktiviert',
+    'ÃœberprÃ¼fung deaktiviert' => 'ÃœberprÃ¼fung deaktiviert',
     // l10n:    %s -> Number of Votes
     'Bereits %s Stimmen abgegeben' => 'Bereits %s Stimmen abgegeben',
     'Ergebnisse' => 'Ergebnisse',
-    'Zum Abstimmen müssen Sie sich einloggen' => 'Zum Abstimmen müssen Sie sich einloggen',
+    'Zum Abstimmen mÃ¼ssen Sie sich einloggen' => 'Zum Abstimmen mÃ¼ssen Sie sich einloggen',
     'Abstimmung abgelaufen' => 'Abstimmung abgelaufen',
     'Bereits abgestimmt' => 'Bereits abgestimmt',
     // l10n:    %s -> Count of Votes
     'Basierend auf %s Stimmen' => 'Basierend auf %s Stimmen',
-    'Möchten Sie die Umfrage wirklich entfernen?' => 'Möchten Sie die Umfrage wirklich entfernen?',
-    'Gültig bis' => 'Gültig bis',
-    'Möchten Sie die Datei wirklich löschen?' => 'Möchten Sie die Datei wirklich löschen?',
-    'Die gewünschte Datei existiert nicht!' => 'Die gewünschte Datei existiert nicht!',
+    'MÃ¶chten Sie die Umfrage wirklich entfernen?' => 'MÃ¶chten Sie die Umfrage wirklich entfernen?',
+    'GÃ¼ltig bis' => 'GÃ¼ltig bis',
+    'MÃ¶chten Sie die Datei wirklich lÃ¶schen?' => 'MÃ¶chten Sie die Datei wirklich lÃ¶schen?',
+    'Die gewÃ¼nschte Datei existiert nicht!' => 'Die gewÃ¼nschte Datei existiert nicht!',
     'Diese Seite kann nur direkt aufgerufen werden!' => 'Diese Seite kann nur direkt aufgerufen werden!',
     'Der angegebene Code scheint schon benutzt worden sein oder ist abgelaufen!' => 'Der angegebene Code scheint schon benutzt worden sein oder ist abgelaufen!',
-    'Die angegebenen Passwörter stimmen nicht überein!' => 'Die angegebenen Passwörter stimmen nicht überein!',
-    'Passwort erfolgreich geändert!' => 'Passwort erfolgreich geändert!',
+    'Die angegebenen PasswÃ¶rter stimmen nicht Ã¼berein!' => 'Die angegebenen PasswÃ¶rter stimmen nicht Ã¼berein!',
+    'Passwort erfolgreich geÃ¤ndert!' => 'Passwort erfolgreich geÃ¤ndert!',
     'Benutzername nicht vorhanden' => 'Benutzername nicht vorhanden',
     'Die Kontaktemail Adresse ist falsch' => 'Die Kontaktemail Adresse ist falsch',
-    'Der angegebene Sicherheitscode stimmt nicht überein!' => 'Der angegebene Sicherheitscode stimmt nicht überein!',
+    'Der angegebene Sicherheitscode stimmt nicht Ã¼berein!' => 'Der angegebene Sicherheitscode stimmt nicht Ã¼berein!',
     'Ihre Registration wurde erfolgreich abgeschlossen' => 'Ihre Registration wurde erfolgreich abgeschlossen',
     'Vielen Dank' => 'Vielen Dank',
     'Ihre E-Mailadresse wurde bereits verifiziert!' => 'Ihre E-Mailadresse wurde bereits verifiziert!',
@@ -532,34 +532,34 @@ $lang['de'] = array(
     'Benutzername oder Email bereits vorhanden' => 'Benutzername oder Email bereits vorhanden',
     'Benutzername bereits vorhanden' => 'Benutzername bereits vorhanden',
     'Antrag erfolgreich gestellt' => 'Antrag erfolgreich gestellt',
-    'Eine Bestätigungs E-Mail ist zu Ihnen Unterwegs' => 'Eine Bestätigungs E-Mail ist zu Ihnen Unterwegs',
+    'Eine BestÃ¤tigungs E-Mail ist zu Ihnen Unterwegs' => 'Eine BestÃ¤tigungs E-Mail ist zu Ihnen Unterwegs',
     'Bitte warten Sie, bis Sie freigeschaltet werden' => 'Bitte warten Sie, bis Sie freigeschaltet werden',
     'Unterseite erfolgreich erstellt' => 'Unterseite erfolgreich erstellt',
-    'Das gewählte Template ist nicht verfügbar' => 'Das gewählte Template ist nicht verfügbar',
+    'Das gewÃ¤hlte Template ist nicht verfÃ¼gbar' => 'Das gewÃ¤hlte Template ist nicht verfÃ¼gbar',
     'Es existiert bereits eine Seite mit diesen Namen' => 'Es existiert bereits eine Seite mit diesen Namen',
     'Die Zeichen &uuml; &ouml; &auml; und &szlig; sind im Namen nicht erlaubt' => 'Die Zeichen &uuml; &ouml; &auml; und &szlig; sind im Namen nicht erlaubt',
-    'Die gewünschte Unterseite ist nicht verfügbar' => 'Die gewünschte Unterseite ist nicht verfügbar',
+    'Die gewÃ¼nschte Unterseite ist nicht verfÃ¼gbar' => 'Die gewÃ¼nschte Unterseite ist nicht verfÃ¼gbar',
     'Unterseite erfolgreich modifiziert' => 'Unterseite erfolgreich modifiziert',
     'Liste der zugeordneten Unterseiten' => 'Liste der zugeordneten Unterseiten',
     'Liste der Vorhandenen Unterseiten' => 'Liste der Vorhandenen Unterseiten',
     // l10n:    %s -> Subpage name
-    'Unterseite %s erfolgreich gelöscht' => 'Unterseite %s erfolgreich gelöscht',
+    'Unterseite %s erfolgreich gelÃ¶scht' => 'Unterseite %s erfolgreich gelÃ¶scht',
     // l10n:    %s -> Subpage name
-    'Möchten Sie die Unterseite %s wirklich löschen?' => 'Möchten Sie die Unterseite %s wirklich löschen?',
+    'MÃ¶chten Sie die Unterseite %s wirklich lÃ¶schen?' => 'MÃ¶chten Sie die Unterseite %s wirklich lÃ¶schen?',
     'Sie haben keine Berechtigung, Daten hoch zu laden' => 'Sie haben keine Berechtigung, Daten hoch zu laden',
     // l10n:    %s -> File Size in MB
-    'Die gesendete Datei war zu groß! (Maximalgröße: %sMB)' => 'Die gesendete Datei war zu groß! (Maximalgröße: %sMB)',
+    'Die gesendete Datei war zu groÃŸ! (MaximalgrÃ¶ÃŸe: %sMB)' => 'Die gesendete Datei war zu groÃŸ! (MaximalgrÃ¶ÃŸe: %sMB)',
     'Dieser Datei-Typ ist nicht erlaubt' => 'Dieser Datei-Typ ist nicht erlaubt',
     'Fehler beim Schreiben der Daten in die Datenbank' => 'Fehler beim Schreiben der Daten in die Datenbank',
-    'Sie können keine Kategorien löschen, in denen sich Dateien befinden' => 'Sie können keine Kategorien löschen, in denen sich Dateien befinden',
-    'Möchten Sie die Kategorie wirklich löschen?' => 'Möchten Sie die Kategorie wirklich löschen?',
+    'Sie kÃ¶nnen keine Kategorien lÃ¶schen, in denen sich Dateien befinden' => 'Sie kÃ¶nnen keine Kategorien lÃ¶schen, in denen sich Dateien befinden',
+    'MÃ¶chten Sie die Kategorie wirklich lÃ¶schen?' => 'MÃ¶chten Sie die Kategorie wirklich lÃ¶schen?',
     'Der Benutzer existiert nicht' => 'Der Benutzer existiert nicht',
     'Bitte benutzen sie eines der folgenden Formate' => 'Bitte benutzen sie eines der folgenden Formate',
     'Neue Newsmeldung verfassen' => 'Neue Newsmeldung verfassen',
     'Newsmeldungen Bearbeiten' => 'Newsmeldungen Bearbeiten',
     'News' => 'News',
     'Forum' => 'Forum',
-	'Möchten Sie dieses Element löschen?' => 'Möchten Sie dieses Element löschen?',
+	'MÃ¶chten Sie dieses Element lÃ¶schen?' => 'MÃ¶chten Sie dieses Element lÃ¶schen?',
     
     '' => ''
 

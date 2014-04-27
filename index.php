@@ -13,9 +13,9 @@ require_once 'include/class_template.php';
 require_once 'include/class_error.php';
 require_once 'include/class_info.php';
 require_once 'include/class_lbsites.php';
-require_once 'include/xajax_core/xajax.inc.php';
-require_once 'include/FirePHP.class.php';
-require_once 'include/class_xajax_funk.php';
+//require_once 'include/xajax_core/xajax.inc.php';
+//require_once 'include/FirePHP.class.php';
+//require_once 'include/class_xajax_funk.php';
 require_once 'include/class_right.php';
 require_once 'include/class_config.php';
 require_once 'include/class_widgets.php';
@@ -28,16 +28,16 @@ require_once 'include/base/pluginTemplate.php';
 
 //--------------------------------------Class Area----------------------------
 $hp             = new HP;
-$lang           = new lang;
-$temp           = new template($hp);
-$error          = new errorclass;
-$info           = new infoclass;
-$lbsites        = new lbsites;
-$xajaxF         = new Xajax_Funktions;
-$right          = new right;
-$config         = new config;
-$widgets        = new widgets;
-$subpages       = new subpages;
+$lang           = new Lang;
+$temp           = new Template($hp);
+$error          = new Errorclass;
+$info           = new Infoclass;
+$lbsites        = new Lbsites;
+//$xajaxF         = new Xajax_Funktions;
+$right          = new Right;
+$config         = new Config;
+$widgets        = new Widgets;
+$subpages       = new Subpages;
 $pluginloader   = new PluginLoader;
 // ----------------------------------------------------------------------------
 
@@ -55,16 +55,15 @@ $hp->setright($right);
 $hp->setlang($lang);
 $hp->seterror($error);
 $hp->setinfo($info);
-$hp->setfirephp($firephp);
 $hp->settemplate($temp);
 $lang->seterror($error);
 $lang->sethp($hp);
 $error->sethp($hp);
 $info->init($lang, $error, $hp);
-$xajaxF->sethp($hp);
+//$xajaxF->sethp($hp);
 $lbsites->sethp($hp);
 $hp->setlbsites($lbsites);
-$hp->setxajaxF($xajaxF);
+//$hp->setxajaxF($xajaxF);
 $widgets->sethp($hp);
 $hp->setwidgets($widgets);
 $subpages->sethp($hp);
@@ -108,7 +107,7 @@ $widgets->replace();
 $temp->load($design);
 
 //--------------------------------Xajax Request--------------------------------
-$xajaxF->processRequest();
+//$xajaxF->processRequest();
 
 // ---------------------------- Plugin System ---------------------------------
 $pluginloader->OnSiteCreated();
@@ -119,7 +118,7 @@ $temp->display();
 
 
 //----------------------------------XAJAX---------------------------------------
-echo $xajaxF->printjs();
+//echo $xajaxF->printjs();
 
 //----------------------------Info und Error Handling--------------------------
 $info->getmessages();

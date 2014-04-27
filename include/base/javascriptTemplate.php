@@ -1,6 +1,6 @@
 <?php
 
-class javascriptTemplate extends siteTemplate
+class JavascriptTemplate extends SiteTemplate
 {
     
     public function __construct($hp, $path, $copy = null)

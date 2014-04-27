@@ -1,6 +1,6 @@
 <?php
 
-class subpageTemplate extends siteTemplate
+class SubpageTemplate extends SiteTemplate
 {
 
 	public function __construct($hp)

@@ -1,5 +1,5 @@
 <?php
-class widgets
+class Widgets
 {
 	var $hp;
 	var $placed = array();
@@ -89,7 +89,6 @@ class widgets
 		$dbprefix = $hp->getprefix();
 		$info = $hp->info;
 		$error = $hp->error;
-		$fp = $hp->fp;
 		$temp = $hp->template;
 		$lbs = $hp->lbsites;
 		$widgets = array();
@@ -142,7 +141,6 @@ class widgets
 		$dbprefix = $hp->getprefix();
 		$info = $hp->info;
 		$error = $hp->error;
-		$fp = $hp->firephp;
 		$config = $hp->getconfig();
 
 		$design = $config['design'];
