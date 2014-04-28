@@ -5,6 +5,9 @@ config.php
 mysql.php
 downloads/*
 include/api/key.php
+
+
+build
 updateVersion.bat
 *.komodoproject
 *.pem

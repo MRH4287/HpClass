@@ -1,2 +1,0 @@
-DROP TABLE IF EXISTS `#!-PRÄFIX-!#right`;
-CREATE TABLE `#!-PRÄFIX-!#right` (  `ID` int(10) NOT NULL AUTO_INCREMENT,  `level` varchar(100) COLLATE latin1_general_ci NOT NULL,   `right` varchar(120) COLLATE latin1_general_ci NOT NULL,  `ok` varchar(100) COLLATE latin1_general_ci NOT NULL,  `description` varchar(200) COLLATE latin1_general_ci NOT NULL,   PRIMARY KEY (`ID`)  ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ;

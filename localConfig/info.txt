@@ -1,0 +1,2 @@
+If the current build is the default build,
+the Config.php and mysql.php of this Directory is copied to the build Folder.

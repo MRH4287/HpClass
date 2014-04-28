@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS `#!-PREFIX-!#navigation`;
+CREATE TABLE IF NOT EXISTS `#!-PREFIX-!#navigation` (`ID` int(100) NOT NULL AUTO_INCREMENT,`name` varchar(100) COLLATE latin1_general_ci NOT NULL,`parent` int(100) NOT NULL DEFAULT '0',  `order` int(100) NOT NULL DEFAULT '0',  `site` varchar(100) COLLATE latin1_general_ci NOT NULL,  `dynamic` int(1) NOT NULL DEFAULT '0',  PRIMARY KEY (`ID`),  UNIQUE KEY `name` (`name`)) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+DROP TABLE IF EXISTS `#!-PREFIX-!#subpages`;
+-- CREATE TABLE IF NOT EXISTS `#!-PREFIX-!#subpages` (`ID` int(100) NOT NULL AUTO_INCREMENT,  `name` varchar(100) NOT NULL,  `content` longtext NOT NULL COMMENT 'Elemente werden mit <!--!> getrennt innerhalb werden Keys und Values mit <!=!> getrennt', `template` varchar(100) NOT NULL,  PRIMARY KEY (`ID`),  UNIQUE KEY `name` (`name`)) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+-- Will be deleted in Update 25

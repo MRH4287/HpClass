@@ -1,32 +1,45 @@
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />#!!NAME=news
+ï»¿<meta http-equiv="content-type" content="text/html; charset=utf-8" />#!!NAME=news
 #!!AUTOR=MRH
 
 [!=Main!]
 
 <h1>#%News#</h1>
 
-  #L:News : !News#
-  
+
+    #L:News : !News#
+
+
+
   <div class="btn-group">
-        <a href="index.php?site=news&limit=20">#%morenews#</a>
-        #?newswrite : WriteNews# 
-         #?newsedit : StartEditNews# </div>
+      <a class="btn btn-default" href="index.php?site=news&limit=20">#%morenews#</a>
+        #?newswrite : !WriteNews# 
+         #?newsedit : !StartEditNews# </div>
                                           
 [!/Main!]
+
+[!=WriteNews!]
+    <a href="index.php?lbsite=newnews&vars=" class="lbOn btn btn-primary">#%Neue Newsmeldung verfassen#</a>
+[!/WriteNews!]
+
+[!=StartEditNews!]
+
+<a class="btn btn-info" href="index.php?site=news&delet=true">#%Newsmeldungen Bearbeiten#</a>
+
+[!/StartEditNews!]
 
 [!=News!]
 
 <div class="newsbox">
-<div class="newsbox_info"><b>#l:titel# #=l:level == "0" : "" : @echo("--- Level ", l:level, " ---")# #%by# <a href=index.php?site=user&show=#l:ersteller#>#l:ersteller#</a></b></div>
-<div class="newsbox_info_date"><b>  #@printf : %geschrieben am %s : @echo("<i>", l:datum, "</i>")#</b></div>
-<div class="newsbox_inhalt">
-#l:Content#
+    <div class="newsbox_info"><b>#l:titel# #=l:level == "0" : "" : @echo("--- Level ", l:level, " ---")# #%by# <a href=index.php?site =user&show =#l:ersteller#>#l:ersteller#</a></b></div>
+    <div class="newsbox_info_date"><b>  #@printf : %geschrieben am %s : @echo("<i>", l:datum, "</i>")#</b></div>
+    <div class="newsbox_inhalt">
+        #l:Content#
 
-<br>
+        <br>
 
-#?:l:edit : !News-Edit#
+        #?:l:edit : !News-Edit#
 
-</div> 
+    </div>
 </div>
 
 
@@ -42,7 +55,7 @@
   
   <form method="POST" action="index.php?site=news">
   
-    <p align="left">#%Überschrift#:<br>
+    <p align="left">#%ï¿½berschrift#:<br>
     <input type="text" name="newstitel" size="80" value="#!titel#"></p>
     <input type="hidden" name="newsid" size="80" value="#!site#">
     <p align="left">#%datum#:<br>
@@ -57,14 +70,14 @@
 	     <option #="2" == level : "selected=selected" : ""#>2</option>
 	     <option #="3" == level : "selected=selected" : ""#>3</option>
 	   </select>
-     <br>#%Die Berechtigungen können in der Seite "Rechte" geändert werden#. #%Level 0 bedeutet öffentlich#.</p>
+     <br>#%Die Berechtigungen kï¿½nnen in der Seite "Rechte" geï¿½ndert werden#. #%Level 0 bedeutet ï¿½ffentlich#.</p>
     <p align="left">
     <textarea rows="15" name="newstext" cols="74" id="t1">#!newstext#</textarea>
     <button type="submit" name="#!sitename#"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
   </form>
   
 
-   <a href="#" id="PL_link" onclick="$('#picturelist-#!site#').dialog('open'); return false;"> #%Picture List öffnen#</a>
+   <a href="#" id="PL_link" onclick="$('#picturelist-#!site#').dialog('open'); return false;"> #%Picture List ï¿½ffnen#</a>
 
 	#V:pics : @getUsedPics()#
   
@@ -102,7 +115,7 @@
 
 [!=LbSite-Del!]
 
-  <p id="highlight">#%Möchten Sie die Newsmeldung wirklich löschen?#</p>
+  <p id="highlight">#%Mï¿½chten Sie die Newsmeldung wirklich lï¿½schen?#</p>
   <table width="100%">
   <tr valign="bottom">
   <td>

@@ -5,40 +5,33 @@
 
 <p align="center"><font size="5">#%Benutzer#:</font></p>
 <p align="center">&nbsp;</p>
-<table border="0" width="600">
+<table class="table">
 
-  <tr>
-  
-
-    <td width="10">
-      <p align="center">#%username#:</p>
-    </td>
-    <td width="10">
-      <p align="center">#%since#:</p>
-    </td>
-    <td width="10">
-      <p align="center">#%name#:</p>
-    </td>
-    <td width="10">
-      <p align="center">#%nachname#:</p>
-    </td>
-
-  </tr>
-
-  #!Users#
+    <thead>
+        <tr>
 
 
-</table> 
+            <th>#%username#:</th>
+            <th>#%since#:</th>
+            <th>#%name#:</th>
+            <th>#%nachname#:</th>
+
+        </tr>
+    </thead>
+    #!Users#
+
+
+</table>
 [!/Main!]
 
 
 [!=Users!]
-    <tr>
-    <td width="10"><p align="center"><a href=index.php?site=user&show=#!user#>#!user#</a></p></td>
-    <td width="10"><p align="center">#!datum#</p></td>
-    <td width="10"><p align="center">#!name#</p></td>
-    <td width="10"><p align="center">#!nachname#</p></td>
-    </tr>
+<tr>
+    <td><a href=index.php?site=user&show=#!user#>#!user#</a></td>
+    <td>#!datum#</td>
+    <td>#!name#</td>
+    <td>#!nachname#</td>
+</tr>
 
 [!/Users!]
 

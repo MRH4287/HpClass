@@ -8,8 +8,8 @@
   <input type="text" name="user" size="15" required/><br />
   #%password# <br />
   <input type="password" name="passwort" size="15" required><input type="submit" value="#%loginbutt#" name="login"> <br />
-  <a href=index.php?site=register>&raquo;&nbsp;#%register#</a> 
-  <a href=index.php?site=lostpw>&raquo;&nbsp;#%Passwort vergessen#?</a>   
+  <a href=index.php?site=register>#%register#</a> 
+  <a href=index.php?site=lostpw>#%Passwort vergessen#?</a>   
   </form>
   
 [!/Login!]
@@ -18,27 +18,31 @@
 
 [!=List!]
 
-  #%loggedas#<br /> <br />
-  <b>#!username# (#!level#)</b><br />
-  #!Links#
-
+<ul class="nav navbar-nav">
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">#!username# (#!level#) <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            #!Links#
+        </ul>
+    </li>
+</ul>
 [!/List!]
 
 
 
 [!=Links!]
 
-   <a href="sites/login.php?logout">&raquo;&nbsp;#%Logout#</a>                     
-   #?adminsite : "<a href="index.php?site=admin">&raquo;&nbsp;#%Administration#</a>"#    
-   <a href="index.php?site=pm">&raquo;&nbsp;#%PM-Menu#</a>                         
-   <a href="index.php?site=profil">&raquo;&nbsp;#%editprofile#</a>                 
-   #?manage_vote : "<a href="index.php?site=vote">&raquo;&nbsp;#%Umfragen#</a>"#          
-   #@include : "login-temp"#                                                                 
-   #?usedpics : "<a href="index.php?site=usedpics">&raquo;&nbsp;#%Benutzte Bilder#</a>"#  
-   #?manage_subpage : @echo("<a href="index.php?site=subpage">&raquo;&nbsp;", %Unterseiten Verwalten, "</a>")# 
-   #?superadmin : "<a href="index.php?site=rights">&raquo;&nbsp;#%Rechte#</a>"#            
-   #?superadmin : "<a href="index.php?site=config">&raquo;&nbsp;#%Konfiguration#</a>"#    
-   #?superadmin : "<a href="index.php?site=plugins">&raquo;&nbsp;#%Plugin System#</a>"#    
-   #?superadmin : "<a href="index.php?site=dragdrop">&raquo;&nbsp;#%Widget System#</a>"#    
-[!/Links!]
+   <li><a href="sites/login.php?logout">#%Logout#</a></li>                  
+   #?adminsite : "<li><a href="index.php?site=admin">#%Administration#</a></li>"#
+    <li><a href="index.php?site=pm">#%PM-Menu#</a></li>
+    <li><a href="index.php?site=profil">#%editprofile#</a></li>
+    #?manage_vote : "<li><a href="index.php?site=vote">#%Umfragen#</a></li>"#
+    #@include : "login-temp"#
+    #?usedpics : "<li><a href="index.php?site=usedpics">#%Benutzte Bilder#</a></li>"#
+    #?manage_subpage : @echo("<li><a href="index.php?site=subpage">", %Unterseiten Verwalten, "</a></li>")#
+    #?superadmin : "<li><a href="index.php?site=rights">#%Rechte#</a></li>"#
+    #?superadmin : "<li><a href="index.php?site=config">#%Konfiguration#</a></li>"#
+    #?superadmin : "<li><a href="index.php?site=plugins">#%Plugin System#</a></li>"#
+    #?superadmin : "<li><a href="index.php?site=dragdrop">#%Widget System#</a></li>"#
+    [!/Links!]
 

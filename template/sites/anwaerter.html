@@ -4,20 +4,22 @@
 
 [!=Main!]
 
-<p align="center"><font size="4">#%bewerbungen#:</font></p>
-<p align="center">&nbsp;</p>
+<h1>#%bewerbungen#:</h1>
 
-<table border="1" width="671">
-  <tr>
-    <td width="176">#%username#:</td>
-    <td width="198">#%name#:</td>
-    <td width="186">#%nachname#:</td>
-    <td width="373">#%datum#:</td>
-    <td width="967">#%bewebungstext#:</td>
-    <td width="152">&nbsp;</td>
-  </tr>
-  #!Content#
-  
+<table class="table">
+    <thead>
+        <tr>
+            <th width="176">#%username#:</th>
+            <th width="198">#%name#:</th>
+            <th width="186">#%nachname#:</th>
+            <th width="373">#%datum#:</th>
+            <th width="967">#%bewebungstext#:</th>
+            <th width="152">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        #!Content#
+    </tbody>
 </table>
 
 
@@ -25,13 +27,13 @@
 
 [!=Line!]
 
-  <tr>
-    <td width="176">#!user#</td>
-    <td width="198">#!name#</td>
-    <td width="186">#!nachname#</td>
-    <td width="373">#!datum#</td>
-    <td width="967">#!text#</td>
-    <td width="152"><a href=index.php?site=anwaerter&register=#!user#>#%yes#</a>/<a href=index.php?site=anwaerter&delet=#!user#>#%no#</a></td>
-  </tr>
+<tr>
+    <td>#!user#</td>
+    <td>#!name#</td>
+    <td>#!nachname#</td>
+    <td>#!datum#</td>
+    <td>#!text#</td>
+    <td><a class="btn btn-success" href=index.php?site=anwaerter&register=#!user#>#%yes#</a>/<a class="btn btn-danger" href=index.php?site=anwaerter&delet=#!user#>#%no#</a></td>
+</tr>
 
 [!/Line!]

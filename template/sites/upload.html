@@ -3,180 +3,157 @@
 
 [!=Main!]
 
-<style type="text/css">
-<!--
-.Stil1 {
-	font-size: 24px;
-	font-weight: bold;
-}
--->
-</style>
 
-<div align="center" class="Stil1">
-  <p>#%Datei-Manager#</p>
-  <p>&nbsp;</p>
-</div>
-<center><table width="731" height="148" border="0">
-  <tr>
-    <th height="26"><div align="center"><a href="index.php?site=download&change">#%Dateien bearbeiten#</a></div></th>
-    <td><div align="center"><strong><a href="index.php?site=upload&upload">#%Datei hochladen#</a></strong></div></td>
-  </tr>
+<h1>#%Datei-Manager#</h1>
 
-  <tr>
-    <th height="21"><div align="center"><a href="index.php?site=upload&katnew">#%Kategorie erstellen#</a></div></th>
-    <td><div align="center"><strong><a href="index.php?site=download&katchange">#%Kategorien bearbeiten#</a></strong></div></td>
-  </tr>
-</table></center>
+<a class="btn btn-default btn-lg btn-block" href="index.php?site=download&change">#%Dateien bearbeiten#</a>
+<a class="btn btn-default btn-lg btn-block" href="index.php?site=upload&upload">#%Datei hochladen#</a>
+<a class="btn btn-default btn-lg btn-block" href="index.php?site=upload&katnew">#%Kategorie erstellen#</a>
+<a class="btn btn-default btn-lg btn-block" href="index.php?site=download&katchange">#%Kategorien bearbeiten#</a>
 
 
-[!/Main!]
+
+    [!/Main!]
 
 
-[!=Upload!]
+    [!=Upload!]
 
-  #@include("utilities", "TinyMCEInit")#
+    #@include("utilities", "TinyMCEInit")#
 
-  <table border="1" width="433" align="center" bordercolor="#9999FF">
-    <tr>
-      <td width="423">#?:update : "" : "<b>#%Hochladen als#: #!username#</b>"#
-      
-      <form enctype="multipart/form-data" action="index.php?site=upload" method=post>
-            
-        <table border="0" width="333" align="center">
-          <tr>
-            <td width="95">#%titel#:</td>
-            <td width="222">
-                <input type="text" name="titel" size="20" maxlength="100" value="#!titel#" required />
-              
-            </td>
-          </tr>
-                  <tr>
-            <td width="95">#%Level#:</td>
-            <td width="222">
-                <select name="level">
- 	              #!levels#
- 	              </select>
-              
-            </td>
-          </tr>
-          <tr>
-          
-            <td width="95">Datei: </td>
-            <td width="222">
-             #?:update : %Verändern von Dateien nicht möglich! : "<input name=userfile type=file required />"#</td>
-          </tr>
-          <tr>
-            <td width="95">#%description#:</td>
-            <td width="222">
-  
-            <textarea rows="3" name="S1" cols="24" >#!beschreibung#</textarea>
-                 </td>
-          </tr>
-           <tr>
-            <td width="95">Kategorie:</td>
-            <td width="222">
-            
-            <select name="kat">
-              #!kats#
-             </select> <a href="index.php?site=upload&katnew">#%Kategorie erstellen#</a>
-                 </td>
-          </tr>
-          <tr>
-            <td width="95"></td>
-            <td width="222">
-  
-                 </td>
-          </tr>
-          <tr>
-            <td colspan="2" width="261">
-              <p align="center"><input type="submit" value="#%send#" name="#?:update : "changefile" : "sendfiles"#" />      
-              <input type="hidden" value="#!ID#" name="ID" />
-        
-        
-        
-        
-            </td>
-          </tr>
-        </table>
-        </form>
-        &nbsp;
-        <p>&nbsp;      
-        
-        </td>
-    </tr>
-  </table>
+                #?:update : "" : "<h2>#%Hochladen als#: #!username#</h2>"#
 
-[!/Upload!]
+<form class="form-horizontal" role="form" enctype="multipart/form-data" action="index.php?site=upload" method="post">
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="titleInput">#%titel#</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="titleInput" name="titel" value="#!titel#" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="levelInput">#%Level#</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="level" id="levelInput">
+                #!levels#
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="fileInput">Datei: </label>
+        <div class="col-sm-10">
+            #?:update : @echo("<p class="form-control-static">", %Verändern von Dateien nicht möglich!, "</p>" : "<input class="form-control" id="fileInput" name=userfile type=file required />"#
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="descriptionInput">#%description#</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="descriptionInput" name="S1">#!beschreibung#</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="categoryInput">Kategorie:</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="categoryInput" name="kat" required>
+                #!kats#
+            </select>
+            <p class="help-block">
+                <a class="btn btn-default" href="index.php?site=upload&katnew">#%Kategorie erstellen#</a>
+            </p>
+        </div>
+    </div>
+    #V:buttonLinkValue : @if(update, "changefile", "sendfiles")#
+    <button type="submit" class="btn btn-default" name="#!buttonLinkValue#">
+        #%send#
+    </button>
+    <input type="hidden" value="#!ID#" name="ID" />
+
+</form>
+               
+
+    [!/Upload!]
 
 
-[!=Kat-Edit!]
+    [!=Kat-Edit!]
 
-  #@include("utilities", "TinyMCEInit")#
-  
-  <table border="1" width="433" align="center" bordercolor="#9999FF">
-    <tr>
-      <td width="423"><b><font size="4">
-      
-      <form enctype="multipart/form-data" action="index.php?site=upload" method=post>
-            </font></b>
-        <p>&nbsp;
-        <table border="0" width="333" align="center">
-          <tr>
+    #@include("utilities", "TinyMCEInit")#
+
+    <table border="1" width="433" align="center" bordercolor="#9999FF">
+        <tr>
+            <td width="423">
+                <b>
+                    <font size="4">
+
+                        <form enctype="multipart/form-data" action="index.php?site=upload" method=post>
+                    </font>
+                </b>
+<p>
+    &nbsp;
+    <table border="0" width="333" align="center">
+        <tr>
             <td width="95">#%titel#:</td>
             <td width="222">
                 <input type="text" name="titel" size="20" maxlength="20" value="#!titel#">
-              
+
             </td>
-          </tr>
-                  <tr>
+        </tr>
+        <tr>
             <td width="95">#%Level#:</td>
             <td width="222">
-               <select name="level">
- 	              #!levels#
- 	              </select>
-              
+                <select name="level">
+                    #!levels#
+                </select>
+
             </td>
-          </tr>
-  
-          <tr>
+        </tr>
+
+        <tr>
             <td width="95">#%description#:</td>
             <td width="222">
-  
-              <textarea rows="3" name="S1" cols="24" >#!beschreibung#</textarea>
-              </td>
-          </tr>
-  
-          <tr>
-            <td width="95"></td>
-            <td width="222">
-  
-                 </td>
-          </tr>
-          <tr>
-            <td colspan="2" width="261">
-              <p align="center"><input type="submit" value="Daten Abschicken" name="#?:update : "katchange" : "katnew"#">      
-              <input type="hidden" value="#!ID#" name="ID">
-        </form>
-        
-        
-        
+
+                <textarea rows="3" name="S1" cols="24">#!beschreibung#</textarea>
             </td>
-          </tr>
-        </table>
-  </td></tr></table>
+        </tr>
+
+        <tr>
+            <td width="95"></td>
+            <td width="222"></td>
+        </tr>
+        <tr>
+            <td colspan="2" width="261">
+<p align="center">
+    <input type="submit" value="Daten Abschicken" name="#?:update : "katchange" : "katnew"#">
+    <input type="hidden" value="#!ID#" name="ID">
+    </form>
 
 
-[!/Kat-Edit!]
+
+    </td>
+    </tr>
+    </table>
+    </td></tr></table>
+
+
+    [!/Kat-Edit!]
 
 
 
 
-[!=Edit-Levels!]
-  <option value="#!level#" #=level == aktlevel : "selected=selected" : ""#>#!name#</option>
-[!/Edit-Levels!]
+    [!=Edit-Levels!]
+        #V:equal : @eq(level, aktlevel)#
+        #V:data : @if(equal, "selected=selected", "")#
+    <option value="#!level#" #!data#>
+    #!name#
+</option>
+    [!/Edit-Levels!]
 
-[!=Option!]
+    [!=Option!]
+    #V:data : @if(selected, "selected=selected", "")#
+    <option value="#!ID#" #!data#>
+    #!name#
+</option>
 
-  <option value="#!ID#" #?:selected : "selected=selected"#>#!name#</option> 
-
-[!/Option!]
+    [!/Option!]
