@@ -72,7 +72,7 @@
     <input type="hidden" value="#!ID#" name="ID" />
 
 </form>
-               
+
 
     [!/Upload!]
 
@@ -81,60 +81,37 @@
 
     #@include("utilities", "TinyMCEInit")#
 
-    <table border="1" width="433" align="center" bordercolor="#9999FF">
-        <tr>
-            <td width="423">
-                <b>
-                    <font size="4">
 
-                        <form enctype="multipart/form-data" action="index.php?site=upload" method=post>
-                    </font>
-                </b>
-<p>
-    &nbsp;
-    <table border="0" width="333" align="center">
-        <tr>
-            <td width="95">#%titel#:</td>
-            <td width="222">
-                <input type="text" name="titel" size="20" maxlength="20" value="#!titel#">
+<form class="form-horizontal" role="form" enctype="multipart/form-data" action="index.php?site=upload" method="post">
 
-            </td>
-        </tr>
-        <tr>
-            <td width="95">#%Level#:</td>
-            <td width="222">
-                <select name="level">
-                    #!levels#
-                </select>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="titelInput">#%titel#</label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="titel" size="20" maxlength="20" id="titelInput" value="#!titel#">
+        </div>
+    </div>
 
-            </td>
-        </tr>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="levelInput">#%Level#</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="levelInput" name="level">
+                #!levels#
+            </select>
+        </div>
+    </div>
 
-        <tr>
-            <td width="95">#%description#:</td>
-            <td width="222">
-
-                <textarea rows="3" name="S1" cols="24">#!beschreibung#</textarea>
-            </td>
-        </tr>
-
-        <tr>
-            <td width="95"></td>
-            <td width="222"></td>
-        </tr>
-        <tr>
-            <td colspan="2" width="261">
-<p align="center">
-    <input type="submit" value="Daten Abschicken" name="#?:update : "katchange" : "katnew"#">
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="descriptionInput">#%description#</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" name="S1" id="descriptionInput">#!beschreibung#</textarea>
+        </div>
+    </div>
+    #V:buttonLinkValue : @if(update, "katchange", "katnew")#
+    <button class="btn btn-success" type="submit" name="#!buttonLinkValue#">Daten Abschicken</button>
     <input type="hidden" value="#!ID#" name="ID">
-    </form>
+</form>
 
 
-
-    </td>
-    </tr>
-    </table>
-    </td></tr></table>
 
 
     [!/Kat-Edit!]
@@ -143,16 +120,16 @@
 
 
     [!=Edit-Levels!]
-        #V:equal : @eq(level, aktlevel)#
-        #V:data : @if(equal, "selected=selected", "")#
-    <option value="#!level#" #!data#>
+    #V:equal : @eq(level, aktlevel)#
+    #V:data : @if(equal, "selected=selected", "")#
+<option value="#!level#" #!data#>
     #!name#
 </option>
     [!/Edit-Levels!]
 
     [!=Option!]
     #V:data : @if(selected, "selected=selected", "")#
-    <option value="#!ID#" #!data#>
+<option value="#!ID#" #!data#>
     #!name#
 </option>
 
