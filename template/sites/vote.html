@@ -1,4 +1,4 @@
-#!!NAME=Vote
+ï»¿#!!NAME=Vote
 #!!AUTOR=MRH
 
 
@@ -15,7 +15,7 @@
 
 
 [!=Main-Vote-Container!]
-#/ Dieser Container wird um die Votes "gestülpt", wenn Sie in der Hauptseite ausgegeben werden #
+#/ Dieser Container wird um die Votes "gestÃ¼lpt", wenn Sie in der Hauptseite ausgegeben werden #
   <div style="float:left; margin-right:10px; margin-bottom:10px; border: thin black solid;">
   #!Content#
   </div>
@@ -53,7 +53,7 @@
     <td><div id="answerwarn">#%Bitte Geben Sie mindestens 2 Antworten an#.</div></td>
   </tr>
   <tr>
-    <td>#%Gültig bis#:</td>
+    <td>#%GÃ¼ltig bis#:</td>
     <td>
   
     <input type="hidden" name="day" id="day" size="2" maxlength="2" value="#!tag#" onchange="checkvote(#?:update : "true" : "false"#)"  />
@@ -62,7 +62,7 @@
        <input type="hidden" name="hour" id="hour" size="2" maxlength="2" value="00"  onchange="checkvote(#?:update : "true" : "false"#)"/>
         <input type="hidden" name="min" id="min" size="2" maxlength="2" value="00"  onchange="checkvote(#?:update : "true" : "false"#)"/>
         <div id="kalender_vote" align="center"></div></td>
-      <td><div id="datewarn">#%Überprüfen Sie die Eingaben#</div>
+      <td><div id="datewarn">#%ÃœberprÃ¼fen Sie die Eingaben#</div>
       <br>#%Aktuelle Auswahl#: <div id="aktdate">#!tag#.#!monat#.#!year#</div></td>
   
   </tr>
@@ -70,7 +70,7 @@
     <td>&nbsp;</td>
     <td><div id="post">#%Bitte beachten Sie die Meldungen#</div>
     <input type="hidden" value="#!ID#" name="ID">
-    <noscript><br>#%Überprüfung deaktiviert#:<br><input type="submit" name="addvote" id="post" value="#%send#" /></noscript></td>
+    <noscript><br>#%ÃœberprÃ¼fung deaktiviert#:<br><input type="submit" name="addvote" id="post" value="#%send#" /></noscript></td>
     <td></td>
   </tr>
 </table>
@@ -80,7 +80,7 @@
 [!/Edit-Vote!]
 
 [!=Edit-InitialAnswers!]
-#/ Diese Antwortmöglichkeiten sind da, wenn eine neue Umfrage erstellt wird #
+#/ Diese AntwortmÃ¶glichkeiten sind da, wenn eine neue Umfrage erstellt wird #
       <tr>
         <td>
             <input type="text" name="antwort[]" id="antwort1" size="50"  onchange="checkvote(#?:update : "true" : "false"#)" /> </td>
@@ -102,9 +102,9 @@
 [!/Edit-Antwort!]
 
 [!=Edit-MehrAntworten!]
-#/ Ausgabe von zwei weiteren Antwortmöglichkeiten, wenn der IE benutzt wird #
+#/ Ausgabe von zwei weiteren AntwortmÃ¶glichkeiten, wenn der IE benutzt wird #
 
-    <!--Für die mit IE-->
+    <!--FÃ¼r die mit IE-->
     <div id="mehrantworten">
     <table width="100%" border="0">
       <tr>
@@ -166,7 +166,7 @@
         #!votes#
         </table>      
         <p>
-          #?login : !Vote-DoVote : "<b>#%Zum Abstimmen müssen Sie sich einloggen#!</b>"#
+          #?login : !Vote-DoVote : "<b>#%Zum Abstimmen mÃ¼ssen Sie sich einloggen#!</b>"#
         </p>
 </div>
 
@@ -245,7 +245,7 @@
 
 [!=LbSite-Del!]
 
-  <p id="highlight">#%Möchten Sie die Umfrage wirklich entfernen?#</p>
+  <p id="highlight">#%MÃ¶chten Sie die Umfrage wirklich entfernen?#</p>
   <table width="100%">
   <tr valign="bottom">
   <td>

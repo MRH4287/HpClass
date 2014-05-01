@@ -1,4 +1,4 @@
-#!!NAME=Calendar
+ï»¿#!!NAME=Calendar
 #!!AUTOR=MRH
 
 
@@ -10,7 +10,7 @@
         </tbody>
 </table>
  <br />
-#?manage_subpage : @echo("<a href=index.php?site=calendar>", %Termin hinzufügen oder ändern, "</a>")#
+#?manage_subpage : @echo("<a href=index.php?site=calendar>", %Termin hinzufÃ¼gen oder Ã¤ndern, "</a>")#
 
 [!/List!]
 
@@ -61,32 +61,32 @@
 
     .Calcontainer {
 	     font: 100% Verdana, Arial, Helvetica, sans-serif; 
-    	width: 100%;  /* Mit einer Breite, die 20 Pixel unter der vollen Breite von 800 Pixel liegt, können Sie dem Browser-Chrome Rechnung tragen und gleichzeitig eine horizontale Bildlaufleiste vermeiden. */
+    	width: 100%;  /* Mit einer Breite, die 20 Pixel unter der vollen Breite von 800 Pixel liegt, kÃ¶nnen Sie dem Browser-Chrome Rechnung tragen und gleichzeitig eine horizontale Bildlaufleiste vermeiden. */
     	background: #FFFFFF;
-    	/*margin: 0 auto;  Durch automatische Ränder (in Verbindung mit einer Breite) wird die Seite zentriert. */
+    	/*margin: 0 auto;  Durch automatische RÃ¤nder (in Verbindung mit einer Breite) wird die Seite zentriert. */
     	border: 1px solid #000000;
-    	text-align: left; /* Hierdurch wird die Einstellung text-align: center im Body-Element überschrieben. */
+    	text-align: left; /* Hierdurch wird die Einstellung text-align: center im Body-Element Ã¼berschrieben. */
     	height:880px;
     }
     .Calsidebar1 {
     	float: left; /* Da es sich hier um ein floatendes Element handelt, muss eine Breite angegeben werden. */
-    	width: 200px; /* Die tatsächliche Breite dieses div umfasst in standardgerechten Browsern bzw. im Standardmodus von Internet Explorer außer der Breite auch die Auffüllung und den Rahmen. */
-    	background: #EBEBEB; /* Die Hintergrundfarbe wird nur für die Länge des Spalteninhalts angezeigt. */
+    	width: 200px; /* Die tatsÃ¤chliche Breite dieses div umfasst in standardgerechten Browsern bzw. im Standardmodus von Internet Explorer auÃŸer der Breite auch die AuffÃ¼llung und den Rahmen. */
+    	background: #EBEBEB; /* Die Hintergrundfarbe wird nur fÃ¼r die LÃ¤nge des Spalteninhalts angezeigt. */
     	padding: 15px 10px 15px 20px;
     }
     .CalmainContent { 
-    	margin: 0 0 0 250px; /* Durch den linken Rand dieses div-Elements entsteht die Spalte am linken Seitenrand. Der Spaltenbereich bleibt unabhängig von der Inhaltsmenge des sidebar1-div immer gleich. Sie können diesen Rand entfernen, falls der Text des #mainContent-div den Bereich von #sidebar1 füllen soll, wenn der Inhalt in #sidebar1 endet. */
-    	padding: 0 20px 20px; /* padding (Auffüllung) bezeichnet den Innenabstand und margin (Rand) den Außenabstand der div -Box. */
+    	margin: 0 0 0 250px; /* Durch den linken Rand dieses div-Elements entsteht die Spalte am linken Seitenrand. Der Spaltenbereich bleibt unabhÃ¤ngig von der Inhaltsmenge des sidebar1-div immer gleich. Sie kÃ¶nnen diesen Rand entfernen, falls der Text des #mainContent-div den Bereich von #sidebar1 fÃ¼llen soll, wenn der Inhalt in #sidebar1 endet. */
+    	padding: 0 20px 20px; /* padding (AuffÃ¼llung) bezeichnet den Innenabstand und margin (Rand) den AuÃŸenabstand der div -Box. */
     } 
-    .fltrt { /* Mit dieser Klasse können Sie ein Element auf der Seite nach rechts fließen lassen. Das floatende Element muss vor dem Element stehen, neben dem es auf der Seite erscheinen soll. */
+    .fltrt { /* Mit dieser Klasse kÃ¶nnen Sie ein Element auf der Seite nach rechts flieÃŸen lassen. Das floatende Element muss vor dem Element stehen, neben dem es auf der Seite erscheinen soll. */
     	float: right;
     	margin-left: 8px;
     }
-    .fltlft { /* Mit dieser Klasse können Sie ein Element auf der Seite nach links fließen lassen. */
+    .fltlft { /* Mit dieser Klasse kÃ¶nnen Sie ein Element auf der Seite nach links flieÃŸen lassen. */
     	float: left;
     	margin-right: 8px;
     }
-    .clearfloat { /* Diese Klasse sollte in einem div- oder break-Element platziert werden und das letzte Element vor dem Schließen eines Containers sein, der wiederum einen vollständigen Float enthalten sollte. */
+    .clearfloat { /* Diese Klasse sollte in einem div- oder break-Element platziert werden und das letzte Element vor dem SchlieÃŸen eines Containers sein, der wiederum einen vollstÃ¤ndigen Float enthalten sollte. */
     	clear:both;
         height:0;
         font-size: 1px;
@@ -95,15 +95,15 @@
     --> 
     </style><!--[if IE 5]>
     <style type="text/css"> 
-    /* Fügen Sie CSS-Box-Modell-Korrekturen für IE 5* in diesen bedingten Kommentar ein. */
+    /* FÃ¼gen Sie CSS-Box-Modell-Korrekturen fÃ¼r IE 5* in diesen bedingten Kommentar ein. */
     .Calsidebar1 { width: 230px; }
     </style>
     <![endif]--><!--[if IE]>
     <style type="text/css"> 
-    /* Fügen Sie CSS-Korrekturen für alle IE-Versionen in diesen bedingten Kommentar ein. */
+    /* FÃ¼gen Sie CSS-Korrekturen fÃ¼r alle IE-Versionen in diesen bedingten Kommentar ein. */
     .Calsidebar1 { padding-top: 30px; }
     .CalmainContent { zoom: 1; }
-    /* Mit der obigen proprietären Zoom-Eigenschaft wird IE die Eigenschaft hasLayout zugewiesen, die zur Verhinderung verschiedener Fehler erforderlich ist. */
+    /* Mit der obigen proprietÃ¤ren Zoom-Eigenschaft wird IE die Eigenschaft hasLayout zugewiesen, die zur Verhinderung verschiedener Fehler erforderlich ist. */
    
      #calender_list a{ text-decoration: none;}  
     </style>
@@ -128,7 +128,7 @@
   #@include("utilities", "TinyMCEInit")#
   <form action="?site=calendar" method="post">
   
-        <h1>#%Termin hinzufügen#</h1>
+        <h1>#%Termin hinzufÃ¼gen#</h1>
         <h2>#@printf : %am %s : date#</h2>
 
         <input type="hidden" name="date" value="#!date#">
@@ -155,7 +155,7 @@
             </tr>
    
             <tr>
-              <td  height="37">#%Benötigtes Level#</td>
+              <td  height="37">#%BenÃ¶tigtes Level#</td>
               <td>
                	<select name="level">
  	                #!levels#
@@ -212,7 +212,7 @@
 
 [!=Error-Select!]
 
-<b>#%Bitte wählen Sie einen Tag auf der linken Seite aus#</b>
+<b>#%Bitte wÃ¤hlen Sie einen Tag auf der linken Seite aus#</b>
 
 [!/Error-Select!]
 
@@ -264,12 +264,12 @@
 
 [!=LbSite-Del!]
 
-<p id="highlight">#%Möchten Sie das Event wirklich löschen?#</p>
+<p id="highlight">#%MÃ¶chten Sie das Event wirklich lÃ¶schen?#</p>
 <table width="100%">
   <tr valign="bottom">
     <td>
       <form method="POST" action="index.php?site=calendar">
-        <p align="center"><input type="hidden" name="ID" value="#!ID#"><input type="submit" value="Löschen" name="eventdel"></form>
+        <p align="center"><input type="hidden" name="ID" value="#!ID#"><input type="submit" value="LÃ¶schen" name="eventdel"></form>
       </td>
     <td>
     </td>
