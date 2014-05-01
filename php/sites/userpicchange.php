@@ -9,6 +9,8 @@ $dbprefix = $hp->getprefix();
 $lang = $hp->getlangclass();
 $error = $hp->geterror();
 
+$result = false;
+
 if (isset($post['sendfiles']))
 {
 	$numsendfiles = count($_FILES);
@@ -19,7 +21,6 @@ if (isset($post['sendfiles']))
 	{
 		if($dateiinformationen['error']!=0)
 		{
-			print "Fehler {$dateiinformationen['error']}.<br/>\n";
 			continue;
 		}
 

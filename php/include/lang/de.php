@@ -1,4 +1,4 @@
-<meta content="text/html; charset=utf-8" http-equiv="content-type" /><?php
+<?php
 
 $lang['de'] = array(
     // pm-de
@@ -267,7 +267,7 @@ $lang['de'] = array(
 
     // profil-de
     // profil-eng
-    'persönliches' => 'Persönliches',
+    'persoenliches' => 'Pers&ouml;nliches',
 
     // user-de
     // user-eng
@@ -485,7 +485,7 @@ $lang['de'] = array(
     'Kategorien bearbeiten' => 'Kategorien bearbeiten',
     // l10n:    Hochladen als: Admin
     'Hochladen als' => 'Hochladen als',
-    'Verändern von Dateien nicht möglich!' => 'Verändern von Dateien nicht möglich!',
+    'Veraendern von Dateien nicht moeglich!' => 'Ver&auml;ndern von Dateien nicht m&ouml;glich!',
     'Benutzer' => 'Benutzer',
     // l10n:    %s -> Username | Profil von Admin
     'Profil von %s' => 'Profil von %s',

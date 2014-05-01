@@ -10,8 +10,13 @@ $lang = $hp->getlangclass();
 $error = $hp->geterror();
 $info = $hp->getinfo();
 $lbs = $hp->lbsites;
-$xajaxF = $hp->xajaxF;
 
+$site = new SiteTemplate($hp);
+$site->load("info");
+$site->set("info", "This Function is Obsolote.");
+$site->display();
+
+/*
 
 if (!$right[$level]['manage_vote'])
 {
@@ -301,4 +306,7 @@ if (!$right[$level]['manage_vote'])
 	}
 
 } // Right
-?>
+*/
+
+
+ ?>

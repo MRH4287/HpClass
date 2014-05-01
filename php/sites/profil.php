@@ -103,36 +103,62 @@ if (!isset($_SESSION['username'])) {
 		$site = new siteTemplate($hp);
 		$site->load("info");
 
-		$ignore = array ("hp", "info", "error", "hp", "config", "dbprefix", "right", "level");
-		foreach ($post as $key=>$value)
-		{
-			$value = str_replace('<',"&lt;" ,$value);
-			$value = str_replace('\'',"\"" ,$value);// ,
+        $abfrage = "SELECT * FROM ".$dbprefix."user WHERE `user` = '".$_SESSION['username']."'";
+		$ergebnis = $hp->mysqlquery($abfrage);
 
-			// Leicht Unsicher, da aber alle Variablen, die hier ankommen eh gestrippt werden, ist das irrelevant
-			if (!in_array($key, $ignore))
-			{
-				$$key = "'".$value."'";
-			}
-		}
 
-		if ((isset($name)) and (isset($nachname)) and (isset($wohnort)))
-		{
+		$row = mysql_fetch_object($ergebnis);
 
-			$eingabe = "UPDATE `".$dbprefix."user` SET `name` = $name, `nachname` = $nachname, `alter` = $alter, `geburtstag` = $geburtstag, `wohnort` = $wohnort, `cpu` = $cpu,".
-				" `ram` = $ram, `graka` = $graka, `hdd` = $hdd, `clan` = $clan, `clantag` = $clantag  WHERE `user` = '".$_SESSION['username']."';";
+		//$site = new siteTemplate($hp);
+		//$site->load("profil");
 
-			$ergebnis2 = $hp->mysqlquery($eingabe);
+		$data = array(
+			"username" => $_SESSION['username'],
+			"ID" => $row->ID,
+			"name" => $row->name,
+			"nachname" => $row->nachname,
+			"alter" => $row->alter,
+			"geburtstag" => $row->geburtstag,
+			"wohnort" => $row->wohnort,
+			"tel" => $row->tel,
+			"email" => $row->email,
+			"cpu" => $row->cpu,
+			"ram" => $row->ram,
+			"graka" => $row->graka,
+			"hdd" => $row->hdd,
+			"clan" => $row->clan,
+			"clantag" => $row->clantag,
+			"clanhomepage" => $row->clanhomepage,
+			"clanhistory" => $row->clanhistory
 
-			$eingabe = "UPDATE `".$dbprefix."user` SET `clanhomepage` = $clanhomepage, `clanhistory` = $clanhistory, `tel` = $tel  WHERE `user` = '".$_SESSION['username']."';";
+			);
+        
+            foreach($data as $key => $value)
+            {
+                if (isset($post[$key]))
+                {
+                    $data[$key] = $post[$key];
+                }
+            }
+        
+            
+            $format = "UPDATE `".$dbprefix."user` SET `name` = '%s', `nachname` = '%s', `alter` = %u, `geburtstag` = '%s', `wohnort` = '%s', `cpu` = '%s',".
+                    " `ram` = '%s', `graka` = '%s', `hdd` = '%s', `clan` = '%s', `clantag` = '%s',
+                    `clanhomepage` = '%s', `clanhistory` = '%s', `tel` = '%s'                    
+                    WHERE `user` = '%s';";
 
-			$ergebnis = $hp->mysqlquery($eingabe);
+            $sql = sprintf($format, $data['name'], $data['nachname'], $data['alter'], $data['geburtstag'], $data['wohnort'], $data['cpu'],
+                $data['ram'], $data['graka'], $data['hdd'], $data['clan'], $data['clantag'], $data['clanhomepage'], $data['clanhistory'],
+                $data['tel'], $_SESSION['username']);
+            
+
+            //var_dump($sql);
+            
+			$hp->mysqlquery($sql);
 
 			$site->set("info", $lang->word('ok_profil')."!<br><a href=index.php>".$lang->word('back')."</a>");
-		} else
-		{
-			$site->set("info", $lang->word('notallfields'));
-		}
+
+            
 		$site->display();
 	}
 

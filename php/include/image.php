@@ -178,23 +178,20 @@ if (!isset($site) && isset($_GET['id']) && isset($_GET['source']))
 
 	}
 
-
+    
 	try
 	{
 
 		set_error_handler(create_function('', "throw new Exception(); return true;"));
 
-
-
 		$picture = new Picture();
-
-
+        
 		if ($bildok)
 		{
 			$picture->setAsString($info["image"], $info["width"], $info["height"]);
 		} else
 		{
-			$picture->setJPG("../nopic.jpg");
+			$picture->setJPG("../images/nopic.jpg");
 		}
 
 		$picture->display($source["wantedWidth"], $source["wantedHeight"]);
@@ -206,7 +203,7 @@ if (!isset($site) && isset($_GET['id']) && isset($_GET['source']))
 	} catch (Exception $e)
 	{
 		header("Content-type: image/jpeg");
-		print $datei['bild'];	
+		print $info["image"];	
 	}
 
 	

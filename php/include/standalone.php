@@ -14,7 +14,7 @@ class InfoStandalone
 {
 	//private $fp;
 
-	function __construct($fp)
+	function __construct()
 	{
 		//$this->fp = $fp;
 	}
@@ -101,10 +101,9 @@ class Standalone extends Hp
 		//$this->error      = new errorclass;
 		//$this->info       = new infoclass;
 		$this->error        = new ErrorStandalone;
-		$this->info         = new InfoStandalone($firephp);
+		$this->info         = new InfoStandalone();
 		
 		$this->setlang(new lang());
-		$this->setfirephp($firephp);
 		$this->right->sethp($this);
 		$this->langclass->sethp($this);
 		$this->langclass->seterror($this->error);

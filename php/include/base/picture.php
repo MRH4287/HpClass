@@ -16,8 +16,7 @@ class Picture
 	{
 		$this->image = imagecreatefromstring($data);
 		$this->width = $width;
-		$this->height = $height;
-
+		$this->height = $height;        
 	}
 
 	function setJPG($file)
@@ -71,14 +70,20 @@ class Picture
 		}
 
 
-
-
-
-		$neuesBild=ImageCreateTrueColor($newWidth,$newHeight);
+        
+        $neuesBild=imagecreatetruecolor($newWidth,$newHeight);
+        imagealphablending( $neuesBild, true );
+        imagesavealpha( $neuesBild, true );
+        
+        $trans_colour = imagecolorallocatealpha($neuesBild , 0, 0, 0, 127);
+        imagefill($neuesBild , 0, 0, $trans_colour);
+        
 		imagecopyresampled($neuesBild,$this->image,0,0,0,0,$newWidth,$newHeight,$this->width,$this->height);
 
-		header('Content-Type: image/jpeg');
-		ImageJPEG($neuesBild);
+ 
+        
+		header('Content-Type: image/png');
+		imagepng($neuesBild);
 		imagedestroy($neuesBild);
 
 	}
