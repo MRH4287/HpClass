@@ -8,8 +8,6 @@ if ($config['titel'] != "")
 }
 
 
-
-
 if ($config['design'] != "")
 {
 	$design = $config['design'];
@@ -26,6 +24,9 @@ if (isset($_SESSION['username']))
 {
 	$template['username'] = "NONE";
 }
+
+$template["currentSite"] = $hp->site;
+
 
 
 // JS

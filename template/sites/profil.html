@@ -15,12 +15,9 @@
 <!-- Tab panes -->
 <div class="tab-content">
     <div class="tab-pane active" id="page1">
+
+        <h3>#%page-intern#:</h3>
         <table border="0" width="318">
-            <tr>
-                <td width="300" colspan="2">
-                    <p align="center">#%page-intern#:
-                </td>
-            </tr>
             <tr>
                 <td width="125">#%username#:</td>
                 <td width="175">#!username#</td>
@@ -28,19 +25,29 @@
             <tr>
 
                 <td width="125">#%password#:</td>
-                <td width="175"><form method="POST" action="index.php?site=profil"><input type="submit" value="#%changepw#" name="pwändern"></form></td>
+                <td width="175">
+                    <form role="form" method="POST" action="index.php?site=profil">
+                        <div class="form-group">
+                            <input class="btn btn-default" type="submit" value="#%changepw#" name="pwändern">
+                        </div>
+                    </form>
+                </td>
 
             </tr>
             <tr>
                 <td width="125">#%avatar#:</td>
                 <td width="175">
-
-                    <img border="0" src="./include/image.php?source=usr&id=#!ID#">
-
-                    <form enctype="multipart/form-data" action="index.php?site=userpicchange&id=#!ID#" method="post">
-                        <input name="FILE" type="file">
+                    <div class="thumbnail">
+                        <img src="./include/image.php?source=usr&id=#!ID#">
+                    </div>
+                    <form role="form" enctype="multipart/form-data" action="index.php?site=userpicchange&id=#!ID#" method="post">
+                        <div class="form-group">
+                            <input class="btn" name="FILE" type="file">
+                        </div>
                         <input type="hidden" name="MAX_FILE_SIZE" value="30000">
-                        <input type="submit" value="#%upload-picture#" name="sendfiles" />
+                        <div class="form-group">
+                            <input class="btn btn-default" type="submit" value="#%upload-picture#" name="sendfiles" />
+                        </div>
                     </form>
 
                 </td>
@@ -57,144 +64,138 @@
 
 
     <div class="tab-pane" id="page2">
-        <form method="POST" action="index.php?site=profil">
-            <table border="0" width="318">
-                <tr>
-                    <td width="300" colspan="2">
-                        <p align="center">#%persoenliches#:
-                    </td>
-                </tr>
-                <tr>
-                    <td width="125">#%name#: </td>
-                    <td width="175"><input name="name" size="24" value="#!name#"></td>
-                </tr>
-                <tr>
-                    <td width="125">#%nachname#: </td>
-                    <td width="175"><input name="nachname" size="24" value="#!nachname#"></td>
-                </tr>
-                <tr>
-                    <td width="125">#%alter#:</td>
-                    <td width="175"><input name="alter" size="24" value="#!alter#"></td>
-                </tr>
-                <tr>
-                    <td width="125">#%birthday#:</td>
-                    <td width="175"><input name="geburtstag" size="24" value="#!geburtstag#"></td>
-                </tr>
-                <tr>
-                    <td width="125">#%wohnort#:</td>
-                    <td width="175"><input name="wohnort" size="24" value="#!wohnort#"></td>
-                </tr>
-                <tr>
-                    <td width="125">#%telephone#:</td>
-                    <td width="175"><input name="tel" size="24" value="#!tel#"></td>
-                </tr>
-                <tr>
-                    <td width="125">#%email#:</td>
-                    <td width="175">#!email#</td>
-                </tr>
-                <tr>
-                    <td width="125"></td>
-                    <td width="175"></td>
-                </tr>
-                <tr>
-                    <td width="300" colspan="2">
-                        <p align="center">
-                            <button type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
-                            <button type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button>
-                        </p>
-                    </td>
+        <form class="form-horizontal" method="POST" action="index.php?site=profil">
+            <h3>#%persoenliches#:</h3>
 
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="nameInput">#%name#</label>
+                <div class="col-sm-10">
+                    <input name="name" class="form-control" id="nameInput" value="#!name#">
+                </div>
+            </div>
 
-                </tr>
-            </table>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="nachnameInput">#%nachname#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="nachname" id="nachnameInput" value="#!nachname#">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="alterInput">#%alter#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="alter" id="alterInput" value="#!alter#">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="geburtstag">#%birthday#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="geburtstag" id="geburtstag" value="#!geburtstag#">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="wohnort">#%wohnort#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="wohnort" id="wohnort" value="#!wohnort#">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="tel">#%telephone#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="tel" id="tel" value="#!tel#">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">#%email#</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">#!email#</p>
+                </div>
+            </div>
+
+            <button class="btn btn-succsess" type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
+            <button class="btn btn-warn" type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button>
+
         </form>
 
     </div>
     <div class="tab-pane" id="page3">
-        <form method="POST" action="index.php?site=profil">
-            <table border="0" width="318">
+        <form class="form-horizontal" method="POST" action="index.php?site=profil">
+            <h3>#%sonstiges#:</h3>
 
-                <tr>
-                    <td width="300" colspan="2">
-                        <p align="center">#%sonstiges#:
-                    </td>
-                </tr>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="cpu">#%cpu#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="cpu" id="cpu" value="#!cpu#">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="ram">#%ram#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="ram" id="ram" value="#!ram#">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="graka">#%graka#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="graka" id="graka" value="#!graka#">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="hdd">#%hdd#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="hdd" id="hdd" value="#!hdd#">
+                </div>
+            </div>
 
 
-                <tr>
-                    <td width="125">#%cpu#:</td>
-                    <td width="175"><input type="text" name="cpu" value="#!cpu#" size="24" maxlength="30"></td>
-                </tr>
-                <tr>
-                    <td width="125">#%ram#:</td>
-                    <td width="175"><input type="text" name="ram" value="#!ram#" size="24" maxlength="30"></td>
-                </tr>
-                <tr>
-                    <td width="125">#%graka#:</td>
-                    <td width="175"><input type="text" name="graka" value="#!graka#" size="24" maxlength="30"></td>
-                </tr>
-                <tr>
-                    <td width="125">#%hdd#:</td>
-                    <td width="175"><input type="text" name="hdd" value="#!hdd#" size="24" maxlength="30"></td>
-                </tr>
+            <button class="btn btn-succsess" type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
+            <button class="btn btn-warn" type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button>
 
-                <tr>
-                    <td width="125"></td>
-                    <td width="175"></td>
-                </tr>
-                <tr>
-                    <td width="300" colspan="2">
-                        <p align="center">
-                            <button type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
-                            <button type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button>
-                        </p>
-                    </td>
-                </tr>
-            </table>
         </form>
 
     </div>
     <div class="tab-pane" id="page4">
-        <form method="POST" action="index.php?site=profil">
-            <table border="0" width="318">
-                <tr>
-                    <td width="300" colspan="2">
-                        <p align="center">#%clan#:
-                    </td>
-                </tr>
+        <form class="form-horizontal" method="POST" action="index.php?site=profil">
+            <h3>#%clan#:</h3>
 
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="clan">#%clanname#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="clan" id="clan" value="#!clan#">
+                </div>
+            </div>
 
-                <tr>
-                    <td width="125">#%clanname#:</td>
-                    <td width="175"><input type="text" name="clan" value="#!clan#" size="24" maxlength="30"></td>
-                </tr>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="clantag">#%clantag#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="clantag" id="clantag" value="#!clantag#">
+                </div>
+            </div>
 
-                <tr>
-                    <td width="125">#%clantag#:</td>
-                    <td width="175"><input type="text" name="clantag" value="#!clantag#" size="24" maxlength="30"></td>
-                </tr>
-                <tr>
-                    <td width="125">#%clanhp#:</td>
-                    <td width="175"><input type="text" name="clanhomepage" value="#!clanhomepage#" size="24" maxlength="30"></td>
-                </tr>
-                <tr>
-                    <td width="125">#%clanhist#:</td>
-                    <td width="175"><textarea rows="2" name="clanhistory" cols="40">#!clanhistory#</textarea></td>
-                </tr>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="clanhomepage">#%clanhp#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="clanhomepage" id="clanhomepage" value="#!clanhomepage#">
+                </div>
+            </div>
 
-                <tr>
-                    <td width="125"></td>
-                    <td width="175"></td>
-                </tr>
-                <tr>
-                    <td width="300" colspan="2">
-                        <p align="center">
-                            <button type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
-                            <button type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button>
-                        </p>
-                    </td>
-                </tr>
-            </table>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="clanhistory">#%clanhist#</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="clanhistory" id="clanhistory" value="#!clanhistory#">
+                </div>
+            </div>
+
+            <button class="btn btn-succsess" type="submit" name="go"><img src="images/ok.gif" alt="#%ok#"></button>
+            <button class="btn btn-warn" type="reset" name="go"><img src="images/abort.gif" alt="#%delet#"></button>
+
         </form>
 
     </div>

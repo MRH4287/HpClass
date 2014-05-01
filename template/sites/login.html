@@ -49,15 +49,15 @@
 
 <li><a href="sites/login.php?logout">#%Logout#</a></li>
    #?adminsite : "<li><a href="index.php?site=admin">#%Administration#</a></li>"#
-<li><a href="index.php?site=pm">#%PM-Menu#</a></li>
-<li><a href="index.php?site=profil">#%editprofile#</a></li>
-    #?manage_vote : "<li><a href="index.php?site=vote">#%Umfragen#</a></li>"#
+<li data-site="pm"><a href="index.php?site=pm">#%PM-Menu#</a></li>
+<li data-site="profil"><a href="index.php?site=profil">#%editprofile#</a></li>
+    #?manage_vote : "<li data-site="vote"><a href="index.php?site=vote">#%Umfragen#</a></li>"#
     #@include : "login-temp"#
-    #?usedpics : "<li><a href="index.php?site=usedpics">#%Benutzte Bilder#</a></li>"#
+    #?usedpics : "<li data-site="usedpics"><a href="index.php?site=usedpics">#%Benutzte Bilder#</a></li>"#
     #?manage_subpage : @echo("<li><a href="index.php?site=subpage">", %Unterseiten Verwalten, "</a></li>")#
-    #?superadmin : "<li><a href="index.php?site=rights">#%Rechte#</a></li>"#
-    #?superadmin : "<li><a href="index.php?site=config">#%Konfiguration#</a></li>"#
-    #?superadmin : "<li><a href="index.php?site=plugins">#%Plugin System#</a></li>"#
-    #?superadmin : "<li><a href="index.php?site=dragdrop">#%Widget System#</a></li>"#
+    #?superadmin : "<li data-site="rights"><a href="index.php?site=rights">#%Rechte#</a></li>"#
+    #?superadmin : "<li data-site="config"><a href="index.php?site=config">#%Konfiguration#</a></li>"#
+    #?superadmin : "<li data-site="plugins"><a href="index.php?site=plugins">#%Plugin System#</a></li>"#
+    #?superadmin : "<li data-site="dragdrop"><a href="index.php?site=dragdrop">#%Widget System#</a></li>"#
     [!/Links!]
 
