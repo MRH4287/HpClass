@@ -53,7 +53,7 @@ abstract class Api
 
 			} else
 			{
-				// Generierung eines zufälligen Tokens:
+				// Generierung eines zufÃ¤lligen Tokens:
 
 				$token = $this->getRandomToken();
 
@@ -133,7 +133,7 @@ abstract class Api
 				} else
 				{
 
-					// Kommando ausführen:
+					// Kommando ausfÃ¼hren:
 					$result = $this->executeCommand($data, $data->command, $data->arguments);
 
 

@@ -30,9 +30,8 @@ if (isset($_SESSION['username']))
 
 // JS
 $template['footer'] = '
-'.
-//<script src="js/jquery-ui-1.8.16.custom.min.js"></script>
-'<script type="text/javascript" src="js/jquery.tipTip.js"></script>
+<script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.tipTip.js"></script>
 <script type="text/javascript" src="js/jquery.filedrop.js"></script>
 <script type="text/javascript" src="js/lightboxX2.js"></script>
 <script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
@@ -56,6 +55,7 @@ $template['head'] = '
 <link rel="stylesheet" href="include/usedpics/css/usedpics.css" type="text/css" />
 <link rel="stylesheet" href="css/plugins.css" type="text/css"/>
 <link rel="stylesheet" href="css/popup_tagestermine.css" type="text/css"/>
+<link rel="stylesheet" href="css/smoothness/jquery-ui-1.10.4.custom.min.css" type="text/css"/>
 <link rel="stylesheet" href="css/jquery.lightbox-0.5.css" type="text/css" media="screen" />
 ';
 

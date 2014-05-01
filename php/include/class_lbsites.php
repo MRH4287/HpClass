@@ -69,7 +69,7 @@ class Lbsites
 
 		} else
 		{
-			$this->fp->error("ungültige LB-Site ($site)");
+			$this->fp->error("ungÃ¼ltige LB-Site ($site)");
 			$content = $siteT->get('notFound');
 			
 			header("HTTP/1.0 204 No Content");
@@ -101,7 +101,7 @@ class Lbsites
 		{
 			$content .= $row->user."<br>";
 		}
-		$content .= " ö Ö ä Ä ü Ü ß ^ ` ' # + * , ; |";
+		$content .= " Ã¶ Ã– Ã¤ Ã„ Ã¼ Ãœ ÃŸ ^ ` ' # + * , ; |";
 		$content .= $this->link("Test", "Test");
 
 
@@ -322,7 +322,7 @@ class Lbsites
 		$O_right = $hp->right;
 		$subpages = $hp->subpages;
 
-		$arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
+		$arr_monate = array ('Januar', 'Februar', 'MÃ¤rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
 
 
 
@@ -426,7 +426,7 @@ class Lbsites
 
 			}
 
-			return "Ungültige Daten!";
+			return "UngÃ¼ltige Daten!";
 
 
 		}
@@ -444,13 +444,13 @@ class Lbsites
 function ob($buffer)
 {
 	$text = $buffer;
-	$text = str_replace("ü", "&uuml;", $text);
-	$text = str_replace("Ü", "&Uuml;", $text);
-	$text = str_replace("ö", "&ouml;", $text);
-	$text = str_replace("Ö", "&Ouml;", $text);
-	$text = str_replace("ä", "&auml;", $text);
-	$text = str_replace("Ä", "&Auml;", $text);
-	$text = str_replace("ß", "&szlig;", $text);
+	$text = str_replace("Ã¼", "&uuml;", $text);
+	$text = str_replace("Ãœ", "&Uuml;", $text);
+	$text = str_replace("Ã¶", "&ouml;", $text);
+	$text = str_replace("Ã–", "&Ouml;", $text);
+	$text = str_replace("Ã¤", "&auml;", $text);
+	$text = str_replace("Ã„", "&Auml;", $text);
+	$text = str_replace("ÃŸ", "&szlig;", $text);
 
 	return $text;
 }

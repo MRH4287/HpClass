@@ -3,46 +3,14 @@
 
 [!=Main!]
 
-<style>
+<form role="form" method="POST" action="index.php?site=config">
 
-.ConfigContainer
-{
-	width:100%;
-	margin:auto;
-	border:thin orange outset;
-	
-	
-	
-}
 
-.ConfigHeader
-{
-	width:100%;
-	text-align:center;
-}
+    <h1>#%Konfiguration#</h1>
 
-.ConfigBox
-{
-	width:95%;
-	margin:15px auto autp auto;	
-}
+    #!Config#
 
-.auto-style1 {
-	border-width: 1px;
-}
-
-</style>
-
-<form method="POST" action="index.php?site=config">
-
-    <div class="ConfigContainer">
-        <div class="ConfigHeader"><h1>#%Konfiguration#</h1></div>
-
-        #!Config#
-
-    </div>
-
-    <input type="submit" value="Abschicken" name="sub">
+    <input class="btn btn-success" type="submit" value="Submit" name="sub">
 </form>
 [!/Main!]
 
@@ -50,16 +18,18 @@
 [!=Categorie!]
 
 <b>#%Kategorie#: #!name#</b>  <br /><br />
-<table border="0" width="80%">
-	<tr>
-		<th class="auto-style1" width="200">#%name#</th>
-		<th class="auto-style1">#%description#</th>
-		<th class="auto-style1" width="200">#%Einstellung#</th>	
-	</tr>
-	
-	
-	#!Config#
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th class="auto-style1" width="200">#%name#</th>
+            <th class="auto-style1">#%description#</th>
+            <th class="auto-style1" width="200">#%Einstellung#</th>
+        </tr>
+    </thead>
+    <tbody>
 
+        #!Config#
+    </tbody>
 </table>
 <br />
 
@@ -67,32 +37,35 @@
 
 [!=Config!]
 
-	<tr class="pluginLine">
-	
-		<td>#!name#</td>
-		<td>#!description#</td>
-		<td>#!input#</td>
-	
-	</tr>
+<tr class="pluginLine">
+
+    <td>#!name#</td>
+    <td><label for="#!name#">#!description#</label></td>
+    <td>#!input#</td>
+
+</tr>
 
 
 [!/Config!]
 
 [!=Input-Textbox!]
-  <input type="text" id="#!name#" name="config[#!name#]" value="#!value#" />  
+<input class="form-control" type="text" id="#!name#" name="config[#!name#]" value="#!value#" />
 [!/Input-Textbox!]
 
 [!=Input-Checkbox!]
-  <input type="checkbox" id="#!name#" name="config[]" value="#!name#" #?:checked : "checked=checked" : ""# />
+#V:data : @if(checked, "checked=checked", "")#
+<input class="form-control" type="checkbox" id="#!name#" name="config[]" value="#!name#" #!data# />
+
 [!/Input-Checkbox!]
 
 [!=Input-Combobox!]
-  <select id="#!name#" name="config[#!name#]" />
+<select class="form-control" id="#!name#" name="config[#!name#]">
     #!Options#
-  </select>
-  
+</select>
+
 [!/Input-Combobox!]
 
 [!=Input-Option!]
-  <option value="#!ID#" #?:selected : "selected=selected"#>#!value#</option>
+#V:data : @if(selected, "selected=selected", "")#
+<option value="#!ID#" #!data#>#!value#</option>
 [!/Input-Option!]

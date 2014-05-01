@@ -8,10 +8,12 @@
 
 <script type="text/javascript">
 
-	var widgetController = new WidgetController();
+
+	var widgetController = null;
 	
 	$(document).ready(function()
 	{
+	    widgetController = new WidgetController();
 		
 		widgetController.enablePlacing();
 		widgetController.setNotPlacedContainer($("#widgetContainer"));
@@ -30,13 +32,16 @@
 </div>
 
 <script type="text/javascript">
-	$("#widget_DelWidgets").droppable({
-		hoverClass: "hclass",
-		drop: function( event, ui ) 
-		{
-			widgetController.widgetDeleteDropEvent($(this), ui);
-		}
-	});
+    $(document).ready(function ()
+    {
+        $("#widget_DelWidgets").droppable({
+            hoverClass: "hclass",
+            drop: function (event, ui)
+            {
+                widgetController.widgetDeleteDropEvent($(this), ui);
+            }
+        });
+    });
 </script>
 
 [!/Main!]

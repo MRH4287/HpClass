@@ -9,7 +9,7 @@ class Widgets
 	// is Set by the dragdrop Page over a Template Function
 	var $enableWidgetPlacing = false;
 
-	// Leeres Array für die Widgets:
+	// Leeres Array fÃ¼r die Widgets:
 	var $widgets = array();
 
 	public function __construct()
@@ -35,7 +35,7 @@ class Widgets
 		$this->placed = array();
 		$this->widgets = array();
 
-		// Fügt Widgets aus den Templates hinzu:
+		// FÃ¼gt Widgets aus den Templates hinzu:
 		$this->incwidgetfiles();
 
 		// Datenbank Abfrage, ob bereits ein Widget verschoben wurde:

@@ -42,7 +42,7 @@ if (is_file("./version/mysql.php"))
 
 if ($last > $version)
 {
-	echo "Es gibt ein neues Mysqlupdate!<br>Sie müssen dieses erst übernehmen, bevor Sie das System starten können!<br>".
+	echo "Es gibt ein neues Mysqlupdate!<br>Sie mÃ¼ssen dieses erst Ã¼bernehmen, bevor Sie das System starten kÃ¶nnen!<br>".
 		"<a href=\"./install/\">Hier gehts zur Installation</a>";
 	exit;
 }

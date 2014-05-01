@@ -55,7 +55,7 @@
   
   <form method="POST" action="index.php?site=news">
   
-    <p align="left">#%�berschrift#:<br>
+    <p align="left">#%Ueberschrift#:<br>
     <input type="text" name="newstitel" size="80" value="#!titel#"></p>
     <input type="hidden" name="newsid" size="80" value="#!site#">
     <p align="left">#%datum#:<br>
@@ -70,14 +70,14 @@
 	     <option #="2" == level : "selected=selected" : ""#>2</option>
 	     <option #="3" == level : "selected=selected" : ""#>3</option>
 	   </select>
-     <br>#%Die Berechtigungen k�nnen in der Seite "Rechte" ge�ndert werden#. #%Level 0 bedeutet �ffentlich#.</p>
+     <br>#%Die Berechtigungen koennen in der Seite "Rechte" geaendert werden#. #%Level 0 bedeutet oeffentlich#.</p>
     <p align="left">
     <textarea rows="15" name="newstext" cols="74" id="t1">#!newstext#</textarea>
     <button type="submit" name="#!sitename#"> <img src="images/ok.gif"> </button> <button type="reset"> <img src="images/abort.gif"> </button>
   </form>
   
 
-   <a href="#" id="PL_link" onclick="$('#picturelist-#!site#').dialog('open'); return false;"> #%Picture List �ffnen#</a>
+   <a href="#" id="PL_link" onclick="$('#picturelist-#!site#').dialog(); return false;"> #%Picture List oeffnen#</a>
 
 	#V:pics : @getUsedPics()#
   

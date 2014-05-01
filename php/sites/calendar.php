@@ -13,6 +13,13 @@ $lbs = $hp->lbsites;
 $subpage = $hp->subpages;
 
 $site = new siteTemplate($hp);
+$site->load("info");
+$site->set("info", "Feature Disabled!");
+$site->display();
+
+/*
+
+$site = new siteTemplate($hp);
 $site->load("calendar");
 
 $content = "";
@@ -357,4 +364,6 @@ if (!$right[$level]["manage_calendar"])
 	$this->hp->template->addScriptToHeader("xajax_event_list();");
 }
 
+ */ 
+ 
 ?>

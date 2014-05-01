@@ -42,7 +42,7 @@ $registed = array(
 		array (
 
 			"name" => "newsdel",
-			"desc" => "Erlaubnis um Newsmeldungen zu löschen",
+			"desc" => "Erlaubnis um Newsmeldungen zu lÃ¶schen",
 			"cat"  => "System"
 			),
 		array (
@@ -97,7 +97,7 @@ $registed = array(
 		array(
 
 			"name" => "usedpics",
-			"desc" => "Das Recht die Bilder für die Newsmeldungen zu verwalten",
+			"desc" => "Das Recht die Bilder fÃ¼r die Newsmeldungen zu verwalten",
 			"cat"  => "System"
 
 			),
@@ -110,7 +110,7 @@ $registed = array(
 		array (
 
 			"name" => "upload_del",
-			"desc" => "Das Recht Daten zu löschen",
+			"desc" => "Das Recht Daten zu lÃ¶schen",
 			"cat"  => "Download"
 			),
 		array (
@@ -122,13 +122,13 @@ $registed = array(
 		array (
 
 			"name" => "userdisagree",
-			"desc" => "Erlaubnis um ein Anwärter abzulehnen",
+			"desc" => "Erlaubnis um ein AnwÃ¤rter abzulehnen",
 			"cat"  => "Kritisch"
 			),
 		array (
 
 			"name" => "userchangelevel",
-			"desc" => "Erlaubnis um das Level eines Benutzers zu ändern",
+			"desc" => "Erlaubnis um das Level eines Benutzers zu Ã¤ndern",
 			"cat"  => "Kritisch"
 			),
 		array (
@@ -140,7 +140,7 @@ $registed = array(
 		array (
 
 			"name" => "userdelet",
-			"desc" => "Erlaubnis um einen User zu löschen",
+			"desc" => "Erlaubnis um einen User zu lÃ¶schen",
 			"cat"  => "Kritisch"
 			)
 

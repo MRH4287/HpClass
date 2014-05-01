@@ -164,7 +164,8 @@ if (isset($_SESSION['username']))
 	} elseif (isset($get['read']))
 	{
 
-		$abfrage = "SELECT * FROM ".$dbprefix."pm  WHERE `ID` = '".$get['read']."' ORDER BY `ID`;";
+		$abfrage = "SELECT *, (SELECT ID FROM ".$dbprefix."user WHERE `user` = a.von) as vonUser,
+        (SELECT ID FROM ".$dbprefix."user WHERE `user` = a.zu) as zuUser FROM ".$dbprefix."pm a  WHERE `ID` = '".$get['read']."' ORDER BY `ID`;";
 		$ergebnis = $hp->mysqlquery($abfrage);
 		$row = mysql_fetch_object($ergebnis);
 
@@ -182,6 +183,8 @@ if (isset($_SESSION['username']))
 			$data = array(
 				"von" => $row->von,
 				"zu" => $row->zu,
+                "vonUser" => $row->vonUser,
+				"zuUser" => $row->zuUser,
 				"Datum" => $row->Datum,
 				"Betreff" => $row->Betreff,
 				"Text" => $row->Text,
@@ -218,7 +221,7 @@ if (isset($_SESSION['username']))
 
 		$data = array(
 			"site" => "new",
-			"zu" => (isset($get["zu"])) ? $get["zu"] : "",
+			"zu" => (isset($get["to"])) ? $get["to"] : "",
 			"Betreff" => (isset($get['bet'])) ? "RE: ".$get['bet'] : "",
 			"Text" => "",
 			"time" => time()

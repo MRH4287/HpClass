@@ -35,7 +35,7 @@ class Infoclass
 
 	function okn($okm)
 	{
-		// Löst das Problem, dass ich mich beim Programmieren verschreib :-D
+		// LÃ¶st das Problem, dass ich mich beim Programmieren verschreib :-D
 		$this->okm($okm);
 	}
 

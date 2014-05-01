@@ -2,7 +2,7 @@
 
 class HP
 {
-	// Öffentliche Variablen:
+	// Ã–ffentliche Variablen:
 	public    $site;
 	public    $lang;
 	public    $hp;
@@ -24,7 +24,7 @@ class HP
 	public    $game = null;
 
 
-	// Geschützte Variablen
+	// GeschÃ¼tzte Variablen
 	protected $outputg;
 	protected $outputp;
 	protected $host;
@@ -48,7 +48,7 @@ class HP
 	function __construct()
 	{
 		//Main
-		$this->standardsite = "news"; // Wenn nicht durch Config verändert!
+		$this->standardsite = "news"; // Wenn nicht durch Config verÃ¤ndert!
 
 		// Superadmins:
 		$this->superadmin = array("admin", "mrh");
@@ -69,7 +69,7 @@ class HP
 		$this->hp = $this;
 	}
 	// ------------------------------------------------------------------
-	// In diesem Bereich werden alle Variablen an die Klasse übergeben
+	// In diesem Bereich werden alle Variablen an die Klasse Ã¼bergeben
 	// Die Set-Area
 	//-------------------------------------SET---------------------------------------
 	function setlang($langclass2)
@@ -230,8 +230,8 @@ class HP
 		{
 			$this->error->error("$myerror", "2");
 		}
-		// Löschen aller DB Variablen
-		// Verhindert späteres auslesen!
+		// LÃ¶schen aller DB Variablen
+		// Verhindert spÃ¤teres auslesen!
 		$this->host = "";
 		$this->user = "";
 		$this->password = "";
@@ -440,18 +440,18 @@ class HP
 			$row = mysql_fetch_object($erg);
 
 
-			$info->okn("Eine Bestätigungs E-Mail wurde an Sie geschickt.");
+			$info->okn("Eine BestÃ¤tigungs E-Mail wurde an Sie geschickt.");
 			//print_r($mail);
 			mail($row->email, $mail['mailbetreff'], $mail['mailtext'].$mail['mailfooter'] ,"from:".$mail['mailcomefrom']);
 			$site = new siteTemplate($this);
 			$site->load("info");
-			$site->set("info", "Eine E-Mail mit einer Bestätigung wurde an ihre E-Mail Adresse geschickt!");
+			$site->set("info", "Eine E-Mail mit einer BestÃ¤tigung wurde an ihre E-Mail Adresse geschickt!");
 			$site->display();
 
 		} else
 		{
 			$site->load("info");
-			$site->set("info", "Bitte gehen Sie auf folgende Seite:<br><a href=\"http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?site=lostpw&change=$code\">Passwort zurücksetzten</a>");
+			$site->set("info", "Bitte gehen Sie auf folgende Seite:<br><a href=\"http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?site=lostpw&change=$code\">Passwort zurÃ¼cksetzten</a>");
 			$site->display();
 
 		}
@@ -721,7 +721,7 @@ class HP
 
 
 	//Handel Config Funkion
-	//Als erleichterung für Spätere änderungen.
+	//Als erleichterung fÃ¼r SpÃ¤tere Ã¤nderungen.
 	//4.2
 	function handelconfig()
 	{
@@ -770,7 +770,6 @@ class HP
 	{
 		$this->redirectlock[]=$site;
 	}
-
 
 
 } // Class Ende!

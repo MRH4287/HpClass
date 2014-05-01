@@ -64,7 +64,7 @@ class _Xajax_Funktions
 		$lb = $hp->lbsites;
 		$subpages = $hp->subpages;
 
-		$arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
+		$arr_monate = array ('Januar', 'Februar', 'MÃ¤rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
 		$date = getdate();
 
 
@@ -105,7 +105,7 @@ class _Xajax_Funktions
 		}
 
 
-		// Ermitteln des letzten / nächsten Monats
+		// Ermitteln des letzten / nÃ¤chsten Monats
 		if ($monat == 1)
 		{
 			$lnzjahr = $jahr - 1;
@@ -206,7 +206,7 @@ class _Xajax_Funktions
 		$config = $hp->getconfig();
 		$response = new xajaxResponse();
 
-		$arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
+		$arr_monate = array ('Januar', 'Februar', 'MÃ¤rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
 		$date = getdate();
 
 		if ($config["xajax_workaround"])
@@ -259,7 +259,7 @@ class _Xajax_Funktions
 
 
 
-		//Nächster Monat
+		//NÃ¤chster Monat
 		if($monat==12){
 			$nmonat=1;
 			$njahr=$jahr+1;
@@ -339,7 +339,7 @@ class _Xajax_Funktions
 					$text=$text. "</td>";
 				}
 				$ntmp = 0;
-				if ($iTag > $iAnzahltage){ // Tage des Nächsten Monats
+				if ($iTag > $iAnzahltage){ // Tage des NÃ¤chsten Monats
 					++$ntmp;
 					$evt = false;
 					$text=$text. '<td ';
@@ -452,7 +452,7 @@ class _Xajax_Funktions
 
 		if (($answer1 != "") and ($answer2 != ""))
 		{
-			// Nicht genügend Anwortmöglichkeiten
+			// Nicht genÃ¼gend AnwortmÃ¶glichkeiten
 
 			$response->assign("answerwarn", "innerHTML", "");
 			$answer = true;
@@ -673,13 +673,13 @@ class _Xajax_Funktions
 
 		$text = $site->get("Vote-Erg-View");
 
-		$text = str_replace("ü", "&uuml;", $text);
-		$text = str_replace("Ü", "&Uuml;", $text);
-		$text = str_replace("ö", "&ouml;", $text);
-		$text = str_replace("Ö", "&Ouml;", $text);
-		$text = str_replace("ä", "&auml;", $text);
-		$text = str_replace("Ä", "&Auml;", $text);
-		$text = str_replace("ß", "szlig;", $text);
+		$text = str_replace("Ã¼", "&uuml;", $text);
+		$text = str_replace("Ãœ", "&Uuml;", $text);
+		$text = str_replace("Ã¶", "&ouml;", $text);
+		$text = str_replace("Ã–", "&Ouml;", $text);
+		$text = str_replace("Ã¤", "&auml;", $text);
+		$text = str_replace("Ã„", "&Auml;", $text);
+		$text = str_replace("ÃŸ", "szlig;", $text);
 
 		$response->assign("ergebnisse$ID", "innerHTML", $text);
 
@@ -936,7 +936,7 @@ class _Xajax_Funktions
 			// Workaround End
 		}
 
-		// Seitenüberprüfung:
+		// SeitenÃ¼berprÃ¼fung:
 		$tpC = $subpages->getTemplateConfig($tempname);
 
 		if (($hp->site == "subpage") && ($tpC != false))
@@ -1071,20 +1071,20 @@ class _Xajax_Funktions
 
 	/**
 	 * Bereitet die Ausgaben entsprechend vor um sie zu senden
-	 * @var $input string Der String der überprüft werden soll
-	 * @return string Überprüfter String
+	 * @var $input string Der String der Ã¼berprÃ¼ft werden soll
+	 * @return string ÃœberprÃ¼fter String
 	 */
 	public static function prepare($input)
 	{
 		$output = $input;
-		$output = str_replace("§", "&sect;", $output);
-		$output = str_replace("ü", "&uuml;", $output);
-		$output = str_replace("Ü", "&Uuml;", $output);
-		$output = str_replace("ö", "&ouml;", $output);
-		$output = str_replace("Ö", "&Ouml;", $output);
-		$output = str_replace("ä", "&auml;", $output);
-		$output = str_replace("Ä", "&Auml;", $output);
-		$output = str_replace("ß", "&szlig;", $output);
+		$output = str_replace("Â§", "&sect;", $output);
+		$output = str_replace("Ã¼", "&uuml;", $output);
+		$output = str_replace("Ãœ", "&Uuml;", $output);
+		$output = str_replace("Ã¶", "&ouml;", $output);
+		$output = str_replace("Ã–", "&Ouml;", $output);
+		$output = str_replace("Ã¤", "&auml;", $output);
+		$output = str_replace("Ã„", "&Auml;", $output);
+		$output = str_replace("ÃŸ", "&szlig;", $output);
 		
 		return $output;
 	}

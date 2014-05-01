@@ -96,9 +96,6 @@ class ImageControl
 
 session_start();
 
-
-
-
 if (!isset($site) && isset($_GET['id']) && isset($_GET['source']))
 {
 	require "./class.php";
@@ -148,10 +145,11 @@ if (!isset($site) && isset($_GET['id']) && isset($_GET['source']))
 	}
 	$datei=mysql_fetch_assoc($result);
 
+     
 	$info["image"] = $datei[$source["dataset"]];
 	$info["width"] = $datei[$source["widthSet"]];
 	$info["height"] = $datei[$source["heightSet"]];
-
+   
 
 	$bildok = true;
 
@@ -195,9 +193,6 @@ if (!isset($site) && isset($_GET['id']) && isset($_GET['source']))
 		}
 
 		$picture->display($source["wantedWidth"], $source["wantedHeight"]);
-
-		exit;
-
 
 
 	} catch (Exception $e)

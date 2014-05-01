@@ -106,7 +106,7 @@ foreach ($levels as $egal=>$aktlevel)
 				"name" => $name,
 				"level" => $aktlevel,
 				"description" => $o_right->desc($name),
-				"checked" => $o_right->is($name, $aktlevel) ? "true" : "false"
+				"checked" => $o_right->is($name, $aktlevel)
 				);
 
 			$content_r .= $site->getNode("Right", $tdata);

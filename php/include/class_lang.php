@@ -78,7 +78,7 @@ class Lang implements arrayaccess
 			return $this->lang[$clang][$word];
 		} else
 		{
-			$this->error->error("Language File not Found!", "2");
+			$this->error->error("Language File not Found! (".$word.")", "2");
 			if ($clang == "dev")
 			{
 				return "<-".$word."->";

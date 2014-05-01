@@ -3,37 +3,53 @@
 
 [!=Main!]
 
-<table width="100%" border="0">
+<table class="table">
     <tr>
-    <th width="22%" scope="col">#%Von#:</th>
-    <th width="78%"><div align="center"><a href=index.php?site=user&show=#!von#>#!von#</div></th>
-  </tr>
+        <th width="22%">#%Von#:</th>
+        <th width="78%">
+            <div class="media">
+                <a class="pull-left" href="index.php?site=user&show=#!von#">
+                    <img class="media-object img-circle" src="./include/image.php?source=usr&id=#!vonUser#" alt="Profile Picture">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="index.php?site=user&show=#!von#">#!von#</a></h4>
+                </div>
+            </div>
+        </th>
+    </tr>
     <tr>
-    <th width="22%" scope="col">#%Für#:</th>
-    <th width="78%"><div align="center"><a href=index.php?site=user&show=#!zu#>#!zu#</div></th>
-  </tr>
+        <th>#%Fuer#:</th>
+        <th>
+            <div class="media">
+                <a class="pull-left" href="index.php?site=user&show=#!zu#">
+                    <img class="media-object img-circle" src="./include/image.php?source=usr&id=#!zuUser#" alt="Profile Picture">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="index.php?site=user&show=#!zu#">#!zu#</a></h4>
+                </div>
+            </div>
+        </th>
+    </tr>
     <tr>
-    <th scope="row">#%datum#:</th>
-    <td><div align="center">#!Datum#</div></td>
-  </tr>
-  <tr>
-    <th  scope="row">#%betreff#</th>
-    <td><div align="center">#!Betreff#</div></td>
-  </tr>
-  
+        <th>#%datum#:</th>
+        <td align="left">#!Datum#</td>
+    </tr>
+    <tr>
+        <th>#%betreff#</th>
+        <td align="left">#!Betreff#</td>
+    </tr>
+
 </table>
-  <hr />
-  <div align="left" style="margin-top:30px;margin-bottom:30px;">#!Text#</div>
-   <hr />
-<table width="100%" border="0">
-  <tr>
-   <th width="50%"><div align="center"><a href="index.php?site=pm&new&to=#!von#&bet=#!Betreff#">#%antworten#</a></div></th>
-    #!Delet#
-   </tr>
-</table>
+<hr />
+<div align="left" style="margin-top:30px;margin-bottom:30px;">#!Text#</div>
+<hr />
+
+<a class="btn btn-primary" href="index.php?site=pm&new&to=#!von#&bet=#!Betreff#">#%antworten#</a>
+#!Delet#
+
 
 [!/Main!]
 
 [!=Delet!]
-    <td width="50%"><div align="center"><a href=index.php?site=pm&del=#!ID#>#%delet#</a></div></td>
+<a class="btn btn-danger" href="index.php?site=pm&del=#!ID#">#%delet#</a>
 [!/Delet!]

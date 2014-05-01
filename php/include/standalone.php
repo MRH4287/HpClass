@@ -5,7 +5,7 @@ class ErrorStandalone
 	function error($text, $level = "2", $function = "")
 	{
 		echo $text;
-		// Egal was für ein Fehler auftritt, Abbrechen!
+		// Egal was fÃ¼r ein Fehler auftritt, Abbrechen!
 		exit;
 	}
 }

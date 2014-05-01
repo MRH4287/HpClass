@@ -81,7 +81,7 @@ switch (strtolower($farbe1))
 
 
 //$image = imagecreate(50, 50);
-$höhe = imagesy($image);
+$hÃ¶he = imagesy($image);
 $breite = imagesx($image);
 
 
@@ -98,7 +98,7 @@ while ($str_width > $breite and $font > 1)
 $str_width = imagefontwidth($font) * strLen($text);
 $str_x = (int) ($breite - $str_width) / 2;
 $str_x = $str_x;
-$str_y = (int) ($höhe - $str_height) / 2;
+$str_y = (int) ($hÃ¶he - $str_height) / 2;
 imagestring($image, $font, $str_x, $str_y, $text, $farbe);
 //imagefill($image, 0, 0, $black);
 

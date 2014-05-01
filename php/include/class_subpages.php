@@ -643,7 +643,7 @@ class Subpages
 
 		if ($tempConfig == false)
 		{
-			$error->error("Fehlerhafte SubPage-Config für das Template ".$template);
+			$error->error("Fehlerhafte SubPage-Config fÃ¼r das Template ".$template);
 			return false;
 
 		}
@@ -656,7 +656,7 @@ class Subpages
 		$this->appendDynamicContent($site, $content);
 
 
-		// Lade die Template Daten für diese Unterseite und ersetzte die statischen Inhalte
+		// Lade die Template Daten fÃ¼r diese Unterseite und ersetzte die statischen Inhalte
 		$templateArray = $this->getTemplateData($site);
 
 		$ok = true;
@@ -671,14 +671,14 @@ class Subpages
 		{
 			$site = new siteTemplate($hp);
 			$site->load("info");
-			$site->set("info", "Sie haben nicht das nötige Recht, diese Seite zu betreten!");
+			$site->set("info", "Sie haben nicht das nÃ¶tige Recht, diese Seite zu betreten!");
 			return $site->get();
 
 		}
 
 		$content->setArray($templateArray);
 
-		//Liefere die so erstellte Seite zurück:
+		//Liefere die so erstellte Seite zurÃ¼ck:
 		return $content->get();
 
 	}
@@ -695,7 +695,7 @@ class Subpages
 		}
 
 		$content = $page["content"];
-		// Löscht alle überflüssigen Escape Zeichen:
+		// LÃ¶scht alle Ã¼berflÃ¼ssigen Escape Zeichen:
 
 		$content = preg_replace("/\\\\[\\\\]*\\\\/", "\\", $content);
 
@@ -909,7 +909,7 @@ class Subpages
 
 		if (count($dateData) != 3)
 		{
-			throw new Exception("Ungültiges Datum");
+			throw new Exception("UngÃ¼ltiges Datum");
 		}
 
 		$day = $dateData[0];
@@ -956,7 +956,7 @@ class Subpages
 
 	// ------------------------- Dynamische Inhalte ------------------------------
 
-	//      Alle Funktionen müssen mit dy_ anfangen und die Argumente $site und $templateConfig haben
+	//      Alle Funktionen mÃ¼ssen mit dy_ anfangen und die Argumente $site und $templateConfig haben
 	//      und muss einen String, mit dem Inhalt haben
 
 
@@ -1030,7 +1030,7 @@ class Subpages
 		$fp = $hp->fp;
 		$right = $hp->right;
 
-		$arr_monate = array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
+		$arr_monate = array ('Januar', 'Februar', 'MÃ¤rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
 
 
 		$sql = "SELECT ID FROM `$dbprefix"."subpages` WHERE `name` = '$site' OR `ID` = '$site';";

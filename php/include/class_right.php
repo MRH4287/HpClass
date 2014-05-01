@@ -74,7 +74,7 @@ class Right
 
 	/*!
 
-	  Wegen Rückwertskompatibilität
+	  Wegen RÃ¼ckwertskompatibilitÃ¤t
 
 	*/
 	function getright()

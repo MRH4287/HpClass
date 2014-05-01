@@ -3,47 +3,18 @@
 
 [!=Main!]
 
-<style>
 
-.ConfigContainer
-{
-	width:100%;
-	margin:auto;
-	border:thin orange outset;
-	
-	
-	
-}
+<form role="form" method="POST" action="index.php?site=rights">
 
-.ConfigHeader
-{
-	width:100%;
-	text-align:center;
-}
 
-.ConfigLevelBox
-{
-	width:95%;
-	margin:15px auto autp auto;	
-}
+    <h1>#%Rechte-Verwaltung#</h1>
 
-.auto-style1 {
-	border-width: 1px;
-}
+    #!Levels#
 
-</style>
 
-<form method="POST" action="index.php?site=rights">
-
-<div class="ConfigContainer">
-<div class="ConfigHeader"><h1>#%Rechte-Verwaltung#</h1></div>
-
-#!Levels#
-
-</div>
 
   <input type="hidden" name="levelcount" value="#!levelcount#">
-  <input type="submit" value="#%send#" name="sub">
+  <input class="btn btn-success" type="submit" value="#%send#" name="sub">
 </form>
 
 [!/Main!]
@@ -52,43 +23,40 @@
 [!=LevelBox!]
 
 
-<div class="ConfigLevelBox">
 <h2>#%Level# #!level#:</h2>
-<hr>
+<hr />
  
  #!Categories#
-	
-</div>
-<br />
-
 
 [!/LevelBox!]
 
 
 [!=Categorie!]
 
-<b>#%Kategorie#: #!name#</b>  <br /><br />
-<table border="0" width="80%">
-	<tr>
-		<th class="auto-style1" width=200>#%name#</th>
-		<th class="auto-style1">#%description#</th>
-		<th class="auto-style1" width=50>#%Aktiviert#</th>	
-	</tr>
-
-	#!Rights#
-
+<b>#%Kategorie#: #!name#</b>  <br />
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th width="200">#%name#</th>
+            <th>#%description#</th>
+            <th width="50">#%Aktiviert#</th>
+        </tr>
+    </thead>
+    <tbody>
+        #!Rights#
+    </tbody>
  </table>
 	<br />
 
 [!/Categorie!]
 
 [!=Right!]
-
-	<tr class="pluginLine">
+    #V:data : @if(checked, "checked=checked", "")#
+	<tr>
 	
 		<td>#!name#</td>
 		<td><label for="#!level#-#!name#">#!description#</label></td>
-		<td><input type="checkbox" id="#!level#-#!name#" name="right#!level#[]" value="#!name#" #?:checked : "checked=checked" : ""# /></td>
+		<td><input class="form-control" type="checkbox" id="#!level#-#!name#" name="right#!level#[]" value="#!name#" #!data# /></td>
 	
 	</tr>
 

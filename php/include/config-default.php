@@ -44,7 +44,7 @@ $configData = array(
 
 		array(
 			"name"      => "user_mailagree",
-			"desc"      => "Sollen sich Benutzer selbst über E-Mail freischalten können",
+			"desc"      => "Sollen sich Benutzer selbst Ã¼ber E-Mail freischalten kÃ¶nnen",
 			"cat"       => "System",
 			"type"      => "bool",
 			"default"   => true
@@ -60,11 +60,13 @@ $configData = array(
 
 		array(
 			"name"      => "enable_ScriptAccess",
-			"desc"      => "Soll der Zugriff über die Programmschnittstelle erlaubt werden",
+			"desc"      => "Soll der Zugriff Ã¼ber die Programmschnittstelle erlaubt werden",
 			"cat"       => "ScriptAccess",
 			"type"      => "bool",
 			"default"   => false
-			),
+			)
+        
+        /*,
 
 
 		array(
@@ -74,7 +76,8 @@ $configData = array(
 			"type"      => "bool",
 			"default"   => false
 			)
-
+            */
+        
 		);
 
 
