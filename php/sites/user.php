@@ -155,7 +155,7 @@ if (!isset($get['show']) && $right[$_SESSION['level']]["see_userPage"])
 {
 	$site = new siteTemplate($hp);
 	$site->load("info");
-	$site->set("info", $lang['Sie haben nicht die benötigte Berechtigung!']);
+	$site->set("info", $lang['Sie haben nicht die benoetigte Berechtigung!']);
 	$site->display();
 }
 
